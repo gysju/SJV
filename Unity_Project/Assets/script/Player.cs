@@ -3,14 +3,14 @@ using System.Collections;
 
 public class Player : MonoBehaviour {
 
-	[Range(1.0f,10.0f)]
+	[Range(1.0f,20.0f)]
 	public float Speed = 2.0f;
 
-	[Range(1.0f,10.0f)]
+	[Range(1.0f,20.0f)]
 	public float rotationSpeed = 2.0f;
 
-	private GameObject leftArm;
-	private GameObject rightArm;
+	private Arm leftArm;
+	private Arm rightArm;
 
 	private float leftAxisH;
 	private float leftAxisV;
@@ -19,8 +19,8 @@ public class Player : MonoBehaviour {
 
 	void Start () 
 	{
-		rightArm = transform.FindChild("RightArm").gameObject;
-		leftArm = transform.FindChild("LeftArm").gameObject;
+		rightArm = transform.FindChild ("RightArm").GetComponent<Arm>();
+		leftArm = transform.FindChild("LeftArm").GetComponent<Arm>();
 	}
 
 	void Update ()
@@ -33,6 +33,7 @@ public class Player : MonoBehaviour {
 
 		Move ();
 		Rotation ();
+		Shoot();
 	}
 
 	void Move()
@@ -43,5 +44,17 @@ public class Player : MonoBehaviour {
 	void Rotation()
 	{
 		transform.rotation = Quaternion.Euler (new Vector3(rightAxisV * rotationSpeed + transform.rotation.eulerAngles.x, rightAxisH * rotationSpeed + transform.rotation.eulerAngles.y, 0.0f));
+	}
+
+	void Shoot()
+	{
+		if (Input.GetButtonDown ("Fire1")) 
+		{
+			rightArm.Shoot();
+		}
+		if (Input.GetButtonDown ("Fire2")) 
+		{
+			leftArm.Shoot();
+		}
 	}
 }
