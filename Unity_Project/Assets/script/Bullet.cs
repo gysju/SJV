@@ -9,8 +9,10 @@ public class Bullet : MonoBehaviour {
 	public bool UseGravity = false;
 
 	private Rigidbody rigid;
+    private float time = 0.0f;
+    const float TIME_TO_DIE = 1f;
 
-	void Start () 
+    void Start () 
 	{
 		rigid = GetComponent<Rigidbody> ();
 
@@ -20,17 +22,19 @@ public class Bullet : MonoBehaviour {
 	
 	void Update () 
 	{
-	
-	}
-
+        lifeTime();
+    }
+    
     void lifeTime()
     {
-
+        time += Time.deltaTime;
+        if (time > TIME_TO_DIE)
+            Destroy(gameObject);
     }
 
 	void OnTriggerEnter(Collider col)
 	{
         if (col.gameObject != Player.Instance.gameObject)
-		    Destroy (gameObject);
+            Destroy(gameObject);
 	}
 }
