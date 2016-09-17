@@ -23,8 +23,14 @@ public class Bullet : MonoBehaviour {
 	
 	}
 
-	void OnCollisionEnter(Collision col)
+    void lifeTime()
+    {
+
+    }
+
+	void OnTriggerEnter(Collider col)
 	{
-		Destroy (gameObject);
+        if (col.gameObject != Player.Instance.gameObject)
+		    Destroy (gameObject);
 	}
 }

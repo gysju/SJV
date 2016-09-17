@@ -9,6 +9,8 @@ public class Player : MonoBehaviour {
 	[Range(1.0f,20.0f)]
 	public float rotationSpeed = 2.0f;
 
+    public static Player Instance { get; private set; }
+
     private Transform pivot;
 	private Arm leftArm;
 	private Arm rightArm;
@@ -20,6 +22,8 @@ public class Player : MonoBehaviour {
 
 	void Start () 
 	{
+        Instance = this;
+
         pivot = transform.FindChild("Pivot");
         rightArm = pivot.FindChild ("RightArm").GetComponent<Arm>();
 		leftArm = pivot.FindChild("LeftArm").GetComponent<Arm>();
