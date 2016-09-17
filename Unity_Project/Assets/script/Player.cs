@@ -9,6 +9,7 @@ public class Player : MonoBehaviour {
 	[Range(1.0f,20.0f)]
 	public float rotationSpeed = 2.0f;
 
+    private Transform pivot;
 	private Arm leftArm;
 	private Arm rightArm;
 
@@ -19,8 +20,9 @@ public class Player : MonoBehaviour {
 
 	void Start () 
 	{
-		rightArm = transform.FindChild ("RightArm").GetComponent<Arm>();
-		leftArm = transform.FindChild("LeftArm").GetComponent<Arm>();
+        pivot = transform.FindChild("Pivot");
+        rightArm = pivot.FindChild ("RightArm").GetComponent<Arm>();
+		leftArm = pivot.FindChild("LeftArm").GetComponent<Arm>();
 	}
 
 	void Update ()
@@ -38,12 +40,14 @@ public class Player : MonoBehaviour {
 
 	void Move()
 	{
-		transform.position += transform.forward * leftAxisH + transform.right * leftAxisV;
+		transform.position += pivot.forward * leftAxisH + pivot.right * leftAxisV;
 	}
 
 	void Rotation()
 	{
-		transform.rotation = Quaternion.Euler (new Vector3(rightAxisV * rotationSpeed + transform.rotation.eulerAngles.x, rightAxisH * rotationSpeed + transform.rotation.eulerAngles.y, 0.0f));
+        pivot.rotation = Quaternion.Euler (new Vector3(rightAxisV * rotationSpeed + pivot.rotation.eulerAngles.x, 
+                                                       rightAxisH * rotationSpeed + pivot.rotation.eulerAngles.y, 
+                                                       0.0f));
 	}
 
 	void Shoot()
