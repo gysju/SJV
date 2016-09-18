@@ -3,10 +3,10 @@ using System.Collections;
 
 public class Player : Entity {
 
-	[Range(1.0f,20.0f)]
+	[Range(1.0f,30.0f)]
 	public float Speed = 2.0f;
 
-	[Range(1.0f,20.0f)]
+	[Range(1.0f,30.0f)]
 	public float rotationSpeed = 2.0f;
 
     public static Player Instance { get; private set; }
@@ -39,12 +39,7 @@ public class Player : Entity {
 
 		Move ();
 		Rotation ();
-		Shoot();
-	}
-
-	void Move()
-	{
-		transform.position += pivot.forward * leftAxisH + pivot.right * leftAxisV;
+		Attack();
 	}
 
 	void Rotation()
@@ -54,7 +49,12 @@ public class Player : Entity {
                                                        0.0f));
 	}
 
-	void Shoot()
+	void Move()
+	{
+		transform.position += pivot.forward * leftAxisH + pivot.right * leftAxisV;
+	}
+
+	void Attack()
 	{
 		if (Input.GetButtonDown ("Fire1")) 
 		{
@@ -66,8 +66,18 @@ public class Player : Entity {
 		}
 	}
 
-    protected override void Die()
+    protected override void OnDeathEnter()
     {
-        base.Die();
+        base.OnDeathEnter();
+    }
+
+    protected override void OnDeathUpdate()
+    {
+
+    }
+
+    protected override void OnDeathExit()
+    {
+
     }
 }
