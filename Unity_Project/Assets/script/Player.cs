@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Player : MonoBehaviour {
+public class Player : Entity {
 
 	[Range(1.0f,20.0f)]
 	public float Speed = 2.0f;
@@ -58,11 +58,11 @@ public class Player : MonoBehaviour {
 	{
 		if (Input.GetButtonDown ("Fire1")) 
 		{
-			rightArm.Shoot();
+			rightArm.Shoot(this);
 		}
 		if (Input.GetButtonDown ("Fire2")) 
 		{
-			leftArm.Shoot();
+			leftArm.Shoot(this);
 		}
 	}
 }

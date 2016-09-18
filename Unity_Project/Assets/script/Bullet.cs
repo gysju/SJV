@@ -7,6 +7,9 @@ public class Bullet : MonoBehaviour {
 	[Range(1.0f, 10.0f)]
 	public float Velocity = 1.0f;
 	public bool UseGravity = false;
+    public Entity Origin;
+
+    public float Damage = 1.0f;
 
 	private Rigidbody rigid;
     private float time = 0.0f;
@@ -34,7 +37,13 @@ public class Bullet : MonoBehaviour {
 
 	void OnTriggerEnter(Collider col)
 	{
-        if (col.gameObject != Player.Instance.gameObject)
+        if (col.gameObject != Origin.gameObject)
+        {
+            Entity entity = col.GetComponent<Entity>();
+            if (entity != null)
+                entity.ReceiveDamages(Damage);
+
             Destroy(gameObject);
+        }
 	}
 }
