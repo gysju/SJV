@@ -20,7 +20,7 @@ public class Player : Entity {
 	private float rightAxisH;
 	private float rightAxisV;
 
-	void Start () 
+	protected override void Start () 
 	{
         Instance = this;
 
@@ -29,7 +29,7 @@ public class Player : Entity {
 		leftArm = pivot.FindChild("LeftArm").GetComponent<Arm>();
 	}
 
-	void Update ()
+	protected override void Update ()
 	{
 		leftAxisH = Input.GetAxis("Vertical") * Time.deltaTime;
 		leftAxisV = Input.GetAxis("Horizontal") * Time.deltaTime;
@@ -65,4 +65,9 @@ public class Player : Entity {
 			leftArm.Shoot(this);
 		}
 	}
+
+    protected override void Die()
+    {
+        base.Die();
+    }
 }

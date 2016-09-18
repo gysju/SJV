@@ -3,13 +3,13 @@ using System.Collections;
 
 public class Enemy : Entity {
 
-	void Start ()
+	protected override void Start ()
     {
-	
+        base.Start();
 	}
 	
-	void Update ()
+	protected override void Update ()
     {
-	
+        base.Update();
 	}
 }
