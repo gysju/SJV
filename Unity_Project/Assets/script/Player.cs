@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Player : MonoBehaviour {
+public class Player : Entity {
 
-	[Range(1.0f,20.0f)]
+	[Range(1.0f,30.0f)]
 	public float Speed = 2.0f;
 
-	[Range(1.0f,20.0f)]
+	[Range(1.0f,30.0f)]
 	public float rotationSpeed = 2.0f;
 
     public static Player Instance { get; private set; }
@@ -20,7 +20,7 @@ public class Player : MonoBehaviour {
 	private float rightAxisH;
 	private float rightAxisV;
 
-	void Start () 
+	protected override void Start () 
 	{
         Instance = this;
 
@@ -29,7 +29,7 @@ public class Player : MonoBehaviour {
 		leftArm = pivot.FindChild("LeftArm").GetComponent<Arm>();
 	}
 
-	void Update ()
+	protected override void Update ()
 	{
 		leftAxisH = Input.GetAxis("Vertical") * Time.deltaTime;
 		leftAxisV = Input.GetAxis("Horizontal") * Time.deltaTime;
@@ -39,12 +39,7 @@ public class Player : MonoBehaviour {
 
 		Move ();
 		Rotation ();
-		Shoot();
-	}
-
-	void Move()
-	{
-		transform.position += pivot.forward * leftAxisH + pivot.right * leftAxisV;
+		Attack();
 	}
 
 	void Rotation()
@@ -54,15 +49,35 @@ public class Player : MonoBehaviour {
                                                        0.0f));
 	}
 
-	void Shoot()
+	void Move()
+	{
+		transform.position += pivot.forward * leftAxisH + pivot.right * leftAxisV;
+	}
+
+	void Attack()
 	{
 		if (Input.GetButtonDown ("Fire1")) 
 		{
-			rightArm.Shoot();
+			rightArm.Shoot(this);
 		}
 		if (Input.GetButtonDown ("Fire2")) 
 		{
-			leftArm.Shoot();
+			leftArm.Shoot(this);
 		}
 	}
+
+    protected override void OnDeathEnter()
+    {
+        base.OnDeathEnter();
+    }
+
+    protected override void OnDeathUpdate()
+    {
+
+    }
+
+    protected override void OnDeathExit()
+    {
+
+    }
 }
