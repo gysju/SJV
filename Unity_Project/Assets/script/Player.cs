@@ -3,8 +3,8 @@ using System.Collections;
 
 public class Player : Entity {
 
-	[Range(1.0f,30.0f)]
-	public float Speed = 2.0f;
+	[Range(0.1f,1.0f)]
+	public float Speed = 0.1f;
 
 	[Range(1.0f,30.0f)]
 	public float rotationSpeed = 2.0f;
@@ -15,12 +15,12 @@ public class Player : Entity {
 	private Arm leftArm;
 	private Arm rightArm;
 
-	private float leftAxisH;
-	private float leftAxisV;
 	private float rightAxisH;
 	private float rightAxisV;
 
-	protected override void Start () 
+    private float currentPosition; 
+
+    protected override void Start () 
 	{
         Instance = this;
 
@@ -31,9 +31,6 @@ public class Player : Entity {
 
 	protected override void Update ()
 	{
-		leftAxisH = Input.GetAxis("Vertical") * Time.deltaTime;
-		leftAxisV = Input.GetAxis("Horizontal") * Time.deltaTime;
-
 		rightAxisH = Input.GetAxis("HorizontalR") * Time.deltaTime;
 		rightAxisV = Input.GetAxis("VerticalR") * Time.deltaTime;
 
@@ -51,10 +48,35 @@ public class Player : Entity {
 
 	void Move()
 	{
-		transform.position += pivot.forward * leftAxisH + pivot.right * leftAxisV;
-	}
+        if (Input.GetButton("LeftButton"))
+        {
+            currentPosition -= Speed * Time.deltaTime;
+        }
+        else if (Input.GetButton("RightButton"))
+        {
+            currentPosition += Speed * Time.deltaTime;
+        }
+        transform.position = Vector3.Lerp(BaliseManager.Instance.firstBalise.transform.position + new Vector3(0.0f, transform.position.y, 0.0f), 
+                                          BaliseManager.Instance.secondeBalise.transform.position + new Vector3(0.0f, transform.position.y, 0.0f),
+                                          currentPosition);
+        CheckBalise();
+    }
 
-	void Attack()
+    void CheckBalise()
+    {
+        if (currentPosition < 0.0f)
+        {
+            currentPosition = 1.0f;
+            BaliseManager.Instance.PreviousStep();
+        }
+        else if (currentPosition > 1.0f)
+        {
+            currentPosition = 0.0f;
+            BaliseManager.Instance.NextStep();
+        }
+    }
+
+    void Attack()
 	{
 		if (Input.GetButtonDown ("Fire1")) 
 		{
