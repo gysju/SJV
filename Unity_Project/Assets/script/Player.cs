@@ -41,6 +41,7 @@ public class Player : Entity {
 
 	void Rotation()
 	{
+        transform.LookAt(Vector3.zero);
         pivot.rotation = Quaternion.Euler (new Vector3(rightAxisV * rotationSpeed + pivot.rotation.eulerAngles.x, 
                                                        rightAxisH * rotationSpeed + pivot.rotation.eulerAngles.y, 
                                                        0.0f));

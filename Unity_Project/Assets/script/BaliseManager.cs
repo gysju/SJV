@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
+[ExecuteInEditMode]
 public class BaliseManager : MonoBehaviour {
 
     public static BaliseManager Instance { get; private set; }
@@ -10,8 +11,6 @@ public class BaliseManager : MonoBehaviour {
 
     public Balise firstBalise { get; private set; }
     public Balise secondeBalise { get; private set; }
-
-    private int indexBalise = 0;
 
     void Start()
     {
@@ -28,7 +27,7 @@ public class BaliseManager : MonoBehaviour {
         {
             Gizmos.color = Color.red;
             
-            for(int i = 1; i < target.Count; ++i)
+            for(int i = 0; i < target.Count; ++i)
             {
                 Gizmos.DrawLine(target[i].transform.position, target[ (i + 1) % target.Count].transform.position);
             }
