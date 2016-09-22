@@ -12,7 +12,21 @@ public class Unit : GraphicalElement
 
     const float TIME_TO_DIE = 1f;
 
+    public enum UnitFaction
+    {
+        FirstTeam,
+        Neutral,
+        SecondTeam
+    };
+
     protected bool m_destroyed = false;
+
+    [Header("Faction")]
+    [Tooltip("Unit's current faction.")]
+    public UnitFaction m_faction;
+
+    [Tooltip("Is unit capturable.")]
+    public bool m_capturable;
 
     [Header("Unit's hit points")]
     [Tooltip("Unit's maximum hit points value between 0 and 100.")]
@@ -42,7 +56,24 @@ public class Unit : GraphicalElement
         CheckHitPoints();
     }
 
-    #region Integrity Related
+    #region Faction Related
+    /// <summary>A utiliser pour changer la faction de l'unité.</summary>
+    /// <param name ="newFaction">Nouvelle faction à appliquer.</param>
+    protected void ChangeFaction(UnitFaction newFaction)
+    {
+        m_faction = newFaction;
+    }
+
+    /// <summary>A utiliser pour changer la faction de l'unité.</summary>
+    /// <param name ="newFaction">Nouvelle faction à appliquer.</param>
+    public void CaptureUnit(UnitFaction newFaction)
+    {
+       if (m_capturable) ChangeFaction(newFaction);
+    }
+
+    #endregion
+
+    #region HitPoints Related
     /// <summary>Renvoie true si l'unité est détruite</summary>
     public bool IsDestroyed()
     {
@@ -99,8 +130,13 @@ public class Unit : GraphicalElement
     }
     #endregion
 
+    #region Movement Related
+    #endregion
+
+    #region Updates
     void Update()
     {
 	    
 	}
+    #endregion
 }
