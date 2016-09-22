@@ -106,11 +106,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000010247604138}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90e8fa8daa6e3364da27d7888fe2a92f, type: 3}
+  m_Script: {fileID: 11500000, guid: 85a5b17563112db4fbf0077e668af96d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Life: 1
-  DetectionRange: 10
+  m_faction: 0
+  m_capturable: 0
+  m_maxHitPoints: 0
+  m_startingHitPoints: 0
+  m_currentHitPoints: 10
+  m_armor: 0
 --- !u!136 &136000011633113014
 CapsuleCollider:
   m_ObjectHideFlags: 1

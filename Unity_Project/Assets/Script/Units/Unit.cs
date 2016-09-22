@@ -49,6 +49,11 @@ public class Unit : GraphicalElement
 
     protected bool m_vulnerable = true;
 
+    public NavMeshAgent navMeshAgent { get; private set; }
+    public Balise targetBalise { get; private set; }
+    protected Path path;
+    protected bool followTheWay = true;
+
 	protected override void Start()
     {
         base.Start();
@@ -131,6 +136,52 @@ public class Unit : GraphicalElement
     #endregion
 
     #region Movement Related
+
+    void setDestination(Vector3 pos)
+    {
+        if (navMeshAgent.destination != pos)
+            navMeshAgent.destination = pos;
+    }
+
+    void PauseNavMesh()
+    {
+        if (navMeshAgent.hasPath)
+            navMeshAgent.Stop();
+    }
+
+    void ContinueNavMesh()
+    {
+        if (navMeshAgent.hasPath)
+            navMeshAgent.Resume();
+    }
+
+    void MoveAlongPath(bool nextBalise)
+    {
+        if (navMeshAgent.destination != targetBalise.transform.position && navMeshAgent.remainingDistance > 0.01 && followTheWay == nextBalise)
+        {
+            setDestination(targetBalise.transform.position);
+        }
+        else
+        {
+            followTheWay = nextBalise;
+            if (nextBalise)
+            {
+                targetBalise = path.NextStep(targetBalise);
+                setDestination(targetBalise.transform.position);
+            }
+            else
+            {
+                targetBalise = path.PreviousStep(targetBalise);
+                setDestination(targetBalise.transform.position);
+            }
+        }
+    }
+
+    void MoveToDir(Vector3 dir)
+    {
+        navMeshAgent.destination = transform.position + dir.normalized;
+    }
+
     #endregion
 
     #region Updates
