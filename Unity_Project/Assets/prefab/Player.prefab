@@ -22,7 +22,6 @@ GameObject:
   - 33: {fileID: 33000010187169604}
   - 136: {fileID: 136000014019054878}
   - 23: {fileID: 23000012056036974}
-  - 114: {fileID: 114000010236227552}
   m_Layer: 0
   m_Name: LeftArm
   m_TagString: Untagged
@@ -107,7 +106,6 @@ GameObject:
   - 33: {fileID: 33000011094732808}
   - 136: {fileID: 136000010157631396}
   - 23: {fileID: 23000013076152874}
-  - 114: {fileID: 114000012984670550}
   m_Layer: 0
   m_Name: RightArm
   m_TagString: Untagged
@@ -404,18 +402,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114000010236227552
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010105963828}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52d10bd282965414c9a68e6c7dc92cf3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Bullet: {fileID: 1000013719864804, guid: f2067ebb24a216b41bdaf9c1350414d9, type: 2}
 --- !u!114 &114000012074083298
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -424,25 +410,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000010310266860}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03711f5ec433e464faa4b328e1532033, type: 3}
+  m_Script: {fileID: 11500000, guid: 85a5b17563112db4fbf0077e668af96d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Life: 1
-  DetectionRange: 10
-  Speed: 0.512
-  rotationSpeed: 21.2
---- !u!114 &114000012984670550
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012998472040}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52d10bd282965414c9a68e6c7dc92cf3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Bullet: {fileID: 1000013719864804, guid: f2067ebb24a216b41bdaf9c1350414d9, type: 2}
+  m_faction: 0
+  m_capturable: 0
+  m_maxHitPoints: 0
+  m_startingHitPoints: 0
+  m_currentHitPoints: 0
+  m_armor: 0
 --- !u!124 &124000012637828210
 Behaviour:
   m_ObjectHideFlags: 1
