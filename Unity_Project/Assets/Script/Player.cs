@@ -1,39 +1,48 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+
+using System.Linq;
 
 public class Player : Unit {
 
-    public SixenseHand LeftHand;
-    public SixenseHand RightHand;
+    private List<SixenseHand> hands;
+
+    public enum MoveSystem { MoveSystem_type1, MoveSystem_type2, MoveSystem_type3 };
+    public MoveSystem moveSystem = MoveSystem.MoveSystem_type1;
 
 	protected override void Start ()
     {
         base.Start();
+        hands = GetComponentsInChildren<SixenseHand>().ToList();
     }
 	
 	void Update ()
     {
-        PointingSystem();
+        switch (moveSystem)
+        {
+            case MoveSystem.MoveSystem_type1:
+                PointingSystem();
+                break;
+            case MoveSystem.MoveSystem_type2:
+                break;
+            case MoveSystem.MoveSystem_type3:
+                break;
+        }
     }
 
     void PointingSystem()
     {
-        if (LeftHand.m_controller != null && LeftHand.m_controller.GetButtonDown(SixenseButtons.TRIGGER))
+        foreach (SixenseHand hand in hands)
         {
-            RaycastHit hit;
-
-            if (Physics.Raycast(LeftHand.transform.position, LeftHand.transform.forward, out hit))
+            if (hand.m_controller != null && hand.m_controller.GetButtonDown(SixenseButtons.BUMPER))
             {
-                setDestination(hit.point);
-            }
-        }
-        else if (RightHand.m_controller != null && RightHand.m_controller.GetButtonDown(SixenseButtons.TRIGGER))
-        {
-            RaycastHit hit;
+                RaycastHit hit;
 
-            if (Physics.Raycast(RightHand.transform.position, RightHand.transform.forward, out hit))
-            {
-                setDestination(hit.point);
+                if (Physics.Raycast(hand.transform.position, hand.transform.forward, out hit))
+                {
+                    setDestination(hit.point);
+                }
             }
         }
     }
