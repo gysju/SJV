@@ -541,6 +541,7 @@ GameObject:
   - 4: {fileID: 4000011715996434}
   - 95: {fileID: 95000011115523228}
   - 114: {fileID: 114000013941818648}
+  - 120: {fileID: 120000014110360510}
   m_Layer: 0
   m_Name: Hand - Right
   m_TagString: Untagged
@@ -622,6 +623,7 @@ GameObject:
   - 4: {fileID: 4000013896911916}
   - 95: {fileID: 95000011771792704}
   - 114: {fileID: 114000012078317248}
+  - 120: {fileID: 120000014158018094}
   m_Layer: 0
   m_Name: Hand - Left
   m_TagString: Untagged
@@ -1950,8 +1952,7 @@ MonoBehaviour:
   m_startingHitPoints: 0
   m_currentHitPoints: 0
   m_armor: 0
-  LeftHand: {fileID: 114000012078317248}
-  RightHand: {fileID: 114000013941818648}
+  moveSystem: 0
 --- !u!114 &114000012078317248
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1976,6 +1977,90 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_hand: 2
+--- !u!120 &120000014110360510
+LineRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012629812774}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_Materials:
+  - {fileID: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedWireframeHidden: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_Positions:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 1}
+  m_Parameters:
+    startWidth: 0.25
+    endWidth: 0.25
+    m_StartColor:
+      serializedVersion: 2
+      rgba: 4294967295
+    m_EndColor:
+      serializedVersion: 2
+      rgba: 4294967295
+  m_UseWorldSpace: 1
+--- !u!120 &120000014158018094
+LineRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013026265326}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_Materials:
+  - {fileID: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedWireframeHidden: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_Positions:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 1}
+  m_Parameters:
+    startWidth: 0.25
+    endWidth: 0.25
+    m_StartColor:
+      serializedVersion: 2
+      rgba: 4294967295
+    m_EndColor:
+      serializedVersion: 2
+      rgba: 4294967295
+  m_UseWorldSpace: 1
 --- !u!124 &124000012637828210
 Behaviour:
   m_ObjectHideFlags: 1
