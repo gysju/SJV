@@ -59,6 +59,7 @@ public class Unit : GraphicalElement
         base.Start();
         m_currentHitPoints = m_startingHitPoints;
         CheckHitPoints();
+        navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
     #region Faction Related
@@ -137,25 +138,25 @@ public class Unit : GraphicalElement
 
     #region Movement Related
 
-    void setDestination(Vector3 pos)
+    protected void setDestination(Vector3 pos)
     {
         if (navMeshAgent.destination != pos)
             navMeshAgent.destination = pos;
     }
 
-    void PauseNavMesh()
+    protected void PauseNavMesh()
     {
         if (navMeshAgent.hasPath)
             navMeshAgent.Stop();
     }
 
-    void ContinueNavMesh()
+    protected void ContinueNavMesh()
     {
         if (navMeshAgent.hasPath)
             navMeshAgent.Resume();
     }
 
-    void MoveAlongPath(bool nextBalise)
+    protected void MoveAlongPath(bool nextBalise)
     {
         if (navMeshAgent.destination != targetBalise.transform.position && navMeshAgent.remainingDistance > 0.01 && followTheWay == nextBalise)
         {
@@ -177,7 +178,7 @@ public class Unit : GraphicalElement
         }
     }
 
-    void MoveToDir(Vector3 dir)
+    protected void MoveToDir(Vector3 dir)
     {
         navMeshAgent.destination = transform.position + dir.normalized;
     }
