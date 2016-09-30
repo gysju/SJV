@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 [ExecuteInEditMode]
-public class Path : MonoBehaviour {
+public class UnitPath : MonoBehaviour {
 
     public List<Balise> Balises { get; private set; }
 

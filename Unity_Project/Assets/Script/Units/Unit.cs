@@ -51,7 +51,7 @@ public class Unit : GraphicalElement
 
     public NavMeshAgent navMeshAgent { get; private set; }
     public Balise targetBalise { get; private set; }
-    protected Path path;
+    protected UnitPath path;
     protected bool followTheWay = true;
 
 	protected override void Start()
