@@ -26,6 +26,7 @@ public class Player : Unit {
 	void Update ()
     {
 
+		bool test = false;
 		foreach(SixenseHand hand in hands)
 		{
 			if (hand.m_controller != null) 
@@ -34,12 +35,15 @@ public class Player : Unit {
 				{
 					PauseNavMesh ();
 					orientationSystem (hand);
-					return;
+					test = true;
 				}
-				else
-				{
-					PointingSystem (hand);
-				}
+			}
+		}
+		foreach(SixenseHand hand in hands)
+		{
+			if (hand.m_controller != null && !test) 
+			{
+				PointingSystem (hand);
 			}
 		}
     }
@@ -53,9 +57,9 @@ public class Player : Unit {
 	{
 		Vector3 dir = Vector3.zero;
 
-		float x = hand.transform.rotation.x;
-		float y = hand.transform.rotation.y;
-		Debug.Log (hands [0].transform.rotation);
+		float x = hand.transform.localRotation.x;
+		float y = hand.transform.localRotation.y;
+		Debug.Log (hands [0].transform.localRotation);
 
 		const float NEUTRAL_Z = -0.3f;
 		const float NEUTRAL_X = 0f;
@@ -81,7 +85,7 @@ public class Player : Unit {
 		if (y > NEUTRAL_X) //droite
 			xdir = (Mathf.InverseLerp (MIN_RIGHT, MAX_RIGHT, y) * Time.deltaTime);
 
-			dir += new Vector3 (xdir, 0f, zdir);
+		dir += new Vector3 (xdir, 0f, zdir) * PlayerSpeed;
 
 		transform.Translate (dir);
 	}
