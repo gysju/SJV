@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[AddComponentMenu("Test/Units")]
+[AddComponentMenu("MecaVR/Units")]
 public class Unit : GraphicalElement
 {
     const int MIN_HIT_POINTS = 0;
