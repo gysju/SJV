@@ -662,10 +662,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb75b7b1af3adb941b65471a3a6240c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_faction: 0
+  m_capturable: 0
+  m_maxHitPoints: 0
+  m_startingHitPoints: 0
+  m_currentHitPoints: 0
+  m_armor: 0
   m_mainCamera: {fileID: 0}
   m_meca: {fileID: 0}
-  m_leftWeapon: {fileID: 0}
+  m_leftWeapon: {fileID: 114000011665243104}
   m_rightWeapon: {fileID: 114000014154867872}
+  moveSystem: 0
+  destination: {x: 0, y: 0, z: 0}
+  PlayerSpeed: 1
+  XMinAndMax: {x: 0, y: 0}
+  YMinAndMax: {x: 0, y: 0}
 --- !u!114 &114000014154867872
 MonoBehaviour:
   m_ObjectHideFlags: 1
