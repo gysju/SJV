@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 410074}
   - 135: {fileID: 13527310}
   - 54: {fileID: 5400290}
-  - 114: {fileID: 11427430}
+  - 114: {fileID: 114000013174906680}
   m_Layer: 0
   m_Name: ProjectileTest
   m_TagString: Untagged
@@ -47,25 +47,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
---- !u!114 &11427430
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 196214}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 202b3006c928eb64994ab44bc4cc3a0b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_directDamages: 10
-  m_armorPenetration: 0
-  m_explosive: 0
-  m_explosionPrefab: {fileID: 100010, guid: 031d08f52af1daa4f929b85221519426, type: 2}
-  m_metalHit: {fileID: 1000011949214256, guid: 68061645ae90cc14c8dd597ae2e0f1ad, type: 2}
-  m_dirtHit: {fileID: 1000011424353226, guid: be59cb840ccc32344bcbb8308516250b, type: 2}
-  m_impulseForce: 10
-  m_lifeTime: 10
 --- !u!135 &13527310
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -168,3 +149,22 @@ TrailRenderer:
       rgba: 4284133375
   m_MinVertexDistance: 0.01
   m_Autodestruct: 1
+--- !u!114 &114000013174906680
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 196214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b2bf1d46bd63d744a740018d144af07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_metalHit: {fileID: 1000011949214256, guid: 68061645ae90cc14c8dd597ae2e0f1ad, type: 2}
+  m_dirtHit: {fileID: 1000011424353226, guid: be59cb840ccc32344bcbb8308516250b, type: 2}
+  m_directDamages: 10
+  m_armorPenetration: 0
+  m_explosive: 0
+  m_explosionPrefab: {fileID: 100010, guid: 031d08f52af1daa4f929b85221519426, type: 2}
+  m_lifeTime: 10
+  m_impulseForce: 10
