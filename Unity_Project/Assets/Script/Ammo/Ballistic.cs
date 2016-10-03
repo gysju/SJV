@@ -1,9 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[AddComponentMenu("MecaVR/Ammo/Ballistic")]
+[RequireComponent(typeof(Collider))]
+[RequireComponent(typeof(Rigidbody))]
 public class Ballistic : Ammo
 {
+    [Header("Ballistic Ammo")]
     protected Rigidbody m_rigidBody;
+
+    const float MIN_IMPULSE = 0f;
+    const float MAX_IMPULSE = 500f;
+
+    [Tooltip("The force applied to the ammo when fired.")]
+    [Range(MIN_IMPULSE, MAX_IMPULSE)]
+    public float m_impulseForce = 1f;
 
     // Use this for initialization
     protected override void Awake ()

@@ -28,7 +28,6 @@ public class Weapon : MonoBehaviour
     [Tooltip("Time in seconds to reload a magazine.")]
     public float m_reloadTime = 1f;
 
-
 	void Start ()
     {
         m_currentAmmo = m_magazine;

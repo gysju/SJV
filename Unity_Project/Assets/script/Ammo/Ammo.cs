@@ -2,9 +2,7 @@
 using System.Collections;
 
 [AddComponentMenu("MecaVR/Ammo")]
-[RequireComponent(typeof(Collider))]
-[RequireComponent(typeof(Rigidbody))]
-public abstract class Ammo : MonoBehaviour
+public class Ammo : MonoBehaviour
 {
     public GameObject m_metalHit;
     public GameObject m_dirtHit;
@@ -27,20 +25,15 @@ public abstract class Ammo : MonoBehaviour
     [Tooltip("The ammo is lost at after that time (seconds).")]
     [Range(MIN_LIFE_TIME, MAX_LIFE_TIME)]
     public float m_lifeTime = 10f;
-
-    const float MIN_IMPULSE = 0f;
-    const float MAX_IMPULSE = 500f;
-
-    [Tooltip("The force applied to the ammo when fired.")]
-    [Range(MIN_IMPULSE, MAX_IMPULSE)]
-    public float m_impulseForce = 1f;
-
 	protected virtual void Awake()
     { 
         StartCoroutine(LifeTimer(m_lifeTime));
     }
 
-    protected abstract void DestroyAmmo();
+    protected virtual void DestroyAmmo()
+    {
+
+    }
 
     IEnumerator LifeTimer(float lifeTime)
     {
@@ -77,13 +70,13 @@ public abstract class Ammo : MonoBehaviour
     protected virtual void CheckExplosion()
     {
         if (m_explosive) Explode();
-        //else DestroyAmmo();
+        else DestroyAmmo();
     }
 
     private void Explode()
     {
         Debug.Log("EXPLOSION");
         Instantiate(m_explosionPrefab, transform.position, transform.rotation);
-        //DestroyAmmo();
+        DestroyAmmo();
     }
 }
