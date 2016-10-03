@@ -46,15 +46,29 @@ public class Player : Unit
 
 	void shoot()
 	{
-		if (Input.GetMouseButtonDown(0) || hands[0].m_controller.GetButtonDown(SixenseButtons.TRIGGER))
-			m_leftWeapon.TriggerPressed();
-		if (Input.GetMouseButtonDown(1) || hands[1].m_controller.GetButtonDown(SixenseButtons.TRIGGER))
-			m_rightWeapon.TriggerPressed();
+		if (hands [0].m_controller != null && hands [1].m_controller != null) {
+			if (Input.GetMouseButtonDown (0) || hands [0].m_controller.GetButtonDown (SixenseButtons.TRIGGER))
+				m_leftWeapon.TriggerPressed ();
+			if (Input.GetMouseButtonDown (1) || hands [1].m_controller.GetButtonDown (SixenseButtons.TRIGGER))
+				m_rightWeapon.TriggerPressed ();
+			
+			if (Input.GetMouseButtonUp (0) || hands [0].m_controller.GetButtonUp (SixenseButtons.TRIGGER))
+				m_leftWeapon.TriggerReleased ();
+			if (Input.GetMouseButtonUp (1) || hands [1].m_controller.GetButtonUp (SixenseButtons.TRIGGER))
+				m_rightWeapon.TriggerReleased ();
+		} 
+		else 
+		{
+			if (Input.GetMouseButtonDown (0))
+				m_leftWeapon.TriggerPressed ();
+			if (Input.GetMouseButtonDown (1))
+				m_rightWeapon.TriggerPressed ();
 
-		if (Input.GetMouseButtonUp(0) || hands[0].m_controller.GetButtonUp(SixenseButtons.TRIGGER))
-			m_leftWeapon.TriggerReleased();
-		if (Input.GetMouseButtonUp(1) || hands[1].m_controller.GetButtonUp(SixenseButtons.TRIGGER))
-			m_rightWeapon.TriggerReleased();
+			if (Input.GetMouseButtonUp (0))
+				m_leftWeapon.TriggerReleased ();
+			if (Input.GetMouseButtonUp (1))
+				m_rightWeapon.TriggerReleased ();
+		}
 	}
 
 	void move()
