@@ -47,14 +47,14 @@ public class Player : Unit
 	void shoot()
 	{
 		if (hands [0].m_controller != null && hands [1].m_controller != null) {
-			if (Input.GetMouseButtonDown (0) || hands [0].m_controller.GetButtonDown (SixenseButtons.TRIGGER))
+			if (Input.GetMouseButtonDown (0) || hands [1].m_controller.GetButtonDown (SixenseButtons.TRIGGER))
 				m_leftWeapon.TriggerPressed ();
-			if (Input.GetMouseButtonDown (1) || hands [1].m_controller.GetButtonDown (SixenseButtons.TRIGGER))
+			if (Input.GetMouseButtonDown (1) || hands [0].m_controller.GetButtonDown (SixenseButtons.TRIGGER))
 				m_rightWeapon.TriggerPressed ();
 			
-			if (Input.GetMouseButtonUp (0) || hands [0].m_controller.GetButtonUp (SixenseButtons.TRIGGER))
+			if (Input.GetMouseButtonUp (0) || hands [1].m_controller.GetButtonUp (SixenseButtons.TRIGGER))
 				m_leftWeapon.TriggerReleased ();
-			if (Input.GetMouseButtonUp (1) || hands [1].m_controller.GetButtonUp (SixenseButtons.TRIGGER))
+			if (Input.GetMouseButtonUp (1) || hands [0].m_controller.GetButtonUp (SixenseButtons.TRIGGER))
 				m_rightWeapon.TriggerReleased ();
 		} 
 		else 
@@ -137,10 +137,11 @@ public class Player : Unit
 		if (hand.m_controller.GetButton(SixenseButtons.BUMPER))
 		{
 			RaycastHit hit;
-			if (Physics.Raycast(hand.transform.position, hand.transform.forward, out hit))
+			Transform child = GetComponentInChildren<Weapon> ().transform;
+			if (Physics.Raycast(child.transform.position, child.transform.forward, out hit))
 			{
 				LineRenderer line = hand.GetComponent<LineRenderer> ();
-				line.SetPosition (0, transform.position);
+				line.SetPosition (0, child.position);
 				line.SetPosition (1, hit.point);
 				destination = hit.point;
 			}
