@@ -11,17 +11,19 @@ public class Player : Unit
     public Weapon m_leftWeapon;
     public Weapon m_rightWeapon;
 
-	private List<SixenseHand> hands;
+	[Header("Move system")]
+	public float PlayerSpeed = 1.0f;
 
 	public enum MoveSystem { MoveSystem_type1, MoveSystem_type2, MoveSystem_type3 };
 	public MoveSystem moveSystem = MoveSystem.MoveSystem_type1;
 
-	public Vector3 destination = Vector3.zero;
-	public float PlayerSpeed = 1.0f;
+	protected Vector3 destination = Vector3.zero;
 
 	public Vector2 XMinAndMax = Vector2.zero;
 	public Vector2 YMinAndMax = Vector2.zero;
     
+	private List<SixenseHand> hands;
+
 	protected override void Start()
     {
 		base.Start();
@@ -31,19 +33,46 @@ public class Player : Unit
 
 	void Update ()
     {
-        transform.Rotate(Vector3.up, Input.GetAxis("Mouse X"));
-        m_mainCamera.transform.Rotate(Vector3.left, Input.GetAxis("Mouse Y"));
+		aim ();
+		shoot();
+		move ();
+    }
 
-        if (Input.GetMouseButtonDown(0))
-            m_leftWeapon.TriggerPressed();
-        if (Input.GetMouseButtonDown(1))
-            m_rightWeapon.TriggerPressed();
+	void aim()
+	{
+		transform.Rotate(Vector3.up, Input.GetAxis("Mouse X"));
+		m_mainCamera.transform.Rotate(Vector3.left, Input.GetAxis("Mouse Y"));
+	}
 
-        if (Input.GetMouseButtonUp(0))
-            m_leftWeapon.TriggerReleased();
-        if (Input.GetMouseButtonUp(1))
-            m_rightWeapon.TriggerReleased();
+	void shoot()
+	{
+		if (hands [0].m_controller != null && hands [1].m_controller != null) {
+			if (Input.GetMouseButtonDown (0) || hands [0].m_controller.GetButtonDown (SixenseButtons.TRIGGER))
+				m_leftWeapon.TriggerPressed ();
+			if (Input.GetMouseButtonDown (1) || hands [1].m_controller.GetButtonDown (SixenseButtons.TRIGGER))
+				m_rightWeapon.TriggerPressed ();
+			
+			if (Input.GetMouseButtonUp (0) || hands [0].m_controller.GetButtonUp (SixenseButtons.TRIGGER))
+				m_leftWeapon.TriggerReleased ();
+			if (Input.GetMouseButtonUp (1) || hands [1].m_controller.GetButtonUp (SixenseButtons.TRIGGER))
+				m_rightWeapon.TriggerReleased ();
+		} 
+		else 
+		{
+			if (Input.GetMouseButtonDown (0))
+				m_leftWeapon.TriggerPressed ();
+			if (Input.GetMouseButtonDown (1))
+				m_rightWeapon.TriggerPressed ();
 
+			if (Input.GetMouseButtonUp (0))
+				m_leftWeapon.TriggerReleased ();
+			if (Input.GetMouseButtonUp (1))
+				m_rightWeapon.TriggerReleased ();
+		}
+	}
+
+	void move()
+	{
 		bool test = false;
 		foreach(SixenseHand hand in hands)
 		{
@@ -64,7 +93,7 @@ public class Player : Unit
 				PointingSystem (hand);
 			}
 		}
-    }
+	}
 
 	void orientationSystem( SixenseHand hand)
 	{
@@ -108,10 +137,11 @@ public class Player : Unit
 		if (hand.m_controller.GetButton(SixenseButtons.BUMPER))
 		{
 			RaycastHit hit;
-			if (Physics.Raycast(hand.transform.position, hand.transform.forward, out hit))
+			Transform child = GetComponentInChildren<Weapon> ().transform;
+			if (Physics.Raycast(child.transform.position, child.transform.forward, out hit))
 			{
 				LineRenderer line = hand.GetComponent<LineRenderer> ();
-				line.SetPosition (0, transform.position);
+				line.SetPosition (0, child.position);
 				line.SetPosition (1, hit.point);
 				destination = hit.point;
 			}
