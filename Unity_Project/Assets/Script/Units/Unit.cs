@@ -60,6 +60,8 @@ public class Unit : GraphicalElement
         m_currentHitPoints = m_startingHitPoints;
         CheckHitPoints();
         navMeshAgent = GetComponent<NavMeshAgent>();
+		if(navMeshAgent == null)
+			navMeshAgent = GetComponentInParent<NavMeshAgent>();
     }
 
     #region Faction Related
