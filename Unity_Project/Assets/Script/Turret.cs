@@ -51,17 +51,35 @@ public class Turret : MonoBehaviour {
 	{
         dir = Quaternion.LookRotation(target.transform.position - Base_canon.position);
         Base_canon.rotation = Quaternion.Lerp(Base_canon.rotation, dir, Time.deltaTime * AimingSpeed);
+
+        if (CheckDirection())
+            currentState = Turret_state.Turret_state_Shoot;
     }
 
     void Shoot()
 	{
 		weapon.TriggerPressed ();
 
-		if(false)
+		if(!CheckDirection())
 		{
 			weapon.TriggerReleased();
+            currentState = Turret_state.Turret_state_Detected;
 		}
 	}
+
+    bool CheckDirection()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(weapon.m_muzzle.position, weapon.m_muzzle.forward, out hit))
+        {
+            Unit unit = hit.collider.GetComponent<Unit>();
+
+            if (unit == target)
+                return true;
+        }
+
+        return false;
+    }
 
 	void OnTriggerEnter(Collider col)
 	{
