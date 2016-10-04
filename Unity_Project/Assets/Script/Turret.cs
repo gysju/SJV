@@ -13,10 +13,14 @@ public class Turret : MonoBehaviour {
 	public Turret_state currentState = Turret_state.Turret_state_Idle;
 	public Unit.UnitFaction m_faction;
 
+    [Range(0.1f,10.0f)]
+    public float AimingSpeed = 1.0f;
+
 	private Unit target = null;
 	private Transform Base_canon;
+    private Quaternion dir = Quaternion.identity;
 
-	void Awake()
+    void Awake()
 	{
 		weapon = GetComponentInChildren<Weapon>();
 		DetectionSphere = GetComponent<SphereCollider> ();
@@ -45,11 +49,11 @@ public class Turret : MonoBehaviour {
 
 	void Aim()
 	{
-		Base_canon.transform.LookAt (target.transform.position);
-		currentState  = Turret_state.Turret_state_Shoot;
-	}
+        dir = Quaternion.LookRotation(target.transform.position - Base_canon.position);
+        Base_canon.rotation = Quaternion.Lerp(Base_canon.rotation, dir, Time.deltaTime * AimingSpeed);
+    }
 
-	void Shoot()
+    void Shoot()
 	{
 		weapon.TriggerPressed ();
 
@@ -64,9 +68,9 @@ public class Turret : MonoBehaviour {
 		Unit unit = col.GetComponent<Unit> ();
 		if(unit  != null && unit.m_faction != m_faction)
 		{
-			currentState = Turret_state.Turret_state_Detected;
+            currentState = Turret_state.Turret_state_Detected;
 			target = unit;
-		}
+        }
 	}
 
 	void OnTriggerExit(Collider col)
