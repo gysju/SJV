@@ -137,11 +137,11 @@ public class Player : Unit
 		if (hand.m_controller.GetButton(SixenseButtons.BUMPER))
 		{
 			RaycastHit hit;
-			Transform child = GetComponentInChildren<Weapon> ().transform;
-			if (Physics.Raycast(child.transform.position, child.transform.forward, out hit))
+			Transform origin = hand.GetComponent<Weapon> ().transform;
+			if (Physics.Raycast(origin.transform.position, origin.transform.forward, out hit))
 			{
 				LineRenderer line = hand.GetComponent<LineRenderer> ();
-				line.SetPosition (0, child.position);
+				line.SetPosition (0, origin.position);
 				line.SetPosition (1, hit.point);
 				destination = hit.point;
 			}
