@@ -1,15 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AirUnit : MonoBehaviour {
+[AddComponentMenu("MechaVR/Units/DEV/Air Unit")]
+public class AirUnit : CombatUnit
+{
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    protected override void Start()
+    {
+        base.Start();
+    }
+
+    #region Updates
+    protected override void Update()
+    {
+        base.Update();
+    }
+    #endregion
 }

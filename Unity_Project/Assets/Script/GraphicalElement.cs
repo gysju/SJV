@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[AddComponentMenu("MechaVR/DEV/Graphical Element")]
 [RequireComponent(typeof(Renderer))]
 public class GraphicalElement : MonoBehaviour
 {
@@ -60,7 +61,7 @@ public class GraphicalElement : MonoBehaviour
         }
     }
 
-    void Update()
+    protected virtual void Update()
 	{
 	    
 	}

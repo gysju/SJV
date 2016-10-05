@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[AddComponentMenu("MecaVR/Units")]
+[AddComponentMenu("MechaVR/Units/DEV/Unit")]
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(NavMeshObstacle))]
 public class Unit : GraphicalElement
 {
     const int MIN_HIT_POINTS = 0;
@@ -14,9 +16,9 @@ public class Unit : GraphicalElement
 
     public enum UnitFaction
     {
-        FirstTeam,
+        Ally,
         Neutral,
-        SecondTeam
+        Enemy
     };
 
     protected bool m_destroyed = false;
@@ -49,19 +51,11 @@ public class Unit : GraphicalElement
 
     protected bool m_vulnerable = true;
 
-    public NavMeshAgent navMeshAgent { get; private set; }
-    public Balise targetBalise { get; private set; }
-    protected UnitPath path;
-    protected bool followTheWay = true;
-
 	protected override void Start()
     {
         base.Start();
         m_currentHitPoints = m_startingHitPoints;
         CheckHitPoints();
-        navMeshAgent = GetComponent<NavMeshAgent>();
-		if(navMeshAgent == null)
-			navMeshAgent = GetComponentInParent<NavMeshAgent>();
     }
 
     #region Faction Related
@@ -138,63 +132,10 @@ public class Unit : GraphicalElement
     }
     #endregion
 
-    #region Movement Related
-
-    protected void setDestination(Vector3 pos)
-    {
-        if (navMeshAgent.destination != pos)
-            navMeshAgent.destination = pos;
-    }
-
-    protected void PauseNavMesh()
-    {
-        if (navMeshAgent.hasPath)
-            navMeshAgent.Stop();
-    }
-
-    protected void ContinueNavMesh()
-    {
-        if (navMeshAgent.hasPath)
-            navMeshAgent.Resume();
-    }
-
-    protected void MoveAlongPath(bool nextBalise)
-    {
-        if (navMeshAgent.destination != targetBalise.transform.position && navMeshAgent.remainingDistance > 0.01 && followTheWay == nextBalise)
-        {
-            setDestination(targetBalise.transform.position);
-        }
-        else
-        {
-            followTheWay = nextBalise;
-            if (nextBalise)
-            {
-                targetBalise = path.NextStep(targetBalise);
-                setDestination(targetBalise.transform.position);
-            }
-            else
-            {
-                targetBalise = path.PreviousStep(targetBalise);
-                setDestination(targetBalise.transform.position);
-            }
-        }
-    }
-
-    protected void MoveToDir(Vector3 dir)
-    {
-        navMeshAgent.destination = transform.position + dir.normalized;
-    }
-
-    #endregion
-
-    #region Target Related
-
-    #endregion
-
     #region Updates
-    void Update()
+    protected override void Update()
     {
-	    
+        base.Update();
 	}
     #endregion
 }

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[AddComponentMenu("MecaVR/Ammo")]
+[AddComponentMenu("MechaVR/Ammo/DEV/Ammo")]
 [RequireComponent(typeof(Collider))]
 [RequireComponent(typeof(Rigidbody))]
 public class Ammo : MonoBehaviour

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-public class Player : Unit
+public class Player : MobileGroundUnit
 {
     private Camera m_mainCamera;
     public Unit m_meca;
