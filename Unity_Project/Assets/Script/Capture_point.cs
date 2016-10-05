@@ -20,13 +20,30 @@ public class Capture_point : MonoBehaviour
 
 	void Start () 
 	{
-		GetComponent<SphereCollider> ().radius = Range;
+		SetCollider (type);
 	}
 
 	void Update () 
 	{
 		UpdateState (currentState);	
 		Debug.Log (time);
+	}
+
+	void SetCollider( Capture_Point_type state)
+	{
+		if(state == Capture_Point_type.Capture_Point_type_Activation)
+		{
+			SphereCollider sphereCollider = gameObject.AddComponent<SphereCollider>();
+			sphereCollider.radius = Range;
+			sphereCollider.isTrigger = true;
+		}
+		else
+		{
+			BoxCollider boxCollider = gameObject.AddComponent <BoxCollider> ();
+			boxCollider.size = Vector3.one * Range /2.0f;
+			boxCollider.center += transform.forward * (boxCollider.size.x / 2.0f) + new Vector3( 0, boxCollider.size.x / 2.0f ,0);
+			boxCollider.isTrigger = true;
+		}
 	}
 
 	void UpdateState( Capture_Point_state state )
@@ -96,14 +113,28 @@ public class Capture_point : MonoBehaviour
 	void OnTriggerEnter(Collider col)
 	{
 		Unit unit = col.GetComponent<Unit> ();
-		if(unit  != null && currentState == Capture_Point_state.Capture_Point_state_Neutre )
+
+		if(type == Capture_Point_type.Capture_Point_type_TriggerZone)
 		{
-			faction = unit.m_faction;
-			ChangeState(Capture_Point_state.Capture_Point_state_Loading);
-		}
-		else if (unit  != null && currentState == Capture_Point_state.Capture_Point_state_Loading)
+			if(unit  != null && currentState == Capture_Point_state.Capture_Point_state_Neutre )
+			{
+				faction = unit.m_faction;
+				ChangeState(Capture_Point_state.Capture_Point_state_Loading);
+			}
+			else if (unit  != null && currentState == Capture_Point_state.Capture_Point_state_Loading)
+			{
+				ChangeState(Capture_Point_state.Capture_Point_state_Waiting);
+			}
+		}	
+	}
+
+	void OnTriggerStay(Collider col)
+	{
+		Unit unit = col.GetComponent<Unit> ();
+
+		if(unit != null)
 		{
-			ChangeState(Capture_Point_state.Capture_Point_state_Waiting);
+			
 		}
 	}
 
@@ -111,18 +142,21 @@ public class Capture_point : MonoBehaviour
 	{
 		Unit unit = col.GetComponent<Unit> ();
 
-		if(unit != null && currentState == Capture_Point_state.Capture_Point_state_Loading )
+		if (type == Capture_Point_type.Capture_Point_type_TriggerZone) 
 		{
-			ChangeState (Capture_Point_state.Capture_Point_state_Neutre);
-		}
-		else if (unit != null && currentState == Capture_Point_state.Capture_Point_state_Waiting)
-		{
-			if( unit.m_faction == faction)
+			if (unit != null && currentState == Capture_Point_state.Capture_Point_state_Loading) 
 			{
-				time = 0.0f;
-				faction = (faction == Unit.UnitFaction.FirstTeam) ? Unit.UnitFaction.SecondTeam: Unit.UnitFaction.FirstTeam; 
+				ChangeState (Capture_Point_state.Capture_Point_state_Neutre);
+			} 
+			else if (unit != null && currentState == Capture_Point_state.Capture_Point_state_Waiting) 
+			{
+				if (unit.m_faction == faction) 
+				{
+					time = 0.0f;
+					faction = (faction == Unit.UnitFaction.FirstTeam) ? Unit.UnitFaction.SecondTeam : Unit.UnitFaction.FirstTeam; 
+				}
+				ChangeState (Capture_Point_state.Capture_Point_state_Loading);
 			}
-			ChangeState (Capture_Point_state.Capture_Point_state_Loading);
 		}
 	}
 }
