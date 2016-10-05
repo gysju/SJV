@@ -23,6 +23,8 @@ public class Unit : GraphicalElement
 
     protected bool m_destroyed = false;
 
+    protected NavMeshObstacle m_navMeshObstacle;
+
     [Header("Faction")]
     [Tooltip("Unit's current faction.")]
     public UnitFaction m_faction;
@@ -33,15 +35,15 @@ public class Unit : GraphicalElement
     [Header("Unit's hit points")]
     [Tooltip("Unit's maximum hit points value between 0 and 100.")]
     [Range(MIN_HIT_POINTS, MAX_HIT_POINTS)]
-    public int m_maxHitPoints;
+    public int m_maxHitPoints = 10;
     
     [Tooltip("Unit's starting hit points value between 0 and 100.")]
     [Range(MIN_HIT_POINTS, MAX_HIT_POINTS)]
-    public int m_startingHitPoints;
+    public int m_startingHitPoints = 10;
 
-    [ContextMenuItem("Destroy Unit", "Die")]
     [Tooltip("Current hit points value (private).")]
     [SerializeField]
+    [ContextMenuItem("Destroy Unit", "Die")]
     protected int m_currentHitPoints;
 
     [Header("Unit's armor")]
@@ -51,7 +53,13 @@ public class Unit : GraphicalElement
 
     protected bool m_vulnerable = true;
 
-	protected override void Start()
+    protected override void Awake()
+    {
+        base.Awake();
+        m_navMeshObstacle = GetComponent<NavMeshObstacle>();
+    }
+
+    protected override void Start()
     {
         base.Start();
         m_currentHitPoints = m_startingHitPoints;
@@ -83,7 +91,7 @@ public class Unit : GraphicalElement
     }
 
     /// <summary>A appeler à la mort de l'unité.</summary>
-    private void Die()
+    protected void Die()
     {
         m_destroyed = true;
         StartFade(INVISIBLE, TIME_TO_DIE);

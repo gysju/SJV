@@ -149,8 +149,8 @@ public class Player : MobileGroundUnit
 
 		if (destination != Vector3.zero && hand.m_controller.GetButtonUp(SixenseButtons.BUMPER))
 		{
-			navMeshAgent.Resume ();
-			setDestination(destination);
+			m_navMeshAgent.Resume ();
+			SetDestination(destination);
 			destination = Vector3.zero;
 		} 
 	}
