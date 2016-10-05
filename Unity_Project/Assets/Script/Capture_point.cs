@@ -132,7 +132,7 @@ public class Capture_point : MonoBehaviour
 	{
 		Unit unit = col.GetComponent<Unit> ();
 
-		if(unit != null)
+		if( unit != null && type == Capture_Point_type.Capture_Point_type_Activation )
 		{
 			
 		}
