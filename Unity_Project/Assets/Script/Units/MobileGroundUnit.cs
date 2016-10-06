@@ -132,7 +132,6 @@ public class MobileGroundUnit : CombatUnit
     }
     void FixedUpdate()
     {
-
         if (m_navMeshAgent.isActiveAndEnabled)
             if (CheckDestination()) PauseNavMesh();
     }
