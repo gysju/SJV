@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[AddComponentMenu("MecaVR/Weapon")]
+[AddComponentMenu("MechaVR/Weapon/DEV/Weapon")]
 public class Weapon : MonoBehaviour
 {
     [Tooltip("From where the ammo is fired.")]
@@ -20,16 +20,21 @@ public class Weapon : MonoBehaviour
     [Tooltip("Firing Method.")]
     public FiringMethod m_firingMethod = FiringMethod.Automatic;
     private bool m_isFiring = false;
+
     [Tooltip("Rate of fire (Rounds per minute).")]
     public float m_rpm = 60;
+
     [Tooltip("Number of ammo in a magazine.")]
     public int m_magazine = 100;
     private int m_currentAmmo;
+
     [Tooltip("Time in seconds to reload a magazine.")]
     public float m_reloadTime = 1f;
 
+    [Tooltip("Optimal range to use weapon.")]
+    public float m_optimalRange = 25f;
 
-	void Start ()
+    void Start ()
     {
         m_currentAmmo = m_magazine;
 	}

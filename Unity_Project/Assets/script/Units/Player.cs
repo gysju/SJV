@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-public class Player : Unit
+public class Player : MobileGroundUnit
 {
     private Camera m_mainCamera;
     public Unit m_meca;
@@ -149,8 +149,8 @@ public class Player : Unit
 
 		if (destination != Vector3.zero && hand.m_controller.GetButtonUp(SixenseButtons.BUMPER))
 		{
-			navMeshAgent.Resume ();
-			setDestination(destination);
+			m_navMeshAgent.Resume ();
+			SetDestination(destination);
 			destination = Vector3.zero;
 		} 
 	}
