@@ -4,7 +4,7 @@ using System.Collections;
 public class Capture_point : MonoBehaviour 
 {
 	public enum Capture_Point_state {Capture_Point_state_Neutre, Capture_Point_state_Loading, Capture_Point_state_Waiting, Capture_Point_state_Loaded}
-	public Capture_Point_state currentState = Capture_Point_state.Capture_Point_state_Neutre ;
+	protected Capture_Point_state currentState = Capture_Point_state.Capture_Point_state_Neutre ;
 
 	public enum Capture_Point_type { Capture_Point_type_TriggerZone, Capture_Point_type_Activation }
 	public Capture_Point_type type = Capture_Point_type.Capture_Point_type_TriggerZone;
@@ -31,7 +31,7 @@ public class Capture_point : MonoBehaviour
 
 	void SetCollider( Capture_Point_type state)
 	{
-		if(state == Capture_Point_type.Capture_Point_type_Activation)
+		if(state == Capture_Point_type.Capture_Point_type_TriggerZone)
 		{
 			SphereCollider sphereCollider = gameObject.AddComponent<SphereCollider>();
 			sphereCollider.radius = Range;
@@ -126,16 +126,6 @@ public class Capture_point : MonoBehaviour
 				ChangeState(Capture_Point_state.Capture_Point_state_Waiting);
 			}
 		}	
-	}
-
-	void OnTriggerStay(Collider col)
-	{
-		Unit unit = col.GetComponent<Unit> ();
-
-		if( unit != null && type == Capture_Point_type.Capture_Point_type_Activation )
-		{
-			
-		}
 	}
 
 	void OnTriggerExit(Collider col)
