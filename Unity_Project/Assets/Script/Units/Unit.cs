@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[AddComponentMenu("MecaVR/Units")]
+[AddComponentMenu("MechaVR/Units/DEV/Unit")]
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(NavMeshObstacle))]
 public class Unit : GraphicalElement
 {
     const int MIN_HIT_POINTS = 0;
@@ -14,12 +16,14 @@ public class Unit : GraphicalElement
 
     public enum UnitFaction
     {
-        FirstTeam,
+        Ally,
         Neutral,
-        SecondTeam
+        Enemy
     };
 
     protected bool m_destroyed = false;
+
+    protected NavMeshObstacle m_navMeshObstacle;
 
     [Header("Faction")]
     [Tooltip("Unit's current faction.")]
@@ -31,15 +35,15 @@ public class Unit : GraphicalElement
     [Header("Unit's hit points")]
     [Tooltip("Unit's maximum hit points value between 0 and 100.")]
     [Range(MIN_HIT_POINTS, MAX_HIT_POINTS)]
-    public int m_maxHitPoints;
+    public int m_maxHitPoints = 10;
     
     [Tooltip("Unit's starting hit points value between 0 and 100.")]
     [Range(MIN_HIT_POINTS, MAX_HIT_POINTS)]
-    public int m_startingHitPoints;
+    public int m_startingHitPoints = 10;
 
-    [ContextMenuItem("Destroy Unit", "Die")]
     [Tooltip("Current hit points value (private).")]
     [SerializeField]
+    [ContextMenuItem("Destroy Unit", "Die")]
     protected int m_currentHitPoints;
 
     [Header("Unit's armor")]
@@ -49,19 +53,17 @@ public class Unit : GraphicalElement
 
     protected bool m_vulnerable = true;
 
-    public NavMeshAgent navMeshAgent { get; private set; }
-    public Balise targetBalise { get; private set; }
-    protected UnitPath path;
-    protected bool followTheWay = true;
+    protected override void Awake()
+    {
+        base.Awake();
+        m_navMeshObstacle = GetComponent<NavMeshObstacle>();
+    }
 
-	protected override void Start()
+    protected override void Start()
     {
         base.Start();
         m_currentHitPoints = m_startingHitPoints;
         CheckHitPoints();
-        navMeshAgent = GetComponent<NavMeshAgent>();
-		if(navMeshAgent == null)
-			navMeshAgent = GetComponentInParent<NavMeshAgent>();
     }
 
     #region Faction Related
@@ -89,7 +91,7 @@ public class Unit : GraphicalElement
     }
 
     /// <summary>A appeler à la mort de l'unité.</summary>
-    private void Die()
+    protected void Die()
     {
         m_destroyed = true;
         StartFade(INVISIBLE, TIME_TO_DIE);
@@ -138,59 +140,10 @@ public class Unit : GraphicalElement
     }
     #endregion
 
-    #region Movement Related
-
-    protected void setDestination(Vector3 pos)
-    {
-        if (navMeshAgent.destination != pos)
-            navMeshAgent.destination = pos;
-    }
-
-    protected void PauseNavMesh()
-    {
-        if (navMeshAgent.hasPath)
-            navMeshAgent.Stop();
-    }
-
-    protected void ContinueNavMesh()
-    {
-        if (navMeshAgent.hasPath)
-            navMeshAgent.Resume();
-    }
-
-    protected void MoveAlongPath(bool nextBalise)
-    {
-        if (navMeshAgent.destination != targetBalise.transform.position && navMeshAgent.remainingDistance > 0.01 && followTheWay == nextBalise)
-        {
-            setDestination(targetBalise.transform.position);
-        }
-        else
-        {
-            followTheWay = nextBalise;
-            if (nextBalise)
-            {
-                targetBalise = path.NextStep(targetBalise);
-                setDestination(targetBalise.transform.position);
-            }
-            else
-            {
-                targetBalise = path.PreviousStep(targetBalise);
-                setDestination(targetBalise.transform.position);
-            }
-        }
-    }
-
-    protected void MoveToDir(Vector3 dir)
-    {
-        navMeshAgent.destination = transform.position + dir.normalized;
-    }
-
-    #endregion
-
     #region Updates
-    void Update()
+    protected override void Update()
     {
-	    
+        base.Update();
 	}
     #endregion
 }
