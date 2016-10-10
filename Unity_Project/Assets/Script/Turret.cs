@@ -6,10 +6,21 @@ public class Turret : CombatUnit
     [Header("Turret specifics")]
     public Transform m_turretBase;
 
-    [Range(0.1f,10.0f)]
-    public float m_aimingSpeed = 1.0f;
+    [Tooltip("Rotation speed in degrees of the turret")]
+    [Range(0.1f,360.0f)]
+    public float m_turretDegreesPerSecond = 45.0f;
+
+    [Tooltip("Rotation speed in degrees of the cannon")]
+    [Range(0.1f, 360.0f)]
+    public float m_cannonDegreesPerSecond = 45.0f;
+
+    [Tooltip("Turret's cannon's max angle.")]
+    [Range(0.0f, 180f)]
+    public float m_maxCannonAngle = 45.0f;
+
+    [Tooltip("Turret's imprecision angle.")]
     [Range(0.1f, 10.0f)]
-    public float m_precision = 10.0f;
+    public float m_imprecisioAngle = 10.0f;
 
     protected override void Awake()
 	{
@@ -38,24 +49,50 @@ public class Turret : CombatUnit
                 }
             }
         }
-        else m_currentTarget = null;
+        else
+        {
+            m_currentTarget = null;
+            CeaseFire();
+        }
     }
     #endregion
 
     #region Attack Related
     private void AimTarget()
 	{
-        Quaternion dir = Quaternion.LookRotation(m_currentTarget.transform.position - m_turretBase.position);
-        dir.eulerAngles = new Vector3(0f, dir.eulerAngles.y, 0f);
-        m_turretBase.rotation = Quaternion.Lerp(m_turretBase.rotation, dir, Time.deltaTime * m_aimingSpeed);
+        //Quaternion dir = Quaternion.LookRotation(m_currentTarget.transform.position - m_turretBase.position);
+        //dir.eulerAngles = new Vector3(dir.eulerAngles.x * 0f, dir.eulerAngles.y * 1f, 0f);
+        //m_turretBase.rotation = Quaternion.Lerp(m_turretBase.rotation, dir, Time.deltaTime * m_aimingSpeed);
 
         //foreach (Weapon weapon in m_weapons)
         //{
-        //    dir = Quaternion.LookRotation(m_currentTarget.transform.position - weapon.transform.position);
-        //    dir.eulerAngles = new Vector3(dir.eulerAngles.x, 0f, 0f);
+        //    Quaternion height = Quaternion.LookRotation(m_currentTarget.transform.position -  weapon.transform.position);
+        //    height.eulerAngles = new Vector3(height.eulerAngles.x * 1f, dir.eulerAngles.y * 1f, 0f);
         //    weapon.transform.rotation = Quaternion.Lerp(weapon.transform.rotation, dir, Time.deltaTime * m_aimingSpeed);
         //}
-    }
+        float turretDegreesPerSecond = 45.0f;
+        float gunDegreesPerSecond = 45.0f;
+
+        float maxGunAngle = 45.0f;
+
+        Quaternion qTurret;
+        Quaternion qGun;
+
+        float distanceToPlane = Vector3.Dot(m_turretBase.transform.up, m_currentTarget.transform.position - m_turretBase.position);
+        Vector3 planePoint = m_currentTarget.transform.position - m_turretBase.transform.up * distanceToPlane;
+
+        qTurret = Quaternion.LookRotation(planePoint - m_turretBase.position, transform.up);
+        m_turretBase.rotation = Quaternion.RotateTowards(m_turretBase.rotation, qTurret, turretDegreesPerSecond * Time.deltaTime);
+
+        Vector3 v3 = new Vector3(0.0f, distanceToPlane, (planePoint - m_turretBase.position).magnitude);
+        qGun = Quaternion.LookRotation(v3);
+
+        foreach (Weapon weapon in m_weapons)//le pivot de l'arme doit être au point d'ancrage
+        {
+            if (Quaternion.Angle(weapon.transform.localRotation, qGun) <= maxGunAngle)
+                weapon.transform.localRotation = Quaternion.RotateTowards(weapon.transform.localRotation, qGun, gunDegreesPerSecond * Time.deltaTime);
+        }
+}
 
     private bool IsTargetInAim(Weapon weapon)
     {
@@ -71,7 +108,7 @@ public class Turret : CombatUnit
         Vector3 targetDir = m_currentTarget.transform.position - weapon.m_muzzle.position;
         float angle = Vector3.Angle(targetDir, weapon.m_muzzle.forward);
 
-        if (angle <= m_precision)
+        if (angle <= m_imprecisioAngle)
             return true;
 
         return false;
@@ -81,7 +118,7 @@ public class Turret : CombatUnit
 	{
         foreach (Weapon weapon in m_weapons)
         {
-            if (IsTargetInAim(weapon) && weapon.IsTargetInOptimalRange(m_currentTarget.transform.position))
+            if (IsTargetInAim(weapon) && weapon.IsTargetInOptimalRange(m_currentTarget.transform.position) && m_currentTarget)
             {
                 weapon.TriggerPressed();
             }
@@ -95,6 +132,14 @@ public class Turret : CombatUnit
         {
             AimTarget();
             Shoot();
+        }
+    }
+
+    protected void CeaseFire()
+    {
+        foreach (Weapon weapon in m_weapons)
+        {
+            weapon.TriggerReleased();
         }
     }
     #endregion

@@ -59,7 +59,7 @@ public class CombatUnit : Unit
         }
     }
 
-    void OnTriggerEnter(Collider col)
+    protected virtual void OnTriggerEnter(Collider col)
     {
         if (!col.isTrigger)
         {
@@ -71,7 +71,7 @@ public class CombatUnit : Unit
         }
     }
 
-    void OnTriggerExit(Collider col)
+    protected virtual void OnTriggerExit(Collider col)
     {
         if (!col.isTrigger)
         {
