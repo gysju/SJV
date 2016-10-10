@@ -26,7 +26,6 @@ public class Capture_point : MonoBehaviour
 	void Update () 
 	{
 		UpdateState (currentState);	
-		Debug.Log (time);
 	}
 
 	void SetCollider( Capture_Point_type state)
@@ -143,7 +142,7 @@ public class Capture_point : MonoBehaviour
 				if (unit.m_faction == faction) 
 				{
 					time = 0.0f;
-					faction = (faction == Unit.UnitFaction.FirstTeam) ? Unit.UnitFaction.SecondTeam : Unit.UnitFaction.FirstTeam; 
+					faction = (faction == Unit.UnitFaction.Ally) ? Unit.UnitFaction.Enemy : Unit.UnitFaction.Ally; 
 				}
 				ChangeState (Capture_Point_state.Capture_Point_state_Loading);
 			}
