@@ -32,16 +32,27 @@ public class Weapon : MonoBehaviour
     public float m_reloadTime = 1f;
 
     [Tooltip("Optimal range to use weapon.")]
+    [Range(0f, 100f)]
     public float m_optimalRange = 25f;
+
+    [Tooltip("Optimal range to use weapon.")]
+    [Range(0f, 10f)]
+    public float m_precision = 0f;
 
     void Start ()
     {
         m_currentAmmo = m_magazine;
 	}
+
+    public bool IsTargetInOptimalRange(Vector3 targetPosition)
+    {
+        return (Vector3.Distance(targetPosition, m_muzzle.position) < m_optimalRange);
+    }
 	
     public void FireWeapon()
     {
-        Instantiate(m_ammo, m_muzzle.position, m_muzzle.rotation);
+        Quaternion spread = Quaternion.Euler(Random.Range(-m_precision, m_precision), Random.Range(-m_precision, m_precision), Random.Range(-m_precision, m_precision));
+        Instantiate(m_ammo, m_muzzle.position, m_muzzle.rotation * spread);
     }
 
     IEnumerator Reload()

@@ -6,9 +6,9 @@ using System.Collections.Generic;
 [RequireComponent(typeof(SphereCollider))]
 public class CombatUnit : Unit
 {
-    [Header("Radar")]
     protected SphereCollider m_radar;
 
+    [Header("Radar")]
     [Tooltip("Unit's radar's range.")]
     [Range(0f, 50f)]
     public float m_radarRange = 50f;
@@ -19,6 +19,7 @@ public class CombatUnit : Unit
     [SerializeField]
     protected Unit m_currentTarget = null;
 
+    [Header("Weapons")]
     [Tooltip("Unit's Weapons list.")]
     public List<Weapon> m_weapons = new List<Weapon>();
 
