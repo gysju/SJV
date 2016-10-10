@@ -18,21 +18,25 @@ public class Player : MobileGroundUnit
 	public MoveSystem moveSystem = MoveSystem.MoveSystem_type1;
 
 	protected Vector3 destination = Vector3.zero;
-
+	
 	public Vector2 XMinAndMax = Vector2.zero;
 	public Vector2 YMinAndMax = Vector2.zero;
+
+	[Header("Rotation system")]
+	public float RotationSpeed = 1.0f;
     
 	private List<SixenseHand> hands;
 
 	protected override void Start()
     {
 		base.Start();
-        m_mainCamera = Camera.main;
+		m_mainCamera = Camera.main;
 		hands = GetComponentsInChildren<SixenseHand>().ToList();
     }
 
-	void Update ()
+	protected override void Update ()
     {
+		base.Update ();
 		aim ();
 		shoot();
 		move ();
@@ -93,6 +97,26 @@ public class Player : MobileGroundUnit
 				PointingSystem (hand);
 			}
 		}
+		if(!test)
+		{
+			Rotation ();
+		}
+	}
+
+	void Rotation()
+	{
+		Quaternion leftHand = Quaternion.Euler( new Vector3 (hands [0].transform.localRotation.eulerAngles.x, 0.0f,0.0f ));
+		Quaternion RightHand = Quaternion.Euler( new Vector3 (hands [1].transform.localRotation.eulerAngles.x, 0.0f,0.0f ));
+		float angle = Quaternion.Angle (leftHand, RightHand);
+
+		angle /= 90.0f;
+		angle = Mathf.Clamp01 (angle) * RotationSpeed * Time.deltaTime;
+		angle = (float)System.Math.Round (angle, 2);
+
+		if (hands [0].transform.localRotation.eulerAngles.x < hands [1].transform.localRotation.eulerAngles.x)
+			angle = -angle;
+		
+		m_navMeshAgent.transform.RotateAround (transform.up, angle);
 	}
 
 	void orientationSystem( SixenseHand hand)
@@ -129,7 +153,7 @@ public class Player : MobileGroundUnit
 
 		dir += new Vector3 (xdir, 0f, zdir) * PlayerSpeed;
 
-		transform.Translate (dir);
+		m_navMeshAgent.transform.Translate (dir);
 	}
 
 	void PointingSystem(SixenseHand hand)
