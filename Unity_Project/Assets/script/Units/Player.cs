@@ -6,103 +6,94 @@ using System.Linq;
 public class Player : MobileGroundUnit
 {
     private Camera m_mainCamera;
-    public Unit m_meca;
+	//private List<SixenseInput.Controller> m_razerControllers;
 
-    public Weapon m_leftWeapon;
-    public Weapon m_rightWeapon;
+	[Header("Player Related")]
+    public GameObject m_torso;
+    public GameObject m_legs;
 
-	[Header("Move system")]
-	public float PlayerSpeed = 1.0f;
+    public GameObject m_pointer;
+    private GameObject m_destinationPointer = null;
 
-	public enum MoveSystem { MoveSystem_type1, MoveSystem_type2, MoveSystem_type3 };
-	public MoveSystem moveSystem = MoveSystem.MoveSystem_type1;
-
-	protected Vector3 destination = Vector3.zero;
-
-	public Vector2 XMinAndMax = Vector2.zero;
-	public Vector2 YMinAndMax = Vector2.zero;
-    
-	private List<SixenseHand> hands;
-
-	protected override void Start()
+    #region Initialisation
+    protected override void Start()
     {
 		base.Start();
         m_mainCamera = Camera.main;
-		hands = GetComponentsInChildren<SixenseHand>().ToList();
     }
+    #endregion
 
-	void Update ()
+    #region Actions
+    #region Movements
+    void RotateTorsoHorizontaly(float rotation)
     {
-		aim ();
-		shoot();
-		move ();
+        m_torso.transform.Rotate(Vector3.up, rotation);
     }
 
-	void aim()
+    void RotateCameraHorizontaly(float rotation)
+    {
+        m_mainCamera.transform.Rotate(Vector3.up, rotation);
+    }
+
+    void RotateCameraVerticaly(float rotation)
+    {
+        m_mainCamera.transform.Rotate(Vector3.left, rotation);
+    }
+
+    void PointDestination(Transform origin)
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(origin.transform.position, origin.transform.forward, out hit))
+        {
+            if (!m_destinationPointer)
+                m_destinationPointer = (GameObject) Instantiate(m_pointer, hit.point, Quaternion.identity);
+            LineRenderer line = m_destinationPointer.GetComponent<LineRenderer>();
+            line.SetPosition(0, origin.position);
+            line.SetPosition(1, hit.point);
+            m_destinationPointer.transform.position = hit.point;
+        }
+    }
+
+    void ConfirmDestination()
+    {
+        if (m_destinationPointer)
+        {
+            SetDestination(m_destinationPointer.transform.position);
+            Destroy(m_destinationPointer);
+            m_destinationPointer = null;
+        }
+    }
+    #endregion
+
+    #region Attacks
+    void LeftArmWeaponTriggered(bool value)
+    {
+        if (value) m_weapons[0].TriggerPressed();
+        else m_weapons[0].TriggerReleased();
+    }
+
+    void RightArmWeaponTriggered(bool value)
+    {
+        if (value) m_weapons[1].TriggerPressed();
+        else m_weapons[1].TriggerReleased();
+    }
+    #endregion
+    #endregion
+
+    #region Inputs
+
+    #region PSMoves
+
+    #endregion
+
+    #region Razer Hydra
+    Vector3 RazerVirtualJoysticksConvertion(SixenseInput.Controller controller)
 	{
-		transform.Rotate(Vector3.up, Input.GetAxis("Mouse X"));
-		m_mainCamera.transform.Rotate(Vector3.left, Input.GetAxis("Mouse Y"));
-	}
+		Vector3 movementDirection = Vector3.zero;
 
-	void shoot()
-	{
-		if (hands [0].m_controller != null && hands [1].m_controller != null) {
-			if (Input.GetMouseButtonDown (0) || hands [0].m_controller.GetButtonDown (SixenseButtons.TRIGGER))
-				m_leftWeapon.TriggerPressed ();
-			if (Input.GetMouseButtonDown (1) || hands [1].m_controller.GetButtonDown (SixenseButtons.TRIGGER))
-				m_rightWeapon.TriggerPressed ();
-			
-			if (Input.GetMouseButtonUp (0) || hands [0].m_controller.GetButtonUp (SixenseButtons.TRIGGER))
-				m_leftWeapon.TriggerReleased ();
-			if (Input.GetMouseButtonUp (1) || hands [1].m_controller.GetButtonUp (SixenseButtons.TRIGGER))
-				m_rightWeapon.TriggerReleased ();
-		} 
-		else 
-		{
-			if (Input.GetMouseButtonDown (0))
-				m_leftWeapon.TriggerPressed ();
-			if (Input.GetMouseButtonDown (1))
-				m_rightWeapon.TriggerPressed ();
-
-			if (Input.GetMouseButtonUp (0))
-				m_leftWeapon.TriggerReleased ();
-			if (Input.GetMouseButtonUp (1))
-				m_rightWeapon.TriggerReleased ();
-		}
-	}
-
-	void move()
-	{
-		bool test = false;
-		foreach(SixenseHand hand in hands)
-		{
-			if (hand.m_controller != null) 
-			{
-				if(hand.m_controller.GetButton(SixenseButtons.ONE))
-				{
-					PauseNavMesh ();
-					orientationSystem (hand);
-					test = true;
-				}
-			}
-		}
-		foreach(SixenseHand hand in hands)
-		{
-			if (hand.m_controller != null && !test) 
-			{
-				PointingSystem (hand);
-			}
-		}
-	}
-
-	void orientationSystem( SixenseHand hand)
-	{
-		Vector3 dir = Vector3.zero;
-
-		float x = hand.transform.localRotation.x;
-		float y = hand.transform.localRotation.y;
-		Debug.Log (hands [0].transform.localRotation);
-
+		float x = controller.RotationRaw.x;
+		float y = controller.RotationRaw.y;
+        Debug.Log(x + " | " + y);
 		const float NEUTRAL_Z = -0.3f;
 		const float NEUTRAL_X = 0f;
 
@@ -127,31 +118,102 @@ public class Player : MobileGroundUnit
 		if (y > NEUTRAL_X) //droite
 			xdir = (Mathf.InverseLerp (MIN_RIGHT, MAX_RIGHT, y) * Time.deltaTime);
 
-		dir += new Vector3 (xdir, 0f, zdir) * PlayerSpeed;
+		movementDirection += new Vector3 (xdir, 0f, zdir);
 
-		transform.Translate (dir);
+        return movementDirection;
 	}
 
 	void PointingSystem(SixenseHand hand)
 	{
 		if (hand.m_controller.GetButton(SixenseButtons.BUMPER))
 		{
-			RaycastHit hit;
-			Transform origin = hand.GetComponent<Weapon> ().transform;
-			if (Physics.Raycast(origin.transform.position, origin.transform.forward, out hit))
-			{
-				LineRenderer line = hand.GetComponent<LineRenderer> ();
-				line.SetPosition (0, origin.position);
-				line.SetPosition (1, hit.point);
-				destination = hit.point;
-			}
+			Transform origin = hand.GetComponent<Weapon>().transform;
+
+            PointDestination(origin);
 		}
 
-		if (destination != Vector3.zero && hand.m_controller.GetButtonUp(SixenseButtons.BUMPER))
+		if (CheckDestination() && hand.m_controller.GetButtonUp(SixenseButtons.BUMPER))
 		{
-			m_navMeshAgent.Resume ();
-			SetDestination(destination);
-			destination = Vector3.zero;
-		} 
-	}
+            ConfirmDestination();
+		}
+    }
+
+    //void RazerMovementInputs()
+    //{
+    //    bool test = false;
+    //    foreach (SixenseHand hand in m_razerControllers)
+    //    {
+    //        if (hand.m_controller != null)
+    //        {
+    //            if (hand.m_controller.GetButton(SixenseButtons.ONE))
+    //            {
+    //                PauseNavMesh();
+    //                RazerVirtualJoysticksConvertion(hand);
+    //                test = true;
+    //            }
+    //        }
+    //    }
+    //    foreach (SixenseHand hand in m_razerControllers)
+    //    {
+    //        if (hand.m_controller != null && !test)
+    //        {
+    //            PointingSystem(hand);
+    //        }
+    //    }
+    //}
+
+    void RazerInputs()
+    {
+        if (SixenseInput.Controllers[0] != null)
+        {
+            SixenseInput.Controller leftController = SixenseInput.Controllers[0];
+            SixenseInput.Controller rightController = SixenseInput.Controllers[1];
+
+            bool leftModifier = leftController.GetButton(SixenseButtons.ONE);
+            bool rightModifier = rightController.GetButton(SixenseButtons.ONE);
+
+            bool leftPointer = leftController.GetButton(SixenseButtons.BUMPER);
+            bool rightPointer = rightController.GetButton(SixenseButtons.BUMPER);
+
+            if (leftModifier) MoveToDir(RazerVirtualJoysticksConvertion(leftController));
+            else if (leftPointer) PointDestination(m_weapons[0].m_muzzle);
+            else LeftArmWeaponTriggered(leftController.GetButton(SixenseButtons.TRIGGER));
+
+            if (rightModifier) MoveToDir(RazerVirtualJoysticksConvertion(rightController));
+            else if (rightPointer) PointDestination(m_weapons[1].m_muzzle);
+            else RightArmWeaponTriggered(rightController.GetButton(SixenseButtons.TRIGGER));
+        }
+    }
+    #endregion
+
+    #region Mouse & Keyboard
+    void MouseAim()
+    {
+        RotateTorsoHorizontaly(Input.GetAxis("Mouse X"));
+        RotateCameraVerticaly(Input.GetAxis("Mouse Y"));
+    }
+
+    void MouseShootInputs()
+    {
+        LeftArmWeaponTriggered(Input.GetMouseButton(0));
+        RightArmWeaponTriggered(Input.GetMouseButton(1));
+    }
+    #endregion
+    #endregion
+
+    #region Updates
+    void InputsUpdate()
+    {
+        MouseAim();
+        MouseShootInputs();
+        
+        RazerInputs();
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+        InputsUpdate();
+    }
+    #endregion
 }

@@ -70,29 +70,24 @@ public class Turret : CombatUnit
         //    height.eulerAngles = new Vector3(height.eulerAngles.x * 1f, dir.eulerAngles.y * 1f, 0f);
         //    weapon.transform.rotation = Quaternion.Lerp(weapon.transform.rotation, dir, Time.deltaTime * m_aimingSpeed);
         //}
-        float turretDegreesPerSecond = 45.0f;
-        float gunDegreesPerSecond = 45.0f;
-
-        float maxGunAngle = 45.0f;
-
         Quaternion qTurret;
         Quaternion qGun;
 
-        float distanceToPlane = Vector3.Dot(m_turretBase.transform.up, m_currentTarget.transform.position - m_turretBase.position);
-        Vector3 planePoint = m_currentTarget.transform.position - m_turretBase.transform.up * distanceToPlane;
+        float distanceToTarget = Vector3.Dot(m_turretBase.transform.up, m_currentTarget.transform.position - m_turretBase.position);
+        Vector3 planePoint = m_currentTarget.transform.position - m_turretBase.transform.up * distanceToTarget;
 
         qTurret = Quaternion.LookRotation(planePoint - m_turretBase.position, transform.up);
-        m_turretBase.rotation = Quaternion.RotateTowards(m_turretBase.rotation, qTurret, turretDegreesPerSecond * Time.deltaTime);
+        m_turretBase.rotation = Quaternion.RotateTowards(m_turretBase.rotation, qTurret, m_turretDegreesPerSecond * Time.deltaTime);
 
-        Vector3 v3 = new Vector3(0.0f, distanceToPlane, (planePoint - m_turretBase.position).magnitude);
+        Vector3 v3 = new Vector3(0.0f, distanceToTarget, (planePoint - m_turretBase.position).magnitude);
         qGun = Quaternion.LookRotation(v3);
 
         foreach (Weapon weapon in m_weapons)//le pivot de l'arme doit être au point d'ancrage
         {
-            if (Quaternion.Angle(weapon.transform.localRotation, qGun) <= maxGunAngle)
-                weapon.transform.localRotation = Quaternion.RotateTowards(weapon.transform.localRotation, qGun, gunDegreesPerSecond * Time.deltaTime);
+            if (Quaternion.Angle(weapon.transform.localRotation, qGun) <= m_maxCannonAngle)
+                weapon.transform.localRotation = Quaternion.RotateTowards(weapon.transform.localRotation, qGun, m_cannonDegreesPerSecond * Time.deltaTime);
         }
-}
+    }
 
     private bool IsTargetInAim(Weapon weapon)
     {

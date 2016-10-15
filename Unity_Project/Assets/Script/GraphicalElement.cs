@@ -2,7 +2,7 @@
 using System.Collections;
 
 [AddComponentMenu("MechaVR/DEV/Graphical Element")]
-[RequireComponent(typeof(Renderer))]
+//[RequireComponent(typeof(Renderer))]
 public class GraphicalElement : MonoBehaviour
 {
     protected const float INVISIBLE = 0f;

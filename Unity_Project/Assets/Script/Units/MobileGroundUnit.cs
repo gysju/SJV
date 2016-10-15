@@ -122,7 +122,8 @@ public class MobileGroundUnit : CombatUnit
 
     protected void MoveToDir(Vector3 dir)
     {
-        m_navMeshAgent.Move(dir);
+        EnableNavMeshAgent();
+        m_navMeshAgent.Move(dir * m_maxSpeed * Time.deltaTime);
     }
 
     #endregion
@@ -132,6 +133,7 @@ public class MobileGroundUnit : CombatUnit
     {
         base.Update();
     }
+
     void FixedUpdate()
     {
         if (m_navMeshAgent.isActiveAndEnabled)
