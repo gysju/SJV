@@ -37,9 +37,27 @@ public class Player : MobileGroundUnit
 
     void RotatePilotHead(float horizontalAngle, float verticalAngle)
     {
-        float tempHorizontalAngle = m_mainCamera.transform.localRotation.eulerAngles.x + horizontalAngle;
+        float horizontalAnglePrevision = m_mainCamera.transform.localRotation.eulerAngles.y;
+        horizontalAnglePrevision = (horizontalAnglePrevision > 180) ? horizontalAnglePrevision - 360 : horizontalAnglePrevision;
+        horizontalAnglePrevision += horizontalAngle;
+        float finalHorizontalAngle = horizontalAngle;
+        float toTransforToTorso = 0f;
+
+        if (horizontalAnglePrevision > m_maxHorinzontalHeadAngle)
+        {
+            toTransforToTorso = (horizontalAnglePrevision - m_maxHorinzontalHeadAngle);
+            finalHorizontalAngle -= toTransforToTorso;
+            RotateTorsoHorizontaly(toTransforToTorso);
+        }
+        else if (horizontalAnglePrevision < -(m_maxHorinzontalHeadAngle))
+        {
+            toTransforToTorso = (horizontalAnglePrevision + m_maxHorinzontalHeadAngle);
+            finalHorizontalAngle -= toTransforToTorso;
+            RotateTorsoHorizontaly(toTransforToTorso);
+        }
+
         Quaternion currentRotation = m_mainCamera.transform.rotation;
-        Quaternion horizontalRotation = Quaternion.AngleAxis(horizontalAngle, Vector3.up);
+        Quaternion horizontalRotation = Quaternion.AngleAxis(finalHorizontalAngle, Vector3.up);
         Quaternion verticalRotation = Quaternion.AngleAxis(verticalAngle, Vector3.left);
         m_mainCamera.transform.rotation = horizontalRotation * currentRotation * verticalRotation;
     }
@@ -227,7 +245,7 @@ public class Player : MobileGroundUnit
     #region Updates
     void InputsUpdate()
     {
-        
+        MouseKeyboardInputs();
         RazerInputs();
     }
 
