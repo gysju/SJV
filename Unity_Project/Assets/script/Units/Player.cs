@@ -6,9 +6,12 @@ using System.Linq;
 public class Player : MobileGroundUnit
 {
     private Camera m_mainCamera;
-	//private List<SixenseInput.Controller> m_razerControllers;
+    public float m_maxHorinzontalHeadAngle = 10f;
+    public float m_maxVerticalHeadAngle = 75f;
 
-	[Header("Player Related")]
+    //private List<SixenseInput.Controller> m_razerControllers;
+
+    [Header("Player Related")]
     public GameObject m_torso;
     public GameObject m_legs;
 
@@ -25,19 +28,33 @@ public class Player : MobileGroundUnit
 
     #region Actions
     #region Movements
-    void RotateTorsoHorizontaly(float rotation)
+    void RotateTorsoHorizontaly(float horizontalAngle)
     {
-        m_torso.transform.Rotate(Vector3.up, rotation);
+        Quaternion currentRotation = m_torso.transform.rotation;
+        Quaternion horizontalRotation = Quaternion.AngleAxis(horizontalAngle, Vector3.up);
+        m_torso.transform.rotation = horizontalRotation * currentRotation;
     }
 
-    void RotateCameraHorizontaly(float rotation)
+    void RotatePilotHead(float horizontalAngle, float verticalAngle)
     {
-        m_mainCamera.transform.Rotate(Vector3.up, rotation);
+        Quaternion currentRotation = m_mainCamera.transform.rotation;
+        Quaternion horizontalRotation = Quaternion.AngleAxis(horizontalAngle, Vector3.up);
+        Quaternion verticalRotation = Quaternion.AngleAxis(verticalAngle, Vector3.left);
+        m_mainCamera.transform.rotation = horizontalRotation * currentRotation * verticalRotation;
     }
 
-    void RotateCameraVerticaly(float rotation)
+    void RotateCameraHorizontaly(float horizontalAngle)
     {
-        m_mainCamera.transform.Rotate(Vector3.left, rotation);
+        Quaternion currentRotation = m_mainCamera.transform.rotation;
+        Quaternion horizontalRotation = Quaternion.AngleAxis(horizontalAngle, Vector3.up);
+        m_mainCamera.transform.rotation = horizontalRotation * currentRotation;
+    }
+
+    void RotateCameraVerticaly(float verticalAngle)
+    {
+        Quaternion currentRotation = m_mainCamera.transform.rotation;
+        Quaternion verticalRotation = Quaternion.AngleAxis(verticalAngle, Vector3.left);
+        m_mainCamera.transform.rotation = currentRotation * verticalRotation;
     }
 
     void PointDestination(Transform origin)
@@ -189,8 +206,7 @@ public class Player : MobileGroundUnit
     #region Mouse & Keyboard
     void MouseAim()
     {
-        RotateTorsoHorizontaly(Input.GetAxis("Mouse X"));
-        RotateCameraVerticaly(Input.GetAxis("Mouse Y"));
+        RotatePilotHead(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
     }
 
     void MouseShootInputs()
@@ -198,14 +214,18 @@ public class Player : MobileGroundUnit
         LeftArmWeaponTriggered(Input.GetMouseButton(0));
         RightArmWeaponTriggered(Input.GetMouseButton(1));
     }
+
+    void MouseKeyboardInputs()
+    {
+        MouseAim();
+        MouseShootInputs();
+    }
     #endregion
     #endregion
 
     #region Updates
     void InputsUpdate()
     {
-        MouseAim();
-        MouseShootInputs();
         
         RazerInputs();
     }
