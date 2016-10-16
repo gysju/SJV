@@ -850,6 +850,8 @@ MonoBehaviour:
   - {fileID: 114000012452355186}
   - {fileID: 114000010065121176}
   m_maxSpeed: 2
+  m_maxHorinzontalHeadAngle: 10
+  m_maxVerticalHeadAngle: 75
   m_torso: {fileID: 1000011509622770}
   m_legs: {fileID: 1000014120538752}
   m_pointer: {fileID: 1000013968135328, guid: 5ec254d5897b5114e8f74e0df760a8f2, type: 2}
@@ -1011,9 +1013,9 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_Extents: {x: 1.5, y: 2.5, z: 1.5}
   m_MoveThreshold: 0.1
   m_Carve: 0
   m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 2.5, z: 0}
   m_TimeToStationary: 0.5

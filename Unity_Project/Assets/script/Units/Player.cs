@@ -37,6 +37,7 @@ public class Player : MobileGroundUnit
 
     void RotatePilotHead(float horizontalAngle, float verticalAngle)
     {
+        float tempHorizontalAngle = m_mainCamera.transform.localRotation.eulerAngles.x + horizontalAngle;
         Quaternion currentRotation = m_mainCamera.transform.rotation;
         Quaternion horizontalRotation = Quaternion.AngleAxis(horizontalAngle, Vector3.up);
         Quaternion verticalRotation = Quaternion.AngleAxis(verticalAngle, Vector3.left);
