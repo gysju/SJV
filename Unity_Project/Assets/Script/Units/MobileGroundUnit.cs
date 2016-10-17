@@ -69,7 +69,7 @@ public class MobileGroundUnit : CombatUnit
 
     protected void PauseNavMesh()
     {
-        DisableNavMeshAgent();
+        //DisableNavMeshAgent();
 
         if (m_navMeshAgent.hasPath)
             m_navMeshAgent.Stop();
@@ -123,6 +123,7 @@ public class MobileGroundUnit : CombatUnit
     protected void MoveToDir(Vector3 dir)
     {
         EnableNavMeshAgent();
+        PauseNavMesh();
         m_navMeshAgent.Move(dir * m_maxSpeed * Time.deltaTime);
     }
 

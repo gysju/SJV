@@ -14,6 +14,8 @@ public class Player : MobileGroundUnit
     [Header("Player Related")]
     public GameObject m_torso;
     public GameObject m_legs;
+    private Weapon m_leftWeapon;
+    private Weapon m_rightWeapon;
 
     public GameObject m_pointer;
     private GameObject m_destinationPointer = null;
@@ -23,11 +25,20 @@ public class Player : MobileGroundUnit
     {
 		base.Start();
         m_mainCamera = Camera.main;
+        m_leftWeapon = m_weapons[0];
+        m_rightWeapon = m_weapons[1];
     }
     #endregion
 
     #region Actions
     #region Movements
+    void RotateMechaHorizontaly(float horizontalAngle)
+    {
+        Quaternion currentRotation = transform.rotation;
+        Quaternion horizontalRotation = Quaternion.AngleAxis(horizontalAngle, Vector3.up);
+        transform.rotation = horizontalRotation * currentRotation;
+    }
+
     void RotateTorsoHorizontaly(float horizontalAngle)
     {
         Quaternion currentRotation = m_torso.transform.rotation;
@@ -56,9 +67,26 @@ public class Player : MobileGroundUnit
             RotateTorsoHorizontaly(toTransforToTorso);
         }
 
+        float verticalAnglePrevision = m_mainCamera.transform.localRotation.eulerAngles.x;
+        verticalAnglePrevision = (verticalAnglePrevision > 180) ? verticalAnglePrevision - 360 : verticalAnglePrevision;
+        verticalAnglePrevision += verticalAngle;
+        float finalVerticalAngle = verticalAngle;
+        float rest = 0f;
+
+        if (verticalAnglePrevision > m_maxVerticalHeadAngle)
+        {
+            rest = (verticalAnglePrevision - m_maxVerticalHeadAngle);
+            finalVerticalAngle -= rest;
+        }
+        else if (verticalAnglePrevision < -(m_maxVerticalHeadAngle))
+        {
+            rest = (verticalAnglePrevision + m_maxVerticalHeadAngle);
+            finalVerticalAngle -= rest;
+        }
+
         Quaternion currentRotation = m_mainCamera.transform.rotation;
         Quaternion horizontalRotation = Quaternion.AngleAxis(finalHorizontalAngle, Vector3.up);
-        Quaternion verticalRotation = Quaternion.AngleAxis(verticalAngle, Vector3.left);
+        Quaternion verticalRotation = Quaternion.AngleAxis(finalVerticalAngle, Vector3.right);
         m_mainCamera.transform.rotation = horizontalRotation * currentRotation * verticalRotation;
     }
 
@@ -104,14 +132,24 @@ public class Player : MobileGroundUnit
     #region Attacks
     void LeftArmWeaponTriggered(bool value)
     {
-        if (value) m_weapons[0].TriggerPressed();
-        else m_weapons[0].TriggerReleased();
+        if (value) m_leftWeapon.TriggerPressed();
+        else m_leftWeapon.TriggerReleased();
     }
 
     void RightArmWeaponTriggered(bool value)
     {
-        if (value) m_weapons[1].TriggerPressed();
-        else m_weapons[1].TriggerReleased();
+        if (value) m_rightWeapon.TriggerPressed();
+        else m_rightWeapon.TriggerReleased();
+    }
+
+    void AimLeftWeaponTo(Vector3 targetPosition)
+    {
+        m_leftWeapon.transform.LookAt(targetPosition);
+    }
+
+    void AimRightWeaponTo(Vector3 targetPosition)
+    {
+        m_rightWeapon.transform.LookAt(targetPosition);
     }
     #endregion
     #endregion
@@ -226,6 +264,17 @@ public class Player : MobileGroundUnit
     void MouseAim()
     {
         RotatePilotHead(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+        RaycastHit aimTarget;
+        if(Physics.Raycast(m_mainCamera.transform.position, m_mainCamera.transform.forward, out aimTarget))
+        {
+            AimLeftWeaponTo(aimTarget.point);
+            AimRightWeaponTo(aimTarget.point);
+        }
+        else
+        {
+            AimLeftWeaponTo(m_mainCamera.transform.position + m_mainCamera.transform.forward * 100);
+            AimRightWeaponTo(m_mainCamera.transform.position + m_mainCamera.transform.forward * 100);
+        }
     }
 
     void MouseShootInputs()
@@ -234,10 +283,31 @@ public class Player : MobileGroundUnit
         RightArmWeaponTriggered(Input.GetMouseButton(1));
     }
 
+    void KeyboardMovements()
+    {
+        Vector3 movement = Vector3.zero;
+        if (Input.GetKey(KeyCode.Z)) movement.z += 1f;
+        if (Input.GetKey(KeyCode.S)) movement.z -= 1f;
+        if (Input.GetKey(KeyCode.D)) movement.x += 1f;
+        if (Input.GetKey(KeyCode.Q)) movement.x -= 1f;
+        MoveToDir(movement);
+        if (movement == Vector3.zero) ContinueNavMesh();
+
+        if (Input.GetMouseButton(2))
+        {
+            PointDestination(m_mainCamera.transform);
+        }
+        if (Input.GetMouseButtonUp(2))
+        {
+            ConfirmDestination();
+        }
+    }
+
     void MouseKeyboardInputs()
     {
         MouseAim();
         MouseShootInputs();
+        KeyboardMovements();
     }
     #endregion
     #endregion
