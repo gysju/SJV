@@ -130,16 +130,24 @@ public class Player : MobileGroundUnit
     #endregion
 
     #region Attacks
-    void LeftArmWeaponTriggered(bool value)
+    void LeftArmWeaponTriggered()
     {
-        if (value) m_leftWeapon.TriggerPressed();
-        else m_leftWeapon.TriggerReleased();
+        m_leftWeapon.TriggerPressed();
     }
 
-    void RightArmWeaponTriggered(bool value)
+    void LeftArmWeaponTriggerReleased()
     {
-        if (value) m_rightWeapon.TriggerPressed();
-        else m_rightWeapon.TriggerReleased();
+        m_leftWeapon.TriggerReleased();
+    }
+
+    void RightArmWeaponTriggered()
+    {
+        m_rightWeapon.TriggerPressed();
+    }
+
+    void RightArmWeaponTriggerReleased()
+    {
+        m_rightWeapon.TriggerReleased();
     }
 
     void AimLeftWeaponTo(Vector3 targetPosition)
@@ -249,13 +257,31 @@ public class Player : MobileGroundUnit
             bool leftPointer = leftController.GetButton(SixenseButtons.BUMPER);
             bool rightPointer = rightController.GetButton(SixenseButtons.BUMPER);
 
-            if (leftModifier) MoveToDir(RazerVirtualJoysticksConvertion(leftController));
-            else if (leftPointer) PointDestination(m_weapons[0].m_muzzle);
-            else LeftArmWeaponTriggered(leftController.GetButton(SixenseButtons.TRIGGER));
+            if (leftModifier)
+            {
+                MoveToDir(RazerVirtualJoysticksConvertion(leftController));
+                LeftArmWeaponTriggerReleased();
+            }
+            else if (leftPointer)
+            {
+                PointDestination(m_weapons[0].m_muzzle);
+                LeftArmWeaponTriggerReleased();
+            }
+            else if (leftController.GetButtonDown(SixenseButtons.TRIGGER)) LeftArmWeaponTriggered();
+            else if (leftController.GetButtonUp(SixenseButtons.TRIGGER)) LeftArmWeaponTriggerReleased();
 
-            if (rightModifier) MoveToDir(RazerVirtualJoysticksConvertion(rightController));
-            else if (rightPointer) PointDestination(m_weapons[1].m_muzzle);
-            else RightArmWeaponTriggered(rightController.GetButton(SixenseButtons.TRIGGER));
+            if (rightModifier)
+            {
+                MoveToDir(RazerVirtualJoysticksConvertion(rightController));
+                RightArmWeaponTriggerReleased();
+            }
+            else if (rightPointer)
+            {
+                PointDestination(m_weapons[1].m_muzzle);
+                RightArmWeaponTriggerReleased();
+            }
+            else if (rightController.GetButtonDown(SixenseButtons.TRIGGER)) RightArmWeaponTriggered();
+            else if (rightController.GetButtonUp(SixenseButtons.TRIGGER)) RightArmWeaponTriggerReleased();
         }
     }
     #endregion
@@ -264,13 +290,13 @@ public class Player : MobileGroundUnit
     void MouseAim()
     {
         RotatePilotHead(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
-        RaycastHit aimTarget;
-        if(Physics.Raycast(m_mainCamera.transform.position, m_mainCamera.transform.forward, out aimTarget))
-        {
-            AimLeftWeaponTo(aimTarget.point);
-            AimRightWeaponTo(aimTarget.point);
-        }
-        else
+        //RaycastHit aimTarget;
+        //if(Physics.Raycast(m_mainCamera.transform.position, m_mainCamera.transform.forward, out aimTarget))
+        //{
+        //    AimLeftWeaponTo(aimTarget.point);
+        //    AimRightWeaponTo(aimTarget.point);
+        //}
+        //else
         {
             AimLeftWeaponTo(m_mainCamera.transform.position + m_mainCamera.transform.forward * 100);
             AimRightWeaponTo(m_mainCamera.transform.position + m_mainCamera.transform.forward * 100);
@@ -279,8 +305,10 @@ public class Player : MobileGroundUnit
 
     void MouseShootInputs()
     {
-        LeftArmWeaponTriggered(Input.GetMouseButton(0));
-        RightArmWeaponTriggered(Input.GetMouseButton(1));
+        if (Input.GetMouseButtonDown(0)) LeftArmWeaponTriggered();
+        if (Input.GetMouseButtonUp(0)) LeftArmWeaponTriggerReleased();
+        if (Input.GetMouseButtonDown(1)) RightArmWeaponTriggered();
+        if (Input.GetMouseButtonUp(1)) RightArmWeaponTriggerReleased();
     }
 
     void KeyboardMovements()

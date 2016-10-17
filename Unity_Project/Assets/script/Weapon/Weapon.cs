@@ -6,6 +6,7 @@ public class Weapon : MonoBehaviour
 {
     [Tooltip("From where the ammo is fired.")]
     public Transform m_muzzle;
+    public GameObject m_muzzleFlash;
 
     [Header("Weapon Specs")]
     [Tooltip("Ammo type the weapon fire.")]
@@ -53,6 +54,7 @@ public class Weapon : MonoBehaviour
     {
         Quaternion spread = Quaternion.Euler(Random.Range(-m_precision, m_precision), Random.Range(-m_precision, m_precision), Random.Range(-m_precision, m_precision));
         Instantiate(m_ammo, m_muzzle.position, m_muzzle.rotation * spread);
+        Instantiate(m_muzzleFlash, m_muzzle.position, m_muzzle.rotation);
     }
 
     IEnumerator Reload()

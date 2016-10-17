@@ -766,6 +766,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_muzzle: {fileID: 4000013479269312}
+  m_muzzleFlash: {fileID: 1000012896234374, guid: 6062d7d4ed85af74790cd7caabc06acc,
+    type: 2}
   m_ammo: {fileID: 196214, guid: be77629a5b6628349b9cd18243b7228d, type: 2}
   m_firingMethod: 2
   m_rpm: 600
@@ -796,7 +798,7 @@ MonoBehaviour:
   m_weapons:
   - {fileID: 114000010402450330}
   - {fileID: 114000014203908236}
-  m_maxSpeed: 2
+  m_maxSpeed: 10
   m_maxHorinzontalHeadAngle: 10
   m_maxVerticalHeadAngle: 30
   m_torso: {fileID: 1000010427927384}
@@ -814,6 +816,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_muzzle: {fileID: 4000011451864954}
+  m_muzzleFlash: {fileID: 1000012896234374, guid: 6062d7d4ed85af74790cd7caabc06acc,
+    type: 2}
   m_ammo: {fileID: 196214, guid: be77629a5b6628349b9cd18243b7228d, type: 2}
   m_firingMethod: 2
   m_rpm: 600
@@ -847,7 +851,7 @@ NavMeshAgent:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000014019086946}
   m_Enabled: 0
-  m_Radius: 2
+  m_Radius: 3
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
