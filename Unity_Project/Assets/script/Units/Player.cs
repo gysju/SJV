@@ -6,127 +6,179 @@ using System.Linq;
 public class Player : MobileGroundUnit
 {
     private Camera m_mainCamera;
-    public Unit m_meca;
+    public float m_maxHorinzontalHeadAngle = 10f;
+    public float m_maxVerticalHeadAngle = 75f;
 
-    public Weapon m_leftWeapon;
-    public Weapon m_rightWeapon;
+    //private List<SixenseInput.Controller> m_razerControllers;
 
-	[Header("Move system")]
-	public float PlayerSpeed = 1.0f;
+    [Header("Player Related")]
+    public GameObject m_torso;
+    public GameObject m_legs;
+    private Weapon m_leftWeapon;
+    private Weapon m_rightWeapon;
 
-	public enum MoveSystem { MoveSystem_type1, MoveSystem_type2, MoveSystem_type3 };
-	public MoveSystem moveSystem = MoveSystem.MoveSystem_type1;
+    public GameObject m_pointer;
+    private GameObject m_destinationPointer = null;
 
-	protected Vector3 destination = Vector3.zero;
-	
-	public Vector2 XMinAndMax = Vector2.zero;
-	public Vector2 YMinAndMax = Vector2.zero;
-
-	[Header("Rotation system")]
-	public float RotationSpeed = 1.0f;
-    
-	private List<SixenseHand> hands;
-
-	protected override void Start()
+    #region Initialisation
+    protected override void Start()
     {
 		base.Start();
-		m_mainCamera = Camera.main;
-		hands = GetComponentsInChildren<SixenseHand>().ToList();
+        m_mainCamera = Camera.main;
+        m_leftWeapon = m_weapons[0];
+        m_rightWeapon = m_weapons[1];
     }
+    #endregion
 
-	protected override void Update ()
+    #region Actions
+    #region Movements
+    void RotateMechaHorizontaly(float horizontalAngle)
     {
-		base.Update ();
-		aim ();
-		shoot();
-		move ();
+        Quaternion currentRotation = transform.rotation;
+        Quaternion horizontalRotation = Quaternion.AngleAxis(horizontalAngle, Vector3.up);
+        transform.rotation = horizontalRotation * currentRotation;
     }
 
-	void aim()
+    void RotateTorsoHorizontaly(float horizontalAngle)
+    {
+        Quaternion currentRotation = m_torso.transform.rotation;
+        Quaternion horizontalRotation = Quaternion.AngleAxis(horizontalAngle, Vector3.up);
+        m_torso.transform.rotation = horizontalRotation * currentRotation;
+    }
+
+    void RotatePilotHead(float horizontalAngle, float verticalAngle)
+    {
+        float horizontalAnglePrevision = m_mainCamera.transform.localRotation.eulerAngles.y;
+        horizontalAnglePrevision = (horizontalAnglePrevision > 180) ? horizontalAnglePrevision - 360 : horizontalAnglePrevision;
+        horizontalAnglePrevision += horizontalAngle;
+        float finalHorizontalAngle = horizontalAngle;
+        float toTransforToTorso = 0f;
+
+        if (horizontalAnglePrevision > m_maxHorinzontalHeadAngle)
+        {
+            toTransforToTorso = (horizontalAnglePrevision - m_maxHorinzontalHeadAngle);
+            finalHorizontalAngle -= toTransforToTorso;
+            RotateTorsoHorizontaly(toTransforToTorso);
+        }
+        else if (horizontalAnglePrevision < -(m_maxHorinzontalHeadAngle))
+        {
+            toTransforToTorso = (horizontalAnglePrevision + m_maxHorinzontalHeadAngle);
+            finalHorizontalAngle -= toTransforToTorso;
+            RotateTorsoHorizontaly(toTransforToTorso);
+        }
+
+        float verticalAnglePrevision = m_mainCamera.transform.localRotation.eulerAngles.x;
+        verticalAnglePrevision = (verticalAnglePrevision > 180) ? verticalAnglePrevision - 360 : verticalAnglePrevision;
+        verticalAnglePrevision += verticalAngle;
+        float finalVerticalAngle = verticalAngle;
+        float rest = 0f;
+
+        if (verticalAnglePrevision > m_maxVerticalHeadAngle)
+        {
+            rest = (verticalAnglePrevision - m_maxVerticalHeadAngle);
+            finalVerticalAngle -= rest;
+        }
+        else if (verticalAnglePrevision < -(m_maxVerticalHeadAngle))
+        {
+            rest = (verticalAnglePrevision + m_maxVerticalHeadAngle);
+            finalVerticalAngle -= rest;
+        }
+
+        Quaternion currentRotation = m_mainCamera.transform.rotation;
+        Quaternion horizontalRotation = Quaternion.AngleAxis(finalHorizontalAngle, Vector3.up);
+        Quaternion verticalRotation = Quaternion.AngleAxis(finalVerticalAngle, Vector3.right);
+        m_mainCamera.transform.rotation = horizontalRotation * currentRotation * verticalRotation;
+    }
+
+    void RotateCameraHorizontaly(float horizontalAngle)
+    {
+        Quaternion currentRotation = m_mainCamera.transform.rotation;
+        Quaternion horizontalRotation = Quaternion.AngleAxis(horizontalAngle, Vector3.up);
+        m_mainCamera.transform.rotation = horizontalRotation * currentRotation;
+    }
+
+    void RotateCameraVerticaly(float verticalAngle)
+    {
+        Quaternion currentRotation = m_mainCamera.transform.rotation;
+        Quaternion verticalRotation = Quaternion.AngleAxis(verticalAngle, Vector3.left);
+        m_mainCamera.transform.rotation = currentRotation * verticalRotation;
+    }
+
+    void PointDestination(Transform origin)
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(origin.transform.position, origin.transform.forward, out hit))
+        {
+            if (!m_destinationPointer)
+                m_destinationPointer = (GameObject) Instantiate(m_pointer, hit.point, Quaternion.identity);
+            LineRenderer line = m_destinationPointer.GetComponent<LineRenderer>();
+            line.SetPosition(0, origin.position);
+            line.SetPosition(1, hit.point);
+            m_destinationPointer.transform.position = hit.point;
+        }
+    }
+
+    void ConfirmDestination()
+    {
+        if (m_destinationPointer)
+        {
+            SetDestination(m_destinationPointer.transform.position);
+            Destroy(m_destinationPointer);
+            m_destinationPointer = null;
+        }
+    }
+    #endregion
+
+    #region Attacks
+    void LeftArmWeaponTriggered()
+    {
+        m_leftWeapon.TriggerPressed();
+    }
+
+    void LeftArmWeaponTriggerReleased()
+    {
+        m_leftWeapon.TriggerReleased();
+    }
+
+    void RightArmWeaponTriggered()
+    {
+        m_rightWeapon.TriggerPressed();
+    }
+
+    void RightArmWeaponTriggerReleased()
+    {
+        m_rightWeapon.TriggerReleased();
+    }
+
+    void AimLeftWeaponTo(Vector3 targetPosition)
+    {
+        m_leftWeapon.transform.LookAt(targetPosition);
+    }
+
+    void AimRightWeaponTo(Vector3 targetPosition)
+    {
+        m_rightWeapon.transform.LookAt(targetPosition);
+    }
+    #endregion
+    #endregion
+
+    #region Inputs
+
+    #region PSMoves
+#if UNITY_PS4
+
+#endif
+    #endregion
+
+    #region Razer Hydra
+#if UNITY_STANDALONE
+    Vector3 RazerVirtualJoysticksConvertion(SixenseInput.Controller controller)
 	{
-		transform.Rotate(Vector3.up, Input.GetAxis("Mouse X"));
-		m_mainCamera.transform.Rotate(Vector3.left, Input.GetAxis("Mouse Y"));
-	}
+		Vector3 movementDirection = Vector3.zero;
 
-	void shoot()
-	{
-		if (hands [0].m_controller != null && hands [1].m_controller != null) {
-			if (Input.GetMouseButtonDown (0) || hands [0].m_controller.GetButtonDown (SixenseButtons.TRIGGER))
-				m_leftWeapon.TriggerPressed ();
-			if (Input.GetMouseButtonDown (1) || hands [1].m_controller.GetButtonDown (SixenseButtons.TRIGGER))
-				m_rightWeapon.TriggerPressed ();
-			
-			if (Input.GetMouseButtonUp (0) || hands [0].m_controller.GetButtonUp (SixenseButtons.TRIGGER))
-				m_leftWeapon.TriggerReleased ();
-			if (Input.GetMouseButtonUp (1) || hands [1].m_controller.GetButtonUp (SixenseButtons.TRIGGER))
-				m_rightWeapon.TriggerReleased ();
-		} 
-		else 
-		{
-			if (Input.GetMouseButtonDown (0))
-				m_leftWeapon.TriggerPressed ();
-			if (Input.GetMouseButtonDown (1))
-				m_rightWeapon.TriggerPressed ();
-
-			if (Input.GetMouseButtonUp (0))
-				m_leftWeapon.TriggerReleased ();
-			if (Input.GetMouseButtonUp (1))
-				m_rightWeapon.TriggerReleased ();
-		}
-	}
-
-	void move()
-	{
-		bool test = false;
-		foreach(SixenseHand hand in hands)
-		{
-			if (hand.m_controller != null) 
-			{
-				if(hand.m_controller.GetButton(SixenseButtons.ONE))
-				{
-					PauseNavMesh ();
-					orientationSystem (hand);
-					test = true;
-				}
-			}
-		}
-		foreach(SixenseHand hand in hands)
-		{
-			if (hand.m_controller != null && !test) 
-			{
-				PointingSystem (hand);
-			}
-		}
-		if(!test)
-		{
-			Rotation ();
-		}
-	}
-
-	void Rotation()
-	{
-		Quaternion leftHand = Quaternion.Euler( new Vector3 (hands [0].transform.localRotation.eulerAngles.x, 0.0f,0.0f ));
-		Quaternion RightHand = Quaternion.Euler( new Vector3 (hands [1].transform.localRotation.eulerAngles.x, 0.0f,0.0f ));
-		float angle = Quaternion.Angle (leftHand, RightHand);
-
-		angle /= 90.0f;
-		angle = Mathf.Clamp01 (angle) * RotationSpeed * Time.deltaTime;
-		angle = (float)System.Math.Round (angle, 2);
-
-		if (hands [0].transform.localRotation.eulerAngles.x < hands [1].transform.localRotation.eulerAngles.x)
-			angle = -angle;
-		
-		m_navMeshAgent.transform.RotateAround (transform.up, angle);
-	}
-
-	void orientationSystem( SixenseHand hand)
-	{
-		Vector3 dir = Vector3.zero;
-
-		float x = hand.transform.localRotation.x;
-		float y = hand.transform.localRotation.y;
-		Debug.Log (hands [0].transform.localRotation);
-
+		float x = controller.Rotation.x;
+		float y = controller.Rotation.y;
+        Debug.Log(x + " | " + y);
 		const float NEUTRAL_Z = -0.3f;
 		const float NEUTRAL_X = 0f;
 
@@ -141,41 +193,170 @@ public class Player : MobileGroundUnit
 
 		float zdir = 0;
 		if (x > NEUTRAL_Z) //avant
-			zdir = (Mathf.InverseLerp (MIN_FORWARD, MAX_FORWARD, x) * Time.deltaTime);
+			zdir = (Mathf.InverseLerp (MIN_FORWARD, MAX_FORWARD, x));
 		if (x < NEUTRAL_Z) //arrière
-			zdir = -(Mathf.InverseLerp (MIN_BACKWARD, MAX_BACKWARD, x) * Time.deltaTime);
+			zdir = -(Mathf.InverseLerp (MIN_BACKWARD, MAX_BACKWARD, x));
 
 		float xdir = 0;
 		if (y < NEUTRAL_X) //gauche
-			xdir = -(Mathf.InverseLerp (MIN_LEFT, MAX_LEFT, y) * Time.deltaTime);
+			xdir = -(Mathf.InverseLerp (MIN_LEFT, MAX_LEFT, y));
 		if (y > NEUTRAL_X) //droite
-			xdir = (Mathf.InverseLerp (MIN_RIGHT, MAX_RIGHT, y) * Time.deltaTime);
+			xdir = (Mathf.InverseLerp (MIN_RIGHT, MAX_RIGHT, y));
 
-		dir += new Vector3 (xdir, 0f, zdir) * PlayerSpeed;
+		movementDirection += new Vector3 (xdir, 0f, zdir);
 
-		m_navMeshAgent.transform.Translate (dir);
+        return movementDirection;
 	}
 
 	void PointingSystem(SixenseHand hand)
 	{
 		if (hand.m_controller.GetButton(SixenseButtons.BUMPER))
 		{
-			RaycastHit hit;
-			Transform origin = hand.GetComponent<Weapon> ().transform;
-			if (Physics.Raycast(origin.transform.position, origin.transform.forward, out hit))
-			{
-				LineRenderer line = hand.GetComponent<LineRenderer> ();
-				line.SetPosition (0, origin.position);
-				line.SetPosition (1, hit.point);
-				destination = hit.point;
-			}
+			Transform origin = hand.GetComponent<Weapon>().transform;
+
+            PointDestination(origin);
 		}
 
-		if (destination != Vector3.zero && hand.m_controller.GetButtonUp(SixenseButtons.BUMPER))
+		if (CheckDestination() && hand.m_controller.GetButtonUp(SixenseButtons.BUMPER))
 		{
-			m_navMeshAgent.Resume ();
-			SetDestination(destination);
-			destination = Vector3.zero;
-		} 
-	}
+            ConfirmDestination();
+		}
+    }
+
+    //void RazerMovementInputs()
+    //{
+    //    bool test = false;
+    //    foreach (SixenseHand hand in m_razerControllers)
+    //    {
+    //        if (hand.m_controller != null)
+    //        {
+    //            if (hand.m_controller.GetButton(SixenseButtons.ONE))
+    //            {
+    //                PauseNavMesh();
+    //                RazerVirtualJoysticksConvertion(hand);
+    //                test = true;
+    //            }
+    //        }
+    //    }
+    //    foreach (SixenseHand hand in m_razerControllers)
+    //    {
+    //        if (hand.m_controller != null && !test)
+    //        {
+    //            PointingSystem(hand);
+    //        }
+    //    }
+    //}
+
+    void RazerInputs()
+    {
+        if (SixenseInput.Controllers[0] != null)
+        {
+            SixenseInput.Controller leftController = SixenseInput.Controllers[0];
+            SixenseInput.Controller rightController = SixenseInput.Controllers[1];
+
+            bool leftModifier = leftController.GetButton(SixenseButtons.ONE);
+            bool rightModifier = rightController.GetButton(SixenseButtons.ONE);
+
+            bool leftPointer = leftController.GetButton(SixenseButtons.BUMPER);
+            bool rightPointer = rightController.GetButton(SixenseButtons.BUMPER);
+
+            if (leftModifier)
+            {
+                MoveToDir(RazerVirtualJoysticksConvertion(leftController));
+                LeftArmWeaponTriggerReleased();
+            }
+            else if (leftPointer)
+            {
+                PointDestination(m_weapons[0].m_muzzle);
+                LeftArmWeaponTriggerReleased();
+            }
+            else if (leftController.GetButtonDown(SixenseButtons.TRIGGER)) LeftArmWeaponTriggered();
+            else if (leftController.GetButtonUp(SixenseButtons.TRIGGER)) LeftArmWeaponTriggerReleased();
+
+            if (rightModifier)
+            {
+                MoveToDir(RazerVirtualJoysticksConvertion(rightController));
+                RightArmWeaponTriggerReleased();
+            }
+            else if (rightPointer)
+            {
+                PointDestination(m_weapons[1].m_muzzle);
+                RightArmWeaponTriggerReleased();
+            }
+            else if (rightController.GetButtonDown(SixenseButtons.TRIGGER)) RightArmWeaponTriggered();
+            else if (rightController.GetButtonUp(SixenseButtons.TRIGGER)) RightArmWeaponTriggerReleased();
+        }
+    }
+#endif
+    #endregion
+
+    #region Mouse & Keyboard
+#if UNITY_STANDALONE
+    void MouseAim()
+    {
+        RotatePilotHead(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+        //RaycastHit aimTarget;
+        //if(Physics.Raycast(m_mainCamera.transform.position, m_mainCamera.transform.forward, out aimTarget))
+        //{
+        //    AimLeftWeaponTo(aimTarget.point);
+        //    AimRightWeaponTo(aimTarget.point);
+        //}
+        //else
+        {
+            AimLeftWeaponTo(m_mainCamera.transform.position + m_mainCamera.transform.forward * 100);
+            AimRightWeaponTo(m_mainCamera.transform.position + m_mainCamera.transform.forward * 100);
+        }
+    }
+
+    void MouseShootInputs()
+    {
+        if (Input.GetMouseButtonDown(0)) LeftArmWeaponTriggered();
+        if (Input.GetMouseButtonUp(0)) LeftArmWeaponTriggerReleased();
+        if (Input.GetMouseButtonDown(1)) RightArmWeaponTriggered();
+        if (Input.GetMouseButtonUp(1)) RightArmWeaponTriggerReleased();
+    }
+
+    void KeyboardMovements()
+    {
+        Vector3 movement = Vector3.zero;
+        if (Input.GetKey(KeyCode.Z)) movement.z += 1f;
+        if (Input.GetKey(KeyCode.S)) movement.z -= 1f;
+        if (Input.GetKey(KeyCode.D)) movement.x += 1f;
+        if (Input.GetKey(KeyCode.Q)) movement.x -= 1f;
+        MoveToDir(movement);
+        if (movement == Vector3.zero) ContinueNavMesh();
+
+        if (Input.GetMouseButton(2))
+        {
+            PointDestination(m_mainCamera.transform);
+        }
+        if (Input.GetMouseButtonUp(2))
+        {
+            ConfirmDestination();
+        }
+    }
+#endif
+    #endregion
+    #endregion
+
+    #region Updates
+    void MouseKeyboardInputs()
+    {
+        MouseAim();
+        MouseShootInputs();
+        KeyboardMovements();
+    }
+
+    void InputsUpdate()
+    {
+        MouseKeyboardInputs();
+        RazerInputs();
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+        InputsUpdate();
+    }
+#endregion
 }

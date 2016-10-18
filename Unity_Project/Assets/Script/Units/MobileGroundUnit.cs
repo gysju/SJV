@@ -18,8 +18,10 @@ public class MobileGroundUnit : CombatUnit
     {
         base.Awake();
         m_navMeshAgent = GetComponent<NavMeshAgent>();
-		if (m_navMeshAgent == null)
-			m_navMeshAgent = GetComponentInParent<NavMeshAgent> ();
+
+        if (m_navMeshAgent == null)
+            m_navMeshAgent = GetComponentInParent<NavMeshAgent>();
+
         EnableNavMeshAgent();
         m_navMeshAgent.stoppingDistance = 0.5f;
     }
@@ -69,7 +71,7 @@ public class MobileGroundUnit : CombatUnit
 
     protected void PauseNavMesh()
     {
-        DisableNavMeshAgent();
+        //DisableNavMeshAgent();
 
         if (m_navMeshAgent.hasPath)
             m_navMeshAgent.Stop();
@@ -122,7 +124,9 @@ public class MobileGroundUnit : CombatUnit
 
     protected void MoveToDir(Vector3 dir)
     {
-        m_navMeshAgent.Move(dir);
+        EnableNavMeshAgent();
+        PauseNavMesh();
+        m_navMeshAgent.Move(dir * m_maxSpeed * Time.deltaTime);
     }
 
     #endregion
@@ -132,6 +136,7 @@ public class MobileGroundUnit : CombatUnit
     {
         base.Update();
     }
+
     void FixedUpdate()
     {
         if (m_navMeshAgent.isActiveAndEnabled)
