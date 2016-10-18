@@ -15,18 +15,47 @@ public class Player : MobileGroundUnit
     public GameObject m_torso;
     public GameObject m_legs;
     private Weapon m_leftWeapon;
+    private Vector3 m_leftWeaponDefaultPosition;
+    private Quaternion m_leftWeaponDefaultRotation;
+    private Vector3 m_rightWeaponDefaultPosition;
+    private Quaternion m_rightWeaponDefaultRotation;
     private Weapon m_rightWeapon;
 
     public GameObject m_pointer;
     private GameObject m_destinationPointer = null;
 
+    [Header("Razer Hydra Related")]
+    SixenseInput.Controller m_leftController;
+    SixenseInput.Controller m_rightController;
+    Vector3 m_baseOffset;
+    float m_sensitivity = 0.001f;
+
     #region Initialisation
+    private void RazerStart()
+    {
+
+        m_baseOffset = Vector3.zero;
+
+        m_leftController = SixenseInput.Controllers[0];
+        m_rightController = SixenseInput.Controllers[1];
+
+        m_baseOffset += m_leftController.Position;
+        m_baseOffset += m_rightController.Position;
+        m_baseOffset /= 2;
+    }
+
     protected override void Start()
     {
 		base.Start();
         m_mainCamera = Camera.main;
         m_leftWeapon = m_weapons[0];
+        m_leftWeaponDefaultPosition = m_leftWeapon.transform.localPosition;
+        m_leftWeaponDefaultRotation = m_leftWeapon.transform.localRotation;
         m_rightWeapon = m_weapons[1];
+        m_rightWeaponDefaultPosition = m_rightWeapon.transform.localPosition;
+        m_rightWeaponDefaultRotation = m_rightWeapon.transform.localRotation;
+
+        RazerStart();
     }
     #endregion
 
@@ -34,9 +63,9 @@ public class Player : MobileGroundUnit
     #region Movements
     void RotateMechaHorizontaly(float horizontalAngle)
     {
-        Quaternion currentRotation = transform.rotation;
+        Quaternion currentRotation = transform.localRotation;
         Quaternion horizontalRotation = Quaternion.AngleAxis(horizontalAngle, Vector3.up);
-        transform.rotation = horizontalRotation * currentRotation;
+        transform.localRotation = horizontalRotation * currentRotation;
     }
 
     void RotateTorsoHorizontaly(float horizontalAngle)
@@ -58,13 +87,13 @@ public class Player : MobileGroundUnit
         {
             toTransforToTorso = (horizontalAnglePrevision - m_maxHorinzontalHeadAngle);
             finalHorizontalAngle -= toTransforToTorso;
-            RotateTorsoHorizontaly(toTransforToTorso);
+            RotateMechaHorizontaly(toTransforToTorso);
         }
         else if (horizontalAnglePrevision < -(m_maxHorinzontalHeadAngle))
         {
             toTransforToTorso = (horizontalAnglePrevision + m_maxHorinzontalHeadAngle);
             finalHorizontalAngle -= toTransforToTorso;
-            RotateTorsoHorizontaly(toTransforToTorso);
+            RotateMechaHorizontaly(toTransforToTorso);
         }
 
         float verticalAnglePrevision = m_mainCamera.transform.localRotation.eulerAngles.x;
@@ -127,6 +156,11 @@ public class Player : MobileGroundUnit
             m_destinationPointer = null;
         }
     }
+
+    void MoveFromLocalRotation(Vector3 direction)
+    {
+        MoveToDir(transform.localRotation * direction);
+    }
     #endregion
 
     #region Attacks
@@ -164,21 +198,21 @@ public class Player : MobileGroundUnit
 
     #region Inputs
 
-    #region PSMoves
 #if UNITY_PS4
+    #region PSMoves
 
-#endif
     #endregion
+#endif
 
-    #region Razer Hydra
 #if UNITY_STANDALONE
+    #region Razer Hydra
     Vector3 RazerVirtualJoysticksConvertion(SixenseInput.Controller controller)
 	{
 		Vector3 movementDirection = Vector3.zero;
 
 		float x = controller.Rotation.x;
 		float y = controller.Rotation.y;
-        Debug.Log(x + " | " + y);
+
 		const float NEUTRAL_Z = -0.3f;
 		const float NEUTRAL_X = 0f;
 
@@ -223,29 +257,17 @@ public class Player : MobileGroundUnit
 		}
     }
 
-    //void RazerMovementInputs()
-    //{
-    //    bool test = false;
-    //    foreach (SixenseHand hand in m_razerControllers)
-    //    {
-    //        if (hand.m_controller != null)
-    //        {
-    //            if (hand.m_controller.GetButton(SixenseButtons.ONE))
-    //            {
-    //                PauseNavMesh();
-    //                RazerVirtualJoysticksConvertion(hand);
-    //                test = true;
-    //            }
-    //        }
-    //    }
-    //    foreach (SixenseHand hand in m_razerControllers)
-    //    {
-    //        if (hand.m_controller != null && !test)
-    //        {
-    //            PointingSystem(hand);
-    //        }
-    //    }
-    //}
+    void RazerLeftWeaponControl()
+    {
+        m_leftWeapon.transform.localPosition = m_leftWeaponDefaultPosition + ((m_leftController.Position - m_baseOffset) * m_sensitivity);
+        m_leftWeapon.transform.localRotation = m_leftController.Rotation * m_leftWeaponDefaultRotation;
+    }
+
+    void RazerRightWeaponControl()
+    {
+        m_rightWeapon.transform.localPosition = m_rightWeaponDefaultPosition + ((m_rightController.Position - m_baseOffset) * m_sensitivity);
+        m_rightWeapon.transform.localRotation = m_rightController.Rotation * m_rightWeaponDefaultRotation;
+    }
 
     void Rotation()
     {
@@ -265,49 +287,61 @@ public class Player : MobileGroundUnit
 
     void RazerInputs()
     {
-        if (SixenseInput.Controllers[0] != null)
+        if (m_leftController != null && m_rightController != null)
         {
-            SixenseInput.Controller leftController = SixenseInput.Controllers[0];
-            SixenseInput.Controller rightController = SixenseInput.Controllers[1];
+            bool leftModifier = m_leftController.GetButton(SixenseButtons.ONE);
+            bool rightModifier = m_rightController.GetButton(SixenseButtons.ONE);
 
-            bool leftModifier = leftController.GetButton(SixenseButtons.ONE);
-            bool rightModifier = rightController.GetButton(SixenseButtons.ONE);
+            bool leftPointer = m_leftController.GetButton(SixenseButtons.BUMPER);
+            bool rightPointer = m_rightController.GetButton(SixenseButtons.BUMPER);
 
-            bool leftPointer = leftController.GetButton(SixenseButtons.BUMPER);
-            bool rightPointer = rightController.GetButton(SixenseButtons.BUMPER);
+            if (m_leftController.GetButtonUp(SixenseButtons.BUMPER)) ConfirmDestination();
+            if (m_rightController.GetButtonUp(SixenseButtons.BUMPER)) ConfirmDestination();
 
             if (leftModifier)
             {
-                MoveToDir(RazerVirtualJoysticksConvertion(leftController));
+                MoveFromLocalRotation(RazerVirtualJoysticksConvertion(m_leftController));
                 LeftArmWeaponTriggerReleased();
             }
-            else if (leftPointer)
+            else
             {
-                PointDestination(m_weapons[0].m_muzzle);
-                LeftArmWeaponTriggerReleased();
+                RazerLeftWeaponControl();
+                if (leftPointer)
+                {
+                    PointDestination(m_leftWeapon.m_muzzle);
+                    LeftArmWeaponTriggerReleased();
+                }
+                else
+                {
+                    if (m_leftController.GetButtonDown(SixenseButtons.TRIGGER)) LeftArmWeaponTriggered();
+                    if (m_leftController.GetButtonUp(SixenseButtons.TRIGGER)) LeftArmWeaponTriggerReleased();
+                }
             }
-            else if (leftController.GetButtonDown(SixenseButtons.TRIGGER)) LeftArmWeaponTriggered();
-            else if (leftController.GetButtonUp(SixenseButtons.TRIGGER)) LeftArmWeaponTriggerReleased();
 
             if (rightModifier)
             {
-                MoveToDir(RazerVirtualJoysticksConvertion(rightController));
+                MoveFromLocalRotation(RazerVirtualJoysticksConvertion(m_rightController));
                 RightArmWeaponTriggerReleased();
             }
-            else if (rightPointer)
+            else
             {
-                PointDestination(m_weapons[1].m_muzzle);
-                RightArmWeaponTriggerReleased();
+                RazerRightWeaponControl();
+                if (rightPointer)
+                {
+                    PointDestination(m_rightWeapon.m_muzzle);
+                    RightArmWeaponTriggerReleased();
+                }
+                else
+                {
+                    if (m_rightController.GetButtonDown(SixenseButtons.TRIGGER)) RightArmWeaponTriggered();
+                    if (m_rightController.GetButtonUp(SixenseButtons.TRIGGER)) RightArmWeaponTriggerReleased();
+                }
             }
-            else if (rightController.GetButtonDown(SixenseButtons.TRIGGER)) RightArmWeaponTriggered();
-            else if (rightController.GetButtonUp(SixenseButtons.TRIGGER)) RightArmWeaponTriggerReleased();
         }
     }
-#endif
     #endregion
 
     #region Mouse & Keyboard
-#if UNITY_STANDALONE
     void MouseAim()
     {
         RotatePilotHead(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
@@ -334,13 +368,13 @@ public class Player : MobileGroundUnit
 
     void KeyboardMovements()
     {
-        Vector3 movement = Vector3.zero;
-        if (Input.GetKey(KeyCode.Z)) movement.z += 1f;
-        if (Input.GetKey(KeyCode.S)) movement.z -= 1f;
-        if (Input.GetKey(KeyCode.D)) movement.x += 1f;
-        if (Input.GetKey(KeyCode.Q)) movement.x -= 1f;
-        MoveToDir(movement);
-        if (movement == Vector3.zero) ContinueNavMesh();
+        Vector3 movementDirection = Vector3.zero;
+        if (Input.GetKey(KeyCode.Z)) movementDirection.z += 1f;
+        if (Input.GetKey(KeyCode.S)) movementDirection.z -= 1f;
+        if (Input.GetKey(KeyCode.D)) movementDirection.x += 1f;
+        if (Input.GetKey(KeyCode.Q)) movementDirection.x -= 1f;
+        MoveFromLocalRotation(movementDirection);
+        if (movementDirection == Vector3.zero) ContinueNavMesh();
 
         if (Input.GetMouseButton(2))
         {
@@ -351,18 +385,18 @@ public class Player : MobileGroundUnit
             ConfirmDestination();
         }
     }
-#endif
-    #endregion
-    #endregion
 
-    #region Updates
     void MouseKeyboardInputs()
     {
         MouseAim();
         MouseShootInputs();
         KeyboardMovements();
     }
+    #endregion
+#endif
+    #endregion
 
+    #region Updates
     void InputsUpdate()
     {
         MouseKeyboardInputs();

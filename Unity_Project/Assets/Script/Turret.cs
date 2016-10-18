@@ -43,8 +43,8 @@ public class Turret : CombatUnit
                 if (!m_currentTarget) m_currentTarget = potentialTarget;
                 else
                 {
-                    float currentTargetDistance = Vector3.Distance(m_currentTarget.transform.position, transform.position);
-                    float potentialTargetDistance = Vector3.Distance(potentialTarget.transform.position, transform.position);
+                    float currentTargetDistance = Vector3.Distance(m_currentTarget.m_targetPoint.position, transform.position);
+                    float potentialTargetDistance = Vector3.Distance(potentialTarget.m_targetPoint.position, transform.position);
 
                     if (potentialTargetDistance < currentTargetDistance) m_currentTarget = potentialTarget;
                 }
@@ -74,8 +74,8 @@ public class Turret : CombatUnit
         Quaternion qTurret;
         Quaternion qGun;
 
-        float distanceToTarget = Vector3.Dot(m_turretBase.transform.up, m_currentTarget.transform.position - m_turretBase.position);
-        Vector3 planePoint = m_currentTarget.transform.position - m_turretBase.transform.up * distanceToTarget;
+        float distanceToTarget = Vector3.Dot(m_turretBase.transform.up, m_currentTarget.m_targetPoint.position - m_turretBase.position);
+        Vector3 planePoint = m_currentTarget.m_targetPoint.position - m_turretBase.transform.up * distanceToTarget;
 
         qTurret = Quaternion.LookRotation(planePoint - m_turretBase.position, transform.up);
         m_turretBase.rotation = Quaternion.RotateTowards(m_turretBase.rotation, qTurret, m_turretDegreesPerSecond * Time.deltaTime);
@@ -101,7 +101,7 @@ public class Turret : CombatUnit
         //        return true;
         //}
 
-        Vector3 targetDir = m_currentTarget.transform.position - weapon.m_muzzle.position;
+        Vector3 targetDir = m_currentTarget.m_targetPoint.position - weapon.m_muzzle.position;
         float angle = Vector3.Angle(targetDir, weapon.m_muzzle.forward);
 
         if (angle <= m_imprecisioAngle)
@@ -114,7 +114,7 @@ public class Turret : CombatUnit
 	{
         foreach (Weapon weapon in m_weapons)
         {
-            if (IsTargetInAim(weapon) && weapon.IsTargetInOptimalRange(m_currentTarget.transform.position) && m_currentTarget)
+            if (IsTargetInAim(weapon) && weapon.IsTargetInOptimalRange(m_currentTarget.m_targetPoint.position) && m_currentTarget)
             {
                 weapon.TriggerPressed();
             }
@@ -143,10 +143,13 @@ public class Turret : CombatUnit
     #region Updates
     protected override void Update()
     {
-        base.Update();
+        if(!m_destroyed)
+        {
+            base.Update();
 
-        ChooseTarget();
-        TryAttack();
+            ChooseTarget();
+            TryAttack();
+        }
     }
     #endregion
 }
