@@ -18,8 +18,10 @@ public class MobileGroundUnit : CombatUnit
     {
         base.Awake();
         m_navMeshAgent = GetComponent<NavMeshAgent>();
+
         if (m_navMeshAgent == null)
             m_navMeshAgent = GetComponentInParent<NavMeshAgent>();
+
         EnableNavMeshAgent();
         m_navMeshAgent.stoppingDistance = 0.5f;
     }

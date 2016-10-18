@@ -57,6 +57,10 @@ public class Unit : GraphicalElement
     {
         base.Awake();
         m_navMeshObstacle = GetComponent<NavMeshObstacle>();
+		if(m_navMeshObstacle == null)
+		{
+			m_navMeshObstacle = GetComponentInParent<NavMeshObstacle> ();
+		}
     }
 
     protected override void Start()
