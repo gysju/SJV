@@ -5,7 +5,7 @@ public class GameManager : MonoBehaviour {
 
     public static GameManager Instance { get; private set; }
 
-    public enum GameState { GameState_InGame, GameState_Paused, GameState_InMenu }
+    public enum GameState { GameState_InGame, GameState_Paused, GameState_InMenu, GameState_Dead }
     public GameState gameState = GameState.GameState_InGame;
 
     void Start () {
