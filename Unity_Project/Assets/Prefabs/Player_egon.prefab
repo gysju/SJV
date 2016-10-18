@@ -296,10 +296,10 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013944572366}
-  m_LocalRotation: {x: -0, y: 0.0050787665, z: -0, w: 0.9999872}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.96275026, y: -1.5445669, z: -0.011614621}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0.565, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 4000013479269312}
   m_Father: {fileID: 4000013167342250}
@@ -798,7 +798,7 @@ MonoBehaviour:
   m_weapons:
   - {fileID: 114000010402450330}
   - {fileID: 114000014203908236}
-  m_maxSpeed: 10
+  m_maxSpeed: 5
   m_maxHorinzontalHeadAngle: 10
   m_maxVerticalHeadAngle: 30
   m_torso: {fileID: 1000010427927384}
@@ -852,7 +852,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1000014019086946}
   m_Enabled: 0
   m_Radius: 3
-  m_Speed: 3.5
+  m_Speed: 5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
