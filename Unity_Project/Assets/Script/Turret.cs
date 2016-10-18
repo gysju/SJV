@@ -30,6 +30,7 @@ public class Turret : CombatUnit
     protected override void Start () 
 	{
         base.Start();
+        m_turretBase = transform.GetChild(0);
     }
 
     #region Targeting Related

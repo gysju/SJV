@@ -269,6 +269,22 @@ public class Player : MobileGroundUnit
         m_rightWeapon.transform.localRotation = m_rightController.Rotation * m_rightWeaponDefaultRotation;
     }
 
+    void Rotation()
+    {
+        Quaternion leftHand = Quaternion.Euler(new Vector3(SixenseInput.Controllers[0].Rotation.eulerAngles.x, 0.0f, 0.0f));
+        Quaternion RightHand = Quaternion.Euler(new Vector3(SixenseInput.Controllers[1].Rotation.eulerAngles.x, 0.0f, 0.0f));
+        float angle = Quaternion.Angle(leftHand, RightHand);
+
+        angle /= 90.0f;
+        angle = Mathf.Clamp01(angle) * Time.deltaTime;
+        angle = (float)System.Math.Round(angle, 2);
+
+        if (SixenseInput.Controllers[0].Rotation.eulerAngles.x < SixenseInput.Controllers[1].Rotation.eulerAngles.x)
+            angle = -angle;
+
+        RotateMechaHorizontaly(angle);
+    }
+
     void RazerInputs()
     {
         if (m_leftController != null && m_rightController != null)
