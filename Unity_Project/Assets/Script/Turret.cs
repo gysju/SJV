@@ -142,10 +142,13 @@ public class Turret : CombatUnit
     #region Updates
     protected override void Update()
     {
-        base.Update();
+        if(!m_destroyed)
+        {
+            base.Update();
 
-        ChooseTarget();
-        TryAttack();
+            ChooseTarget();
+            TryAttack();
+        }
     }
     #endregion
 }
