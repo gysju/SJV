@@ -3,11 +3,14 @@ using System.Collections;
 
 public class Capture_point : MonoBehaviour 
 {
-	public enum Capture_Point_state {Capture_Point_state_Neutre, Capture_Point_state_Loading, Capture_Point_state_Waiting, Capture_Point_state_Loaded}
-	protected Capture_Point_state currentState = Capture_Point_state.Capture_Point_state_Neutre ;
+    public enum Capture_Type { Capture_type_Tactical, Capture_type_Ressources, Capture_type_Health }
+    public Capture_Type type = Capture_Type.Capture_type_Tactical;
 
-	public enum Capture_Point_type { Capture_Point_type_TriggerZone, Capture_Point_type_Activation }
-	public Capture_Point_type type = Capture_Point_type.Capture_Point_type_TriggerZone;
+	public enum Capture_Mode { Capture_Mode_TriggerZone, Capture_Mode_Activation }
+	public Capture_Mode mode = Capture_Mode.Capture_Mode_TriggerZone;
+
+    public enum Capture_State {Capture_Point_state_Neutre, Capture_Point_state_Loading, Capture_Point_state_Waiting, Capture_Point_state_Loaded}
+	protected Capture_State currentState = Capture_State.Capture_Point_state_Neutre ;
 
 	[Range(0.1f, 10.0f)]
 	public float Range = 5.0f;
@@ -20,61 +23,45 @@ public class Capture_point : MonoBehaviour
 
 	void Start () 
 	{
-		SetCollider (type);
+		SetCollider (mode);
 	}
-
-	void Update () 
+    #region Update
+    void Update () 
 	{
 		UpdateState (currentState);	
 	}
-
-	void SetCollider( Capture_Point_type state)
-	{
-		if(state == Capture_Point_type.Capture_Point_type_TriggerZone)
-		{
-			SphereCollider sphereCollider = gameObject.AddComponent<SphereCollider>();
-			sphereCollider.radius = Range;
-			sphereCollider.isTrigger = true;
-		}
-		else
-		{
-			BoxCollider boxCollider = gameObject.AddComponent <BoxCollider> ();
-			boxCollider.size = Vector3.one * Range /2.0f;
-			boxCollider.center += transform.forward * (boxCollider.size.x / 2.0f) + new Vector3( 0, boxCollider.size.x / 2.0f ,0);
-			boxCollider.isTrigger = true;
-		}
-	}
-
-	void UpdateState( Capture_Point_state state )
+    #endregion
+    #region State
+    void UpdateState(Capture_State state )
 	{
 		switch(state)
 		{
-			case Capture_Point_state.Capture_Point_state_Neutre:
+			case Capture_State.Capture_Point_state_Neutre:
 				break;
-			case Capture_Point_state.Capture_Point_state_Loading:
+			case Capture_State.Capture_Point_state_Loading:
 				CaptureThePoint ();
 				break;
-			case Capture_Point_state.Capture_Point_state_Waiting:
+			case Capture_State.Capture_Point_state_Waiting:
 				break;
-			case Capture_Point_state.Capture_Point_state_Loaded:
+			case Capture_State.Capture_Point_state_Loaded:
 				break;
 		}
 	}
 
-	void ChangeState( Capture_Point_state state )
+	void ChangeState(Capture_State state )
 	{
 		Material mat = this.GetComponent<Renderer> ().material;
 
 		// exit a state
 		switch(currentState)
 		{
-			case Capture_Point_state.Capture_Point_state_Neutre:
+			case Capture_State.Capture_Point_state_Neutre:
 				break;
-			case Capture_Point_state.Capture_Point_state_Loading:
+			case Capture_State.Capture_Point_state_Loading:
 				break;
-			case Capture_Point_state.Capture_Point_state_Waiting:
+			case Capture_State.Capture_Point_state_Waiting:
 				break;
-			case Capture_Point_state.Capture_Point_state_Loaded:
+			case Capture_State.Capture_Point_state_Loaded:
 				break;
 		}
 
@@ -83,46 +70,47 @@ public class Capture_point : MonoBehaviour
 		// enter in new state
 		switch(currentState)
 		{
-		case Capture_Point_state.Capture_Point_state_Neutre:
+		case Capture_State.Capture_Point_state_Neutre:
 			mat.color = Color.gray;
 			time = 0.0f;
 			break;
-		case Capture_Point_state.Capture_Point_state_Loading:
+		case Capture_State.Capture_Point_state_Loading:
 			mat.color = Color.blue;
 			break;
-		case Capture_Point_state.Capture_Point_state_Waiting:
+		case Capture_State.Capture_Point_state_Waiting:
 			mat.color = Color.red;
 			break;
-		case Capture_Point_state.Capture_Point_state_Loaded:
+		case Capture_State.Capture_Point_state_Loaded:
 			mat.color = Color.green;
 			break;
 		}
 	}
 
-	void CaptureThePoint()
+    void CaptureThePoint()
 	{
 		time += Time.deltaTime;
 
 		if(time >= TimeToCapture)
 		{
-			ChangeState (Capture_Point_state.Capture_Point_state_Loaded);
+			ChangeState (Capture_State.Capture_Point_state_Loaded);
 		}
 	}
-
-	void OnTriggerEnter(Collider col)
+    #endregion
+    #region Collider
+    void OnTriggerEnter(Collider col)
 	{
 		Unit unit = col.GetComponent<Unit> ();
 
-		if(type == Capture_Point_type.Capture_Point_type_TriggerZone)
+		if(mode == Capture_Mode.Capture_Mode_TriggerZone)
 		{
-			if(unit  != null && currentState == Capture_Point_state.Capture_Point_state_Neutre )
+			if(unit  != null && currentState == Capture_State.Capture_Point_state_Neutre )
 			{
 				faction = unit.m_faction;
-				ChangeState(Capture_Point_state.Capture_Point_state_Loading);
+				ChangeState(Capture_State.Capture_Point_state_Loading);
 			}
-			else if (unit  != null && currentState == Capture_Point_state.Capture_Point_state_Loading)
+			else if (unit  != null && currentState == Capture_State.Capture_Point_state_Loading)
 			{
-				ChangeState(Capture_Point_state.Capture_Point_state_Waiting);
+				ChangeState(Capture_State.Capture_Point_state_Waiting);
 			}
 		}	
 	}
@@ -131,13 +119,13 @@ public class Capture_point : MonoBehaviour
 	{
 		Unit unit = col.GetComponent<Unit> ();
 
-		if (type == Capture_Point_type.Capture_Point_type_TriggerZone) 
+		if (mode == Capture_Mode.Capture_Mode_TriggerZone) 
 		{
-			if (unit != null && currentState == Capture_Point_state.Capture_Point_state_Loading) 
+			if (unit != null && currentState == Capture_State.Capture_Point_state_Loading) 
 			{
-				ChangeState (Capture_Point_state.Capture_Point_state_Neutre);
+				ChangeState (Capture_State.Capture_Point_state_Neutre);
 			} 
-			else if (unit != null && currentState == Capture_Point_state.Capture_Point_state_Waiting) 
+			else if (unit != null && currentState == Capture_State.Capture_Point_state_Waiting) 
 			{
 				if (unit.m_faction == faction) 
 				{
@@ -145,8 +133,26 @@ public class Capture_point : MonoBehaviour
                     faction = (faction == Unit.UnitFaction.Ally) ? Unit.UnitFaction.Enemy : Unit.UnitFaction.Ally;
                 }
 
-				ChangeState (Capture_Point_state.Capture_Point_state_Loading);
+				ChangeState (Capture_State.Capture_Point_state_Loading);
 			}
 		}
 	}
+
+    void SetCollider(Capture_Mode mode)
+    {
+        if (mode == Capture_Mode.Capture_Mode_TriggerZone)
+        {
+            SphereCollider sphereCollider = gameObject.AddComponent<SphereCollider>();
+            sphereCollider.radius = Range;
+            sphereCollider.isTrigger = true;
+        }
+        else
+        {
+            BoxCollider boxCollider = gameObject.AddComponent<BoxCollider>();
+            boxCollider.size = Vector3.one * Range / 2.0f;
+            boxCollider.center += transform.forward * (boxCollider.size.x / 2.0f) + new Vector3(0, boxCollider.size.x / 2.0f, 0);
+            boxCollider.isTrigger = true;
+        }
+    }
+    #endregion
 }
