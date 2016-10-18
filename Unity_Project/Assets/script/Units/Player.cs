@@ -176,8 +176,8 @@ public class Player : MobileGroundUnit
 	{
 		Vector3 movementDirection = Vector3.zero;
 
-		float x = controller.RotationRaw.x;
-		float y = controller.RotationRaw.y;
+		float x = controller.Rotation.x;
+		float y = controller.Rotation.y;
         Debug.Log(x + " | " + y);
 		const float NEUTRAL_Z = -0.3f;
 		const float NEUTRAL_X = 0f;
