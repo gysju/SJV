@@ -18,7 +18,8 @@ public class Capture_point : MonoBehaviour
 	[Range(1.0f, 10.0f)]
 	public float TimeToCapture = 1.0f;
 
-	private Unit.UnitFaction faction = Unit.UnitFaction.Neutral;
+    private Unit.UnitFaction faction = Unit.UnitFaction.Neutral;
+	private CombatUnit combatUnit;
 	private float time = 0.0f;
 
 	void Start () 
@@ -82,33 +83,55 @@ public class Capture_point : MonoBehaviour
 			break;
 		case Capture_State.Capture_Point_state_Loaded:
 			mat.color = Color.green;
-			break;
+            AddBuffByType(combatUnit);
+
+            break;
 		}
 	}
+
+    #endregion
+    #region Actions
 
     void CaptureThePoint()
-	{
-		time += Time.deltaTime;
+    {
+        time += Time.deltaTime;
 
-		if(time >= TimeToCapture)
-		{
-			ChangeState (Capture_State.Capture_Point_state_Loaded);
-		}
-	}
+        if (time >= TimeToCapture)
+        {
+            ChangeState(Capture_State.Capture_Point_state_Loaded);
+        }
+    }
+
+    void AddBuffByType( CombatUnit combatUnit )
+    {
+        switch ( type )
+        {
+            case Capture_Type.Capture_type_Tactical:
+                // Call a GameManager.
+                break;
+            case Capture_Type.Capture_type_Ressources:
+                // reload weapons, call a method in combat unit.
+                break;
+            case Capture_Type.Capture_type_Health:
+                combatUnit.Repair(100);
+                break;
+        }
+    }
+
     #endregion
     #region Collider
     void OnTriggerEnter(Collider col)
 	{
-		Unit unit = col.GetComponent<Unit> ();
+		CombatUnit combatUnit = col.GetComponent<CombatUnit> ();
 
 		if(mode == Capture_Mode.Capture_Mode_TriggerZone)
 		{
-			if(unit  != null && currentState == Capture_State.Capture_Point_state_Neutre )
+			if(combatUnit != null && currentState == Capture_State.Capture_Point_state_Neutre )
 			{
-				faction = unit.m_faction;
+				faction = combatUnit.m_faction;
 				ChangeState(Capture_State.Capture_Point_state_Loading);
 			}
-			else if (unit  != null && currentState == Capture_State.Capture_Point_state_Loading)
+			else if (combatUnit != null && currentState == Capture_State.Capture_Point_state_Loading)
 			{
 				ChangeState(Capture_State.Capture_Point_state_Waiting);
 			}
@@ -117,17 +140,17 @@ public class Capture_point : MonoBehaviour
 
 	void OnTriggerExit(Collider col)
 	{
-		Unit unit = col.GetComponent<Unit> ();
+        CombatUnit combatUnit = col.GetComponent<CombatUnit> ();
 
 		if (mode == Capture_Mode.Capture_Mode_TriggerZone) 
 		{
-			if (unit != null && currentState == Capture_State.Capture_Point_state_Loading) 
+			if (combatUnit != null && currentState == Capture_State.Capture_Point_state_Loading) 
 			{
 				ChangeState (Capture_State.Capture_Point_state_Neutre);
 			} 
-			else if (unit != null && currentState == Capture_State.Capture_Point_state_Waiting) 
+			else if (combatUnit != null && currentState == Capture_State.Capture_Point_state_Waiting) 
 			{
-				if (unit.m_faction == faction) 
+				if (combatUnit.m_faction == faction) 
 				{
 					time = 0.0f;
                     faction = (faction == Unit.UnitFaction.Ally) ? Unit.UnitFaction.Enemy : Unit.UnitFaction.Ally;
