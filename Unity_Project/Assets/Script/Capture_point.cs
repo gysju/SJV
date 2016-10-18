@@ -124,14 +124,14 @@ public class Capture_point : MonoBehaviour
 	{
 		CombatUnit combatUnit = col.GetComponent<CombatUnit> ();
 
-		if(mode == Capture_Mode.Capture_Mode_TriggerZone)
-		{
-			if(combatUnit != null && currentState == Capture_State.Capture_Point_state_Neutre )
+		if(combatUnit != null && mode == Capture_Mode.Capture_Mode_TriggerZone && !col.isTrigger)
+        {
+			if( currentState == Capture_State.Capture_Point_state_Neutre )
 			{
 				faction = combatUnit.m_faction;
 				ChangeState(Capture_State.Capture_Point_state_Loading);
 			}
-			else if (combatUnit != null && currentState == Capture_State.Capture_Point_state_Loading)
+			else if ( currentState == Capture_State.Capture_Point_state_Loading)
 			{
 				ChangeState(Capture_State.Capture_Point_state_Waiting);
 			}
@@ -142,13 +142,13 @@ public class Capture_point : MonoBehaviour
 	{
         CombatUnit combatUnit = col.GetComponent<CombatUnit> ();
 
-		if (mode == Capture_Mode.Capture_Mode_TriggerZone) 
+		if (combatUnit != null && mode == Capture_Mode.Capture_Mode_TriggerZone && !col.isTrigger) 
 		{
-			if (combatUnit != null && currentState == Capture_State.Capture_Point_state_Loading) 
+			if ( currentState == Capture_State.Capture_Point_state_Loading) 
 			{
 				ChangeState (Capture_State.Capture_Point_state_Neutre);
 			} 
-			else if (combatUnit != null && currentState == Capture_State.Capture_Point_state_Waiting) 
+			else if ( currentState == Capture_State.Capture_Point_state_Waiting) 
 			{
 				if (combatUnit.m_faction == faction) 
 				{
