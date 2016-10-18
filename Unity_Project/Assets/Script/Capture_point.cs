@@ -19,7 +19,7 @@ public class Capture_point : MonoBehaviour
 	public float TimeToCapture = 1.0f;
 
     private Unit.UnitFaction faction = Unit.UnitFaction.Neutral;
-	private CombatUnit combatUnit;
+	private CombatUnit combatUnitOnTarget;
 	private float time = 0.0f;
 
 	void Start () 
@@ -83,7 +83,7 @@ public class Capture_point : MonoBehaviour
 			break;
 		case Capture_State.Capture_Point_state_Loaded:
 			mat.color = Color.green;
-            AddBuffByType(combatUnit);
+            AddBuffByType(combatUnitOnTarget);
 
             break;
 		}
@@ -128,7 +128,8 @@ public class Capture_point : MonoBehaviour
         {
 			if( currentState == Capture_State.Capture_Point_state_Neutre )
 			{
-				faction = combatUnit.m_faction;
+                combatUnitOnTarget = combatUnit;
+                faction = combatUnitOnTarget.m_faction;
 				ChangeState(Capture_State.Capture_Point_state_Loading);
 			}
 			else if ( currentState == Capture_State.Capture_Point_state_Loading)
