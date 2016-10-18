@@ -269,20 +269,20 @@ public class Player : MobileGroundUnit
         m_rightWeapon.transform.localRotation = m_rightController.Rotation * m_rightWeaponDefaultRotation;
     }
 
-    void Rotation()
+    void RazerRotation()
     {
-        Quaternion leftHand = Quaternion.Euler(new Vector3(SixenseInput.Controllers[0].Rotation.eulerAngles.x, 0.0f, 0.0f));
-        Quaternion RightHand = Quaternion.Euler(new Vector3(SixenseInput.Controllers[1].Rotation.eulerAngles.x, 0.0f, 0.0f));
+        Quaternion leftHand = Quaternion.Euler(new Vector3(m_leftController.Rotation.eulerAngles.x, 0.0f, 0.0f));
+        Quaternion RightHand = Quaternion.Euler(new Vector3(m_rightController.Rotation.eulerAngles.x, 0.0f, 0.0f));
         float angle = Quaternion.Angle(leftHand, RightHand);
 
         angle /= 90.0f;
         angle = Mathf.Clamp01(angle) * Time.deltaTime;
         angle = (float)System.Math.Round(angle, 2);
 
-        if (SixenseInput.Controllers[0].Rotation.eulerAngles.x < SixenseInput.Controllers[1].Rotation.eulerAngles.x)
+        if (m_leftController.Rotation.eulerAngles.x < m_rightController.Rotation.eulerAngles.x)
             angle = -angle;
 
-        RotateMechaHorizontaly(angle);
+        RotateMechaHorizontaly(-angle * m_rotationSpeed);
     }
 
     void RazerInputs()
@@ -295,13 +295,20 @@ public class Player : MobileGroundUnit
             bool leftPointer = m_leftController.GetButton(SixenseButtons.BUMPER);
             bool rightPointer = m_rightController.GetButton(SixenseButtons.BUMPER);
 
-            if (m_leftController.GetButtonUp(SixenseButtons.BUMPER)) ConfirmDestination();
-            if (m_rightController.GetButtonUp(SixenseButtons.BUMPER)) ConfirmDestination();
-
+            if (m_leftController.GetButtonUp(SixenseButtons.BUMPER) && !rightPointer) ConfirmDestination();
+            if (m_rightController.GetButtonUp(SixenseButtons.BUMPER) && !leftPointer) ConfirmDestination();
+            
             if (leftModifier)
             {
-                MoveFromLocalRotation(RazerVirtualJoysticksConvertion(m_leftController));
-                LeftArmWeaponTriggerReleased();
+                if (leftModifier && rightModifier)
+                {
+                    RazerRotation();
+                }
+                else
+                {
+                    MoveFromLocalRotation(RazerVirtualJoysticksConvertion(m_leftController));
+                    LeftArmWeaponTriggerReleased();
+                }
             }
             else
             {
@@ -320,8 +327,15 @@ public class Player : MobileGroundUnit
 
             if (rightModifier)
             {
-                MoveFromLocalRotation(RazerVirtualJoysticksConvertion(m_rightController));
-                RightArmWeaponTriggerReleased();
+                if (leftModifier && rightModifier)
+                {
+                    RazerRotation();
+                }
+                else
+                {
+                    MoveFromLocalRotation(RazerVirtualJoysticksConvertion(m_rightController));
+                    RightArmWeaponTriggerReleased();
+                }
             }
             else
             {

@@ -13,6 +13,7 @@ public class MobileGroundUnit : CombatUnit
     [ContextMenuItem("Set Destination", "SetDestinationTest")]
     [Header("Mobility")]
     public float m_maxSpeed = 2f;
+    public float m_rotationSpeed = 50f;
     
     protected override void Awake()
     {
