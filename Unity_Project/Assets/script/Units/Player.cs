@@ -63,9 +63,9 @@ public class Player : MobileGroundUnit
     #region Movements
     void RotateMechaHorizontaly(float horizontalAngle)
     {
-        Quaternion currentRotation = transform.rotation;
+        Quaternion currentRotation = transform.localRotation;
         Quaternion horizontalRotation = Quaternion.AngleAxis(horizontalAngle, Vector3.up);
-        transform.rotation = horizontalRotation * currentRotation;
+        transform.localRotation = horizontalRotation * currentRotation;
     }
 
     void RotateTorsoHorizontaly(float horizontalAngle)
@@ -87,13 +87,13 @@ public class Player : MobileGroundUnit
         {
             toTransforToTorso = (horizontalAnglePrevision - m_maxHorinzontalHeadAngle);
             finalHorizontalAngle -= toTransforToTorso;
-            RotateTorsoHorizontaly(toTransforToTorso);
+            RotateMechaHorizontaly(toTransforToTorso);
         }
         else if (horizontalAnglePrevision < -(m_maxHorinzontalHeadAngle))
         {
             toTransforToTorso = (horizontalAnglePrevision + m_maxHorinzontalHeadAngle);
             finalHorizontalAngle -= toTransforToTorso;
-            RotateTorsoHorizontaly(toTransforToTorso);
+            RotateMechaHorizontaly(toTransforToTorso);
         }
 
         float verticalAnglePrevision = m_mainCamera.transform.localRotation.eulerAngles.x;
@@ -155,6 +155,11 @@ public class Player : MobileGroundUnit
             Destroy(m_destinationPointer);
             m_destinationPointer = null;
         }
+    }
+
+    void MoveFromLocalRotation(Vector3 direction)
+    {
+        MoveToDir(transform.localRotation * direction);
     }
     #endregion
 
@@ -279,7 +284,7 @@ public class Player : MobileGroundUnit
 
             if (leftModifier)
             {
-                MoveToDir(RazerVirtualJoysticksConvertion(m_leftController));
+                MoveFromLocalRotation(RazerVirtualJoysticksConvertion(m_leftController));
                 LeftArmWeaponTriggerReleased();
             }
             else
@@ -299,7 +304,7 @@ public class Player : MobileGroundUnit
 
             if (rightModifier)
             {
-                MoveToDir(RazerVirtualJoysticksConvertion(m_rightController));
+                MoveFromLocalRotation(RazerVirtualJoysticksConvertion(m_rightController));
                 RightArmWeaponTriggerReleased();
             }
             else
@@ -347,13 +352,13 @@ public class Player : MobileGroundUnit
 
     void KeyboardMovements()
     {
-        Vector3 movement = Vector3.zero;
-        if (Input.GetKey(KeyCode.Z)) movement.z += 1f;
-        if (Input.GetKey(KeyCode.S)) movement.z -= 1f;
-        if (Input.GetKey(KeyCode.D)) movement.x += 1f;
-        if (Input.GetKey(KeyCode.Q)) movement.x -= 1f;
-        MoveToDir(movement);
-        if (movement == Vector3.zero) ContinueNavMesh();
+        Vector3 movementDirection = Vector3.zero;
+        if (Input.GetKey(KeyCode.Z)) movementDirection.z += 1f;
+        if (Input.GetKey(KeyCode.S)) movementDirection.z -= 1f;
+        if (Input.GetKey(KeyCode.D)) movementDirection.x += 1f;
+        if (Input.GetKey(KeyCode.Q)) movementDirection.x -= 1f;
+        MoveFromLocalRotation(movementDirection);
+        if (movementDirection == Vector3.zero) ContinueNavMesh();
 
         if (Input.GetMouseButton(2))
         {
