@@ -165,10 +165,13 @@ public class Player : MobileGroundUnit
     #region Inputs
 
     #region PSMoves
+#if UNITY_PS4
 
+#endif
     #endregion
 
     #region Razer Hydra
+#if UNITY_STANDALONE
     Vector3 RazerVirtualJoysticksConvertion(SixenseInput.Controller controller)
 	{
 		Vector3 movementDirection = Vector3.zero;
@@ -190,15 +193,15 @@ public class Player : MobileGroundUnit
 
 		float zdir = 0;
 		if (x > NEUTRAL_Z) //avant
-			zdir = (Mathf.InverseLerp (MIN_FORWARD, MAX_FORWARD, x) * Time.deltaTime);
+			zdir = (Mathf.InverseLerp (MIN_FORWARD, MAX_FORWARD, x));
 		if (x < NEUTRAL_Z) //arrière
-			zdir = -(Mathf.InverseLerp (MIN_BACKWARD, MAX_BACKWARD, x) * Time.deltaTime);
+			zdir = -(Mathf.InverseLerp (MIN_BACKWARD, MAX_BACKWARD, x));
 
 		float xdir = 0;
 		if (y < NEUTRAL_X) //gauche
-			xdir = -(Mathf.InverseLerp (MIN_LEFT, MAX_LEFT, y) * Time.deltaTime);
+			xdir = -(Mathf.InverseLerp (MIN_LEFT, MAX_LEFT, y));
 		if (y > NEUTRAL_X) //droite
-			xdir = (Mathf.InverseLerp (MIN_RIGHT, MAX_RIGHT, y) * Time.deltaTime);
+			xdir = (Mathf.InverseLerp (MIN_RIGHT, MAX_RIGHT, y));
 
 		movementDirection += new Vector3 (xdir, 0f, zdir);
 
@@ -284,9 +287,11 @@ public class Player : MobileGroundUnit
             else if (rightController.GetButtonUp(SixenseButtons.TRIGGER)) RightArmWeaponTriggerReleased();
         }
     }
+#endif
     #endregion
 
     #region Mouse & Keyboard
+#if UNITY_STANDALONE
     void MouseAim()
     {
         RotatePilotHead(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
@@ -330,17 +335,18 @@ public class Player : MobileGroundUnit
             ConfirmDestination();
         }
     }
+#endif
+    #endregion
+    #endregion
 
+    #region Updates
     void MouseKeyboardInputs()
     {
         MouseAim();
         MouseShootInputs();
         KeyboardMovements();
     }
-    #endregion
-    #endregion
 
-    #region Updates
     void InputsUpdate()
     {
         MouseKeyboardInputs();
@@ -352,5 +358,5 @@ public class Player : MobileGroundUnit
         base.Update();
         InputsUpdate();
     }
-    #endregion
+#endregion
 }
