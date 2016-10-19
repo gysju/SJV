@@ -3,6 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
+#if UNITY_PS4
+using UnityEngine.PS4;
+#endif
+
 public class Player : MobileGroundUnit
 {
     private Camera m_mainCamera;
@@ -24,24 +28,33 @@ public class Player : MobileGroundUnit
     public GameObject m_pointer;
     private GameObject m_destinationPointer = null;
 
-    [Header("Razer Hydra Related")]
-    SixenseInput.Controller m_leftController;
-    SixenseInput.Controller m_rightController;
+    #if UNITY_PS4
+        //[Header("PSMove Related")]
+    #else
+        [Header("Razer Hydra Related")]
+        SixenseInput.Controller m_leftController;
+        SixenseInput.Controller m_rightController;
+    #endif
     Vector3 m_baseOffset;
     float m_sensitivity = 0.001f;
 
     #region Initialisation
+    #if UNITY_STANDALONE
     private void RazerStart()
     {
-
         m_baseOffset = Vector3.zero;
 
         m_leftController = SixenseInput.Controllers[0];
         m_rightController = SixenseInput.Controllers[1];
 
-        m_baseOffset += m_leftController.Position;
+        m_baseOffset += m_leftController;
         m_baseOffset += m_rightController.Position;
         m_baseOffset /= 2;
+    }
+    #endif
+    private void PSMoveStart()
+    {
+        m_baseOffset = Vector3.zero;
     }
 
     protected override void Start()
@@ -55,7 +68,11 @@ public class Player : MobileGroundUnit
         m_rightWeaponDefaultPosition = m_rightWeapon.transform.localPosition;
         m_rightWeaponDefaultRotation = m_rightWeapon.transform.localRotation;
 
+        #if UNITY_STANDALONE
         RazerStart();
+        #else
+        PSMoveStart();
+        #endif
     }
     #endregion
 
@@ -201,7 +218,141 @@ public class Player : MobileGroundUnit
 #if UNITY_PS4
     #region PSMoves
 
+    void PSMoveRotation()
+    {
+        Quaternion leftHand = Quaternion.Euler(new Vector3(PS4Input.GetLastMoveAcceleration(0,0).x, 0.0f, 0.0f));
+        Quaternion RightHand = Quaternion.Euler(new Vector3(PS4Input.GetLastMoveAcceleration(0,1).x, 0.0f, 0.0f));
+        float angle = Quaternion.Angle(leftHand, RightHand);
+
+        angle /= 90.0f;
+        angle = Mathf.Clamp01(angle) * Time.deltaTime;
+        angle = (float)System.Math.Round(angle, 2);
+
+        if (PS4Input.GetLastMoveAcceleration(0,0).x < PS4Input.GetLastMoveAcceleration(0,1).x)
+            angle = -angle;
+
+        RotateMechaHorizontaly(-angle * m_rotationSpeed);
+    }
+
+    void PSMoveLeftWeaponControl()
+    {
+        //m_leftWeapon.transform.localPosition = m_leftWeaponDefaultPosition + ((m_leftController.Position - m_baseOffset) * m_sensitivity);
+        m_leftWeapon.transform.localRotation = Quaternion.Euler(PS4Input.GetLastMoveAcceleration(0, 0)) * m_leftWeaponDefaultRotation;
+    }
+
+    void PSMoveRightWeaponControl()
+    {
+        //m_rightWeapon.transform.localPosition = m_rightWeaponDefaultPosition + ((m_rightController.Position - m_baseOffset) * m_sensitivity);
+        m_rightWeapon.transform.localRotation = Quaternion.Euler(PS4Input.GetLastMoveAcceleration(0, 1)) * m_rightWeaponDefaultRotation;
+    }
+
+    void PSMoveInputs()
+    {
+        if (PS4Input.MoveIsConnected(0, 0) && PS4Input.MoveIsConnected(0, 1))
+        {
+            
+            bool leftModifier = m_leftController.GetButton(SixenseButtons.ONE);
+            bool rightModifier = m_rightController.GetButton(SixenseButtons.ONE);
+
+            bool leftPointer = m_leftController.GetButton(SixenseButtons.BUMPER);
+            bool rightPointer = m_rightController.GetButton(SixenseButtons.BUMPER);
+
+            if (m_leftController.GetButtonUp(SixenseButtons.BUMPER) && !rightPointer) ConfirmDestination();
+            if (m_rightController.GetButtonUp(SixenseButtons.BUMPER) && !leftPointer) ConfirmDestination();
+
+            if (leftModifier)
+            {
+                if (leftModifier && rightModifier)
+                {
+                    PSMoveRotation();
+                }
+                else
+                {
+                    MoveFromLocalRotation(PSMoveVirtualJoysticksConvertion(0));
+                    LeftArmWeaponTriggerReleased();
+                }
+            }
+            else
+            {
+                PSMoveLeftWeaponControl();
+                if (leftPointer)
+                {
+                    PointDestination(m_leftWeapon.m_muzzle);
+                    LeftArmWeaponTriggerReleased();
+                }
+                else
+                {
+                    if (m_leftController.GetButtonDown(SixenseButtons.TRIGGER)) LeftArmWeaponTriggered();
+                    if (m_leftController.GetButtonUp(SixenseButtons.TRIGGER)) LeftArmWeaponTriggerReleased();
+                }
+            }
+
+            if (rightModifier)
+            {
+                if (leftModifier && rightModifier)
+                {
+                    PSMoveRotation();
+                }
+                else
+                {
+                    MoveFromLocalRotation(PSMoveVirtualJoysticksConvertion(1));
+                    RightArmWeaponTriggerReleased();
+                }
+            }
+            else
+            {
+                PSMoveRightWeaponControl();
+                if (rightPointer)
+                {
+                    PointDestination(m_rightWeapon.m_muzzle);
+                    RightArmWeaponTriggerReleased();
+                }
+                else
+                {
+                    if (m_rightController.GetButtonDown(SixenseButtons.TRIGGER)) RightArmWeaponTriggered();
+                    if (m_rightController.GetButtonUp(SixenseButtons.TRIGGER)) RightArmWeaponTriggerReleased();
+                }
+            }
+        }
+    }
+
+    Vector3 PSMoveVirtualJoysticksConvertion(int index)
+    {
+        Vector3 movementDirection = Vector3.zero;
+
+        float x = PS4Input.GetLastMoveAcceleration(0, index).x;
+        float y = PS4Input.GetLastMoveAcceleration(0, index).y;
+
+        const float NEUTRAL_Z = -0.3f;
+        const float NEUTRAL_X = 0f;
+
+        const float MAX_FORWARD = 0f;
+        const float MIN_FORWARD = -0.2f;
+        const float MAX_BACKWARD = -0.6f;
+        const float MIN_BACKWARD = -0.4f;
+        const float MAX_LEFT = -0.2f;
+        const float MIN_LEFT = -0.1f;
+        const float MAX_RIGHT = 0.2f;
+        const float MIN_RIGHT = 0.1f;
+
+        float zdir = 0;
+        if (x > NEUTRAL_Z) //avant
+            zdir = (Mathf.InverseLerp(MIN_FORWARD, MAX_FORWARD, x));
+        if (x < NEUTRAL_Z) //arrière
+            zdir = -(Mathf.InverseLerp(MIN_BACKWARD, MAX_BACKWARD, x));
+
+        float xdir = 0;
+        if (y < NEUTRAL_X) //gauche
+            xdir = -(Mathf.InverseLerp(MIN_LEFT, MAX_LEFT, y));
+        if (y > NEUTRAL_X) //droite
+            xdir = (Mathf.InverseLerp(MIN_RIGHT, MAX_RIGHT, y));
+
+        movementDirection += new Vector3(xdir, 0f, zdir);
+
+        return movementDirection;
+    }
     #endregion
+
 #endif
 
 #if UNITY_STANDALONE
@@ -241,21 +392,6 @@ public class Player : MobileGroundUnit
 
         return movementDirection;
 	}
-
-	void PointingSystem(SixenseHand hand)
-	{
-		if (hand.m_controller.GetButton(SixenseButtons.BUMPER))
-		{
-			Transform origin = hand.GetComponent<Weapon>().transform;
-
-            PointDestination(origin);
-		}
-
-		if (CheckDestination() && hand.m_controller.GetButtonUp(SixenseButtons.BUMPER))
-		{
-            ConfirmDestination();
-		}
-    }
 
     void RazerLeftWeaponControl()
     {
@@ -413,8 +549,10 @@ public class Player : MobileGroundUnit
     #region Updates
     void InputsUpdate()
     {
+        #if UNITY_STANDALONE
         MouseKeyboardInputs();
         RazerInputs();
+        #endif
     }
 
     protected override void Update()
