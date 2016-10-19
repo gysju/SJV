@@ -47,7 +47,7 @@ public class Player : MobileGroundUnit
         m_leftController = SixenseInput.Controllers[0];
         m_rightController = SixenseInput.Controllers[1];
 
-        m_baseOffset += m_leftController;
+        m_baseOffset += m_leftController.Position;
         m_baseOffset += m_rightController.Position;
         m_baseOffset /= 2;
     }

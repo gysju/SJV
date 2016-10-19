@@ -2,8 +2,9 @@
 using System.Collections;
 using System;
 
+#if UNITY_PS4
 using UnityEngine.PS4;
-
+#endif
 public class ps4_move : MonoBehaviour {
 
 	// Use this for initialization
@@ -14,6 +15,7 @@ public class ps4_move : MonoBehaviour {
 
 	void OnGUI() 
 	{
+        #if UNITY_PS4
 		int numDetected = 0;
 		for (int slot=0;slot<4;slot++)
 		{
@@ -35,6 +37,6 @@ public class ps4_move : MonoBehaviour {
 
 		}
 		GUI.Label(new Rect(64, 800, 1500, 20), String.Format("{0} Move controlers detected", numDetected) );
-		
+        #endif
 	}
 }
