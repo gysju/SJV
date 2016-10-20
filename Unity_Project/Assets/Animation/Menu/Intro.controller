@@ -482,7 +482,7 @@ AnimatorState:
   m_Transitions:
   - {fileID: 110133072}
   m_StateMachineBehaviours:
-  - {fileID: 114000011447821914}
+  - {fileID: 114000012918096668}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -532,7 +532,7 @@ AnimatorState:
   m_Transitions:
   - {fileID: 110171764}
   m_StateMachineBehaviours:
-  - {fileID: 114000010812986690}
+  - {fileID: 114000010606588822}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -557,7 +557,7 @@ AnimatorState:
   m_Transitions:
   - {fileID: 110158900}
   m_StateMachineBehaviours:
-  - {fileID: 114000011544387240}
+  - {fileID: 114000011114072272}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -660,7 +660,7 @@ MonoBehaviour:
     m_TypeName: GameStateBaseAnimatorBehaviour+OnBehaviourEvent, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   LoadedScene: Proto_v0.1
---- !u!114 &114000010812986690
+--- !u!114 &114000010606588822
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -668,7 +668,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e71d406412712c641819b8bd887b3e52, type: 3}
+  m_Script: {fileID: 11500000, guid: 856f8bb506b6c9944be076db8e607bb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_RelatedMenuPrefab: {fileID: 188918, guid: 767c806b8e6bf584cb2a24dac73f37d4, type: 2}
@@ -688,7 +688,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: GameStateBaseAnimatorBehaviour+OnBehaviourEvent, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
---- !u!114 &114000011447821914
+--- !u!114 &114000011114072272
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -696,35 +696,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e71d406412712c641819b8bd887b3e52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_RelatedMenuPrefab: {fileID: 175982, guid: 38f58ce860092d845940bd96263ffd19, type: 2}
-  m_StateFadeOutSpeed: 2
-  OnEnter:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: GameStateBaseAnimatorBehaviour+OnBehaviourEvent, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  OnUpdate:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: GameStateBaseAnimatorBehaviour+OnBehaviourEvent, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  OnExit:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: GameStateBaseAnimatorBehaviour+OnBehaviourEvent, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
---- !u!114 &114000011544387240
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e71d406412712c641819b8bd887b3e52, type: 3}
+  m_Script: {fileID: 11500000, guid: 856f8bb506b6c9944be076db8e607bb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_RelatedMenuPrefab: {fileID: 118994, guid: feb3cd8e2fc5cb945aca5fa5a8edfca4, type: 2}
@@ -757,6 +729,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_RelatedMenuPrefab: {fileID: 1000012077469310, guid: 79fa65004110f594ea21642162e7d85e,
     type: 2}
+  m_StateFadeOutSpeed: 2
+  OnEnter:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: GameStateBaseAnimatorBehaviour+OnBehaviourEvent, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  OnUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: GameStateBaseAnimatorBehaviour+OnBehaviourEvent, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  OnExit:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: GameStateBaseAnimatorBehaviour+OnBehaviourEvent, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+--- !u!114 &114000012918096668
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 856f8bb506b6c9944be076db8e607bb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RelatedMenuPrefab: {fileID: 175982, guid: 38f58ce860092d845940bd96263ffd19, type: 2}
   m_StateFadeOutSpeed: 2
   OnEnter:
     m_PersistentCalls:
