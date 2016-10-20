@@ -14,17 +14,19 @@ public class MobileGroundUnit : CombatUnit
     [Header("Mobility")]
     public float m_maxSpeed = 2f;
     public float m_rotationSpeed = 50f;
+
+    protected override void Reset()
+    {
+        base.Reset();
+
+        m_navMeshAgent = GetComponent<NavMeshAgent>();
+        m_navMeshAgent.stoppingDistance = 0.5f;
+        DisableNavMeshAgent();
+    }
     
     protected override void Awake()
     {
         base.Awake();
-        m_navMeshAgent = GetComponent<NavMeshAgent>();
-
-        if (m_navMeshAgent == null)
-            m_navMeshAgent = GetComponentInParent<NavMeshAgent>();
-
-        EnableNavMeshAgent();
-        m_navMeshAgent.stoppingDistance = 0.5f;
     }
 
     protected override void Start()

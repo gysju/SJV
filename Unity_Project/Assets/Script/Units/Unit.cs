@@ -4,7 +4,8 @@ using System.Collections;
 [AddComponentMenu("MechaVR/Units/DEV/Unit")]
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(NavMeshObstacle))]
-public class Unit : GraphicalElement
+[RequireComponent(typeof(BoxCollider))]
+public class Unit : MonoBehaviour
 {
     const int MIN_HIT_POINTS = 0;
     const int MAX_HIT_POINTS = 100;
@@ -57,19 +58,20 @@ public class Unit : GraphicalElement
 
     protected bool m_vulnerable = true;
 
-    protected override void Awake()
+    protected virtual void Reset()
     {
-        base.Awake();
+        GetComponent<BoxCollider>().size = Vector3.zero;
         m_navMeshObstacle = GetComponent<NavMeshObstacle>();
-		if(m_navMeshObstacle == null)
-		{
-			m_navMeshObstacle = GetComponentInParent<NavMeshObstacle> ();
-		}
     }
 
-    protected override void Start()
+    protected virtual void Awake()
     {
-        base.Start();
+        
+    }
+
+    protected virtual void Start()
+    {
+        
         m_currentHitPoints = m_startingHitPoints;
         CheckHitPoints();
     }
@@ -102,7 +104,6 @@ public class Unit : GraphicalElement
     protected void Die()
     {
         m_destroyed = true;
-        StartFade(INVISIBLE, TIME_TO_DIE);
     }
     
     /// <summary>Vérifie si les hit points ne sont pas inférieurs à 0 ou supérieurs au maximum.</summary>
@@ -149,9 +150,9 @@ public class Unit : GraphicalElement
     #endregion
 
     #region Updates
-    protected override void Update()
+    protected virtual void Update()
     {
-        base.Update();
+
 	}
     #endregion
 }

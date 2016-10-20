@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[AddComponentMenu("MechaVR/Units/Turret")]
 public class Turret : CombatUnit
 {
     [Header("Turret specifics")]

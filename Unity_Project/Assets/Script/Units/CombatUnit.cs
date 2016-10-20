@@ -23,33 +23,26 @@ public class CombatUnit : Unit
     [Tooltip("Unit's Weapons list.")]
     public List<Weapon> m_weapons = new List<Weapon>();
 
+    protected override void Reset()
+    {
+        base.Reset();
+
+        m_radar = GetComponent<SphereCollider>();
+        m_radar.isTrigger = true;
+        UpdateRadarRange();
+    }
+
     protected override void Start()
     {
         base.Start();
-        m_radar = GetComponent<SphereCollider>();
-        m_radar.isTrigger = true;
-        m_radar.radius = m_radarRange;
+        UpdateRadarRange();
     }
 
-    #region Targeting Related
-    //protected void ChooseTarget()
-    //{
-    //    if (m_possibleTargets.Count > 0)
-    //    {
-    //        foreach (Unit potentialTarget in m_possibleTargets)
-    //        {
-    //            if (!m_currentTarget) m_currentTarget = potentialTarget;
-    //            else
-    //            {
-    //                float currentTargetDistance = Vector3.Distance(m_currentTarget.transform.position, transform.position);
-    //                float potentialTargetDistance = Vector3.Distance(potentialTarget.transform.position, transform.position);
-
-    //                if (potentialTargetDistance < currentTargetDistance) m_currentTarget = potentialTarget;
-    //            }
-    //        }
-    //    }
-    //    else m_currentTarget = null;
-    //}
+    #region Radar Related
+    protected void UpdateRadarRange()
+    {
+        m_radar.radius = m_radarRange;
+    }
 
     protected void CheckTargetsStatus()
     {
@@ -84,44 +77,10 @@ public class CombatUnit : Unit
     }
     #endregion
 
-    #region Attack Related
-    //protected bool CheckAim(Weapon weapon)
-    //{
-    //    RaycastHit hit;
-    //    if (Physics.Raycast(weapon.m_muzzle.position, weapon.m_muzzle.forward, out hit))
-    //    {
-    //        Unit unit = hit.collider.GetComponent<Unit>();
-
-    //        if (unit == m_currentTarget)
-    //            return true;
-    //    }
-
-    //    return false;
-    //}
-
-    //protected void CheckTargetDistanceToFire()
-    //{
-    //    if (m_currentTarget)
-    //    {
-    //        foreach (Weapon weapon in m_weapons)
-    //        {
-    //            if (weapon != null)
-    //            {
-    //                float currentTargetDistance = Vector3.Distance(m_currentTarget.transform.position, transform.position);
-                    
-    //                if (weapon.m_optimalRange > currentTargetDistance && CheckAim(weapon)) weapon.TriggerPressed();
-    //            }
-    //        }
-    //    }
-    //}
-    #endregion
-
     #region Updates
     protected override void Update()
     {
         base.Update();
-        //ChooseTarget();
-        //CheckTargetDistanceToFire();
     }
     #endregion
 }
