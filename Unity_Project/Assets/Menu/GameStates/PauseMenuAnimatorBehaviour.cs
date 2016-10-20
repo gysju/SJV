@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenuAnimatorBehaviour : GameStateBaseAnimatorBehaviour
 {
+	public string SceneToRestart;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -34,7 +35,7 @@ public class PauseMenuAnimatorBehaviour : GameStateBaseAnimatorBehaviour
         base.OnStateExit(animator, stateInfo, layerIndex);
 
 		if ( GetMenu().NextState == "Restart")
-            SceneManager.LoadSceneAsync("scene");
+			SceneManager.LoadSceneAsync(SceneToRestart);
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove(). Code that processes and affects root motion should be implemented here
