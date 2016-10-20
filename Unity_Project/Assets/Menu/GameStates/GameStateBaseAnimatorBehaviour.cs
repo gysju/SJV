@@ -55,15 +55,7 @@ public class GameStateBaseAnimatorBehaviour : StateMachineBehaviour
             m_RelatedMenu = GameObject.Instantiate(m_RelatedMenuPrefab) as GameObject;
             m_RelatedMenu.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform.FindChild("ParentMenu").transform);
 
-            // set size of rect transform, i d'ont know why but when i set the size in the prefab, thats didn't work.
-            m_RelatedMenu.GetComponent<RectTransform>().offsetMin = new Vector2(m_RelatedMenu.GetComponent<RectTransform>().offsetMin.x, 0.0f);
-            m_RelatedMenu.GetComponent<RectTransform>().offsetMax = new Vector2(m_RelatedMenu.GetComponent<RectTransform>().offsetMax.x, 0.0f);
-
-            m_RelatedMenu.GetComponent<RectTransform>().offsetMin = new Vector2(m_RelatedMenu.GetComponent<RectTransform>().offsetMin.y, 0.0f);
-            m_RelatedMenu.GetComponent<RectTransform>().offsetMax = new Vector2(m_RelatedMenu.GetComponent<RectTransform>().offsetMax.y, 0.0f);
-
-            m_RelatedMenu.transform.localScale = Vector3.one;
-
+			setCanvasSize ();
         }
         else
         {
@@ -112,4 +104,17 @@ public class GameStateBaseAnimatorBehaviour : StateMachineBehaviour
     {
         return m_RelatedMenu.GetComponent<Menu>();
     }
+
+	public void setCanvasSize()
+	{
+		// set size of rect transform, i d'ont know why but when i set the size in the prefab, thats didn't work.
+		RectTransform rectTransfrom = m_RelatedMenu.GetComponent<RectTransform>();
+
+		rectTransfrom.offsetMin = new Vector2(rectTransfrom.offsetMin.x, 0.0f);
+		rectTransfrom.offsetMax = new Vector2(rectTransfrom.offsetMax.x, 0.0f);
+		rectTransfrom.offsetMin = new Vector2(rectTransfrom.offsetMin.y, 0.0f);
+		rectTransfrom.offsetMax = new Vector2(rectTransfrom.offsetMax.y, 0.0f);
+
+		m_RelatedMenu.transform.localScale = Vector3.one;
+	}
 }

@@ -5,6 +5,7 @@ public class PlayingAnimatorBehaviour : GameStateBaseAnimatorBehaviour
 {
     private bool IsDone = false;
     public bool DeathOrFinish = false;
+
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -34,14 +35,4 @@ public class PlayingAnimatorBehaviour : GameStateBaseAnimatorBehaviour
         IsDone = false;
         DeathOrFinish = false;
     }
-
-    // OnStateMove is called right after Animator.OnAnimatorMove(). Code that processes and affects root motion should be implemented here
-    //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-    //
-    //}
-
-    // OnStateIK is called right after Animator.OnAnimatorIK(). Code that sets up animation IK (inverse kinematics) should be implemented here.
-    //override public void OnStateIK(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-    //
-    //}
 }
