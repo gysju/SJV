@@ -6,14 +6,12 @@ public class PlayingAnimatorBehaviour : GameStateBaseAnimatorBehaviour
     private bool IsDone = false;
     public bool DeathOrFinish = false;
 
-    // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateEnter(animator, stateInfo, layerIndex);
         CanvasManager.Get.eState_Menu = CanvasManager.EState_Menu.EState_Menu_InGame;
     }
 
-    // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         if ((Input.GetButtonDown("Start") 
@@ -28,7 +26,6 @@ public class PlayingAnimatorBehaviour : GameStateBaseAnimatorBehaviour
             animator.SetTrigger("PauseMenu");
     }
 
-    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateExit(animator, stateInfo, layerIndex);

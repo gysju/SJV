@@ -5,21 +5,8 @@ using UnityEngine.Serialization;
 
 public class MainMenuAnimatorBehaviour : GameStateBaseAnimatorBehaviour
 {
-    // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
-    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) 
-    {
-        base.OnStateEnter(animator, stateInfo, layerIndex);
-    }
-
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-    
+    	// just don't use the update from parent.
     }
-
-    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) 
-    {
-        base.OnStateExit(animator, stateInfo, layerIndex);
-    }
-		
 }

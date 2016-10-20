@@ -7,8 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class StartMenuAnimatorBehaviour : GameStateBaseAnimatorBehaviour
 {
-    // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
-    public string LoadedScene;
+	public string NextScene;
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -16,7 +15,6 @@ public class StartMenuAnimatorBehaviour : GameStateBaseAnimatorBehaviour
         CanvasManager.Get.eState_Menu = CanvasManager.EState_Menu.EState_Menu_Main;
     }
 
-    // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) 
     {
         if (GetMenu().bOnClick && !animator.IsInTransition(layerIndex))
@@ -30,12 +28,11 @@ public class StartMenuAnimatorBehaviour : GameStateBaseAnimatorBehaviour
             animator.SetTrigger(GetMenu().NextState);
     }
 
-    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateExit(animator, stateInfo, layerIndex);
 
         if (GetMenu().NextState == "Playing")
-            SceneManager.LoadSceneAsync(LoadedScene);
+			SceneManager.LoadSceneAsync(NextScene);
     }
 }

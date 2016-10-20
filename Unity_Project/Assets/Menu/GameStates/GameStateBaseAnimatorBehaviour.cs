@@ -15,12 +15,6 @@ public class GameStateBaseAnimatorBehaviour : StateMachineBehaviour
 
     [System.Serializable]
     public class OnBehaviourEvent : UnityEvent { };
-    [SerializeField]
-    private OnBehaviourEvent OnEnter;
-    [SerializeField]
-    private OnBehaviourEvent OnUpdate;
-    [SerializeField]
-    private OnBehaviourEvent OnExit;
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
