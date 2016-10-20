@@ -23,6 +23,7 @@ public class HoverTank : MobileGroundUnit
     [Range(0.1f, 10.0f)]
     public float m_imprecisioAngle = 10.0f;
 
+    #region Initialisation
     protected override void Awake()
     {
         base.Awake();
@@ -32,6 +33,7 @@ public class HoverTank : MobileGroundUnit
     {
         base.Start();
     }
+    #endregion
 
     #region Targeting Related
     protected void ChooseTarget()
@@ -131,15 +133,21 @@ public class HoverTank : MobileGroundUnit
     }
     #endregion
 
+    #region IA Related
+    protected void IA()
+    {
+        ChooseTarget();
+        TryAttack();
+    }
+    #endregion
+
     #region Updates
     protected override void Update()
     {
         if (!m_destroyed)
         {
             base.Update();
-
-            ChooseTarget();
-            TryAttack();
+            IA();
         }
     }
     #endregion

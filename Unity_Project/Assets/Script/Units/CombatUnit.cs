@@ -26,15 +26,14 @@ public class CombatUnit : Unit
     protected override void Reset()
     {
         base.Reset();
-
-        m_radar = GetComponent<SphereCollider>();
-        m_radar.isTrigger = true;
-        UpdateRadarRange();
     }
 
     protected override void Start()
     {
         base.Start();
+
+        m_radar = GetComponent<SphereCollider>();
+        m_radar.isTrigger = true;
         UpdateRadarRange();
     }
 
@@ -44,12 +43,14 @@ public class CombatUnit : Unit
         m_radar.radius = m_radarRange;
     }
 
-    protected void CheckTargetsStatus()
+    protected void CheckCurrentTargetStatus()
     {
-        foreach (Unit potentialTarget in m_possibleTargets)
+        if (m_currentTarget && m_currentTarget.IsDestroyed())
         {
-            if (potentialTarget.IsDestroyed()) m_possibleTargets.Remove(potentialTarget);
+            m_possibleTargets.Remove(m_currentTarget);
+            m_currentTarget = null;
         }
+            
     }
 
     protected virtual void OnTriggerEnter(Collider col)
@@ -81,6 +82,7 @@ public class CombatUnit : Unit
     protected override void Update()
     {
         base.Update();
+        CheckCurrentTargetStatus();
     }
     #endregion
 }

@@ -18,15 +18,14 @@ public class MobileGroundUnit : CombatUnit
     protected override void Reset()
     {
         base.Reset();
-
-        m_navMeshAgent = GetComponent<NavMeshAgent>();
-        m_navMeshAgent.stoppingDistance = 0.5f;
-        DisableNavMeshAgent();
     }
     
     protected override void Awake()
     {
         base.Awake();
+        m_navMeshAgent = GetComponent<NavMeshAgent>();
+        m_navMeshAgent.stoppingDistance = 0.5f;
+        DisableNavMeshAgent();
     }
 
     protected override void Start()
@@ -143,7 +142,7 @@ public class MobileGroundUnit : CombatUnit
     void FixedUpdate()
     {
         if (m_navMeshAgent.isActiveAndEnabled)
-            if (CheckDestination()) PauseNavMesh();
+            if (CheckDestination()) DisableNavMeshAgent();
     }
     #endregion
 }

@@ -61,12 +61,11 @@ public class Unit : MonoBehaviour
     protected virtual void Reset()
     {
         GetComponent<BoxCollider>().size = Vector3.zero;
-        m_navMeshObstacle = GetComponent<NavMeshObstacle>();
     }
 
     protected virtual void Awake()
     {
-        
+        m_navMeshObstacle = GetComponent<NavMeshObstacle>();
     }
 
     protected virtual void Start()
