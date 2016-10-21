@@ -51,12 +51,20 @@ public class Unit : GraphicalElement
     [Range(MIN_ARMOR, MAX_ARMOR)]
     public int m_armor;
 
+    [Header("Unit's point to target")]
+    [Tooltip("Unit's point an IA will aim to.")]
+    public Transform m_targetPoint;
+
     protected bool m_vulnerable = true;
 
     protected override void Awake()
     {
         base.Awake();
         m_navMeshObstacle = GetComponent<NavMeshObstacle>();
+		if(m_navMeshObstacle == null)
+		{
+			m_navMeshObstacle = GetComponentInParent<NavMeshObstacle> ();
+		}
     }
 
     protected override void Start()

@@ -241,7 +241,7 @@ public class SixenseInput : MonoBehaviour
 	/// <summary>
 	/// Initialize the sixense driver and allocate the controllers.
 	/// </summary>
-	void Start()
+	void Awake()
 	{
 		SixensePlugin.sixenseInit();
 		
