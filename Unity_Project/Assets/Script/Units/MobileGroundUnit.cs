@@ -35,11 +35,6 @@ public class MobileGroundUnit : CombatUnit
     }
 
     #region Movement Related
-    protected void SetDestinationTest()
-    {
-        SetDestination(new Vector3(21f, 2f, 10f));
-    }
-
     private void EnableNavMeshAgent()
     {
         m_navMeshObstacle.enabled = false;
@@ -59,6 +54,7 @@ public class MobileGroundUnit : CombatUnit
         if (NavMesh.SamplePosition(newDestination, out hit, 1.0f, NavMesh.AllAreas))
         {
             m_navMeshAgent.SetDestination(hit.position);
+            Debug.Log(m_navMeshAgent.destination);
         }
         else ClearNavMesh();
     }

@@ -80,7 +80,7 @@ public class Unit : MonoBehaviour
     #region Faction Related
     /// <summary>A utiliser pour changer la faction de l'unité.</summary>
     /// <param name ="newFaction">Nouvelle faction à appliquer.</param>
-    protected void ChangeFaction(UnitFaction newFaction)
+    public void ChangeFaction(UnitFaction newFaction)
     {
         m_faction = newFaction;
     }

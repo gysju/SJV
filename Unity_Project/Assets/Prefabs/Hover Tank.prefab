@@ -81,7 +81,7 @@ GameObject:
   - 54: {fileID: 54000012463209362}
   - 114: {fileID: 114000011653360600}
   m_Layer: 0
-  m_Name: Ally Hover Tank
+  m_Name: Hover Tank
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -368,7 +368,6 @@ MonoBehaviour:
   - {fileID: 114000012053890562}
   m_maxSpeed: 2
   m_rotationSpeed: 50
-  m_destination: {fileID: 0}
   m_turretBase: {fileID: 4000013556056628}
   m_turretDegreesPerSecond: 45
   m_cannonDegreesPerSecond: 45
@@ -388,7 +387,7 @@ MonoBehaviour:
   m_muzzle: {fileID: 4000011299894336}
   m_muzzleFlash: {fileID: 1000012896234374, guid: 6062d7d4ed85af74790cd7caabc06acc,
     type: 2}
-  m_ammo: {fileID: 196214, guid: be77629a5b6628349b9cd18243b7228d, type: 2}
+  m_ammo: {fileID: 196214, guid: ee41412e45a4c5f44820cac4bb2795a1, type: 2}
   m_firingMethod: 2
   m_rpm: 60
   m_magazine: 1
@@ -436,9 +435,9 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_Extents: {x: 0.81, y: 0.965, z: 1.535}
   m_MoveThreshold: 0.1
   m_Carve: 0
   m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
   m_TimeToStationary: 0.5

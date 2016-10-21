@@ -4,7 +4,10 @@ using System.Collections;
 [AddComponentMenu("MechaVR/Units/Hover Tank")]
 public class HoverTank : MobileGroundUnit
 {
-    public Transform m_destination;
+    //protected IAGeneral m_general;
+
+    [SerializeField]
+    protected Transform m_destination;
 
     [Header("Turret specifics")]
     public Transform m_turretBase;
@@ -34,6 +37,18 @@ public class HoverTank : MobileGroundUnit
     protected override void Start()
     {
         base.Start();
+    }
+    #endregion
+
+    #region Movement Related
+    private void AskOrder()
+    {
+
+    }
+
+    public void SetDestination(Transform newDestination)
+    {
+        m_destination = newDestination;
         SetDestination(m_destination.position);
     }
     #endregion
@@ -66,16 +81,6 @@ public class HoverTank : MobileGroundUnit
     #region Attack Related
     private void AimTarget()
     {
-        //Quaternion dir = Quaternion.LookRotation(m_currentTarget.transform.position - m_turretBase.position);
-        //dir.eulerAngles = new Vector3(dir.eulerAngles.x * 0f, dir.eulerAngles.y * 1f, 0f);
-        //m_turretBase.rotation = Quaternion.Lerp(m_turretBase.rotation, dir, Time.deltaTime * m_aimingSpeed);
-
-        //foreach (Weapon weapon in m_weapons)
-        //{
-        //    Quaternion height = Quaternion.LookRotation(m_currentTarget.transform.position -  weapon.transform.position);
-        //    height.eulerAngles = new Vector3(height.eulerAngles.x * 1f, dir.eulerAngles.y * 1f, 0f);
-        //    weapon.transform.rotation = Quaternion.Lerp(weapon.transform.rotation, dir, Time.deltaTime * m_aimingSpeed);
-        //}
         Quaternion qTurret;
         Quaternion qGun;
 
