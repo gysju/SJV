@@ -4,6 +4,8 @@ using System.Collections;
 [AddComponentMenu("MechaVR/Units/Hover Tank")]
 public class HoverTank : MobileGroundUnit
 {
+    public Transform m_destination;
+
     [Header("Turret specifics")]
     public Transform m_turretBase;
 
@@ -32,6 +34,7 @@ public class HoverTank : MobileGroundUnit
     protected override void Start()
     {
         base.Start();
+        SetDestination(m_destination.position);
     }
     #endregion
 
@@ -103,25 +106,30 @@ public class HoverTank : MobileGroundUnit
         return false;
     }
 
-    private void Shoot()
+    private bool Shoot()
     {
+        bool shooting = false;
         foreach (Weapon weapon in m_weapons)
         {
             if (IsTargetInAim(weapon) && weapon.IsTargetInOptimalRange(m_currentTarget.m_targetPoint.position) && m_currentTarget)
             {
+                shooting = true;
                 weapon.TriggerPressed();
             }
             else weapon.TriggerReleased();
         }
+        return shooting;
     }
 
-    protected void TryAttack()
+    protected bool Attack()
     {
+        bool attacking = false;
         if (m_currentTarget)
         {
             AimTarget();
-            Shoot();
+            return Shoot();
         }
+        return attacking;
     }
 
     protected void CeaseFire()
@@ -137,7 +145,14 @@ public class HoverTank : MobileGroundUnit
     protected void IA()
     {
         ChooseTarget();
-        TryAttack();
+        if (Attack())
+        {
+            PauseNavMesh();
+        }
+        else
+        {
+            ContinueNavMesh();
+        }
     }
     #endregion
 

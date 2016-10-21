@@ -73,10 +73,15 @@ public class MobileGroundUnit : CombatUnit
 
     protected void PauseNavMesh()
     {
-        //DisableNavMeshAgent();
-
         if (m_navMeshAgent.hasPath)
             m_navMeshAgent.Stop();
+
+        DisableNavMeshAgent();
+    }
+
+    protected void StopMovement()
+    {
+        DisableNavMeshAgent();
     }
 
     protected void ContinueNavMesh()
@@ -85,6 +90,8 @@ public class MobileGroundUnit : CombatUnit
 
         if (m_navMeshAgent.hasPath)
             m_navMeshAgent.Resume();
+        else
+            DisableNavMeshAgent();
     }
 
     protected bool CheckDestination()
@@ -127,7 +134,6 @@ public class MobileGroundUnit : CombatUnit
     protected void MoveToDir(Vector3 dir)
     {
         EnableNavMeshAgent();
-        PauseNavMesh();
         m_navMeshAgent.Move(dir * m_maxSpeed * Time.deltaTime);
     }
 

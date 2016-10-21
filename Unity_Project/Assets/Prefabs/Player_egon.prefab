@@ -831,7 +831,7 @@ MeshCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010427927384}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 68361ed648e63524c87670738ccc051e, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -843,7 +843,7 @@ MeshCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000014184980884}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 68361ed648e63524c87670738ccc051e, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -855,7 +855,7 @@ MeshCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011387755860}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 68361ed648e63524c87670738ccc051e, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -867,7 +867,7 @@ MeshCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011040312924}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 68361ed648e63524c87670738ccc051e, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -879,7 +879,7 @@ MeshCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013944572366}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 68361ed648e63524c87670738ccc051e, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -891,7 +891,7 @@ MeshCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000014094730178}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 68361ed648e63524c87670738ccc051e, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -960,6 +960,7 @@ MonoBehaviour:
   m_maxHitPoints: 10
   m_startingHitPoints: 10
   m_currentHitPoints: 0
+  m_destructionSpawn: {fileID: 100010, guid: 0b6dc5cf11433424ab9859ff1ea59f4c, type: 2}
   m_armor: 0
   m_targetPoint: {fileID: 4000011945480278}
   m_radarRange: 50
@@ -969,6 +970,7 @@ MonoBehaviour:
   - {fileID: 114000010402450330}
   - {fileID: 114000014203908236}
   m_maxSpeed: 5
+  m_rotationSpeed: 50
   m_maxHorinzontalHeadAngle: 10
   m_maxVerticalHeadAngle: 30
   m_torso: {fileID: 1000010427927384}

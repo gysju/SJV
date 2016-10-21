@@ -47,6 +47,8 @@ public class Unit : MonoBehaviour
     [ContextMenuItem("Destroy Unit", "Die")]
     protected int m_currentHitPoints;
 
+    public GameObject m_destructionSpawn;
+
     [Header("Unit's armor")]
     [Tooltip("Unit's maximum armor value between 0 and 100.")]
     [Range(MIN_ARMOR, MAX_ARMOR)]
@@ -103,6 +105,8 @@ public class Unit : MonoBehaviour
     protected void Die()
     {
         m_destroyed = true;
+        Instantiate(m_destructionSpawn, transform.position, transform.rotation);
+        Destroy(gameObject);
     }
     
     /// <summary>Vérifie si les hit points ne sont pas inférieurs à 0 ou supérieurs au maximum.</summary>
