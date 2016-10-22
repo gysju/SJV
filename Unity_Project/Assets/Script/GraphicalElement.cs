@@ -10,14 +10,9 @@ public class GraphicalElement : MonoBehaviour
 
     private Renderer m_renderer;
 
-    protected Animator m_animator;
-    protected bool m_animated = false;
-
     protected virtual void Awake()
 	{
         m_renderer = GetComponent<Renderer>();
-        m_animator = GetComponent<Animator>();
-        m_animated = m_animator;
     }
 
     protected virtual void Start()

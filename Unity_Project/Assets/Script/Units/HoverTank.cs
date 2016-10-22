@@ -135,19 +135,20 @@ public class HoverTank : MobileGroundUnit
     #region IA Related
     protected void IA()
     {
-        ChooseTarget();
-        TryAttack();
         if (m_hasMoveOrder)
         {
-            if (IsTargetInFullOptimalRange())
-                PauseMoveOrder();
-            else
-                ResumeMoveOrder();
+            ResumeMoveOrder();
         }
         else
         {
             AskOrder();
         }
+        ChooseTarget();
+        TryAttack();
+        if (IsTargetInFullOptimalRange())
+            PauseMoveOrder();
+        else
+            ResumeMoveOrder();
     }
     #endregion
 

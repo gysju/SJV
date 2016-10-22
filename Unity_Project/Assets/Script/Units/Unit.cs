@@ -72,7 +72,6 @@ public class Unit : MonoBehaviour
 
     protected virtual void Start()
     {
-        
         m_currentHitPoints = m_startingHitPoints;
         CheckHitPoints();
     }
@@ -101,12 +100,24 @@ public class Unit : MonoBehaviour
         return m_destroyed;
     }
 
+    IEnumerator Dying()
+    {
+        yield return new WaitForSeconds(TIME_TO_DIE);
+        Destroy(gameObject);
+    }
+
     /// <summary>A appeler à la mort de l'unité.</summary>
     protected void Die()
     {
         m_destroyed = true;
+        GetComponent<BoxCollider>().enabled = false;
+        for (int i = 0 ; i < transform.childCount ; i++)
+        {
+            Destroy(transform.GetChild(i).gameObject);
+        }
+            
         Instantiate(m_destructionSpawn, transform.position, transform.rotation);
-        Destroy(gameObject);
+        StartCoroutine(Dying());
     }
     
     /// <summary>Vérifie si les hit points ne sont pas inférieurs à 0 ou supérieurs au maximum.</summary>
