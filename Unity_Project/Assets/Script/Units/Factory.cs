@@ -10,7 +10,7 @@ public class Factory : Unit
     public float m_productionTime;
     public Transform m_productionExit;
     
-    protected override void Start ()
+    protected override void Start()
     {
         base.Start();
         StartCoroutine(ProduceUnit());
@@ -23,12 +23,12 @@ public class Factory : Unit
             yield return new WaitForSeconds(m_productionTime);
             HoverTank newUnit = (HoverTank) Instantiate(m_produceUnit, m_productionExit.position, m_productionExit.rotation);
             newUnit.ChangeFaction(m_faction);
-            newUnit.SetDestination(m_unitTarget);
+            newUnit.GiveMoveOrder(m_unitTarget.position);
         }
     }
 
-    protected override void Update ()
+    protected override void Update()
     {
-	
+	    
 	}
 }

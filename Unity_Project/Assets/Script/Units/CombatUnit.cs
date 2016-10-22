@@ -78,6 +78,27 @@ public class CombatUnit : Unit
     }
     #endregion
 
+    #region Attacks Related
+    protected bool IsTargetInFullOptimalRange()
+    {
+        if (m_currentTarget)
+        {
+            if (m_weapons.Count > 0)
+            {
+                foreach (Weapon weapon in m_weapons)
+                {
+                    if (!weapon.IsTargetInOptimalRange(m_currentTarget.m_targetPoint.position))
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+    #endregion
+
     #region Updates
     protected override void Update()
     {

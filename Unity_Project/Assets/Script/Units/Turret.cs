@@ -1,16 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[AddComponentMenu("MechaVR/Units/Hover Tank")]
-public class HoverTank : MobileGroundUnit
+[AddComponentMenu("MechaVR/Units/Turret")]
+public class Turret : CombatUnit
 {
-    //protected IAGeneral m_general;
-
     [Header("Turret specifics")]
     public Transform m_turretBase;
 
     [Tooltip("Rotation speed in degrees of the turret")]
-    [Range(0.1f, 360.0f)]
+    [Range(0.1f,360.0f)]
     public float m_turretDegreesPerSecond = 45.0f;
 
     [Tooltip("Rotation speed in degrees of the cannon")]
@@ -25,24 +23,15 @@ public class HoverTank : MobileGroundUnit
     [Range(0.1f, 10.0f)]
     public float m_imprecisioAngle = 10.0f;
 
-    #region Initialisation
     protected override void Awake()
-    {
+	{
         base.Awake();
-    }
+	}
 
-    protected override void Start()
-    {
+    protected override void Start () 
+	{
         base.Start();
     }
-    #endregion
-
-    #region Order Related
-    private void AskOrder()
-    {
-        Debug.Log("Need Order");
-    }
-    #endregion
 
     #region Targeting Related
     protected void ChooseTarget()
@@ -71,7 +60,7 @@ public class HoverTank : MobileGroundUnit
 
     #region Attack Related
     private void AimTarget()
-    {
+	{
         Quaternion qTurret;
         Quaternion qGun;
 
@@ -103,7 +92,7 @@ public class HoverTank : MobileGroundUnit
     }
 
     private void Shoot()
-    {
+	{
         foreach (Weapon weapon in m_weapons)
         {
             if (IsTargetInAim(weapon) && weapon.IsTargetInOptimalRange(m_currentTarget.m_targetPoint.position) && m_currentTarget)
@@ -112,7 +101,7 @@ public class HoverTank : MobileGroundUnit
             }
             else weapon.TriggerReleased();
         }
-    }
+	}
 
     protected void TryAttack()
     {
@@ -132,32 +121,15 @@ public class HoverTank : MobileGroundUnit
     }
     #endregion
 
-    #region IA Related
-    protected void IA()
-    {
-        ChooseTarget();
-        TryAttack();
-        if (m_hasMoveOrder)
-        {
-            if (IsTargetInFullOptimalRange())
-                PauseMoveOrder();
-            else
-                ResumeMoveOrder();
-        }
-        else
-        {
-            AskOrder();
-        }
-    }
-    #endregion
-
     #region Updates
     protected override void Update()
     {
-        if (!m_destroyed)
+        if(!m_destroyed)
         {
             base.Update();
-            IA();
+
+            ChooseTarget();
+            TryAttack();
         }
     }
     #endregion

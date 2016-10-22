@@ -6,6 +6,7 @@ using System.Collections;
 public class MobileGroundUnit : CombatUnit
 {
     protected NavMeshAgent m_navMeshAgent;
+    protected bool m_hasMoveOrder = false;
     public Balise m_targetBalise { get; private set; }
     protected UnitPath m_path;
     protected bool m_followTheWay = true;
@@ -15,6 +16,7 @@ public class MobileGroundUnit : CombatUnit
     public float m_maxSpeed = 2f;
     public float m_rotationSpeed = 50f;
 
+    #region Initialization
     protected override void Reset()
     {
         base.Reset();
@@ -31,56 +33,62 @@ public class MobileGroundUnit : CombatUnit
     protected override void Start()
     {
         base.Start();
-        DisableNavMeshAgent();
     }
+    #endregion
 
     #region Movement Related
     private void EnableNavMeshAgent()
     {
-        m_navMeshObstacle.enabled = false;
-        m_navMeshAgent.enabled = true;
+        if (m_navMeshObstacle.enabled)
+        {
+            m_navMeshObstacle.enabled = false;
+            m_navMeshAgent.enabled = true;
+        }
     }
 
     private void DisableNavMeshAgent()
     {
-        m_navMeshAgent.enabled = false;
-        m_navMeshObstacle.enabled = true;
+        if (m_navMeshAgent.enabled)
+        {
+            m_navMeshAgent.enabled = false;
+            m_navMeshObstacle.enabled = true;
+        }
     }
 
-    protected void SetDestination(Vector3 newDestination)
+    public void CancelMoveOrder()
+    {
+        m_navMeshAgent.ResetPath();
+
+        DisableNavMeshAgent();
+    }
+
+    public void GiveMoveOrder(Vector3 newDestination)
     {
         EnableNavMeshAgent();
         NavMeshHit hit;
         if (NavMesh.SamplePosition(newDestination, out hit, 1.0f, NavMesh.AllAreas))
         {
             m_navMeshAgent.SetDestination(hit.position);
-            Debug.Log(m_navMeshAgent.destination);
+            m_hasMoveOrder = true;
         }
-        else ClearNavMesh();
+        else
+        {
+            CancelMoveOrder();
+            m_hasMoveOrder = false;
+        }
     }
 
-    protected void ClearNavMesh()
+    protected void PauseMoveOrder()
     {
-        if (m_navMeshAgent.hasPath)
-            m_navMeshAgent.ResetPath();
-
-        DisableNavMeshAgent();
-    }
-
-    protected void PauseNavMesh()
-    {
-        if (m_navMeshAgent.hasPath)
+        if (m_navMeshAgent.isActiveAndEnabled)
+        {
             m_navMeshAgent.Stop();
 
-        DisableNavMeshAgent();
+            DisableNavMeshAgent();
+        }
     }
 
-    protected void StopMovement()
-    {
-        DisableNavMeshAgent();
-    }
-
-    protected void ContinueNavMesh()
+    protected void ResumeMoveOrder()
     {
         EnableNavMeshAgent();
 
@@ -90,7 +98,7 @@ public class MobileGroundUnit : CombatUnit
             DisableNavMeshAgent();
     }
 
-    protected bool CheckDestination()
+    protected bool IsMoveOrderDone()
     {
         if (!m_navMeshAgent.pathPending)
         {
@@ -109,7 +117,7 @@ public class MobileGroundUnit : CombatUnit
     {
         if (m_navMeshAgent.destination != m_targetBalise.transform.position && m_navMeshAgent.remainingDistance > 0.01 && m_followTheWay == nextBalise)
         {
-            SetDestination(m_targetBalise.transform.position);
+            GiveMoveOrder(m_targetBalise.transform.position);
         }
         else
         {
@@ -117,12 +125,12 @@ public class MobileGroundUnit : CombatUnit
             if (nextBalise)
             {
                 m_targetBalise = m_path.NextStep(m_targetBalise);
-                SetDestination(m_targetBalise.transform.position);
+                GiveMoveOrder(m_targetBalise.transform.position);
             }
             else
             {
                 m_targetBalise = m_path.PreviousStep(m_targetBalise);
-                SetDestination(m_targetBalise.transform.position);
+                GiveMoveOrder(m_targetBalise.transform.position);
             }
         }
     }
@@ -139,12 +147,17 @@ public class MobileGroundUnit : CombatUnit
     protected override void Update()
     {
         base.Update();
+        if (m_navMeshAgent.isActiveAndEnabled)
+            if (IsMoveOrderDone())
+            {
+                m_hasMoveOrder = false;
+                DisableNavMeshAgent();
+            }
     }
 
     void FixedUpdate()
     {
-        if (m_navMeshAgent.isActiveAndEnabled)
-            if (CheckDestination()) DisableNavMeshAgent();
+        
     }
     #endregion
 }
