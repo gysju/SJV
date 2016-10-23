@@ -6,7 +6,7 @@ using System.Collections;
 public class MobileGroundUnit : CombatUnit
 {
     protected NavMeshAgent m_navMeshAgent;
-    protected bool m_hasMoveOrder = false;
+    protected bool m_hasMoveOrder;
     public Balise m_targetBalise { get; private set; }
     protected UnitPath m_path;
     protected bool m_followTheWay = true;
@@ -48,11 +48,11 @@ public class MobileGroundUnit : CombatUnit
 
     private void DisableNavMeshAgent()
     {
-        if (m_navMeshAgent.enabled)
-        {
-            m_navMeshAgent.enabled = false;
-            m_navMeshObstacle.enabled = true;
-        }
+        //if (m_navMeshAgent.enabled)
+        //{
+        //    m_navMeshAgent.enabled = false;
+        //    m_navMeshObstacle.enabled = true;
+        //}
     }
 
     public void CancelMoveOrder()

@@ -47,6 +47,7 @@ public class HoverTank : MobileGroundUnit
     #region Targeting Related
     protected void ChooseTarget()
     {
+        m_currentTarget = null;
         if (m_possibleTargets.Count > 0)
         {
             foreach (Unit potentialTarget in m_possibleTargets)
@@ -65,6 +66,18 @@ public class HoverTank : MobileGroundUnit
         {
             m_currentTarget = null;
             CeaseFire();
+        }
+    }
+
+    protected void CheckMoveOrder()
+    {
+        if (m_navMeshAgent.hasPath)
+        {
+            ResumeMoveOrder();
+        }
+        else
+        {
+            AskOrder();
         }
     }
     #endregion
@@ -135,20 +148,18 @@ public class HoverTank : MobileGroundUnit
     #region IA Related
     protected void IA()
     {
-        if (m_hasMoveOrder)
-        {
-            ResumeMoveOrder();
-        }
-        else
-        {
-            AskOrder();
-        }
         ChooseTarget();
-        TryAttack();
-        if (IsTargetInFullOptimalRange())
-            PauseMoveOrder();
+        if (IsTargetDestroyed())
+            CheckMoveOrder();
         else
-            ResumeMoveOrder();
+        {
+            TryAttack();
+            if (IsTargetInFullOptimalRange())
+                PauseMoveOrder();
+            else
+                ResumeMoveOrder();
+        }
+        
     }
     #endregion
 

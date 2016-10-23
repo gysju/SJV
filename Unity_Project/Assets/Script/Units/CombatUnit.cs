@@ -43,14 +43,15 @@ public class CombatUnit : Unit
         m_radar.radius = m_radarRange;
     }
 
-    protected void CheckCurrentTargetStatus()
+    protected bool IsTargetDestroyed()
     {
         if (m_currentTarget && m_currentTarget.IsDestroyed())
         {
             m_possibleTargets.Remove(m_currentTarget);
             m_currentTarget = null;
+            return true;
         }
-            
+        return false;
     }
 
     protected virtual void OnTriggerEnter(Collider col)
@@ -103,7 +104,6 @@ public class CombatUnit : Unit
     protected override void Update()
     {
         base.Update();
-        CheckCurrentTargetStatus();
     }
     #endregion
 }
