@@ -14,7 +14,7 @@ public class CombatUnit : Unit
     public float m_radarRange = 50f;
 
     [SerializeField]
-    protected List<Unit> m_possibleTargets = new List<Unit>();
+    protected List<Unit> m_detectedEnemies = new List<Unit>();
 
     [SerializeField]
     protected Unit m_currentTarget = null;
@@ -47,7 +47,7 @@ public class CombatUnit : Unit
     {
         if (m_currentTarget && m_currentTarget.IsDestroyed())
         {
-            m_possibleTargets.Remove(m_currentTarget);
+            m_detectedEnemies.Remove(m_currentTarget);
             m_currentTarget = null;
             return true;
         }
@@ -61,7 +61,7 @@ public class CombatUnit : Unit
             Unit detectedUnit = col.GetComponent<Unit>();
             if (detectedUnit != null && detectedUnit.m_faction != m_faction && !detectedUnit.IsDestroyed())
             {
-                m_possibleTargets.Add(detectedUnit);
+                m_detectedEnemies.Add(detectedUnit);
             }
         }
     }
@@ -73,7 +73,7 @@ public class CombatUnit : Unit
             Unit detectedUnit = col.GetComponent<Unit>();
             if (detectedUnit != null && detectedUnit.m_faction != m_faction)
             {
-                m_possibleTargets.Remove(detectedUnit);
+                m_detectedEnemies.Remove(detectedUnit);
             }
         }
     }

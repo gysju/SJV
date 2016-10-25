@@ -68,8 +68,9 @@ public class HoverTank : MobileGroundUnit
 
     public void GiveCaptureOrder(Capture_point pointToCapture)
     {
+        m_unitToDestroy = null;
         m_pointToCapture = pointToCapture;
-        GiveMoveOrder(m_pointToCapture.transform.position);
+        SetDestination(m_pointToCapture.transform.position);
     }
 
     private void CheckCaptureOrder()
@@ -77,19 +78,46 @@ public class HoverTank : MobileGroundUnit
         if (m_pointToCapture.IsSameFaction(m_faction))
         {
             m_pointToCapture = null;
-            m_navMeshAgent.ResetPath();
+            CancelPath();
             AskOrder();
         }
+    }
+
+    public void GiverDestroyOrder(Unit unitToDestroy)
+    {
+        m_pointToCapture = null;
+        m_unitToDestroy = unitToDestroy;
+        SetDestination(m_unitToDestroy.transform.position);
+    }
+
+    private void CheckDestroyOrder()
+    {
+        if(m_unitToDestroy.IsDestroyed())
+        {
+            m_unitToDestroy = null;
+            CancelPath();
+            AskOrder();
+        }
+    }
+
+    private void ResumeCurrentOrder()
+    {
+        if (m_pointToCapture)
+            GiveCaptureOrder(m_pointToCapture);
+        else if (m_unitToDestroy)
+            GiverDestroyOrder(m_unitToDestroy);
+        else
+            AskOrder();
     }
     #endregion
 
     #region Targeting Related
-    protected void ChooseTarget()
+    protected void TargetClosestEnemy()
     {
         m_currentTarget = null;
-        if (m_possibleTargets.Count > 0)
+        if (m_detectedEnemies.Count > 0)
         {
-            foreach (Unit potentialTarget in m_possibleTargets)
+            foreach (Unit potentialTarget in m_detectedEnemies)
             {
                 if (!m_currentTarget) m_currentTarget = potentialTarget;
                 else
@@ -112,7 +140,7 @@ public class HoverTank : MobileGroundUnit
     {
         if (m_navMeshAgent.hasPath)
         {
-            ResumeMoveOrder();
+            ResumePath();
         }
         else
         {
@@ -189,16 +217,18 @@ public class HoverTank : MobileGroundUnit
     {
         if (m_pointToCapture)
             CheckCaptureOrder();
-        ChooseTarget();
+        else if (m_unitToDestroy)
+            CheckDestroyOrder();
+        TargetClosestEnemy();
         if (IsTargetDestroyed())
             CheckMoveOrder();
         else
         {
             TryAttack();
             if (IsTargetInFullOptimalRange())
-                PauseMoveOrder();
+                PausePath();
             else
-                ResumeMoveOrder();
+                ResumePath();
         }
         
     }

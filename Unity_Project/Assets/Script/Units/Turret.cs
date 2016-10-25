@@ -36,9 +36,9 @@ public class Turret : CombatUnit
     #region Targeting Related
     protected void ChooseTarget()
     {
-        if (m_possibleTargets.Count > 0)
+        if (m_detectedEnemies.Count > 0)
         {
-            foreach (Unit potentialTarget in m_possibleTargets)
+            foreach (Unit potentialTarget in m_detectedEnemies)
             {
                 if (!m_currentTarget) m_currentTarget = potentialTarget;
                 else

@@ -57,6 +57,24 @@ public class IACommander : MonoBehaviour
         }
 
         if (order) m_unitAskingOrder.GiveCaptureOrder(order);
+        else
+        {
+            switch (m_faction)
+            {
+                case Unit.UnitFaction.Ally:
+                    if (m_enemyBaseCenter.IsDestroyed())
+                        m_unitAskingOrder.CancelPath();
+                    else
+                        m_unitAskingOrder.GiverDestroyOrder(m_enemyBaseCenter);
+                    break;
+                case Unit.UnitFaction.Neutral:
+                    break;
+                case Unit.UnitFaction.Enemy:
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
 	void Update ()

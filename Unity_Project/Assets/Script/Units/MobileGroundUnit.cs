@@ -6,7 +6,7 @@ using System.Collections;
 public class MobileGroundUnit : CombatUnit
 {
     protected NavMeshAgent m_navMeshAgent;
-    protected bool m_hasMoveOrder;
+    protected Vector3? m_destination = null;
     public Balise m_targetBalise { get; private set; }
     protected UnitPath m_path;
     protected bool m_followTheWay = true;
@@ -48,37 +48,40 @@ public class MobileGroundUnit : CombatUnit
 
     private void DisableNavMeshAgent()
     {
-        //if (m_navMeshAgent.enabled)
-        //{
-        //    m_navMeshAgent.enabled = false;
-        //    m_navMeshObstacle.enabled = true;
-        //}
+        if (m_navMeshAgent.enabled)
+        {
+            m_navMeshAgent.enabled = false;
+            m_navMeshObstacle.enabled = true;
+        }
     }
 
-    public void CancelMoveOrder()
+    public void CancelPath()
     {
-        m_navMeshAgent.ResetPath();
+        if (m_navMeshAgent.enabled)
+        {
+            m_navMeshAgent.ResetPath();
 
-        DisableNavMeshAgent();
+            DisableNavMeshAgent();
+        }
     }
 
-    public void GiveMoveOrder(Vector3 newDestination)
+    public void SetDestination(Vector3 newDestination)
     {
         EnableNavMeshAgent();
         NavMeshHit hit;
         if (NavMesh.SamplePosition(newDestination, out hit, 1.0f, NavMesh.AllAreas))
         {
-            m_navMeshAgent.SetDestination(hit.position);
-            m_hasMoveOrder = true;
+            m_destination = hit.position;
+            m_navMeshAgent.SetDestination(m_destination.Value);
         }
         else
         {
-            CancelMoveOrder();
-            m_hasMoveOrder = false;
+            CancelPath();
+            m_destination = null;
         }
     }
 
-    protected void PauseMoveOrder()
+    protected void PausePath()
     {
         if (m_navMeshAgent.isActiveAndEnabled)
         {
@@ -88,17 +91,19 @@ public class MobileGroundUnit : CombatUnit
         }
     }
 
-    protected void ResumeMoveOrder()
+    protected void ResumePath()
     {
         EnableNavMeshAgent();
 
         if (m_navMeshAgent.hasPath)
             m_navMeshAgent.Resume();
+        else if (m_destination.HasValue)
+            SetDestination(m_destination.Value);
         else
             DisableNavMeshAgent();
     }
 
-    protected bool IsMoveOrderDone()
+    protected bool IsPathCompleted()
     {
         if (!m_navMeshAgent.pathPending)
         {
@@ -113,11 +118,20 @@ public class MobileGroundUnit : CombatUnit
         return false;
     }
 
-    protected void MoveAlongPath(bool nextBalise)
+    protected void CheckPath()
+    {
+        if (IsPathCompleted())
+        {
+            m_destination = null;
+            DisableNavMeshAgent();
+        }
+    }
+
+    protected void MoveAlongPatrol(bool nextBalise)
     {
         if (m_navMeshAgent.destination != m_targetBalise.transform.position && m_navMeshAgent.remainingDistance > 0.01 && m_followTheWay == nextBalise)
         {
-            GiveMoveOrder(m_targetBalise.transform.position);
+            SetDestination(m_targetBalise.transform.position);
         }
         else
         {
@@ -125,12 +139,12 @@ public class MobileGroundUnit : CombatUnit
             if (nextBalise)
             {
                 m_targetBalise = m_path.NextStep(m_targetBalise);
-                GiveMoveOrder(m_targetBalise.transform.position);
+                SetDestination(m_targetBalise.transform.position);
             }
             else
             {
                 m_targetBalise = m_path.PreviousStep(m_targetBalise);
-                GiveMoveOrder(m_targetBalise.transform.position);
+                SetDestination(m_targetBalise.transform.position);
             }
         }
     }
@@ -148,11 +162,7 @@ public class MobileGroundUnit : CombatUnit
     {
         base.Update();
         if (m_navMeshAgent.isActiveAndEnabled)
-            if (IsMoveOrderDone())
-            {
-                m_hasMoveOrder = false;
-                DisableNavMeshAgent();
-            }
+            CheckPath();
     }
 
     void FixedUpdate()
