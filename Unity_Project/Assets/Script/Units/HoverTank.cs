@@ -4,7 +4,13 @@ using System.Collections;
 [AddComponentMenu("MechaVR/Units/Hover Tank")]
 public class HoverTank : MobileGroundUnit
 {
-    //protected IAGeneral m_general;
+    [Header("IA Commanders")]
+    public IACommander m_allyCommander;
+    public IACommander m_enemyCommander;
+
+    [Header("Order Specifics")]
+    Capture_point m_pointToCapture;
+    Unit m_unitToDestroy;
 
     [Header("Turret specifics")]
     public Transform m_turretBase;
@@ -34,13 +40,46 @@ public class HoverTank : MobileGroundUnit
     protected override void Start()
     {
         base.Start();
+        m_allyCommander = GameObject.Find("Ally Commander").GetComponent<IACommander>();
+        m_enemyCommander = GameObject.Find("Enemy Commander").GetComponent<IACommander>();
+        m_pointToCapture = null;
+        m_unitToDestroy = null;
+        AskOrder();
     }
     #endregion
 
     #region Order Related
-    private void AskOrder()
+    public void AskOrder()
     {
-        Debug.Log("Need Order");
+        switch (m_faction)
+        {
+            case UnitFaction.Ally:
+                m_allyCommander.AskOrder(this);
+                break;
+            case UnitFaction.Neutral:
+                break;
+            case UnitFaction.Enemy:
+                m_enemyCommander.AskOrder(this);
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void GiveCaptureOrder(Capture_point pointToCapture)
+    {
+        m_pointToCapture = pointToCapture;
+        GiveMoveOrder(m_pointToCapture.transform.position);
+    }
+
+    private void CheckCaptureOrder()
+    {
+        if (m_pointToCapture.IsSameFaction(m_faction))
+        {
+            m_pointToCapture = null;
+            m_navMeshAgent.ResetPath();
+            AskOrder();
+        }
     }
     #endregion
 
@@ -148,6 +187,8 @@ public class HoverTank : MobileGroundUnit
     #region IA Related
     protected void IA()
     {
+        if (m_pointToCapture)
+            CheckCaptureOrder();
         ChooseTarget();
         if (IsTargetDestroyed())
             CheckMoveOrder();

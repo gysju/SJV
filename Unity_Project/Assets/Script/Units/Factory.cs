@@ -23,7 +23,6 @@ public class Factory : Unit
             yield return new WaitForSeconds(m_productionTime);
             HoverTank newUnit = (HoverTank) Instantiate(m_produceUnit, m_productionExit.position, m_productionExit.rotation);
             newUnit.ChangeFaction(m_faction);
-            newUnit.GiveMoveOrder(m_unitTarget.position);
         }
     }
 

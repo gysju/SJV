@@ -89,6 +89,10 @@ public class Capture_point : MonoBehaviour
 		}
 	}
 
+    public bool IsSameFaction(Unit.UnitFaction otherFaction)
+    {
+        return (otherFaction == faction);
+    }
     #endregion
     #region Actions
 
