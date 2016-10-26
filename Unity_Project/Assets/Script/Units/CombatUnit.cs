@@ -43,15 +43,13 @@ public class CombatUnit : Unit
         m_radar.radius = m_radarRange;
     }
 
-    protected bool IsTargetDestroyed()
+    protected virtual void CheckCurrentTarget()
     {
         if (m_currentTarget && m_currentTarget.IsDestroyed())
         {
             m_detectedEnemies.Remove(m_currentTarget);
             m_currentTarget = null;
-            return true;
         }
-        return false;
     }
 
     protected virtual void OnTriggerEnter(Collider col)

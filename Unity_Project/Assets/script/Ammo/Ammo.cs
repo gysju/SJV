@@ -57,13 +57,13 @@ public class Ammo : MonoBehaviour
 
     protected virtual void MetalHit()
     {
-        Debug.Log("METAL HIT");
+        //Debug.Log("METAL HIT");
         Instantiate(m_metalHit, transform.position, transform.rotation);
     }
 
     protected virtual void DirtHit()
     {
-        Debug.Log("DIRT HIT");
+        //Debug.Log("DIRT HIT");
         Instantiate(m_dirtHit, transform.position, transform.rotation);
     }
 
@@ -77,13 +77,13 @@ public class Ammo : MonoBehaviour
 
     protected virtual void Lost()
     {
-        Debug.Log("LOST AMMO");
+        //Debug.Log("LOST AMMO");
         Destroy(gameObject);
     }
 
     protected virtual void Ricochet()
     {
-        Debug.Log("RICOCHET");
+        //Debug.Log("RICOCHET");
         //if (m_explosive) Explode();
         //else
         {
@@ -99,7 +99,7 @@ public class Ammo : MonoBehaviour
 
     private void Explode()
     {
-        Debug.Log("EXPLOSION");
+        //Debug.Log("EXPLOSION");
         Instantiate(m_explosionPrefab, transform.position, transform.rotation);
         DestroyAmmo();
     }

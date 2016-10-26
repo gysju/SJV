@@ -109,6 +109,14 @@ public class HoverTank : MobileGroundUnit
         else
             AskOrder();
     }
+
+    private void CheckCurrentOrder()
+    {
+        if (m_pointToCapture)
+            CheckCaptureOrder();
+        else if (m_unitToDestroy)
+            CheckDestroyOrder();
+    }
     #endregion
 
     #region Targeting Related
@@ -136,15 +144,22 @@ public class HoverTank : MobileGroundUnit
         }
     }
 
-    protected void CheckMoveOrder()
+    protected override void CheckCurrentTarget()
     {
-        if (m_navMeshAgent.hasPath)
+        base.CheckCurrentTarget();
+
+        if (m_currentTarget)
         {
-            ResumePath();
+            if (IsTargetInFullOptimalRange())
+                PausePath();
+            else
+                ResumePath();
+
+            TryAttack();
         }
         else
         {
-            AskOrder();
+            ResumeCurrentOrder();
         }
     }
     #endregion
@@ -215,22 +230,9 @@ public class HoverTank : MobileGroundUnit
     #region IA Related
     protected void IA()
     {
-        if (m_pointToCapture)
-            CheckCaptureOrder();
-        else if (m_unitToDestroy)
-            CheckDestroyOrder();
+        CheckCurrentOrder();
         TargetClosestEnemy();
-        if (IsTargetDestroyed())
-            CheckMoveOrder();
-        else
-        {
-            TryAttack();
-            if (IsTargetInFullOptimalRange())
-                PausePath();
-            else
-                ResumePath();
-        }
-        
+        CheckCurrentTarget();
     }
     #endregion
 
