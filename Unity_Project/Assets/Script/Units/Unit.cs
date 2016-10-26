@@ -13,7 +13,7 @@ public class Unit : MonoBehaviour
     const int MIN_ARMOR = 0;
     const int MAX_ARMOR = 100;
 
-    const float TIME_TO_DIE = 1f;
+    const float TIME_TO_DIE = 0f;
 
     public enum UnitFaction
     {
@@ -60,6 +60,7 @@ public class Unit : MonoBehaviour
 
     protected bool m_vulnerable = true;
 
+    #region Initialization
     protected virtual void Reset()
     {
         GetComponent<BoxCollider>().size = Vector3.zero;
@@ -75,6 +76,7 @@ public class Unit : MonoBehaviour
         m_currentHitPoints = m_startingHitPoints;
         CheckHitPoints();
     }
+    #endregion
 
     #region Faction Related
     /// <summary>A utiliser pour changer la faction de l'unité.</summary>

@@ -34,21 +34,48 @@ public class Turret : CombatUnit
     }
 
     #region Targeting Related
-    protected void ChooseTarget()
+    protected void TargetClosestEnemy()
     {
         if (m_detectedEnemies.Count > 0)
         {
-            foreach (Unit potentialTarget in m_detectedEnemies)
+            for (int i = m_detectedEnemies.Count - 1; i > -1; i--)
             {
-                if (!m_currentTarget) m_currentTarget = potentialTarget;
+                Unit potentialTarget = m_detectedEnemies[i];
+                if (potentialTarget)
+                {
+                    if (!m_currentTarget) m_currentTarget = potentialTarget;
+                    else
+                    {
+                        float currentTargetDistance = Vector3.Distance(m_currentTarget.m_targetPoint.position, transform.position);
+                        float potentialTargetDistance = Vector3.Distance(potentialTarget.m_targetPoint.position, transform.position);
+
+                        if (potentialTargetDistance < currentTargetDistance) m_currentTarget = potentialTarget;
+                    }
+                }
                 else
                 {
-                    float currentTargetDistance = Vector3.Distance(m_currentTarget.m_targetPoint.position, transform.position);
-                    float potentialTargetDistance = Vector3.Distance(potentialTarget.m_targetPoint.position, transform.position);
-
-                    if (potentialTargetDistance < currentTargetDistance) m_currentTarget = potentialTarget;
+                    m_detectedEnemies.Remove(potentialTarget);
                 }
             }
+
+            //foreach (Unit potentialTarget in m_detectedEnemies)
+            //{
+            //    if (potentialTarget)
+            //    {
+            //        if (!m_currentTarget) m_currentTarget = potentialTarget;
+            //        else
+            //        {
+            //            float currentTargetDistance = Vector3.Distance(m_currentTarget.m_targetPoint.position, transform.position);
+            //            float potentialTargetDistance = Vector3.Distance(potentialTarget.m_targetPoint.position, transform.position);
+
+            //            if (potentialTargetDistance < currentTargetDistance) m_currentTarget = potentialTarget;
+            //        }
+            //    }
+            //    else
+            //    {
+            //        m_detectedEnemies.Remove(potentialTarget);
+            //    }
+            //}
         }
         else
         {
@@ -56,9 +83,16 @@ public class Turret : CombatUnit
             CeaseFire();
         }
     }
+
+    protected override void CheckCurrentTarget()
+    {
+        base.CheckCurrentTarget();
+
+        TryAttack();
+    }
     #endregion
 
-    #region Attack Related
+        #region Attack Related
     private void AimTarget()
 	{
         Quaternion qTurret;
@@ -120,6 +154,14 @@ public class Turret : CombatUnit
         }
     }
     #endregion
+    
+    #region IA Related
+    protected void IA()
+    {
+        TargetClosestEnemy();
+        CheckCurrentTarget();
+    }
+    #endregion
 
     #region Updates
     protected override void Update()
@@ -127,9 +169,7 @@ public class Turret : CombatUnit
         if(!m_destroyed)
         {
             base.Update();
-
-            ChooseTarget();
-            TryAttack();
+            IA();
         }
     }
     #endregion
