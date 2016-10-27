@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 [AddComponentMenu("MechaVR/Units/DEV/Unit")]
 [RequireComponent(typeof(Rigidbody))]
@@ -13,7 +14,7 @@ public class Unit : MonoBehaviour
     const int MIN_ARMOR = 0;
     const int MAX_ARMOR = 100;
 
-    const float TIME_TO_DIE = 0f;
+    const float TIME_TO_DIE = 1f;
 
     public enum UnitFaction
     {
@@ -59,6 +60,9 @@ public class Unit : MonoBehaviour
     public Transform m_targetPoint;
 
     protected bool m_vulnerable = true;
+
+    protected List<CombatUnit> m_detectingUnits = new List<CombatUnit>();
+    protected List<CombatUnit> m_targetingUnits = new List<CombatUnit>();
 
     #region Initialization
     protected virtual void Reset()
@@ -112,13 +116,26 @@ public class Unit : MonoBehaviour
     protected void Die()
     {
         m_destroyed = true;
+
         GetComponent<BoxCollider>().enabled = false;
+
         for (int i = 0 ; i < transform.childCount ; i++)
         {
-            Destroy(transform.GetChild(i).gameObject);
+            transform.GetChild(i).gameObject.SetActive(false);
         }
-            
+
+        foreach (CombatUnit detectingUnit in m_detectingUnits)
+        {
+            detectingUnit.DetectedUnitDestroyed(this);
+        }
+
+        foreach (CombatUnit targetingUnit in m_targetingUnits)
+        {
+            targetingUnit.TargetedUnitDestroyed(this);
+        }
+
         Instantiate(m_destructionSpawn, transform.position, transform.rotation);
+
         StartCoroutine(Dying());
     }
     
@@ -162,6 +179,28 @@ public class Unit : MonoBehaviour
             else return false;
         }
         else return false;
+    }
+    #endregion
+
+    #region Radar Related
+    public void Detected(CombatUnit detectingUnit)
+    {
+        m_detectingUnits.Add(detectingUnit);
+    }
+
+    public void NoMoreDetected(CombatUnit noMoreDetectingUnit)
+    {
+        m_detectingUnits.Remove(noMoreDetectingUnit);
+    }
+
+    public void Targeted(CombatUnit targetingUnit)
+    {
+        m_targetingUnits.Add(targetingUnit);
+    }
+
+    public void NoMoreTargeted(CombatUnit noMoretargetingUnit)
+    {
+        m_targetingUnits.Remove(noMoretargetingUnit);
     }
     #endregion
 

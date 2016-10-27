@@ -92,7 +92,7 @@ public class Turret : CombatUnit
     }
     #endregion
 
-        #region Attack Related
+    #region Attack Related
     private void AimTarget()
 	{
         Quaternion qTurret;

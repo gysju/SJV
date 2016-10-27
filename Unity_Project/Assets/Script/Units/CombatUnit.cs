@@ -52,6 +52,17 @@ public class CombatUnit : Unit
         }
     }
 
+    public void DetectedUnitDestroyed(Unit destroyedUnit)
+    {
+        m_detectedEnemies.Remove(destroyedUnit);
+    }
+
+    public void TargetedUnitDestroyed(Unit destroyedUnit)
+    {
+        if (destroyedUnit == m_currentTarget)
+            m_currentTarget = null;
+    }
+
     protected virtual void OnTriggerEnter(Collider col)
     {
         if (!col.isTrigger)

@@ -34,9 +34,9 @@ public class IACommander : MonoBehaviour
         return lengthSoFar;
     }
 
-    public void AskOrder(HoverTank m_unitAskingOrder)
+    protected void CaptureClosestPoint(HoverTank unitAskingOrder)
     {
-        Vector3 unitPosition = m_unitAskingOrder.transform.position;
+        Vector3 unitPosition = unitAskingOrder.transform.position;
         float smallestLength = float.MaxValue;
         Capture_point order = null;
         foreach (Capture_point capturePoint in m_capturePoints)
@@ -56,16 +56,16 @@ public class IACommander : MonoBehaviour
             }
         }
 
-        if (order) m_unitAskingOrder.GiveCaptureOrder(order);
+        if (order) unitAskingOrder.GiveCaptureOrder(order);
         else
         {
             switch (m_faction)
             {
                 case Unit.UnitFaction.Ally:
                     if (m_enemyBaseCenter.IsDestroyed())
-                        m_unitAskingOrder.CancelPath();
+                        unitAskingOrder.CancelPath();
                     else
-                        m_unitAskingOrder.GiverDestroyOrder(m_enemyBaseCenter);
+                        unitAskingOrder.GiverDestroyOrder(m_enemyBaseCenter);
                     break;
                 case Unit.UnitFaction.Neutral:
                     break;
@@ -75,6 +75,12 @@ public class IACommander : MonoBehaviour
                     break;
             }
         }
+    }
+
+    public void AskOrder(Unit unitAskingOrder)
+    {
+        if (unitAskingOrder is HoverTank)
+            CaptureClosestPoint((HoverTank)unitAskingOrder);
     }
 
 	void Update ()
