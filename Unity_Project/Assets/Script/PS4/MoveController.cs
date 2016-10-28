@@ -1,15 +1,26 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 #if UNITY_PS4
 using UnityEngine.PS4;
 #endif
+
 public class MoveController : MonoBehaviour {
+
+	public enum MoveButton { MoveButton_Trigger = 2, MoveButton_Move = 4, MoveButton_Start = 8, MoveButton_Triangle = 16, MoveButton_Circle = 32, MoveButton_Cross = 64, MoveButton_Square = 128, MoveButton_MaxAnalogueValue = 255, MoveButton_Count = 8}
 
     public bool isMoveController = false;
     public bool isSecondaryMoveController = false;
 
-	void Start () {
+	private List< MoveButton > ButtonsUp = new List<MoveButton>();
+	private List< MoveButton > ButtonsDown = new List<MoveButton>();
+
+	private List< MoveButton > ButtonsUpCurrentFrame = new List<MoveButton>();
+	private List< MoveButton > ButtonsDownCurrentFrame = new List<MoveButton>();
+
+	void Start () 
+	{
 	
 	}
 	
@@ -17,24 +28,94 @@ public class MoveController : MonoBehaviour {
 	
 	}
 
-    public bool CheckForInput( int button)
-    {
+	void LateUpdate()
+	{
+		TransferInput ();
+	}
+
 #if UNITY_PS4
+	public bool GetButton( MoveButton button )
+    {
         if (isMoveController )
         {
-            if (!isSecondaryMoveController && PS4Input.MoveGetButtons(0,0) == button)
+			if (!isSecondaryMoveController && PS4Input.MoveGetButtons(0,0) == (int)button)
             {
-                return (PS4Input.MoveGetAnalogButton(0, 0) > 0 ? true : false);
+				return true;
             }
-            else if ( PS4Input.MoveGetButtons(0,1) == button )
+			else if ( PS4Input.MoveGetButtons(0,1) == (int)button )
             {
-                return (PS4Input.MoveGetAnalogButton(0, 1) > 0 ? true : false);
+				return true;
             }
         }
 
         return false;
-#else
-		return Input.GetButton("Fire1");
-#endif
     }
+
+	public bool GetButtonUp(MoveButton button)
+	{
+
+		foreach(MoveButton moveButton in ButtonsUp)
+		{
+			if (moveButton == button)
+				return false;
+		}
+		if (GetButton (button)) 
+		{
+			ButtonsUpCurrentFrame.Add ( button );
+			return true;
+		}
+		return false;
+	}
+
+	public bool GetButtonDown(MoveButton button)
+	{
+		foreach(MoveButton moveButton in ButtonsDown)
+		{
+			if (moveButton == button)
+				return false;
+		}
+		if (GetButton (button)) 
+		{
+			ButtonsDownCurrentFrame.Add ( button );
+			return true;
+		}
+		return false;
+	}
+
+	void TransferInput()
+	{
+		ButtonsUp.Clear();
+		ButtonsDown.Clear();
+
+		foreach(MoveButton buttonCurrentFrame in ButtonsUpCurrentFrame)
+		{
+			bool test = false;
+			foreach(MoveButton button in ButtonsUp)
+			{
+				if (buttonCurrentFrame == button)
+					test = true;
+			}
+			if (!test) 
+			{
+				ButtonsUp.Add(buttonCurrentFrame);
+			}
+		}
+
+		foreach(MoveButton buttonCurrentFrame in ButtonsDownCurrentFrame)
+		{
+			bool test = false;
+			foreach(MoveButton button in ButtonsDown)
+			{
+				if (buttonCurrentFrame == button)
+					test = true;
+			}
+			if (!test) 
+			{
+				ButtonsDown.Add(buttonCurrentFrame);
+			}
+		}
+		ButtonsDownCurrentFrame.Clear();
+		ButtonsUpCurrentFrame.Clear();
+	}
+#endif
 }
