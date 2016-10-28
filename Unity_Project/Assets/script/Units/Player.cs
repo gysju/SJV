@@ -57,13 +57,14 @@ public class Player : MobileGroundUnit
         m_baseOffset /= 2;
     }
     #endif
+	#if UNITY_PS4
     private void PSMoveStart()
     {
         m_baseOffset = Vector3.zero;
         m_leftController = trackedDeviceMoveControllers.primaryController.GetComponent<MoveController>(); ;
         m_rightController = trackedDeviceMoveControllers.secondaryController.GetComponent<MoveController>(); ;
     }
-
+	#endif
     protected override void Start()
     {
 		base.Start();
