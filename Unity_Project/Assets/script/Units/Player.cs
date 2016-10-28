@@ -258,15 +258,14 @@ public class Player : MobileGroundUnit
     {
         if (PS4Input.MoveIsConnected(0, 0) && PS4Input.MoveIsConnected(0, 1))
         {
+			bool leftModifier = m_leftController.GetButton(MoveController.MoveButton.MoveButton_Cross); // trouvé la bonne valeur pour la bonne touche
+			bool rightModifier = m_rightController.GetButton(MoveController.MoveButton.MoveButton_Cross); // trouvé la bonne valeur pour la bonne touche
 
-            bool leftModifier = m_leftController.CheckForInput(0); // trouvé la bonne valeur pour la bonne touche
-            bool rightModifier = m_rightController.CheckForInput(0); // trouvé la bonne valeur pour la bonne touche
+			bool leftPointer = m_leftController.GetButton(MoveController.MoveButton.MoveButton_Move);
+			bool rightPointer = m_rightController.GetButton(MoveController.MoveButton.MoveButton_Move);
 
-            bool leftPointer = m_leftController.CheckForInput(1);
-            bool rightPointer = m_rightController.CheckForInput(1);
-
-            //if (m_leftController.GetButtonUp(SixenseButtons.BUMPER) && !rightPointer) ConfirmDestination();
-            //if (m_rightController.GetButtonUp(SixenseButtons.BUMPER) && !leftPointer) ConfirmDestination();
+			if (m_leftController.GetButtonUp(MoveController.MoveButton.MoveButton_Move) && !rightPointer) ConfirmDestination();
+			if (m_rightController.GetButtonUp(MoveController.MoveButton.MoveButton_Move) && !leftPointer) ConfirmDestination();
 
             if (leftModifier)
             {
@@ -290,8 +289,8 @@ public class Player : MobileGroundUnit
                 }
                 else
                 {
-                    //if (m_leftController.GetButtonDown(SixenseButtons.TRIGGER)) LeftArmWeaponTriggered();
-                    //if (m_leftController.GetButtonUp(SixenseButtons.TRIGGER)) LeftArmWeaponTriggerReleased();
+					if (m_leftController.GetButtonDown(MoveController.MoveButton.MoveButton_Trigger)) LeftArmWeaponTriggered();
+					if (m_leftController.GetButtonUp(MoveController.MoveButton.MoveButton_Trigger)) LeftArmWeaponTriggerReleased();
                 }
             }
 
@@ -317,8 +316,8 @@ public class Player : MobileGroundUnit
                 }
                 else
                 {
-                    //if (m_rightController.GetButtonDown(SixenseButtons.TRIGGER)) RightArmWeaponTriggered();
-                    //if (m_rightController.GetButtonUp(SixenseButtons.TRIGGER)) RightArmWeaponTriggerReleased();
+					if (m_rightController.GetButtonDown(MoveController.MoveButton.MoveButton_Trigger)) RightArmWeaponTriggered();
+					if (m_rightController.GetButtonUp(MoveController.MoveButton.MoveButton_Trigger)) RightArmWeaponTriggerReleased();
                 }
             }
         }
@@ -560,6 +559,8 @@ public class Player : MobileGroundUnit
         #if UNITY_STANDALONE
         MouseKeyboardInputs();
         RazerInputs();
+		#elif UNITY_PS4
+		PSMoveInputs();
         #endif
     }
 
