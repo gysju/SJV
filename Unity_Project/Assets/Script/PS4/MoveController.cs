@@ -117,5 +117,13 @@ public class MoveController : MonoBehaviour {
 		ButtonsDownCurrentFrame.Clear();
 		ButtonsUpCurrentFrame.Clear();
 	}
+
+	public Vector3 getMoveRotation()
+	{
+		if(!isSecondaryMoveController)
+			return PS4Input.GetLastMoveAcceleration (0, 0);
+		else
+			return PS4Input.GetLastMoveAcceleration (0, 1);
+	}
 #endif
 }

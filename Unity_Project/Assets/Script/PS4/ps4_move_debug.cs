@@ -24,11 +24,12 @@ public class ps4_move_debug : MonoBehaviour {
 			{
 				if (PS4Input.MoveIsConnected(slot,controller))
 				{
-					string data = String.Format("user {0} move {1} buttons {2} {3} gyro {4}",
+					string data = String.Format("user {0} move {1} buttons {2} {3} gyro {4} rotation{5}",
 						slot,controller,
 						PS4Input.MoveGetButtons(slot,controller),
 						PS4Input.MoveGetAnalogButton(slot,controller),
-						PS4Input.GetLastMoveGyro(slot,controller)
+						PS4Input.GetLastMoveGyro(slot,controller),
+						PS4Input.GetLastMoveAcceleration(slot, controller)
 							);
 					GUI.Label(new Rect(64, 64 + slot*40 + controller*20, 1500, 20), data);
 					numDetected++;
