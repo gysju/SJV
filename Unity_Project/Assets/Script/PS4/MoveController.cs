@@ -36,19 +36,18 @@ public class MoveController : MonoBehaviour {
 #if UNITY_PS4
 	public bool GetButton( MoveButton button )
     {
-        if (isMoveController )
-        {
-			if (!isSecondaryMoveController && PS4Input.MoveGetButtons(0,0) == (int)button)
-            {
+		for (int slot = 0; slot < 4; slot++) 
+		{
+			if (PS4Input.MoveIsConnected (slot, 0) && !isSecondaryMoveController && PS4Input.MoveGetButtons (slot, 0) == (int)button) 
+			{
 				return true;
-            }
-			else if ( PS4Input.MoveGetButtons(0,1) == (int)button )
-            {
+			} 
+			else if (PS4Input.MoveIsConnected (slot, 1) && PS4Input.MoveGetButtons (slot, 1) == (int)button) 
+			{	
 				return true;
-            }
-        }
-
-        return false;
+			}
+		}
+		return false;
     }
 
 	public bool GetButtonUp(MoveButton button)

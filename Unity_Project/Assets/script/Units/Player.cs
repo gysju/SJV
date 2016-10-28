@@ -228,15 +228,15 @@ public class Player : MobileGroundUnit
 
     void PSMoveRotation()
     {
-        Quaternion leftHand = Quaternion.Euler(new Vector3(m_leftController.transform.localRotation.x, 0.0f, 0.0f));
-        Quaternion RightHand = Quaternion.Euler(new Vector3(m_rightController.transform.localRotation.x, 0.0f, 0.0f));
-        float angle = Quaternion.Angle(leftHand, RightHand);
+		Vector3 leftHand = new Vector3(m_leftController.getMoveRotation().y, 0.0f, 0.0f);
+		Vector3 RightHand = new Vector3(m_rightController.getMoveRotation().y, 0.0f, 0.0f);
+		float angle = Vector3.Angle(leftHand, RightHand);
 
         angle /= 90.0f;
         angle = Mathf.Clamp01(angle) * Time.deltaTime;
         angle = (float)System.Math.Round(angle, 2);
 
-        if (m_leftController.transform.localRotation.x < m_rightController.transform.localRotation.x)
+		if (m_leftController.getMoveRotation().y < m_rightController.getMoveRotation().y)
             angle = -angle;
 
         RotateMechaHorizontaly(-angle * m_rotationSpeed);
@@ -333,26 +333,26 @@ public class Player : MobileGroundUnit
         const float NEUTRAL_Z = -0.3f;
         const float NEUTRAL_X = 0f;
 
-        const float MAX_FORWARD = 0f;
-        const float MIN_FORWARD = -0.2f;
-        const float MAX_BACKWARD = -0.6f;
-        const float MIN_BACKWARD = -0.4f;
-        const float MAX_LEFT = -0.2f;
-        const float MIN_LEFT = -0.1f;
-        const float MAX_RIGHT = 0.2f;
-        const float MIN_RIGHT = 0.1f;
+        const float MAX_FORWARD = 0.8f;
+        const float MIN_FORWARD = 0.2f;
+        const float MAX_BACKWARD = -0.8f;
+        const float MIN_BACKWARD = -0.2f;
+        const float MAX_LEFT = -0.6f;
+        const float MIN_LEFT = -0.2f;
+        const float MAX_RIGHT = 0.6f;
+        const float MIN_RIGHT = 0.2f;
 
         float zdir = 0;
-        if (x > NEUTRAL_Z) //avant
-            zdir = (Mathf.InverseLerp(MIN_FORWARD, MAX_FORWARD, x));
-        if (x < NEUTRAL_Z) //arrière
-            zdir = -(Mathf.InverseLerp(MIN_BACKWARD, MAX_BACKWARD, x));
+        if (y > NEUTRAL_Z) //avant
+            zdir = (Mathf.InverseLerp(MIN_FORWARD, MAX_FORWARD, y));
+        if (y < NEUTRAL_Z) //arrière
+            zdir = -(Mathf.InverseLerp(MIN_BACKWARD, MAX_BACKWARD, y));
 
         float xdir = 0;
-        if (y < NEUTRAL_X) //gauche
-            xdir = -(Mathf.InverseLerp(MIN_LEFT, MAX_LEFT, y));
-        if (y > NEUTRAL_X) //droite
-            xdir = (Mathf.InverseLerp(MIN_RIGHT, MAX_RIGHT, y));
+        if (x < NEUTRAL_X) //gauche
+            xdir = -(Mathf.InverseLerp(MIN_LEFT, MAX_LEFT, x));
+        if (x > NEUTRAL_X) //droite
+            xdir = (Mathf.InverseLerp(MIN_RIGHT, MAX_RIGHT, x));
 
         movementDirection += new Vector3(xdir, 0f, zdir);
 
