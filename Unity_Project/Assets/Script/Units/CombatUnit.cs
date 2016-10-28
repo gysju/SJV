@@ -14,7 +14,7 @@ public class CombatUnit : Unit
     public float m_radarRange = 50f;
 
     [SerializeField]
-    protected List<Unit> m_possibleTargets = new List<Unit>();
+    protected List<Unit> m_detectedEnemies = new List<Unit>();
 
     [SerializeField]
     protected Unit m_currentTarget = null;
@@ -23,40 +23,44 @@ public class CombatUnit : Unit
     [Tooltip("Unit's Weapons list.")]
     public List<Weapon> m_weapons = new List<Weapon>();
 
+    protected override void Reset()
+    {
+        base.Reset();
+    }
+
     protected override void Start()
     {
         base.Start();
+
         m_radar = GetComponent<SphereCollider>();
         m_radar.isTrigger = true;
+        UpdateRadarRange();
+    }
+
+    #region Radar Related
+    protected void UpdateRadarRange()
+    {
         m_radar.radius = m_radarRange;
     }
 
-    #region Targeting Related
-    //protected void ChooseTarget()
-    //{
-    //    if (m_possibleTargets.Count > 0)
-    //    {
-    //        foreach (Unit potentialTarget in m_possibleTargets)
-    //        {
-    //            if (!m_currentTarget) m_currentTarget = potentialTarget;
-    //            else
-    //            {
-    //                float currentTargetDistance = Vector3.Distance(m_currentTarget.transform.position, transform.position);
-    //                float potentialTargetDistance = Vector3.Distance(potentialTarget.transform.position, transform.position);
-
-    //                if (potentialTargetDistance < currentTargetDistance) m_currentTarget = potentialTarget;
-    //            }
-    //        }
-    //    }
-    //    else m_currentTarget = null;
-    //}
-
-    protected void CheckTargetsStatus()
+    protected virtual void CheckCurrentTarget()
     {
-        foreach (Unit potentialTarget in m_possibleTargets)
+        if (m_currentTarget && m_currentTarget.IsDestroyed())
         {
-            if (potentialTarget.IsDestroyed()) m_possibleTargets.Remove(potentialTarget);
+            m_detectedEnemies.Remove(m_currentTarget);
+            m_currentTarget = null;
         }
+    }
+
+    public void DetectedUnitDestroyed(Unit destroyedUnit)
+    {
+        m_detectedEnemies.Remove(destroyedUnit);
+    }
+
+    public void TargetedUnitDestroyed(Unit destroyedUnit)
+    {
+        if (destroyedUnit == m_currentTarget)
+            m_currentTarget = null;
     }
 
     protected virtual void OnTriggerEnter(Collider col)
@@ -66,7 +70,7 @@ public class CombatUnit : Unit
             Unit detectedUnit = col.GetComponent<Unit>();
             if (detectedUnit != null && detectedUnit.m_faction != m_faction && !detectedUnit.IsDestroyed())
             {
-                m_possibleTargets.Add(detectedUnit);
+                m_detectedEnemies.Add(detectedUnit);
             }
         }
     }
@@ -78,50 +82,37 @@ public class CombatUnit : Unit
             Unit detectedUnit = col.GetComponent<Unit>();
             if (detectedUnit != null && detectedUnit.m_faction != m_faction)
             {
-                m_possibleTargets.Remove(detectedUnit);
+                m_detectedEnemies.Remove(detectedUnit);
             }
         }
     }
     #endregion
 
-    #region Attack Related
-    //protected bool CheckAim(Weapon weapon)
-    //{
-    //    RaycastHit hit;
-    //    if (Physics.Raycast(weapon.m_muzzle.position, weapon.m_muzzle.forward, out hit))
-    //    {
-    //        Unit unit = hit.collider.GetComponent<Unit>();
-
-    //        if (unit == m_currentTarget)
-    //            return true;
-    //    }
-
-    //    return false;
-    //}
-
-    //protected void CheckTargetDistanceToFire()
-    //{
-    //    if (m_currentTarget)
-    //    {
-    //        foreach (Weapon weapon in m_weapons)
-    //        {
-    //            if (weapon != null)
-    //            {
-    //                float currentTargetDistance = Vector3.Distance(m_currentTarget.transform.position, transform.position);
-                    
-    //                if (weapon.m_optimalRange > currentTargetDistance && CheckAim(weapon)) weapon.TriggerPressed();
-    //            }
-    //        }
-    //    }
-    //}
+    #region Attacks Related
+    protected bool IsTargetInFullOptimalRange()
+    {
+        if (m_currentTarget)
+        {
+            if (m_weapons.Count > 0)
+            {
+                foreach (Weapon weapon in m_weapons)
+                {
+                    if (!weapon.IsTargetInOptimalRange(m_currentTarget.m_targetPoint.position))
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }
+        return false;
+    }
     #endregion
 
     #region Updates
     protected override void Update()
     {
         base.Update();
-        //ChooseTarget();
-        //CheckTargetDistanceToFire();
     }
     #endregion
 }

@@ -6,6 +6,7 @@ using System.Collections;
 public class MobileGroundUnit : CombatUnit
 {
     protected NavMeshAgent m_navMeshAgent;
+    protected Vector3? m_destination = null;
     public Balise m_targetBalise { get; private set; }
     protected UnitPath m_path;
     protected bool m_followTheWay = true;
@@ -14,79 +15,95 @@ public class MobileGroundUnit : CombatUnit
     [Header("Mobility")]
     public float m_maxSpeed = 2f;
     public float m_rotationSpeed = 50f;
+
+    #region Initialization
+    protected override void Reset()
+    {
+        base.Reset();
+    }
     
     protected override void Awake()
     {
         base.Awake();
         m_navMeshAgent = GetComponent<NavMeshAgent>();
-
-        if (m_navMeshAgent == null)
-            m_navMeshAgent = GetComponentInParent<NavMeshAgent>();
-
-        EnableNavMeshAgent();
         m_navMeshAgent.stoppingDistance = 0.5f;
+        DisableNavMeshAgent();
     }
 
     protected override void Start()
     {
         base.Start();
-        DisableNavMeshAgent();
     }
+    #endregion
 
     #region Movement Related
-    protected void SetDestinationTest()
-    {
-        SetDestination(new Vector3(21f, 2f, 10f));
-    }
-
     private void EnableNavMeshAgent()
     {
-        m_navMeshObstacle.enabled = false;
-        m_navMeshAgent.enabled = true;
+        if (m_navMeshObstacle.enabled)
+        {
+            m_navMeshObstacle.enabled = false;
+            m_navMeshAgent.enabled = true;
+        }
     }
 
     private void DisableNavMeshAgent()
     {
-        m_navMeshAgent.enabled = false;
-        m_navMeshObstacle.enabled = true;
+        if (m_navMeshAgent.enabled)
+        {
+            m_navMeshAgent.enabled = false;
+            m_navMeshObstacle.enabled = true;
+        }
     }
 
-    protected void SetDestination(Vector3 newDestination)
+    public void CancelPath()
+    {
+        if (m_navMeshAgent.enabled)
+        {
+            m_navMeshAgent.ResetPath();
+
+            DisableNavMeshAgent();
+        }
+    }
+
+    public void SetDestination(Vector3 newDestination)
     {
         EnableNavMeshAgent();
         NavMeshHit hit;
         if (NavMesh.SamplePosition(newDestination, out hit, 1.0f, NavMesh.AllAreas))
         {
-            m_navMeshAgent.SetDestination(hit.position);
+            m_destination = hit.position;
+            m_navMeshAgent.SetDestination(m_destination.Value);
         }
-        else ClearNavMesh();
+        else
+        {
+            CancelPath();
+            m_destination = null;
+        }
     }
 
-    protected void ClearNavMesh()
+    protected void PausePath()
     {
-        if (m_navMeshAgent.hasPath)
-            m_navMeshAgent.ResetPath();
-
-        DisableNavMeshAgent();
-    }
-
-    protected void PauseNavMesh()
-    {
-        //DisableNavMeshAgent();
-
-        if (m_navMeshAgent.hasPath)
+        if (m_navMeshAgent.isActiveAndEnabled)
+        {
             m_navMeshAgent.Stop();
+
+            DisableNavMeshAgent();
+        }
     }
 
-    protected void ContinueNavMesh()
+    protected void ResumePath()
     {
         EnableNavMeshAgent();
 
         if (m_navMeshAgent.hasPath)
             m_navMeshAgent.Resume();
+        else if (m_destination.HasValue)
+            SetDestination(m_destination.Value);
+        else
+            DisableNavMeshAgent();
     }
 
-    protected bool CheckDestination()
+    protected bool IsPathCompleted()
     {
         if (!m_navMeshAgent.pathPending)
         {
@@ -101,7 +118,16 @@ public class MobileGroundUnit : CombatUnit
         return false;
     }
 
-    protected void MoveAlongPath(bool nextBalise)
+    protected void CheckPath()
+    {
+        if (IsPathCompleted())
+        {
+            m_destination = null;
+            DisableNavMeshAgent();
+        }
+    }
+
+    protected void MoveAlongPatrol(bool nextBalise)
     {
         if (m_navMeshAgent.destination != m_targetBalise.transform.position && m_navMeshAgent.remainingDistance > 0.01 && m_followTheWay == nextBalise)
         {
@@ -126,7 +152,6 @@ public class MobileGroundUnit : CombatUnit
     protected void MoveToDir(Vector3 dir)
     {
         EnableNavMeshAgent();
-        PauseNavMesh();
         m_navMeshAgent.Move(dir * m_maxSpeed * Time.deltaTime);
     }
 
@@ -136,12 +161,13 @@ public class MobileGroundUnit : CombatUnit
     protected override void Update()
     {
         base.Update();
+        if (m_navMeshAgent.isActiveAndEnabled)
+            CheckPath();
     }
 
     void FixedUpdate()
     {
-        if (m_navMeshAgent.isActiveAndEnabled)
-            if (CheckDestination()) PauseNavMesh();
+        
     }
     #endregion
 }

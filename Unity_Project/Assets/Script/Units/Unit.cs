@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 [AddComponentMenu("MechaVR/Units/DEV/Unit")]
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(NavMeshObstacle))]
-public class Unit : GraphicalElement
+[RequireComponent(typeof(BoxCollider))]
+public class Unit : MonoBehaviour
 {
     const int MIN_HIT_POINTS = 0;
     const int MAX_HIT_POINTS = 100;
@@ -46,6 +48,8 @@ public class Unit : GraphicalElement
     [ContextMenuItem("Destroy Unit", "Die")]
     protected int m_currentHitPoints;
 
+    public GameObject m_destructionSpawn;
+
     [Header("Unit's armor")]
     [Tooltip("Unit's maximum armor value between 0 and 100.")]
     [Range(MIN_ARMOR, MAX_ARMOR)]
@@ -57,27 +61,31 @@ public class Unit : GraphicalElement
 
     protected bool m_vulnerable = true;
 
-    protected override void Awake()
+    protected List<CombatUnit> m_detectingUnits = new List<CombatUnit>();
+    protected List<CombatUnit> m_targetingUnits = new List<CombatUnit>();
+
+    #region Initialization
+    protected virtual void Reset()
     {
-        base.Awake();
-        m_navMeshObstacle = GetComponent<NavMeshObstacle>();
-		if(m_navMeshObstacle == null)
-		{
-			m_navMeshObstacle = GetComponentInParent<NavMeshObstacle> ();
-		}
+        GetComponent<BoxCollider>().size = Vector3.zero;
     }
 
-    protected override void Start()
+    protected virtual void Awake()
     {
-        base.Start();
+        m_navMeshObstacle = GetComponent<NavMeshObstacle>();
+    }
+
+    protected virtual void Start()
+    {
         m_currentHitPoints = m_startingHitPoints;
         CheckHitPoints();
     }
+    #endregion
 
     #region Faction Related
     /// <summary>A utiliser pour changer la faction de l'unité.</summary>
     /// <param name ="newFaction">Nouvelle faction à appliquer.</param>
-    protected void ChangeFaction(UnitFaction newFaction)
+    public void ChangeFaction(UnitFaction newFaction)
     {
         m_faction = newFaction;
     }
@@ -98,11 +106,37 @@ public class Unit : GraphicalElement
         return m_destroyed;
     }
 
+    IEnumerator Dying()
+    {
+        yield return new WaitForSeconds(TIME_TO_DIE);
+        Destroy(gameObject);
+    }
+
     /// <summary>A appeler à la mort de l'unité.</summary>
     protected void Die()
     {
         m_destroyed = true;
-        StartFade(INVISIBLE, TIME_TO_DIE);
+
+        GetComponent<BoxCollider>().enabled = false;
+
+        for (int i = 0 ; i < transform.childCount ; i++)
+        {
+            transform.GetChild(i).gameObject.SetActive(false);
+        }
+
+        foreach (CombatUnit detectingUnit in m_detectingUnits)
+        {
+            detectingUnit.DetectedUnitDestroyed(this);
+        }
+
+        foreach (CombatUnit targetingUnit in m_targetingUnits)
+        {
+            targetingUnit.TargetedUnitDestroyed(this);
+        }
+
+        Instantiate(m_destructionSpawn, transform.position, transform.rotation);
+
+        StartCoroutine(Dying());
     }
     
     /// <summary>Vérifie si les hit points ne sont pas inférieurs à 0 ou supérieurs au maximum.</summary>
@@ -148,10 +182,32 @@ public class Unit : GraphicalElement
     }
     #endregion
 
-    #region Updates
-    protected override void Update()
+    #region Radar Related
+    public void Detected(CombatUnit detectingUnit)
     {
-        base.Update();
+        m_detectingUnits.Add(detectingUnit);
+    }
+
+    public void NoMoreDetected(CombatUnit noMoreDetectingUnit)
+    {
+        m_detectingUnits.Remove(noMoreDetectingUnit);
+    }
+
+    public void Targeted(CombatUnit targetingUnit)
+    {
+        m_targetingUnits.Add(targetingUnit);
+    }
+
+    public void NoMoreTargeted(CombatUnit noMoretargetingUnit)
+    {
+        m_targetingUnits.Remove(noMoretargetingUnit);
+    }
+    #endregion
+
+    #region Updates
+    protected virtual void Update()
+    {
+
 	}
     #endregion
 }
