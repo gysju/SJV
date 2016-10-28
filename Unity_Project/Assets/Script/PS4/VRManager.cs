@@ -100,7 +100,9 @@ public class VRManager : MonoBehaviour
         yield return null;
 
         VRSettings.enabled = false;
+		#if UNITY_PS4
         PlayStationVR.setOutputModeHMD(false, false);
+		#endif
         Camera.main.ResetFieldOfView();
         Camera.main.ResetAspect();
         UnityEngine.SceneManagement.SceneManager.LoadScene(0);
