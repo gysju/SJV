@@ -63,6 +63,7 @@ public class Unit : MonoBehaviour
 
     protected List<CombatUnit> m_detectingUnits = new List<CombatUnit>();
     protected List<CombatUnit> m_targetingUnits = new List<CombatUnit>();
+    protected List<Capture_point> m_currentlyCapturing = new List<Capture_point>();
 
     #region Initialization
     protected virtual void Reset()
@@ -134,7 +135,6 @@ public class Unit : MonoBehaviour
         {
             targetingUnit.TargetedUnitDestroyed(this);
         }
-
 
         StartCoroutine(Dying());
     }

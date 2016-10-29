@@ -123,6 +123,24 @@ public class Player : MobileGroundUnit
         m_torso.transform.rotation = horizontalRotation * currentRotation;
     }
 
+    void CheckPilotHead()
+    {
+        float horizontalAnglePrevision = m_mainCamera.transform.localRotation.eulerAngles.y;
+        horizontalAnglePrevision = (horizontalAnglePrevision > 180) ? horizontalAnglePrevision - 360 : horizontalAnglePrevision;
+        float toTransforToTorso = 0f;
+
+        if (horizontalAnglePrevision > m_maxHorinzontalHeadAngle)
+        {
+            toTransforToTorso = (horizontalAnglePrevision - m_maxHorinzontalHeadAngle);
+            RotateMechaHorizontaly(toTransforToTorso);
+        }
+        else if (horizontalAnglePrevision < -(m_maxHorinzontalHeadAngle))
+        {
+            toTransforToTorso = (horizontalAnglePrevision + m_maxHorinzontalHeadAngle);
+            RotateMechaHorizontaly(toTransforToTorso);
+        }
+    }
+
     void RotatePilotHead(float horizontalAngle, float verticalAngle)
     {
         float horizontalAnglePrevision = m_mainCamera.transform.localRotation.eulerAngles.y;
@@ -580,6 +598,7 @@ public class Player : MobileGroundUnit
         MouseKeyboardInputs();
         RazerInputs();
 		#elif UNITY_PS4
+        CheckPilotHead();
 		PSMoveInputs();
         #endif
     }

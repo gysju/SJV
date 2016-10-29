@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 #if UNITY_PS4
 using UnityEngine.PS4;
-#endif
 
 public class MoveController : MonoBehaviour {
 
@@ -30,7 +29,6 @@ public class MoveController : MonoBehaviour {
 		currentButtons = 0;
 	}
 
-#if UNITY_PS4
 	public bool GetButton( MoveButton button )
 	{
 		for (int slot = 0; slot < 4; slot++) 
@@ -74,5 +72,5 @@ public class MoveController : MonoBehaviour {
 		}
 		return Vector3.zero;
 	}
-#endif
 }
+#endif

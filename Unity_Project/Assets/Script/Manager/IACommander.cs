@@ -70,6 +70,10 @@ public class IACommander : MonoBehaviour
                 case Unit.UnitFaction.Neutral:
                     break;
                 case Unit.UnitFaction.Enemy:
+                    if (m_allyBaseCenter.IsDestroyed())
+                        unitAskingOrder.CancelPath();
+                    else
+                        unitAskingOrder.GiverDestroyOrder(m_allyBaseCenter);
                     break;
                 default:
                     break;

@@ -61,7 +61,7 @@ public class Weapon : MonoBehaviour
     {
         yield return new WaitForSeconds(m_reloadTime);
         m_currentAmmo = m_magazine;
-        Debug.Log("Reloaded");
+        //Debug.Log("Reloaded");
     }
 
     IEnumerator AutoFire()

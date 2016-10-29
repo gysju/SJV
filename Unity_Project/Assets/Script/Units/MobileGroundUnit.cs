@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 [AddComponentMenu("MechaVR/Units/DEV/Ground Unit")]
 [RequireComponent(typeof(NavMeshAgent))]
@@ -35,6 +36,35 @@ public class MobileGroundUnit : CombatUnit
         base.Start();
     }
     #endregion
+
+    protected override void Die()
+    {
+        m_destroyed = true;
+
+        GetComponent<BoxCollider>().enabled = false;
+
+        //for (int i = 0 ; i < transform.childCount ; i++)
+        //{
+        //    transform.GetChild(i).gameObject.SetActive(false);
+        //}
+
+        foreach (CombatUnit detectingUnit in m_detectingUnits)
+        {
+            detectingUnit.DetectedUnitDestroyed(this);
+        }
+
+        foreach (CombatUnit targetingUnit in m_targetingUnits)
+        {
+            targetingUnit.TargetedUnitDestroyed(this);
+        }
+
+        foreach (Capture_point capturePoint in m_currentlyCapturing)
+        {
+            capturePoint.CapturingUnitDestroyed(this);
+        }
+
+        StartCoroutine(Dying());
+    }
 
     #region Movement Related
     private void EnableNavMeshAgent()
