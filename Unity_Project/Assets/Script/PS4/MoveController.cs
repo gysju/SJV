@@ -39,7 +39,7 @@ public class MoveController : MonoBehaviour {
 				currentButtons = (int)button;
 				return true;
 			} 
-			else if (PS4Input.MoveIsConnected (slot, 1) && PS4Input.MoveGetButtons (slot, 1) == (int)button) 
+			else if ( isSecondaryMoveController && PS4Input.MoveIsConnected (slot, 1) && PS4Input.MoveGetButtons (slot, 1) == (int)button) 
 			{	
 				currentButtons = (int)button;
 				return true;
