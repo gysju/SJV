@@ -106,23 +106,24 @@ public class Unit : MonoBehaviour
         return m_destroyed;
     }
 
-    IEnumerator Dying()
+    protected IEnumerator Dying()
     {
         yield return new WaitForSeconds(TIME_TO_DIE);
+        Instantiate(m_destructionSpawn, transform.position, transform.rotation);
         Destroy(gameObject);
     }
 
     /// <summary>A appeler à la mort de l'unité.</summary>
-    protected void Die()
+    protected virtual void Die()
     {
         m_destroyed = true;
 
         GetComponent<BoxCollider>().enabled = false;
 
-        for (int i = 0 ; i < transform.childCount ; i++)
-        {
-            transform.GetChild(i).gameObject.SetActive(false);
-        }
+        //for (int i = 0 ; i < transform.childCount ; i++)
+        //{
+        //    transform.GetChild(i).gameObject.SetActive(false);
+        //}
 
         foreach (CombatUnit detectingUnit in m_detectingUnits)
         {
@@ -134,7 +135,6 @@ public class Unit : MonoBehaviour
             targetingUnit.TargetedUnitDestroyed(this);
         }
 
-        Instantiate(m_destructionSpawn, transform.position, transform.rotation);
 
         StartCoroutine(Dying());
     }

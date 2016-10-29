@@ -84,6 +84,29 @@ public class Player : MobileGroundUnit
     }
     #endregion
 
+    protected override void Die()
+    {
+        m_destroyed = true;
+
+        GetComponent<BoxCollider>().enabled = false;
+
+        //for (int i = 0 ; i < transform.childCount ; i++)
+        //{
+        //    transform.GetChild(i).gameObject.SetActive(false);
+        //}
+
+        foreach (CombatUnit detectingUnit in m_detectingUnits)
+        {
+            detectingUnit.DetectedUnitDestroyed(this);
+        }
+
+        foreach (CombatUnit targetingUnit in m_targetingUnits)
+        {
+            targetingUnit.TargetedUnitDestroyed(this);
+        }
+
+    }
+
     #region Actions
     #region Movements
     void RotateMechaHorizontaly(float horizontalAngle)
