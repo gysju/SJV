@@ -59,6 +59,7 @@ GameObject:
   - 33: {fileID: 33000011075717658}
   - 65: {fileID: 65000011119148054}
   - 23: {fileID: 23000011460291064}
+  - 120: {fileID: 120000010126086396}
   m_Layer: 0
   m_Name: Hull
   m_TagString: Untagged
@@ -362,17 +363,20 @@ MonoBehaviour:
   m_armor: 10
   m_targetPoint: {fileID: 4000011653083744}
   m_radarRange: 50
-  m_possibleTargets: []
+  m_detectedEnemies: []
   m_currentTarget: {fileID: 0}
   m_weapons:
   - {fileID: 114000012053890562}
   m_maxSpeed: 5
   m_rotationSpeed: 50
+  m_allyCommander: {fileID: 0}
+  m_enemyCommander: {fileID: 0}
   m_turretBase: {fileID: 4000013556056628}
   m_turretDegreesPerSecond: 45
   m_cannonDegreesPerSecond: 45
   m_maxCannonAngle: 45
   m_imprecisioAngle: 10
+  debugLineRenderer: {fileID: 120000010126086396}
 --- !u!114 &114000012053890562
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -394,6 +398,48 @@ MonoBehaviour:
   m_reloadTime: 5
   m_optimalRange: 25
   m_precision: 0
+--- !u!120 &120000010126086396
+LineRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010839594920}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_Materials:
+  - {fileID: 2100000, guid: f63c576739a709747a1a571260d4fabd, type: 2}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedWireframeHidden: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_Positions:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  m_Parameters:
+    startWidth: 0.5
+    endWidth: 0.5
+    m_StartColor:
+      serializedVersion: 2
+      rgba: 4278190335
+    m_EndColor:
+      serializedVersion: 2
+      rgba: 4278190333
+  m_UseWorldSpace: 1
 --- !u!135 &135000011256273516
 SphereCollider:
   m_ObjectHideFlags: 1

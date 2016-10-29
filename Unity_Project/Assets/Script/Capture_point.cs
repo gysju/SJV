@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Capture_point : MonoBehaviour 
 {
@@ -11,27 +12,38 @@ public class Capture_point : MonoBehaviour
 
     public enum Capture_State {Capture_Point_state_Neutre, Capture_Point_state_Loading, Capture_Point_state_Waiting, Capture_Point_state_Loaded}
 	protected Capture_State currentState = Capture_State.Capture_Point_state_Neutre ;
+    
+    protected SphereCollider m_captureZone;
 
 	[Range(0.1f, 10.0f)]
-	public float Range = 5.0f;
+	public float m_captureZoneRadius = 5.0f;
 
 	[Range(1.0f, 10.0f)]
-	public float TimeToCapture = 1.0f;
+	public float m_timeToCapture = 1.0f;
 
-    private Unit.UnitFaction faction = Unit.UnitFaction.Neutral;
+    public Unit.UnitFaction m_faction = Unit.UnitFaction.Neutral;
+
+    [SerializeField]
+    private List<MobileGroundUnit> m_allyUnits = new List<MobileGroundUnit>();
+    [SerializeField]
+    private List<MobileGroundUnit> m_enemyUnits = new List<MobileGroundUnit>();
+
+    [SerializeField]
+    private float m_currentCaptureValue = 0f;
+
 	private CombatUnit combatUnitOnTarget;
 	private float time = 0.0f;
 
-	void Start () 
+    #region Initialization
+    void Start () 
 	{
-		SetCollider (mode);
-	}
-    #region Update
-    void Update () 
-	{
-		UpdateState (currentState);	
-	}
+        SetCollider(mode);
+        m_captureZone = GetComponent<SphereCollider>();
+        m_captureZone.isTrigger = true;
+        UpdateRadarRange();
+    }
     #endregion
+
     #region State
     void UpdateState(Capture_State state )
 	{
@@ -84,14 +96,13 @@ public class Capture_point : MonoBehaviour
 		case Capture_State.Capture_Point_state_Loaded:
 			mat.color = Color.green;
             AddBuffByType(combatUnitOnTarget);
-
             break;
 		}
 	}
 
     public bool IsSameFaction(Unit.UnitFaction otherFaction)
     {
-        return (otherFaction == faction);
+        return (otherFaction == m_faction);
     }
     #endregion
     #region Actions
@@ -100,7 +111,7 @@ public class Capture_point : MonoBehaviour
     {
         time += Time.deltaTime;
 
-        if (time >= TimeToCapture)
+        if (time >= m_timeToCapture)
         {
             ChangeState(Capture_State.Capture_Point_state_Loaded);
         }
@@ -123,64 +134,179 @@ public class Capture_point : MonoBehaviour
     }
 
     #endregion
-    #region Collider
-    void OnTriggerEnter(Collider col)
-	{
-		CombatUnit combatUnit = col.GetComponent<CombatUnit> ();
 
-		if(combatUnit != null && mode == Capture_Mode.Capture_Mode_TriggerZone && !col.isTrigger)
+    #region Radar Related
+    protected void UpdateRadarRange()
+    {
+        m_captureZone.radius = m_captureZoneRadius;
+    }
+
+    public void CapturingUnitDestroyed(MobileGroundUnit destroyedUnit)
+    {
+        switch (destroyedUnit.m_faction)
         {
-			if( currentState == Capture_State.Capture_Point_state_Neutre )
-			{
-                combatUnitOnTarget = combatUnit;
-                faction = combatUnitOnTarget.m_faction;
-				ChangeState(Capture_State.Capture_Point_state_Loading);
-			}
-			else if ( currentState == Capture_State.Capture_Point_state_Loading)
-			{
-				ChangeState(Capture_State.Capture_Point_state_Waiting);
-			}
-		}	
-	}
+            case Unit.UnitFaction.Ally:
+                m_allyUnits.Remove(destroyedUnit);
+                break;
+            case Unit.UnitFaction.Neutral:
+                break;
+            case Unit.UnitFaction.Enemy:
+                m_enemyUnits.Remove(destroyedUnit);
+                break;
+            default:
+                break;
+        }
+    }
 
-	void OnTriggerExit(Collider col)
-	{
-        CombatUnit combatUnit = col.GetComponent<CombatUnit> ();
-
-		if (combatUnit != null && mode == Capture_Mode.Capture_Mode_TriggerZone && !col.isTrigger) 
-		{
-			if ( currentState == Capture_State.Capture_Point_state_Loading) 
-			{
-				ChangeState (Capture_State.Capture_Point_state_Neutre);
-			} 
-			else if ( currentState == Capture_State.Capture_Point_state_Waiting) 
-			{
-				if (combatUnit.m_faction == faction) 
-				{
-					time = 0.0f;
-                    faction = (faction == Unit.UnitFaction.Ally) ? Unit.UnitFaction.Enemy : Unit.UnitFaction.Ally;
+    protected virtual void OnTriggerEnter(Collider col)
+    {
+        if (!col.isTrigger)
+        {
+            MobileGroundUnit detectedUnit = col.GetComponent<MobileGroundUnit>();
+            if (detectedUnit != null && !detectedUnit.IsDestroyed())
+            {
+                switch (detectedUnit.m_faction)
+                {
+                    case Unit.UnitFaction.Ally:
+                        m_allyUnits.Add(detectedUnit);
+                        break;
+                    case Unit.UnitFaction.Neutral:
+                        break;
+                    case Unit.UnitFaction.Enemy:
+                        m_enemyUnits.Add(detectedUnit);
+                        break;
+                    default:
+                        break;
                 }
+            }
+        }
+    }
 
-				ChangeState (Capture_State.Capture_Point_state_Loading);
-			}
-		}
-	}
+    protected virtual void OnTriggerExit(Collider col)
+    {
+        if (!col.isTrigger)
+        {
+            MobileGroundUnit detectedUnit = col.GetComponent<MobileGroundUnit>();
+            if (detectedUnit != null && !detectedUnit.IsDestroyed())
+            {
+                switch (detectedUnit.m_faction)
+                {
+                    case Unit.UnitFaction.Ally:
+                        m_allyUnits.Remove(detectedUnit);
+                        break;
+                    case Unit.UnitFaction.Neutral:
+                        break;
+                    case Unit.UnitFaction.Enemy:
+                        m_enemyUnits.Remove(detectedUnit);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+    }
+    #endregion
+
+    #region Collider
+    //void OnTriggerEnter(Collider col)
+    //{
+    //    CombatUnit combatUnit = col.GetComponent<CombatUnit> ();
+
+    //    if(combatUnit != null && mode == Capture_Mode.Capture_Mode_TriggerZone && !col.isTrigger)
+    //    {
+    //        if( currentState == Capture_State.Capture_Point_state_Neutre )
+    //        {
+    //            combatUnitOnTarget = combatUnit;
+    //            m_faction = combatUnitOnTarget.m_faction;
+    //            ChangeState(Capture_State.Capture_Point_state_Loading);
+    //        }
+    //        else if ( currentState == Capture_State.Capture_Point_state_Loading)
+    //        {
+    //            ChangeState(Capture_State.Capture_Point_state_Waiting);
+    //        }
+    //    }	
+    //}
+
+    //void OnTriggerExit(Collider col)
+    //{
+    //    CombatUnit combatUnit = col.GetComponent<CombatUnit> ();
+
+    //    if (combatUnit != null && mode == Capture_Mode.Capture_Mode_TriggerZone && !col.isTrigger) 
+    //    {
+    //        if ( currentState == Capture_State.Capture_Point_state_Loading) 
+    //        {
+    //            ChangeState (Capture_State.Capture_Point_state_Neutre);
+    //        } 
+    //        else if ( currentState == Capture_State.Capture_Point_state_Waiting) 
+    //        {
+    //            if (combatUnit.m_faction == m_faction) 
+    //            {
+    //                time = 0.0f;
+    //                m_faction = (m_faction == Unit.UnitFaction.Ally) ? Unit.UnitFaction.Enemy : Unit.UnitFaction.Ally;
+    //            }
+
+    //            ChangeState (Capture_State.Capture_Point_state_Loading);
+    //        }
+    //    }
+    //}
 
     void SetCollider(Capture_Mode mode)
     {
         if (mode == Capture_Mode.Capture_Mode_TriggerZone)
         {
             SphereCollider sphereCollider = gameObject.AddComponent<SphereCollider>();
-            sphereCollider.radius = Range;
+            sphereCollider.radius = m_captureZoneRadius;
             sphereCollider.isTrigger = true;
         }
         else
         {
             BoxCollider boxCollider = gameObject.AddComponent<BoxCollider>();
-            boxCollider.size = Vector3.one * Range / 2.0f;
+            boxCollider.size = Vector3.one * m_captureZoneRadius / 2.0f;
             boxCollider.center += transform.forward * (boxCollider.size.x / 2.0f) + new Vector3(0, boxCollider.size.x / 2.0f, 0);
             boxCollider.isTrigger = true;
         }
+    }
+    #endregion
+
+    #region Capture Related
+    private void Capture(int multiplicator)
+    {
+        if ((multiplicator > 0 && m_faction != Unit.UnitFaction.Ally) || (multiplicator < 0 && m_faction != Unit.UnitFaction.Enemy))
+        {
+            m_currentCaptureValue += multiplicator * (Time.deltaTime / m_timeToCapture);
+            Mathf.Clamp(m_currentCaptureValue, -1f, 1f);
+
+
+            if (m_currentCaptureValue >= 1f)
+            {
+                m_faction = Unit.UnitFaction.Ally;
+                m_currentCaptureValue = 1f;
+            }
+            else if (m_currentCaptureValue <= -1f)
+            {
+                m_faction = Unit.UnitFaction.Enemy;
+                m_currentCaptureValue = -1f;
+            }
+        }
+    }
+    #endregion
+
+    #region Updates
+    void UpdateCapturePoint()
+    {
+        int allyNumber = m_allyUnits.Count;
+        int enemyNumber = m_enemyUnits.Count;
+        float previousCaptureValue = m_currentCaptureValue;
+        
+        Capture(allyNumber - enemyNumber);
+
+        if ((previousCaptureValue > 0 && m_currentCaptureValue <= 0) || (previousCaptureValue < 0 && m_currentCaptureValue >= 0))
+            m_faction = Unit.UnitFaction.Neutral;
+    }
+
+    void Update()
+    {
+        UpdateCapturePoint();
     }
     #endregion
 }
