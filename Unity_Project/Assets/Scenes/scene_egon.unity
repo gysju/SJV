@@ -1167,6 +1167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleState: 0
+  m_player: {fileID: 1468741282}
   m_allyBaseCenter: {fileID: 795770107}
   m_enemyBaseCenter: {fileID: 1866704487}
   m_victoryText: {fileID: 587128978}
@@ -1250,6 +1251,12 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1144763861}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1468741282 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114000011140535854, guid: 05f12f4d76aebd94c85408112077e2ce,
+    type: 2}
+  m_PrefabInternal: {fileID: 47563900}
+  m_Script: {fileID: 11500000, guid: cb75b7b1af3adb941b65471a3a6240c7, type: 3}
 --- !u!1 &1489260469
 GameObject:
   m_ObjectHideFlags: 0

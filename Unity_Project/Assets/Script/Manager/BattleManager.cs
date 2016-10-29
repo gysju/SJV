@@ -13,6 +13,8 @@ public class BattleManager : MonoBehaviour
 
     public BattleState battleState = BattleState.BattleState_OnGoing;
 
+    public Player m_player;
+
     public Unit m_allyBaseCenter;
     public Unit m_enemyBaseCenter;
 
@@ -33,7 +35,7 @@ public class BattleManager : MonoBehaviour
 
     private bool DefeatCondition()
     {
-        return (m_allyBaseCenter.IsDestroyed());
+        return (m_allyBaseCenter.IsDestroyed() || m_player.IsDestroyed());
     }
 
     private void VictoryEvent()

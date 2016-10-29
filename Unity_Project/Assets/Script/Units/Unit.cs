@@ -106,7 +106,7 @@ public class Unit : MonoBehaviour
         return m_destroyed;
     }
 
-    IEnumerator Dying()
+    protected IEnumerator Dying()
     {
         yield return new WaitForSeconds(TIME_TO_DIE);
         Instantiate(m_destructionSpawn, transform.position, transform.rotation);
@@ -114,7 +114,7 @@ public class Unit : MonoBehaviour
     }
 
     /// <summary>A appeler à la mort de l'unité.</summary>
-    protected void Die()
+    protected virtual void Die()
     {
         m_destroyed = true;
 
