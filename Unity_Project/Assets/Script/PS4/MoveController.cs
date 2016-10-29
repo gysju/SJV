@@ -20,8 +20,9 @@ public class MoveController : MonoBehaviour {
 	
 	}
 	
-	void Update () {
-	
+	void Update () 
+	{
+		prevButtons = currentButtons;
 	}
 
 	void LateUpdate()
@@ -49,16 +50,14 @@ public class MoveController : MonoBehaviour {
 
 	public bool GetButtonUp(MoveButton button)
 	{
-		if (!GetButton(button))
-			return false;
-		return ((prevButtons != (int)button) && ((currentButtons == (int)button)));
+		return ((prevButtons == (int)button) && !GetButton(button));
 	}
 
 	public bool GetButtonDown(MoveButton button)
 	{
 		if (!GetButton(button))
 			return false;
-		return ((prevButtons == (int)button) && ((currentButtons != (int)button)));
+		return ((prevButtons != (int)button) && ((currentButtons == (int)button)));
 	}
 
 	public Vector3 getMoveRotation()

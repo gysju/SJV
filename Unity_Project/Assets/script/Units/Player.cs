@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.UI;
 
 #if UNITY_PS4
 using UnityEngine.PS4;
@@ -132,12 +133,12 @@ public class Player : MobileGroundUnit
         if (horizontalAnglePrevision > m_maxHorinzontalHeadAngle)
         {
             toTransforToTorso = (horizontalAnglePrevision - m_maxHorinzontalHeadAngle);
-            RotateMechaHorizontaly(toTransforToTorso);
+            RotateMechaHorizontaly(0.5f);
         }
         else if (horizontalAnglePrevision < -(m_maxHorinzontalHeadAngle))
         {
             toTransforToTorso = (horizontalAnglePrevision + m_maxHorinzontalHeadAngle);
-            RotateMechaHorizontaly(toTransforToTorso);
+			RotateMechaHorizontaly(-0.5f);
         }
     }
 
@@ -273,7 +274,7 @@ public class Player : MobileGroundUnit
 		Vector3 RightHand = new Vector3(m_rightController.getMoveRotation().y, 0.0f, 0.0f);
 		float angle = Vector3.Angle(leftHand, RightHand);
 
-        angle /= 90.0f;
+		angle /= 90.0f;
         angle = Mathf.Clamp01(angle) * Time.deltaTime;
         angle = (float)System.Math.Round(angle, 2);
 
@@ -306,7 +307,14 @@ public class Player : MobileGroundUnit
 		if (m_leftController.GetButtonUp(MoveController.MoveButton.MoveButton_Move) && !rightPointer) ConfirmDestination();
 		if (m_rightController.GetButtonUp(MoveController.MoveButton.MoveButton_Move) && !leftPointer) ConfirmDestination();
 
-        if (leftModifier)
+		GameObject debug = GameObject.FindGameObjectWithTag ("Debug");
+
+		if(debug != null)
+		{
+			debug.GetComponent<Text>().text = "left:" + m_leftController.GetButton(MoveController.MoveButton.MoveButton_Trigger) + "right:" + m_rightController.GetButton(MoveController.MoveButton.MoveButton_Trigger);
+		}
+
+		if (leftModifier)
         {
             if (leftModifier && rightModifier)
             {

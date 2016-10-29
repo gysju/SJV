@@ -39,11 +39,11 @@ public class ps4_move_debug : MonoBehaviour {
 		int numDetected = 0;
 		for (int slot=0;slot<4;slot++)
 		{
-			for (int controller=0; controller<2; controller++)
+			for (int controller=0; controller<1; controller++)
 			{
 				if (PS4Input.MoveIsConnected(slot,controller))
 				{
-					string data = String.Format("get button up : {0}, get button Down : {1}, , get button : {3}, prevButtons : {4}, currentButtons : {5}" ,
+					string data = String.Format("get button up : {0}, get button Down : {1} , get button : {2}, prevButtons : {3}, currentButtons : {4}" ,
 						GetButtonUp(MoveButton.MoveButton_Move, controller),
 						GetButtonDown(MoveButton.MoveButton_Move, controller),
 						GetButton(MoveButton.MoveButton_Move, controller),
@@ -72,16 +72,14 @@ public class ps4_move_debug : MonoBehaviour {
 
 	public bool GetButtonUp(MoveButton button, int slot)
 	{
-		if (!GetButton(button, slot))
-			return false;
-		return ((prevButtons != (int)button) && ((currentButtons == (int)button)));
+		return ((prevButtons == (int)button) && !GetButton(button, slot));
 	}
 
 	public bool GetButtonDown(MoveButton button, int slot)
 	{
 		if (!GetButton(button, slot))
 			return false;
-		return ((prevButtons == (int)button) && ((currentButtons != (int)button)));
+		return ((prevButtons != (int)button) && ((currentButtons == (int)button)));
 	}
 		
 	#endif
