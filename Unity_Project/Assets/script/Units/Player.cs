@@ -279,69 +279,66 @@ public class Player : MobileGroundUnit
 
     void PSMoveInputs()
     {
-        if (PS4Input.MoveIsConnected(0, 0) && PS4Input.MoveIsConnected(0, 1))
+		bool leftModifier = m_leftController.GetButton(MoveController.MoveButton.MoveButton_Cross);
+		bool rightModifier = m_rightController.GetButton(MoveController.MoveButton.MoveButton_Cross);
+
+		bool leftPointer = m_leftController.GetButton(MoveController.MoveButton.MoveButton_Move);
+		bool rightPointer = m_rightController.GetButton(MoveController.MoveButton.MoveButton_Move);
+
+		if (m_leftController.GetButtonUp(MoveController.MoveButton.MoveButton_Move) && !rightPointer) ConfirmDestination();
+		if (m_rightController.GetButtonUp(MoveController.MoveButton.MoveButton_Move) && !leftPointer) ConfirmDestination();
+
+        if (leftModifier)
         {
-			bool leftModifier = m_leftController.GetButton(MoveController.MoveButton.MoveButton_Cross); // trouvé la bonne valeur pour la bonne touche
-			bool rightModifier = m_rightController.GetButton(MoveController.MoveButton.MoveButton_Cross); // trouvé la bonne valeur pour la bonne touche
-
-			bool leftPointer = m_leftController.GetButton(MoveController.MoveButton.MoveButton_Move);
-			bool rightPointer = m_rightController.GetButton(MoveController.MoveButton.MoveButton_Move);
-
-			if (m_leftController.GetButtonUp(MoveController.MoveButton.MoveButton_Move) && !rightPointer) ConfirmDestination();
-			if (m_rightController.GetButtonUp(MoveController.MoveButton.MoveButton_Move) && !leftPointer) ConfirmDestination();
-
-            if (leftModifier)
+            if (leftModifier && rightModifier)
             {
-                if (leftModifier && rightModifier)
-                {
-                    PSMoveRotation();
-                }
-                else
-                {
-                    MoveFromLocalRotation(PSMoveVirtualJoysticksConvertion(0));
-                    LeftArmWeaponTriggerReleased();
-                }
+                PSMoveRotation();
             }
             else
             {
-                PSMoveLeftWeaponControl();
-                if (leftPointer)
-                {
-                    PointDestination(m_leftWeapon.m_muzzle);
-                    LeftArmWeaponTriggerReleased();
-                }
-                else
-                {
-					if (m_leftController.GetButtonDown(MoveController.MoveButton.MoveButton_Trigger)) LeftArmWeaponTriggered();
-					if (m_leftController.GetButtonUp(MoveController.MoveButton.MoveButton_Trigger)) LeftArmWeaponTriggerReleased();
-                }
+                MoveFromLocalRotation(PSMoveVirtualJoysticksConvertion(0));
+                LeftArmWeaponTriggerReleased();
             }
-
-            if (rightModifier)
+        }
+        else
+        {
+            PSMoveLeftWeaponControl();
+            if (leftPointer)
             {
-                if (leftModifier && rightModifier)
-                {
-                    PSMoveRotation();
-                }
-                else
-                {
-                    MoveFromLocalRotation(PSMoveVirtualJoysticksConvertion(1));
-                    RightArmWeaponTriggerReleased();
-                }
+                PointDestination(m_leftWeapon.m_muzzle);
+                LeftArmWeaponTriggerReleased();
             }
             else
             {
-                PSMoveRightWeaponControl();
-                if (rightPointer)
-                {
-                    PointDestination(m_rightWeapon.m_muzzle);
-                    RightArmWeaponTriggerReleased();
-                }
-                else
-                {
-					if (m_rightController.GetButtonDown(MoveController.MoveButton.MoveButton_Trigger)) RightArmWeaponTriggered();
-					if (m_rightController.GetButtonUp(MoveController.MoveButton.MoveButton_Trigger)) RightArmWeaponTriggerReleased();
-                }
+				if (m_leftController.GetButtonDown(MoveController.MoveButton.MoveButton_Trigger)) LeftArmWeaponTriggered();
+				if (m_leftController.GetButtonUp(MoveController.MoveButton.MoveButton_Trigger)) LeftArmWeaponTriggerReleased();
+            }
+        }
+
+        if (rightModifier)
+        {
+            if (leftModifier && rightModifier)
+            {
+                PSMoveRotation();
+            }
+            else
+            {
+                MoveFromLocalRotation(PSMoveVirtualJoysticksConvertion(1));
+                RightArmWeaponTriggerReleased();
+            }
+        }
+        else
+        {
+            PSMoveRightWeaponControl();
+            if (rightPointer)
+            {
+                PointDestination(m_rightWeapon.m_muzzle);
+                RightArmWeaponTriggerReleased();
+            }
+            else
+            {
+				if (m_rightController.GetButtonDown(MoveController.MoveButton.MoveButton_Trigger)) RightArmWeaponTriggered();
+				if (m_rightController.GetButtonUp(MoveController.MoveButton.MoveButton_Trigger)) RightArmWeaponTriggerReleased();
             }
         }
     }
