@@ -5164,7 +5164,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000014019086946}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.46, z: 0}
+  m_LocalPosition: {x: -47, y: 0, z: -30.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -8782,11 +8782,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_faction: 0
   m_capturable: 0
-  m_maxHitPoints: 10
-  m_startingHitPoints: 10
+  m_maxHitPoints: 100
+  m_startingHitPoints: 100
   m_currentHitPoints: 0
   m_destructionSpawn: {fileID: 100010, guid: 0b6dc5cf11433424ab9859ff1ea59f4c, type: 2}
-  m_armor: 0
+  m_armor: 5
   m_targetPoint: {fileID: 4000011945480278}
   m_radarRange: 50
   m_detectedEnemies: []
@@ -8801,7 +8801,6 @@ MonoBehaviour:
   m_torso: {fileID: 1000010427927384}
   m_legs: {fileID: 1000011387755860}
   m_pointer: {fileID: 1000013968135328, guid: 5ec254d5897b5114e8f74e0df760a8f2, type: 2}
-  trackedDeviceMoveControllers: {fileID: 0}
 --- !u!114 &114000012553125024
 MonoBehaviour:
   m_ObjectHideFlags: 1
