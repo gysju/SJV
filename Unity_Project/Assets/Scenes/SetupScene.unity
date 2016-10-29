@@ -50,8 +50,8 @@ LightmapSettings:
     m_AlbedoBoost: 1
     m_TemporalCoherenceThreshold: 1
     m_EnvironmentLightingMode: 0
-    m_EnableBakedLightmaps: 1
-    m_EnableRealtimeLightmaps: 1
+    m_EnableBakedLightmaps: 0
+    m_EnableRealtimeLightmaps: 0
   m_LightmapEditorSettings:
     serializedVersion: 4
     m_Resolution: 2
@@ -226,25 +226,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!1 &1239289567 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1000011267343890, guid: 2f77a68b59fa98642873f148059c641b,
-    type: 2}
-  m_PrefabInternal: {fileID: 2100545291}
---- !u!114 &1239289570
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1239289567}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a114387d53770648934f66240f266db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uiLayerMask:
-    serializedVersion: 2
-    m_Bits: 32
 --- !u!20 &1239289574 stripped
 Camera:
   m_PrefabParentObject: {fileID: 20000013330793254, guid: 2f77a68b59fa98642873f148059c641b,
@@ -346,29 +327,10 @@ Prefab:
       propertyPath: m_Materials.Array.data[2]
       value: 
       objectReference: {fileID: 2100000, guid: c87a8cdcfbab0a842bb4f74a397478cd, type: 2}
-    - target: {fileID: 212000013998385700, guid: 2f77a68b59fa98642873f148059c641b,
-        type: 2}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 6ca8de84013e3074f834aa015f8bd7cd,
-        type: 3}
-    - target: {fileID: 4000011345713846, guid: 2f77a68b59fa98642873f148059c641b, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 0.25
+    - target: {fileID: 1000012718709688, guid: 2f77a68b59fa98642873f148059c641b, type: 2}
+      propertyPath: m_Name
+      value: Player_Setup
       objectReference: {fileID: 0}
-    - target: {fileID: 4000011345713846, guid: 2f77a68b59fa98642873f148059c641b, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000011345713846, guid: 2f77a68b59fa98642873f148059c641b, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 82000013362174116, guid: 2f77a68b59fa98642873f148059c641b,
-        type: 2}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 9610c0e2516cc5a43a74260b2edcc545, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2f77a68b59fa98642873f148059c641b, type: 2}
   m_IsPrefabParent: 0

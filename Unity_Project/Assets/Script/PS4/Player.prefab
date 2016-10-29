@@ -41,6 +41,7 @@ GameObject:
   - 124: {fileID: 124000011435405818}
   - 81: {fileID: 81000012708152476}
   - 82: {fileID: 82000013362174116}
+  - 114: {fileID: 114000013484837134}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -135,7 +136,7 @@ Transform:
   m_GameObject: {fileID: 1000012773820720}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 3}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000011693554102}
@@ -346,7 +347,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 8d57953bec601a54a915153398cefa66, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 9610c0e2516cc5a43a74260b2edcc545, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -418,6 +419,20 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011267343890}
   m_Enabled: 1
+--- !u!114 &114000013484837134
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011267343890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a114387d53770648934f66240f266db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiLayerMask:
+    serializedVersion: 2
+    m_Bits: 32
 --- !u!114 &114000013558180726
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -478,7 +493,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8656d10b098e9374396ece634074accb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6ca8de84013e3074f834aa015f8bd7cd, type: 3}
   m_Color: {r: 1, g: 0, b: 0.4, a: 0.7529412}
   m_FlipX: 0
   m_FlipY: 0
