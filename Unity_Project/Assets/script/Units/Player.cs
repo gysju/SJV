@@ -327,7 +327,7 @@ public class Player : MobileGroundUnit
     {
         Vector3 movementDirection = Vector3.zero;
 
-        float x = PS4Input.GetLastMoveAcceleration(0, index).x;
+        float x = -PS4Input.GetLastMoveAcceleration(0, index).x;
         float y = PS4Input.GetLastMoveAcceleration(0, index).y;
 
         const float NEUTRAL_Z = -0.3f;
