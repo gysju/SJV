@@ -4,8 +4,9 @@ using System.Collections.Generic;
 
 #if UNITY_PS4
 using UnityEngine.PS4;
-
+#endif
 public class MoveController : MonoBehaviour {
+	#if UNITY_PS4
 
 	public enum MoveButton { MoveButton_Trigger = 2, MoveButton_Move = 4, MoveButton_Start = 8, MoveButton_Triangle = 16, MoveButton_Circle = 32, MoveButton_Cross = 64, MoveButton_Square = 128, MoveButton_MaxAnalogueValue = 255, MoveButton_Count = 8}
 
@@ -71,5 +72,5 @@ public class MoveController : MonoBehaviour {
 		}
 		return Vector3.zero;
 	}
+	#endif
 }
-#endif

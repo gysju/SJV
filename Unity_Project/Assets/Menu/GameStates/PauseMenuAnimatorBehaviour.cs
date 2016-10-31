@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenuAnimatorBehaviour : GameStateBaseAnimatorBehaviour
 {
-	public string SceneToRestart;
+	public int SceneToRestart;
 
 	override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {

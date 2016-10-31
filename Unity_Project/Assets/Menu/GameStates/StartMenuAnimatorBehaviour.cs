@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class StartMenuAnimatorBehaviour : GameStateBaseAnimatorBehaviour
 {
-	public string NextScene;
+	public int NextScene;
 
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
