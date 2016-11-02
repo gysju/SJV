@@ -101,7 +101,7 @@ public class Player : MobileGroundUnit
             detectingUnit.DetectedUnitDestroyed(this);
         }
 
-        foreach (CombatUnit targetingUnit in m_targetingUnits)
+        foreach (CombatUnit targetingUnit in m_targetingIAs)
         {
             targetingUnit.TargetedUnitDestroyed(this);
         }

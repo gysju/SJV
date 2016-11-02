@@ -11,10 +11,10 @@ public class MobileGroundUnit : CombatUnit
     public Balise m_targetBalise { get; private set; }
     protected UnitPath m_path;
     protected bool m_followTheWay = true;
-
-    [ContextMenuItem("Set Destination", "SetDestinationTest")]
+    
     [Header("Mobility")]
     public float m_maxSpeed = 2f;
+    public float m_acceleration = 8f;
     public float m_rotationSpeed = 50f;
 
     #region Initialization
@@ -28,6 +28,9 @@ public class MobileGroundUnit : CombatUnit
         base.Awake();
         m_navMeshAgent = GetComponent<NavMeshAgent>();
         m_navMeshAgent.stoppingDistance = 0.5f;
+        m_navMeshAgent.speed = m_maxSpeed;
+        m_navMeshAgent.acceleration = m_acceleration;
+        m_navMeshAgent.angularSpeed = m_rotationSpeed;
         DisableNavMeshAgent();
     }
 
@@ -37,34 +40,17 @@ public class MobileGroundUnit : CombatUnit
     }
     #endregion
 
+    #region Hit Points Related
     protected override void Die()
     {
-        m_destroyed = true;
-
-        GetComponent<BoxCollider>().enabled = false;
-
-        //for (int i = 0 ; i < transform.childCount ; i++)
-        //{
-        //    transform.GetChild(i).gameObject.SetActive(false);
-        //}
-
-        foreach (CombatUnit detectingUnit in m_detectingUnits)
-        {
-            detectingUnit.DetectedUnitDestroyed(this);
-        }
-
-        foreach (CombatUnit targetingUnit in m_targetingUnits)
-        {
-            targetingUnit.TargetedUnitDestroyed(this);
-        }
+        base.Die();
 
         foreach (Capture_point capturePoint in m_currentlyCapturing)
         {
             capturePoint.CapturingUnitDestroyed(this);
         }
-
-        StartCoroutine(Dying());
     }
+    #endregion
 
     #region Movement Related
     private void EnableNavMeshAgent()
@@ -111,7 +97,7 @@ public class MobileGroundUnit : CombatUnit
         }
     }
 
-    protected void PausePath()
+    public void PausePath()
     {
         if (m_navMeshAgent.isActiveAndEnabled)
         {
@@ -121,7 +107,7 @@ public class MobileGroundUnit : CombatUnit
         }
     }
 
-    protected void ResumePath()
+    public void ResumePath()
     {
         EnableNavMeshAgent();
 
@@ -190,14 +176,12 @@ public class MobileGroundUnit : CombatUnit
     #region Updates
     protected override void Update()
     {
-        base.Update();
-        if (m_navMeshAgent.isActiveAndEnabled)
-            CheckPath();
-    }
-
-    void FixedUpdate()
-    {
-        
+        if (!m_destroyed)
+        {
+            base.Update();
+            if (m_navMeshAgent.isActiveAndEnabled)
+                CheckPath();
+        }
     }
     #endregion
 }
