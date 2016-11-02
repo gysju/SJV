@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class EndGameAnimatorBehaviour : GameStateBaseAnimatorBehaviour
 {
-	public string NextScene;
+	public int NextScene;
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {

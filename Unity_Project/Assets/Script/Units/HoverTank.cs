@@ -31,6 +31,8 @@ public class HoverTank : MobileGroundUnit
     [Range(0.1f, 10.0f)]
     public float m_imprecisioAngle = 10.0f;
 
+    public LineRenderer debugLineRenderer;
+
     #region Initialisation
     protected override void Awake()
     {
@@ -136,7 +138,12 @@ public class HoverTank : MobileGroundUnit
                         float currentTargetDistance = Vector3.Distance(m_currentTarget.m_targetPoint.position, transform.position);
                         float potentialTargetDistance = Vector3.Distance(potentialTarget.m_targetPoint.position, transform.position);
 
-                        if (potentialTargetDistance < currentTargetDistance) m_currentTarget = potentialTarget;
+                        if (potentialTargetDistance < currentTargetDistance)
+                        {
+                            m_currentTarget.NoMoreTargeted(this);
+                            m_currentTarget = potentialTarget;
+                            m_currentTarget.Targeted(this);
+                        }
                     }
                 }
                 else
@@ -177,6 +184,17 @@ public class HoverTank : MobileGroundUnit
 
         if (m_currentTarget)
         {
+            //if (m_currentTarget)
+            //{
+            //    debugLineRenderer.SetPosition(0, m_targetPoint.position);
+            //    debugLineRenderer.SetPosition(1, m_currentTarget.m_targetPoint.position);
+            //}
+            //else
+            //{
+            //    debugLineRenderer.SetPosition(0, m_targetPoint.position);
+            //    debugLineRenderer.SetPosition(1, m_targetPoint.position);
+            //}
+
             if (IsTargetInFullOptimalRange())
                 PausePath();
             else

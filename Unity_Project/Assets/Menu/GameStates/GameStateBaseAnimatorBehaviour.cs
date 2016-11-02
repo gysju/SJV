@@ -2,7 +2,8 @@
 using UnityEngine.UI;
 using UnityEngine.Events;
 using System.Collections;
-
+using System.Collections.Generic;
+using System.Linq;
 public class GameStateBaseAnimatorBehaviour : StateMachineBehaviour
 {
     public GameObject m_RelatedMenuPrefab;
@@ -46,7 +47,7 @@ public class GameStateBaseAnimatorBehaviour : StateMachineBehaviour
     {
         if (m_RelatedMenu == null)
         {
-            m_RelatedMenu = GameObject.Instantiate(m_RelatedMenuPrefab) as GameObject;
+			m_RelatedMenu = GameObject.Instantiate(m_RelatedMenuPrefab) as GameObject;
             m_RelatedMenu.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform.FindChild("ParentMenu").transform);
 
 			setCanvasSize ();
@@ -76,22 +77,27 @@ public class GameStateBaseAnimatorBehaviour : StateMachineBehaviour
         {
             ButtonSelected.Select();
         }
+
+		m_RelatedMenu.transform.localPosition = Vector3.zero;
     }
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        SetInteractableButtonValue( true );
-        m_RelatedMenu.SetActive(false);
+		if (m_RelatedMenu != null) 
+		{
+        	SetInteractableButtonValue( true );
+        	m_RelatedMenu.SetActive(false);
+		}
     }
 
     public void SetInteractableButtonValue( bool bValue)
     {
-        Button[] buttons = m_RelatedMenu.GetComponentsInChildren<Button>();
+		List<Button> buttons = m_RelatedMenu.GetComponentsInChildren<Button>().ToList<Button>();
 
-        for (int i = 0; i < buttons.Length; ++i)
-        {
-            buttons[i].interactable = bValue;
-        }
+		foreach (Button button in buttons) 
+		{
+			button.interactable = bValue;
+		}
     }
 
     public Menu GetMenu()

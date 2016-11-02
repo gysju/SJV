@@ -28,7 +28,7 @@ public class Turret : CombatUnit
         base.Awake();
 	}
 
-    protected override void Start () 
+    protected override void Start()
 	{
         base.Start();
     }

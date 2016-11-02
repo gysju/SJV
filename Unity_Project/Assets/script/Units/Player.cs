@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.UI;
 
 #if UNITY_PS4
 using UnityEngine.PS4;
@@ -29,7 +30,12 @@ public class Player : MobileGroundUnit
     private GameObject m_destinationPointer = null;
 
     #if UNITY_PS4
-        //[Header("PSMove Related")]
+    [Header("PSMove Related")]
+
+    public TrackedDeviceMoveControllers trackedDeviceMoveControllers;
+    private MoveController m_leftController;
+    private MoveController m_rightController;
+
     #else
         [Header("Razer Hydra Related")]
         SixenseInput.Controller m_leftController;
@@ -52,11 +58,14 @@ public class Player : MobileGroundUnit
         m_baseOffset /= 2;
     }
     #endif
+	#if UNITY_PS4
     private void PSMoveStart()
     {
         m_baseOffset = Vector3.zero;
+        m_leftController = trackedDeviceMoveControllers.primaryController.GetComponent<MoveController>(); ;
+        m_rightController = trackedDeviceMoveControllers.secondaryController.GetComponent<MoveController>(); ;
     }
-
+	#endif
     protected override void Start()
     {
 		base.Start();
@@ -76,6 +85,29 @@ public class Player : MobileGroundUnit
     }
     #endregion
 
+    protected override void Die()
+    {
+        m_destroyed = true;
+
+        GetComponent<BoxCollider>().enabled = false;
+
+        //for (int i = 0 ; i < transform.childCount ; i++)
+        //{
+        //    transform.GetChild(i).gameObject.SetActive(false);
+        //}
+
+        foreach (CombatUnit detectingUnit in m_detectingUnits)
+        {
+            detectingUnit.DetectedUnitDestroyed(this);
+        }
+
+        foreach (CombatUnit targetingUnit in m_targetingUnits)
+        {
+            targetingUnit.TargetedUnitDestroyed(this);
+        }
+
+    }
+
     #region Actions
     #region Movements
     void RotateMechaHorizontaly(float horizontalAngle)
@@ -90,6 +122,24 @@ public class Player : MobileGroundUnit
         Quaternion currentRotation = m_torso.transform.rotation;
         Quaternion horizontalRotation = Quaternion.AngleAxis(horizontalAngle, Vector3.up);
         m_torso.transform.rotation = horizontalRotation * currentRotation;
+    }
+
+    void CheckPilotHead()
+    {
+        float horizontalAnglePrevision = m_mainCamera.transform.localRotation.eulerAngles.y;
+        horizontalAnglePrevision = (horizontalAnglePrevision > 180) ? horizontalAnglePrevision - 360 : horizontalAnglePrevision;
+        float toTransforToTorso = 0f;
+
+        if (horizontalAnglePrevision > m_maxHorinzontalHeadAngle)
+        {
+            toTransforToTorso = (horizontalAnglePrevision - m_maxHorinzontalHeadAngle);
+            RotateMechaHorizontaly(0.5f);
+        }
+        else if (horizontalAnglePrevision < -(m_maxHorinzontalHeadAngle))
+        {
+            toTransforToTorso = (horizontalAnglePrevision + m_maxHorinzontalHeadAngle);
+			RotateMechaHorizontaly(-0.5f);
+        }
     }
 
     void RotatePilotHead(float horizontalAngle, float verticalAngle)
@@ -220,15 +270,15 @@ public class Player : MobileGroundUnit
 
     void PSMoveRotation()
     {
-        Quaternion leftHand = Quaternion.Euler(new Vector3(PS4Input.GetLastMoveAcceleration(0,0).x, 0.0f, 0.0f));
-        Quaternion RightHand = Quaternion.Euler(new Vector3(PS4Input.GetLastMoveAcceleration(0,1).x, 0.0f, 0.0f));
-        float angle = Quaternion.Angle(leftHand, RightHand);
+		Vector3 leftHand = new Vector3(m_leftController.getMoveRotation().y, 0.0f, 0.0f);
+		Vector3 RightHand = new Vector3(m_rightController.getMoveRotation().y, 0.0f, 0.0f);
+		float angle = Vector3.Angle(leftHand, RightHand);
 
-        angle /= 90.0f;
+		angle /= 90.0f;
         angle = Mathf.Clamp01(angle) * Time.deltaTime;
         angle = (float)System.Math.Round(angle, 2);
 
-        if (PS4Input.GetLastMoveAcceleration(0,0).x < PS4Input.GetLastMoveAcceleration(0,1).x)
+		if (m_leftController.getMoveRotation().y < m_rightController.getMoveRotation().y)
             angle = -angle;
 
         RotateMechaHorizontaly(-angle * m_rotationSpeed);
@@ -236,82 +286,85 @@ public class Player : MobileGroundUnit
 
     void PSMoveLeftWeaponControl()
     {
-        //m_leftWeapon.transform.localPosition = m_leftWeaponDefaultPosition + ((m_leftController.Position - m_baseOffset) * m_sensitivity);
-        m_leftWeapon.transform.localRotation = Quaternion.Euler(PS4Input.GetLastMoveAcceleration(0, 0)) * m_leftWeaponDefaultRotation;
+        m_leftWeapon.transform.localPosition = m_leftWeaponDefaultPosition + ((m_leftController.transform.position - m_baseOffset) * m_sensitivity);
+        m_leftWeapon.transform.localRotation = m_leftController.transform.localRotation * m_leftWeaponDefaultRotation;
     }
 
     void PSMoveRightWeaponControl()
     {
-        //m_rightWeapon.transform.localPosition = m_rightWeaponDefaultPosition + ((m_rightController.Position - m_baseOffset) * m_sensitivity);
-        m_rightWeapon.transform.localRotation = Quaternion.Euler(PS4Input.GetLastMoveAcceleration(0, 1)) * m_rightWeaponDefaultRotation;
+        m_rightWeapon.transform.localPosition = m_rightWeaponDefaultPosition + ((m_rightController.transform.position - m_baseOffset) * m_sensitivity);
+        m_rightWeapon.transform.localRotation = m_rightController.transform.localRotation * m_rightWeaponDefaultRotation;
     }
 
     void PSMoveInputs()
     {
-        if (PS4Input.MoveIsConnected(0, 0) && PS4Input.MoveIsConnected(0, 1))
+		bool leftModifier = m_leftController.GetButton(MoveController.MoveButton.MoveButton_Cross);
+		bool rightModifier = m_rightController.GetButton(MoveController.MoveButton.MoveButton_Cross);
+
+		bool leftPointer = m_leftController.GetButton(MoveController.MoveButton.MoveButton_Move);
+		bool rightPointer = m_rightController.GetButton(MoveController.MoveButton.MoveButton_Move);
+
+		if (m_leftController.GetButtonUp(MoveController.MoveButton.MoveButton_Move) && !rightPointer) ConfirmDestination();
+		if (m_rightController.GetButtonUp(MoveController.MoveButton.MoveButton_Move) && !leftPointer) ConfirmDestination();
+
+		GameObject debug = GameObject.FindGameObjectWithTag ("Debug");
+
+		if(debug != null)
+		{
+			debug.GetComponent<Text>().text = "left:" + m_leftController.GetButton(MoveController.MoveButton.MoveButton_Trigger) + "right:" + m_rightController.GetButton(MoveController.MoveButton.MoveButton_Trigger);
+		}
+
+		if (leftModifier)
         {
-            
-            bool leftModifier = m_leftController.GetButton(SixenseButtons.ONE);
-            bool rightModifier = m_rightController.GetButton(SixenseButtons.ONE);
-
-            bool leftPointer = m_leftController.GetButton(SixenseButtons.BUMPER);
-            bool rightPointer = m_rightController.GetButton(SixenseButtons.BUMPER);
-
-            if (m_leftController.GetButtonUp(SixenseButtons.BUMPER) && !rightPointer) ConfirmDestination();
-            if (m_rightController.GetButtonUp(SixenseButtons.BUMPER) && !leftPointer) ConfirmDestination();
-
-            if (leftModifier)
+            if (leftModifier && rightModifier)
             {
-                if (leftModifier && rightModifier)
-                {
-                    PSMoveRotation();
-                }
-                else
-                {
-                    MoveFromLocalRotation(PSMoveVirtualJoysticksConvertion(0));
-                    LeftArmWeaponTriggerReleased();
-                }
+                PSMoveRotation();
             }
             else
             {
-                PSMoveLeftWeaponControl();
-                if (leftPointer)
-                {
-                    PointDestination(m_leftWeapon.m_muzzle);
-                    LeftArmWeaponTriggerReleased();
-                }
-                else
-                {
-                    if (m_leftController.GetButtonDown(SixenseButtons.TRIGGER)) LeftArmWeaponTriggered();
-                    if (m_leftController.GetButtonUp(SixenseButtons.TRIGGER)) LeftArmWeaponTriggerReleased();
-                }
+                MoveFromLocalRotation(PSMoveVirtualJoysticksConvertion(0));
+                LeftArmWeaponTriggerReleased();
             }
-
-            if (rightModifier)
+        }
+        else
+        {
+            PSMoveLeftWeaponControl();
+            if (leftPointer)
             {
-                if (leftModifier && rightModifier)
-                {
-                    PSMoveRotation();
-                }
-                else
-                {
-                    MoveFromLocalRotation(PSMoveVirtualJoysticksConvertion(1));
-                    RightArmWeaponTriggerReleased();
-                }
+                PointDestination(m_leftWeapon.m_muzzle);
+                LeftArmWeaponTriggerReleased();
             }
             else
             {
-                PSMoveRightWeaponControl();
-                if (rightPointer)
-                {
-                    PointDestination(m_rightWeapon.m_muzzle);
-                    RightArmWeaponTriggerReleased();
-                }
-                else
-                {
-                    if (m_rightController.GetButtonDown(SixenseButtons.TRIGGER)) RightArmWeaponTriggered();
-                    if (m_rightController.GetButtonUp(SixenseButtons.TRIGGER)) RightArmWeaponTriggerReleased();
-                }
+				if (m_leftController.GetButtonDown(MoveController.MoveButton.MoveButton_Trigger)) LeftArmWeaponTriggered();
+				if (m_leftController.GetButtonUp(MoveController.MoveButton.MoveButton_Trigger)) LeftArmWeaponTriggerReleased();
+            }
+        }
+
+        if (rightModifier)
+        {
+            if (leftModifier && rightModifier)
+            {
+                PSMoveRotation();
+            }
+            else
+            {
+                MoveFromLocalRotation(PSMoveVirtualJoysticksConvertion(1));
+                RightArmWeaponTriggerReleased();
+            }
+        }
+        else
+        {
+            PSMoveRightWeaponControl();
+            if (rightPointer)
+            {
+                PointDestination(m_rightWeapon.m_muzzle);
+                RightArmWeaponTriggerReleased();
+            }
+            else
+            {
+				if (m_rightController.GetButtonDown(MoveController.MoveButton.MoveButton_Trigger)) RightArmWeaponTriggered();
+				if (m_rightController.GetButtonUp(MoveController.MoveButton.MoveButton_Trigger)) RightArmWeaponTriggerReleased();
             }
         }
     }
@@ -320,32 +373,32 @@ public class Player : MobileGroundUnit
     {
         Vector3 movementDirection = Vector3.zero;
 
-        float x = PS4Input.GetLastMoveAcceleration(0, index).x;
+        float x = -PS4Input.GetLastMoveAcceleration(0, index).x;
         float y = PS4Input.GetLastMoveAcceleration(0, index).y;
 
         const float NEUTRAL_Z = -0.3f;
         const float NEUTRAL_X = 0f;
 
-        const float MAX_FORWARD = 0f;
-        const float MIN_FORWARD = -0.2f;
-        const float MAX_BACKWARD = -0.6f;
-        const float MIN_BACKWARD = -0.4f;
-        const float MAX_LEFT = -0.2f;
-        const float MIN_LEFT = -0.1f;
-        const float MAX_RIGHT = 0.2f;
-        const float MIN_RIGHT = 0.1f;
+        const float MAX_FORWARD = 0.8f;
+        const float MIN_FORWARD = 0.2f;
+        const float MAX_BACKWARD = -0.8f;
+        const float MIN_BACKWARD = -0.2f;
+        const float MAX_LEFT = -0.6f;
+        const float MIN_LEFT = -0.2f;
+        const float MAX_RIGHT = 0.6f;
+        const float MIN_RIGHT = 0.2f;
 
         float zdir = 0;
-        if (x > NEUTRAL_Z) //avant
-            zdir = (Mathf.InverseLerp(MIN_FORWARD, MAX_FORWARD, x));
-        if (x < NEUTRAL_Z) //arrière
-            zdir = -(Mathf.InverseLerp(MIN_BACKWARD, MAX_BACKWARD, x));
+        if (y > NEUTRAL_Z) //avant
+            zdir = (Mathf.InverseLerp(MIN_FORWARD, MAX_FORWARD, y));
+        if (y < NEUTRAL_Z) //arrière
+            zdir = -(Mathf.InverseLerp(MIN_BACKWARD, MAX_BACKWARD, y));
 
         float xdir = 0;
-        if (y < NEUTRAL_X) //gauche
-            xdir = -(Mathf.InverseLerp(MIN_LEFT, MAX_LEFT, y));
-        if (y > NEUTRAL_X) //droite
-            xdir = (Mathf.InverseLerp(MIN_RIGHT, MAX_RIGHT, y));
+        if (x < NEUTRAL_X) //gauche
+            xdir = -(Mathf.InverseLerp(MIN_LEFT, MAX_LEFT, x));
+        if (x > NEUTRAL_X) //droite
+            xdir = (Mathf.InverseLerp(MIN_RIGHT, MAX_RIGHT, x));
 
         movementDirection += new Vector3(xdir, 0f, zdir);
 
@@ -552,6 +605,9 @@ public class Player : MobileGroundUnit
         #if UNITY_STANDALONE
         MouseKeyboardInputs();
         RazerInputs();
+		#elif UNITY_PS4
+        CheckPilotHead();
+		PSMoveInputs();
         #endif
     }
 

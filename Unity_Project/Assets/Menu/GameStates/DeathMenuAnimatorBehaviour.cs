@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class DeathMenuAnimatorBehaviour : GameStateBaseAnimatorBehaviour
 {
+	public int NextScene;
+
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         if (GetMenu().bOnClick && !animator.IsInTransition(layerIndex))
@@ -23,6 +25,6 @@ public class DeathMenuAnimatorBehaviour : GameStateBaseAnimatorBehaviour
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-		SceneManager.LoadScene("scene");
+		SceneManager.LoadScene(NextScene);
     }
 }
