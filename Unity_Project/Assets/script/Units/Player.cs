@@ -602,7 +602,10 @@ public class Player : MobileGroundUnit
     
 	void JoystickRotation()
 	{
-		
+		RotatePilotHead (Input.GetAxis ("HorizontalR"), Input.GetAxis ("VerticalR"));
+
+		AimLeftWeaponTo(m_mainCamera.transform.position + m_mainCamera.transform.forward * 100);
+		AimRightWeaponTo(m_mainCamera.transform.position + m_mainCamera.transform.forward * 100);
 	}
 
 	void ControllerInputs()
@@ -616,17 +619,12 @@ public class Player : MobileGroundUnit
 		if (Input.GetButtonUp("LeftBumper") && !rightPointer) ConfirmDestination(); //bumper
 		if (Input.GetButtonUp("RightBumper") && !leftPointer) ConfirmDestination(); //bumper
 
+		JoystickRotation();
+
 		if (leftModifier)
 		{
-			if (leftModifier && rightModifier)
-			{
-				JoystickRotation();
-			}
-			else
-			{
-				MoveFromLocalRotation(RazerVirtualJoysticksConvertion(m_leftController));
-				LeftArmWeaponTriggerReleased();
-			}
+			MoveFromLocalRotation( new Vector3( Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical")) );
+			LeftArmWeaponTriggerReleased();
 		}
 		else
 		{
@@ -644,15 +642,8 @@ public class Player : MobileGroundUnit
 
 		if (rightModifier)
 		{
-			if (leftModifier && rightModifier)
-			{
-				JoystickRotation();
-			}
-			else
-			{
-				MoveFromLocalRotation(RazerVirtualJoysticksConvertion(m_rightController));
-				RightArmWeaponTriggerReleased();
-			}
+			MoveFromLocalRotation( new Vector3( Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical")) );
+			RightArmWeaponTriggerReleased();
 		}
 		else
 		{
