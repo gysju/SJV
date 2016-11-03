@@ -61,14 +61,18 @@ public class CombatUnit : Unit
 
     protected virtual void OnTriggerEnter(Collider col)
     {
-        if (!col.isTrigger)
+        if(m_faction != UnitFaction.Neutral)
         {
-            Unit detectedUnit = col.GetComponent<Unit>();
-            if (detectedUnit != null && detectedUnit.m_faction != m_faction && !detectedUnit.IsDestroyed())
+            if (!col.isTrigger)
             {
-                m_detectedEnemies.Add(detectedUnit);
+                Unit detectedUnit = col.GetComponent<Unit>();
+                if (detectedUnit != null && detectedUnit.m_faction != m_faction && !detectedUnit.IsDestroyed())
+                {
+                    m_detectedEnemies.Add(detectedUnit);
+                }
             }
         }
+        
     }
 
     protected virtual void OnTriggerExit(Collider col)
@@ -85,6 +89,11 @@ public class CombatUnit : Unit
     #endregion
 
     #region Attack Related
+    public virtual void AimWeaponAt(Vector3 target)
+    {
+
+    }
+
     public void PressWeaponTrigger(int weaponID)
     {
         m_weapons[weaponID].TriggerPressed();
@@ -93,6 +102,14 @@ public class CombatUnit : Unit
     public void ReleaseWeaponTrigger(int weaponID)
     {
         m_weapons[weaponID].TriggerReleased();
+    }
+
+    public void CeaseFire()
+    {
+        foreach (Weapon weapon in m_weapons)
+        {
+            weapon.TriggerReleased();
+        }
     }
     #endregion
 

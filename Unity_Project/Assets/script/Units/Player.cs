@@ -78,7 +78,7 @@ public class Player : MobileGroundUnit
         m_rightWeaponDefaultRotation = m_rightWeapon.transform.localRotation;
 
         #if UNITY_STANDALONE
-        RazerStart();
+        //RazerStart();
         #else
         PSMoveStart();
         #endif
@@ -101,7 +101,7 @@ public class Player : MobileGroundUnit
             detectingUnit.DetectedUnitDestroyed(this);
         }
 
-        foreach (CombatUnit targetingUnit in m_targetingIAs)
+        foreach (IA targetingUnit in m_targetingIAs)
         {
             targetingUnit.TargetedUnitDestroyed(this);
         }

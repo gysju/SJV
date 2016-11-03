@@ -57,33 +57,9 @@ public class HoverTank : MobileGroundUnit
         }
     }
 
-    private void Shoot()
+    public override void AimWeaponAt(Vector3 target)
     {
-        foreach (Weapon weapon in m_weapons)
-        {
-            if (IsTargetInAim(weapon) && weapon.IsInOptimalRange(m_currentTarget.m_targetPoint.position) && m_currentTarget)
-            {
-                weapon.TriggerPressed();
-            }
-            else weapon.TriggerReleased();
-        }
-    }
-
-    protected void TryAttack()
-    {
-        if (m_currentTarget)
-        {
-            AimTarget();
-            Shoot();
-        }
-    }
-
-    protected void CeaseFire()
-    {
-        foreach (Weapon weapon in m_weapons)
-        {
-            weapon.TriggerReleased();
-        }
+        PointTurretAt(target);
     }
     #endregion
 

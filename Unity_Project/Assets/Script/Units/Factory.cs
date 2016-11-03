@@ -6,7 +6,6 @@ public class Factory : Unit
     //protected IAGeneral m_general;
     public bool m_producing;
     public Unit m_produceUnit;
-    public Transform m_unitTarget;
     public float m_productionTime;
     public Transform m_productionExit;
     

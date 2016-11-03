@@ -561,7 +561,7 @@ AnimatorState:
   m_Transitions:
   - {fileID: 110194992}
   m_StateMachineBehaviours:
-  - {fileID: 114000013829862366}
+  - {fileID: 0}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -609,7 +609,7 @@ AnimatorState:
   m_Transitions:
   - {fileID: 110163018}
   m_StateMachineBehaviours:
-  - {fileID: 114000010431627408}
+  - {fileID: 0}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -634,7 +634,7 @@ AnimatorState:
   m_Transitions:
   - {fileID: 110102846}
   m_StateMachineBehaviours:
-  - {fileID: 114000012942374734}
+  - {fileID: 0}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -661,7 +661,7 @@ AnimatorState:
   - {fileID: 110150336}
   - {fileID: 110108724}
   m_StateMachineBehaviours:
-  - {fileID: 114000013935650948}
+  - {fileID: 0}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -711,7 +711,7 @@ AnimatorState:
   - {fileID: 110158664}
   - {fileID: 110152600}
   m_StateMachineBehaviours:
-  - {fileID: 114000011703759282}
+  - {fileID: 0}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -766,149 +766,3 @@ AnimatorStateMachine:
   m_ExitPosition: {x: 1128, y: 120, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: 110276682}
---- !u!114 &114000010431627408
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7bf390e16e9fe5f4590de408113b2895, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_RelatedMenuPrefab: {fileID: 1000012077469310, guid: 7b58c317a65bfb045bac6bf3854708e9,
-    type: 2}
-  m_StateFadeOutSpeed: 1
-  OnEnter:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: GameStateBaseAnimatorBehaviour+OnBehaviourEvent, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  OnUpdate:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: GameStateBaseAnimatorBehaviour+OnBehaviourEvent, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  OnExit:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: GameStateBaseAnimatorBehaviour+OnBehaviourEvent, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
---- !u!114 &114000011703759282
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d631fbf278ceecb488e221f483d5069f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_RelatedMenuPrefab: {fileID: 1000012671966132, guid: 0adc997e3cf5453489345091d2024f57,
-    type: 2}
-  m_StateFadeOutSpeed: 1
-  OnEnter:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: GameStateBaseAnimatorBehaviour+OnBehaviourEvent, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  OnUpdate:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: GameStateBaseAnimatorBehaviour+OnBehaviourEvent, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  OnExit:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: GameStateBaseAnimatorBehaviour+OnBehaviourEvent, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  DeathOrFinish: 0
---- !u!114 &114000012942374734
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edc2499f71762f4499a6fa562da08cf3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_RelatedMenuPrefab: {fileID: 1000012077469310, guid: 292afdff54b16224e8651ed9a74675a1,
-    type: 2}
-  m_StateFadeOutSpeed: 1
-  OnEnter:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: GameStateBaseAnimatorBehaviour+OnBehaviourEvent, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  OnUpdate:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: GameStateBaseAnimatorBehaviour+OnBehaviourEvent, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  OnExit:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: GameStateBaseAnimatorBehaviour+OnBehaviourEvent, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
---- !u!114 &114000013829862366
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25990e22cb561d64088cd8acf4b3cc37, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_RelatedMenuPrefab: {fileID: 0}
-  m_StateFadeOutSpeed: 1
-  OnEnter:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: GameStateBaseAnimatorBehaviour+OnBehaviourEvent, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  OnUpdate:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: GameStateBaseAnimatorBehaviour+OnBehaviourEvent, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  OnExit:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: GameStateBaseAnimatorBehaviour+OnBehaviourEvent, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
---- !u!114 &114000013935650948
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 197c904e2e7f4df46b1390cadec89a43, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_RelatedMenuPrefab: {fileID: 1000013392384130, guid: 0b13060dfd87b474c9f2cb22f02559ea,
-    type: 2}
-  m_StateFadeOutSpeed: 1
-  OnEnter:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: GameStateBaseAnimatorBehaviour+OnBehaviourEvent, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  OnUpdate:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: GameStateBaseAnimatorBehaviour+OnBehaviourEvent, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  OnExit:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: GameStateBaseAnimatorBehaviour+OnBehaviourEvent, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  SceneToRestart: Proto_v0.1

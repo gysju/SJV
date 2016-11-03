@@ -55,41 +55,9 @@ public class Turret : CombatUnit
         }
     }
 
-    private void Shoot()
-	{
-        foreach (Weapon weapon in m_weapons)
-        {
-            if (IsTargetInAim(weapon) && weapon.IsTargetInOptimalRange(m_currentTarget.m_targetPoint.position) && m_currentTarget)
-            {
-                weapon.TriggerPressed();
-            }
-            else weapon.TriggerReleased();
-        }
-	}
-
-    protected void TryAttack()
+    public override void AimWeaponAt(Vector3 target)
     {
-        if (m_currentTarget)
-        {
-            PointTurretAt();
-            Shoot();
-        }
-    }
-
-    protected void CeaseFire()
-    {
-        foreach (Weapon weapon in m_weapons)
-        {
-            weapon.TriggerReleased();
-        }
-    }
-    #endregion
-    
-    #region IA Related
-    protected void IA()
-    {
-        TargetClosestEnemy();
-        CheckCurrentTarget();
+        PointTurretAt(target);
     }
     #endregion
 
@@ -99,7 +67,6 @@ public class Turret : CombatUnit
         if(!m_destroyed)
         {
             base.Update();
-            IA();
         }
     }
     #endregion
