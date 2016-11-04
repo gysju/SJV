@@ -62,7 +62,7 @@ public class Unit : MonoBehaviour
     protected bool m_vulnerable = true;
 
     protected List<CombatUnit> m_detectingUnits = new List<CombatUnit>();
-    protected List<CombatUnit> m_targetingUnits = new List<CombatUnit>();
+    protected List<IA> m_targetingIAs = new List<IA>();
     protected List<Capture_point> m_currentlyCapturing = new List<Capture_point>();
 
     #region Initialization
@@ -121,17 +121,12 @@ public class Unit : MonoBehaviour
 
         GetComponent<BoxCollider>().enabled = false;
 
-        //for (int i = 0 ; i < transform.childCount ; i++)
-        //{
-        //    transform.GetChild(i).gameObject.SetActive(false);
-        //}
-
         foreach (CombatUnit detectingUnit in m_detectingUnits)
         {
             detectingUnit.DetectedUnitDestroyed(this);
         }
 
-        foreach (CombatUnit targetingUnit in m_targetingUnits)
+        foreach (IA targetingUnit in m_targetingIAs)
         {
             targetingUnit.TargetedUnitDestroyed(this);
         }
@@ -183,31 +178,34 @@ public class Unit : MonoBehaviour
     #endregion
 
     #region Radar Related
-    public void Detected(CombatUnit detectingUnit)
+    public void DetectedBy(CombatUnit detectingUnit)
     {
         m_detectingUnits.Add(detectingUnit);
     }
 
-    public void NoMoreDetected(CombatUnit noMoreDetectingUnit)
+    public void NoMoreDetectedBy(CombatUnit noMoreDetectingUnit)
     {
         m_detectingUnits.Remove(noMoreDetectingUnit);
     }
 
-    public void Targeted(CombatUnit targetingUnit)
+    public void TargetedBy(IA targetingUnit)
     {
-        m_targetingUnits.Add(targetingUnit);
+        m_targetingIAs.Add(targetingUnit);
     }
 
-    public void NoMoreTargeted(CombatUnit noMoretargetingUnit)
+    public void NoMoreTargetedBy(IA noMoretargetingUnit)
     {
-        m_targetingUnits.Remove(noMoretargetingUnit);
+        m_targetingIAs.Remove(noMoretargetingUnit);
     }
     #endregion
 
     #region Updates
     protected virtual void Update()
     {
+        if (!m_destroyed)
+        {
 
-	}
+        }
+    }
     #endregion
 }

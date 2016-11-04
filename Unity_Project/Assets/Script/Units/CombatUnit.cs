@@ -14,15 +14,16 @@ public class CombatUnit : Unit
     public float m_radarRange = 50f;
 
     [SerializeField]
-    protected List<Unit> m_detectedEnemies = new List<Unit>();
+    public List<Unit> m_detectedEnemies = new List<Unit>();
 
     [SerializeField]
-    protected Unit m_currentTarget = null;
+    //protected Unit m_currentTarget = null;
 
     [Header("Weapons")]
     [Tooltip("Unit's Weapons list.")]
     public List<Weapon> m_weapons = new List<Weapon>();
 
+    #region Initialization
     protected override void Reset()
     {
         base.Reset();
@@ -36,6 +37,16 @@ public class CombatUnit : Unit
         m_radar.isTrigger = true;
         UpdateRadarRange();
     }
+    #endregion
+
+    #region HitPoints Related
+    protected override void Die()
+    {
+        base.Die();
+
+        m_radar.enabled = false;
+    }
+    #endregion
 
     #region Radar Related
     protected void UpdateRadarRange()
@@ -43,36 +54,25 @@ public class CombatUnit : Unit
         m_radar.radius = m_radarRange;
     }
 
-    protected virtual void CheckCurrentTarget()
-    {
-        if (m_currentTarget && m_currentTarget.IsDestroyed())
-        {
-            m_detectedEnemies.Remove(m_currentTarget);
-            m_currentTarget = null;
-        }
-    }
-
     public void DetectedUnitDestroyed(Unit destroyedUnit)
     {
         m_detectedEnemies.Remove(destroyedUnit);
     }
 
-    public void TargetedUnitDestroyed(Unit destroyedUnit)
-    {
-        if (destroyedUnit == m_currentTarget)
-            m_currentTarget = null;
-    }
-
     protected virtual void OnTriggerEnter(Collider col)
     {
-        if (!col.isTrigger)
+        if(m_faction != UnitFaction.Neutral)
         {
-            Unit detectedUnit = col.GetComponent<Unit>();
-            if (detectedUnit != null && detectedUnit.m_faction != m_faction && !detectedUnit.IsDestroyed())
+            if (!col.isTrigger)
             {
-                m_detectedEnemies.Add(detectedUnit);
+                Unit detectedUnit = col.GetComponent<Unit>();
+                if (detectedUnit != null && detectedUnit.m_faction != m_faction && !detectedUnit.IsDestroyed())
+                {
+                    m_detectedEnemies.Add(detectedUnit);
+                }
             }
         }
+        
     }
 
     protected virtual void OnTriggerExit(Collider col)
@@ -88,31 +88,38 @@ public class CombatUnit : Unit
     }
     #endregion
 
-    #region Attacks Related
-    protected bool IsTargetInFullOptimalRange()
+    #region Attack Related
+    public virtual void AimWeaponAt(Vector3 target)
     {
-        if (m_currentTarget)
+
+    }
+
+    public void PressWeaponTrigger(int weaponID)
+    {
+        m_weapons[weaponID].TriggerPressed();
+    }
+
+    public void ReleaseWeaponTrigger(int weaponID)
+    {
+        m_weapons[weaponID].TriggerReleased();
+    }
+
+    public void CeaseFire()
+    {
+        foreach (Weapon weapon in m_weapons)
         {
-            if (m_weapons.Count > 0)
-            {
-                foreach (Weapon weapon in m_weapons)
-                {
-                    if (!weapon.IsTargetInOptimalRange(m_currentTarget.m_targetPoint.position))
-                    {
-                        return false;
-                    }
-                }
-                return true;
-            }
+            weapon.TriggerReleased();
         }
-        return false;
     }
     #endregion
 
     #region Updates
     protected override void Update()
     {
-        base.Update();
+        if (!m_destroyed)
+        {
+            base.Update();
+        }
     }
     #endregion
 }

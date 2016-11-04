@@ -81,6 +81,7 @@ GameObject:
   - 208: {fileID: 208000012761708064}
   - 54: {fileID: 54000012463209362}
   - 114: {fileID: 114000011653360600}
+  - 114: {fileID: 114000010166799074}
   m_Layer: 0
   m_Name: Hover Tank
   m_TagString: Untagged
@@ -343,6 +344,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114000010166799074
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012183331734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b81cb8f32b2f2d4dab06669f5004323, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_allyCommander: {fileID: 0}
+  m_enemyCommander: {fileID: 0}
+  m_currentTarget: {fileID: 0}
+  m_imprecisioAngle: 10
 --- !u!114 &114000011653360600
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -354,7 +370,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b2f4d299b2379f40a0c02754fd17438, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_faction: 0
+  m_faction: 1
   m_capturable: 0
   m_maxHitPoints: 10
   m_startingHitPoints: 10
@@ -364,19 +380,16 @@ MonoBehaviour:
   m_targetPoint: {fileID: 4000011653083744}
   m_radarRange: 50
   m_detectedEnemies: []
-  m_currentTarget: {fileID: 0}
   m_weapons:
   - {fileID: 114000012053890562}
   m_maxSpeed: 5
+  m_acceleration: 8
   m_rotationSpeed: 50
-  m_allyCommander: {fileID: 0}
-  m_enemyCommander: {fileID: 0}
   m_turretBase: {fileID: 4000013556056628}
   m_turretDegreesPerSecond: 45
   m_cannonDegreesPerSecond: 45
   m_maxCannonAngle: 45
   m_imprecisioAngle: 10
-  debugLineRenderer: {fileID: 120000010126086396}
 --- !u!114 &114000012053890562
 MonoBehaviour:
   m_ObjectHideFlags: 1

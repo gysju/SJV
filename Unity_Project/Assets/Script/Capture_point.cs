@@ -9,9 +9,6 @@ public class Capture_point : MonoBehaviour
 
 	public enum Capture_Mode { Capture_Mode_TriggerZone, Capture_Mode_Activation }
 	public Capture_Mode mode = Capture_Mode.Capture_Mode_TriggerZone;
-
-    public enum Capture_State {Capture_Point_state_Neutre, Capture_Point_state_Loading, Capture_Point_state_Waiting, Capture_Point_state_Loaded}
-	protected Capture_State currentState = Capture_State.Capture_Point_state_Neutre ;
     
     protected SphereCollider m_captureZone;
 
@@ -45,78 +42,13 @@ public class Capture_point : MonoBehaviour
     #endregion
 
     #region State
-    void UpdateState(Capture_State state )
-	{
-		switch(state)
-		{
-			case Capture_State.Capture_Point_state_Neutre:
-				break;
-			case Capture_State.Capture_Point_state_Loading:
-				CaptureThePoint ();
-				break;
-			case Capture_State.Capture_Point_state_Waiting:
-				break;
-			case Capture_State.Capture_Point_state_Loaded:
-				break;
-		}
-	}
-
-	void ChangeState(Capture_State state )
-	{
-		Material mat = this.GetComponent<Renderer> ().material;
-
-		// exit a state
-		switch(currentState)
-		{
-			case Capture_State.Capture_Point_state_Neutre:
-				break;
-			case Capture_State.Capture_Point_state_Loading:
-				break;
-			case Capture_State.Capture_Point_state_Waiting:
-				break;
-			case Capture_State.Capture_Point_state_Loaded:
-				break;
-		}
-
-		currentState = state;
-
-		// enter in new state
-		switch(currentState)
-		{
-		case Capture_State.Capture_Point_state_Neutre:
-			mat.color = Color.gray;
-			time = 0.0f;
-			break;
-		case Capture_State.Capture_Point_state_Loading:
-			mat.color = Color.blue;
-			break;
-		case Capture_State.Capture_Point_state_Waiting:
-			mat.color = Color.red;
-			break;
-		case Capture_State.Capture_Point_state_Loaded:
-			mat.color = Color.green;
-            AddBuffByType(combatUnitOnTarget);
-            break;
-		}
-	}
-
     public bool IsSameFaction(Unit.UnitFaction otherFaction)
     {
         return (otherFaction == m_faction);
     }
     #endregion
+
     #region Actions
-
-    void CaptureThePoint()
-    {
-        time += Time.deltaTime;
-
-        if (time >= m_timeToCapture)
-        {
-            ChangeState(Capture_State.Capture_Point_state_Loaded);
-        }
-    }
-
     void AddBuffByType( CombatUnit combatUnit )
     {
         switch ( type )
@@ -132,7 +64,6 @@ public class Capture_point : MonoBehaviour
                 break;
         }
     }
-
     #endregion
 
     #region Radar Related
@@ -208,48 +139,6 @@ public class Capture_point : MonoBehaviour
     #endregion
 
     #region Collider
-    //void OnTriggerEnter(Collider col)
-    //{
-    //    CombatUnit combatUnit = col.GetComponent<CombatUnit> ();
-
-    //    if(combatUnit != null && mode == Capture_Mode.Capture_Mode_TriggerZone && !col.isTrigger)
-    //    {
-    //        if( currentState == Capture_State.Capture_Point_state_Neutre )
-    //        {
-    //            combatUnitOnTarget = combatUnit;
-    //            m_faction = combatUnitOnTarget.m_faction;
-    //            ChangeState(Capture_State.Capture_Point_state_Loading);
-    //        }
-    //        else if ( currentState == Capture_State.Capture_Point_state_Loading)
-    //        {
-    //            ChangeState(Capture_State.Capture_Point_state_Waiting);
-    //        }
-    //    }	
-    //}
-
-    //void OnTriggerExit(Collider col)
-    //{
-    //    CombatUnit combatUnit = col.GetComponent<CombatUnit> ();
-
-    //    if (combatUnit != null && mode == Capture_Mode.Capture_Mode_TriggerZone && !col.isTrigger) 
-    //    {
-    //        if ( currentState == Capture_State.Capture_Point_state_Loading) 
-    //        {
-    //            ChangeState (Capture_State.Capture_Point_state_Neutre);
-    //        } 
-    //        else if ( currentState == Capture_State.Capture_Point_state_Waiting) 
-    //        {
-    //            if (combatUnit.m_faction == m_faction) 
-    //            {
-    //                time = 0.0f;
-    //                m_faction = (m_faction == Unit.UnitFaction.Ally) ? Unit.UnitFaction.Enemy : Unit.UnitFaction.Ally;
-    //            }
-
-    //            ChangeState (Capture_State.Capture_Point_state_Loading);
-    //        }
-    //    }
-    //}
-
     void SetCollider(Capture_Mode mode)
     {
         if (mode == Capture_Mode.Capture_Mode_TriggerZone)

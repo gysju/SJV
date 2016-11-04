@@ -34,7 +34,7 @@ public class IACommander : MonoBehaviour
         return lengthSoFar;
     }
 
-    protected void CaptureClosestPoint(HoverTank unitAskingOrder)
+    protected void CaptureClosestPoint(IA unitAskingOrder)
     {
         Vector3 unitPosition = unitAskingOrder.transform.position;
         float smallestLength = float.MaxValue;
@@ -63,7 +63,7 @@ public class IACommander : MonoBehaviour
             {
                 case Unit.UnitFaction.Ally:
                     if (m_enemyBaseCenter.IsDestroyed())
-                        unitAskingOrder.CancelPath();
+                        unitAskingOrder.CancelMoveOrder();
                     else
                         unitAskingOrder.GiverDestroyOrder(m_enemyBaseCenter);
                     break;
@@ -71,7 +71,7 @@ public class IACommander : MonoBehaviour
                     break;
                 case Unit.UnitFaction.Enemy:
                     if (m_allyBaseCenter.IsDestroyed())
-                        unitAskingOrder.CancelPath();
+                        unitAskingOrder.CancelMoveOrder();
                     else
                         unitAskingOrder.GiverDestroyOrder(m_allyBaseCenter);
                     break;
@@ -81,10 +81,9 @@ public class IACommander : MonoBehaviour
         }
     }
 
-    public void AskOrder(Unit unitAskingOrder)
+    public void AskMovementOrder(IA unitAskingOrder)
     {
-        if (unitAskingOrder is HoverTank)
-            CaptureClosestPoint((HoverTank)unitAskingOrder);
+        CaptureClosestPoint(unitAskingOrder);
     }
 
 	void Update ()
