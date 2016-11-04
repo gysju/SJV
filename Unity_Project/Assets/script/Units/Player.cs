@@ -28,6 +28,7 @@ public class Player : MobileGroundUnit
 
     public GameObject m_pointer;
     private GameObject m_destinationPointer = null;
+	private bool RazerAreConnected = false;
 
     #if UNITY_PS4
     [Header("PSMove Related")]
@@ -49,7 +50,6 @@ public class Player : MobileGroundUnit
     private void RazerStart()
     {
         m_baseOffset = Vector3.zero;
-
         m_leftController = SixenseInput.Controllers[0];
         m_rightController = SixenseInput.Controllers[1];
 
@@ -78,7 +78,12 @@ public class Player : MobileGroundUnit
         m_rightWeaponDefaultRotation = m_rightWeapon.transform.localRotation;
 
         #if UNITY_STANDALONE
-        //RazerStart();
+
+		if(SixenseInput.Controllers[0] != null)
+		{
+			RazerStart();
+			RazerAreConnected = true;
+		}
         #else
         PSMoveStart();
         #endif
@@ -544,7 +549,7 @@ public class Player : MobileGroundUnit
     }
     #endregion
 
-    #region Mouse & Keyboard
+    #region Mouse, Keyboard controller
     void MouseAim()
     {
         RotatePilotHead(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
@@ -595,7 +600,67 @@ public class Player : MobileGroundUnit
         MouseShootInputs();
         KeyboardMovements();
     }
-    #endregion
+    
+	void JoystickRotation()
+	{
+		RotatePilotHead (Input.GetAxis ("HorizontalR"), Input.GetAxis ("VerticalR"));
+
+		AimLeftWeaponTo(m_mainCamera.transform.position + m_mainCamera.transform.forward * 100);
+		AimRightWeaponTo(m_mainCamera.transform.position + m_mainCamera.transform.forward * 100);
+	}
+
+	void ControllerInputs()
+	{
+		bool leftModifier = Input.GetButton("Fire1");
+		bool rightModifier = Input.GetButton("Fire2");
+
+		bool leftPointer = Input.GetButton("LeftBumper"); //bumper
+		bool rightPointer = Input.GetButton("RightBumper"); //bumper
+
+		if (Input.GetButtonUp("LeftBumper") && !rightPointer) ConfirmDestination(); //bumper
+		if (Input.GetButtonUp("RightBumper") && !leftPointer) ConfirmDestination(); //bumper
+
+		JoystickRotation();
+
+		if (leftModifier)
+		{
+			MoveFromLocalRotation( new Vector3( Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical")) );
+			LeftArmWeaponTriggerReleased();
+		}
+		else
+		{
+			if (leftPointer)
+			{
+				PointDestination(m_leftWeapon.m_muzzle);
+				LeftArmWeaponTriggerReleased();
+			}
+			else
+			{
+				if (Input.GetAxis("LeftTrigger") > 0.0f) LeftArmWeaponTriggered();
+				if (Input.GetAxis("LeftTrigger") <= 0.0f) LeftArmWeaponTriggerReleased();
+			}
+		}
+
+		if (rightModifier)
+		{
+			MoveFromLocalRotation( new Vector3( Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical")) );
+			RightArmWeaponTriggerReleased();
+		}
+		else
+		{
+			if (rightPointer)
+			{
+				PointDestination(m_rightWeapon.m_muzzle);
+				RightArmWeaponTriggerReleased();
+			}
+			else
+			{
+				if (Input.GetAxis("RightTrigger") > 0.0f) RightArmWeaponTriggered();
+				if (Input.GetAxis("RightTrigger") <= 0.0f) RightArmWeaponTriggerReleased();
+			}
+		}
+	}
+	#endregion
 #endif
     #endregion
 
@@ -604,11 +669,14 @@ public class Player : MobileGroundUnit
     {
         #if UNITY_STANDALONE
         MouseKeyboardInputs();
-        RazerInputs();
+		if(RazerAreConnected)
+			RazerInputs();
 		#elif UNITY_PS4
         CheckPilotHead();
 		PSMoveInputs();
         #endif
+
+		ControllerInputs();
     }
 
     protected override void Update()
