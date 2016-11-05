@@ -45,7 +45,15 @@ public class Weapon : MonoBehaviour
         m_currentAmmo = m_magazine;
 	}
 
-    public bool IsTargetInOptimalRange(Vector3 targetPosition)
+    public bool IsInAim(Vector3 targetPosition, float imprecisionAngle)
+    {
+        Vector3 targetDir = targetPosition - m_muzzle.position;
+        float angle = Vector3.Angle(targetDir, m_muzzle.forward);
+
+        return (angle <= imprecisionAngle);
+    }
+
+    public bool IsInOptimalRange(Vector3 targetPosition)
     {
         return (Vector3.Distance(targetPosition, m_muzzle.position) < m_optimalRange);
     }
