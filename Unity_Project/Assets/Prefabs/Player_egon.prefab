@@ -41,7 +41,7 @@ GameObject:
   - 95: {fileID: 95000011018464886}
   - 54: {fileID: 54000011546311806}
   - 64: {fileID: 64000010652320638}
-  - 114: {fileID: 114000013310389424}
+  - 114: {fileID: 114000013180151678}
   m_Layer: 0
   m_Name: protogun
   m_TagString: Untagged
@@ -424,7 +424,7 @@ GameObject:
   - 95: {fileID: 95000011124387072}
   - 54: {fileID: 54000010843502160}
   - 64: {fileID: 64000013419297248}
-  - 114: {fileID: 114000014147370694}
+  - 114: {fileID: 114000014203908236}
   m_Layer: 0
   m_Name: protogun
   m_TagString: Untagged
@@ -5170,8 +5170,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000014019086946}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 14.83, y: 0, z: 5.97}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -5473,7 +5473,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 8a501bee8188f6845b78267e2ce88044, type: 2}
+  - {fileID: 2100000, guid: dd7e3dff92a7bdb448dd3e3509eb880a, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
@@ -8811,8 +8811,8 @@ MonoBehaviour:
   m_radarRange: 50
   m_detectedEnemies: []
   m_weapons:
-  - {fileID: 114000014147370694}
-  - {fileID: 114000013310389424}
+  - {fileID: 114000014203908236}
+  - {fileID: 114000013180151678}
   m_maxSpeed: 5
   m_acceleration: 8
   m_rotationSpeed: 50
@@ -8890,11 +8890,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5e9437d753653848977982ec5c3c0f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  primaryController: {fileID: 54869536}
-  secondaryController: {fileID: 4096}
+  primaryController: {fileID: 0}
+  secondaryController: {fileID: 0}
   illuminatedComponents:
   - {fileID: 0}
   - {fileID: 0}
+--- !u!114 &114000013180151678
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010051652034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d093942f5325ad34491aecf96e7b00cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_muzzle: {fileID: 4000010518118988}
+  m_muzzleFlash: {fileID: 1000012896234374, guid: 6062d7d4ed85af74790cd7caabc06acc,
+    type: 2}
+  m_ammo: {fileID: 196214, guid: be77629a5b6628349b9cd18243b7228d, type: 2}
+  m_firingMethod: 2
+  m_rpm: 600
+  m_magazine: 100
+  m_reloadTime: 3
+  m_optimalRange: 25
+  m_precision: 3
 --- !u!114 &114000014203908236
 MonoBehaviour:
   m_ObjectHideFlags: 1
