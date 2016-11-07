@@ -603,10 +603,15 @@ public class Player : MobileGroundUnit
     
 	void JoystickRotation()
 	{
-		RotatePilotHead (Input.GetAxis ("HorizontalR"), Input.GetAxis ("VerticalR"));
+		float hor = Input.GetAxis ("HorizontalR");
+		float vert = Input.GetAxis ("VerticalR");
 
-		AimLeftWeaponTo(m_mainCamera.transform.position + m_mainCamera.transform.forward * 100);
-		AimRightWeaponTo(m_mainCamera.transform.position + m_mainCamera.transform.forward * 100);
+		if(hor != 0.0f && vert != 0.0f)
+		{
+			RotatePilotHead (hor, vert);
+			AimLeftWeaponTo(m_mainCamera.transform.position + m_mainCamera.transform.forward * 100);
+			AimRightWeaponTo(m_mainCamera.transform.position + m_mainCamera.transform.forward * 100);
+		}
 	}
 
 	void ControllerInputs()
@@ -678,7 +683,7 @@ public class Player : MobileGroundUnit
 		PSMoveInputs();
         #endif
 
-		ControllerInputs();
+		//ControllerInputs();
     }
 
     protected override void Update()
