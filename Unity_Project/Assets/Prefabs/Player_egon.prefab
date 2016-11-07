@@ -8874,6 +8874,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ea57611536a55543ba98908d7b2f74a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isMoveController: 1
+  isSecondaryMoveController: 0
 --- !u!114 &114000011140535854
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8906,6 +8908,7 @@ MonoBehaviour:
   m_torso: {fileID: 1000010427927384}
   m_legs: {fileID: 1000011387755860}
   m_pointer: {fileID: 1000013968135328, guid: 5ec254d5897b5114e8f74e0df760a8f2, type: 2}
+  trackedDeviceMoveControllers: {fileID: 114000012994522768}
 --- !u!114 &114000011380527974
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8964,6 +8967,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ea57611536a55543ba98908d7b2f74a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isMoveController: 1
+  isSecondaryMoveController: 1
 --- !u!114 &114000012994522768
 MonoBehaviour:
   m_ObjectHideFlags: 1
