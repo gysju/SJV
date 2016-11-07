@@ -60,7 +60,7 @@ public class BattleManager : MonoBehaviour
 
     private void BackToMainMenu()
     {
-        SceneManager.LoadScene("Intro");
+        SceneManager.LoadScene(1);
     }
 
     void Update ()

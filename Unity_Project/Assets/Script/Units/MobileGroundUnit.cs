@@ -87,7 +87,7 @@ public class MobileGroundUnit : CombatUnit
         NavMeshHit hit;
         if (NavMesh.SamplePosition(newDestination, out hit, 1.0f, NavMesh.AllAreas))
         {
-            m_destination = hit.position;
+			m_destination = hit.position;
             m_navMeshAgent.SetDestination(m_destination.Value);
         }
         else
@@ -111,10 +111,8 @@ public class MobileGroundUnit : CombatUnit
     {
         EnableNavMeshAgent();
 
-        if (m_navMeshAgent.hasPath)
-            m_navMeshAgent.Resume();
-        else if (m_destination.HasValue)
-            SetDestination(m_destination.Value);
+		if (m_navMeshAgent.hasPath)
+			m_navMeshAgent.Resume ();
         else
             DisableNavMeshAgent();
     }
