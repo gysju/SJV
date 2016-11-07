@@ -20,6 +20,7 @@ public class IA : MonoBehaviour
     public float m_imprecisioAngle = 10.0f;
     
     [Header("Order Specifics")]
+	[SerializeField]
     Capture_point m_pointToCapture;
     Unit m_unitToDestroy;
 

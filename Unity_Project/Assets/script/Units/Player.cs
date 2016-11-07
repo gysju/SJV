@@ -208,14 +208,20 @@ public class Player : MobileGroundUnit
     void PointDestination(Transform origin)
     {
         RaycastHit hit;
-        if (Physics.Raycast(origin.transform.position, origin.transform.forward, out hit))
+		if (Physics.Raycast(origin.transform.position, origin.transform.forward, out hit))
         {
-            if (!m_destinationPointer)
-                m_destinationPointer = (GameObject) Instantiate(m_pointer, hit.point, Quaternion.identity);
-            LineRenderer line = m_destinationPointer.GetComponent<LineRenderer>();
-            line.SetPosition(0, origin.position);
-            line.SetPosition(1, hit.point);
-            m_destinationPointer.transform.position = hit.point;
+			if (hit.transform.gameObject.layer == LayerMask.NameToLayer ("Ground")) 
+			{
+				if (!m_destinationPointer)
+					m_destinationPointer = (GameObject) Instantiate(m_pointer, hit.point, Quaternion.identity);
+				LineRenderer line = m_destinationPointer.GetComponent<LineRenderer>();
+				line.SetPosition(0, origin.position);
+				line.SetPosition(1, hit.point);
+				m_destinationPointer.transform.position = hit.point;
+			}
+			else{
+				//not a ground, but...
+			}
         }
     }
 
@@ -549,7 +555,7 @@ public class Player : MobileGroundUnit
     }
     #endregion
 
-    #region Mouse, Keyboard controller
+    #region Mouse, Keyboard
     void MouseAim()
     {
         RotatePilotHead(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
@@ -581,8 +587,9 @@ public class Player : MobileGroundUnit
         if (Input.GetKey(KeyCode.S)) movementDirection.z -= 1f;
         if (Input.GetKey(KeyCode.D)) movementDirection.x += 1f;
         if (Input.GetKey(KeyCode.Q)) movementDirection.x -= 1f;
-        MoveFromLocalRotation(movementDirection);
-        if (movementDirection == Vector3.zero) ResumePath();
+        
+		if ( movementDirection != Vector3.zero) MoveFromLocalRotation(movementDirection);
+        else ResumePath();
 
         if (Input.GetMouseButton(2))
         {
@@ -600,13 +607,21 @@ public class Player : MobileGroundUnit
         MouseShootInputs();
         KeyboardMovements();
     }
-    
+
+	#endregion
+#endif
+	#region Controller
 	void JoystickRotation()
 	{
-		RotatePilotHead (Input.GetAxis ("HorizontalR"), Input.GetAxis ("VerticalR"));
+		float hor = Input.GetAxis ("HorizontalR");
+		float vert = Input.GetAxis ("VerticalR");
 
-		AimLeftWeaponTo(m_mainCamera.transform.position + m_mainCamera.transform.forward * 100);
-		AimRightWeaponTo(m_mainCamera.transform.position + m_mainCamera.transform.forward * 100);
+		if(hor != 0.0f && vert != 0.0f)
+		{
+			RotatePilotHead (hor, vert);
+			AimLeftWeaponTo(m_mainCamera.transform.position + m_mainCamera.transform.forward * 100);
+			AimRightWeaponTo(m_mainCamera.transform.position + m_mainCamera.transform.forward * 100);
+		}
 	}
 
 	void ControllerInputs()
@@ -621,6 +636,8 @@ public class Player : MobileGroundUnit
 		if (Input.GetButtonUp("RightBumper") && !leftPointer) ConfirmDestination(); //bumper
 
 		JoystickRotation();
+
+        MoveFromLocalRotation(new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical")));
 
 		if (leftModifier)
 		{
@@ -660,8 +677,8 @@ public class Player : MobileGroundUnit
 			}
 		}
 	}
+
 	#endregion
-#endif
     #endregion
 
     #region Updates
@@ -676,7 +693,7 @@ public class Player : MobileGroundUnit
 		PSMoveInputs();
         #endif
 
-		ControllerInputs();
+		//ControllerInputs();
     }
 
     protected override void Update()
