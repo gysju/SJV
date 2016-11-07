@@ -549,7 +549,7 @@ public class Player : MobileGroundUnit
     }
     #endregion
 
-    #region Mouse, Keyboard controller
+    #region Mouse, Keyboard
     void MouseAim()
     {
         RotatePilotHead(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
@@ -600,7 +600,10 @@ public class Player : MobileGroundUnit
         MouseShootInputs();
         KeyboardMovements();
     }
-    
+
+	#endregion
+#endif
+	#region Controller
 	void JoystickRotation()
 	{
 		RotatePilotHead (Input.GetAxis ("HorizontalR"), Input.GetAxis ("VerticalR"));
@@ -660,8 +663,8 @@ public class Player : MobileGroundUnit
 			}
 		}
 	}
+
 	#endregion
-#endif
     #endregion
 
     #region Updates
