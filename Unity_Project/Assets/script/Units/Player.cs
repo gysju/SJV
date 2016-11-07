@@ -208,14 +208,20 @@ public class Player : MobileGroundUnit
     void PointDestination(Transform origin)
     {
         RaycastHit hit;
-        if (Physics.Raycast(origin.transform.position, origin.transform.forward, out hit))
+		if (Physics.Raycast(origin.transform.position, origin.transform.forward, out hit))
         {
-            if (!m_destinationPointer)
-                m_destinationPointer = (GameObject) Instantiate(m_pointer, hit.point, Quaternion.identity);
-            LineRenderer line = m_destinationPointer.GetComponent<LineRenderer>();
-            line.SetPosition(0, origin.position);
-            line.SetPosition(1, hit.point);
-            m_destinationPointer.transform.position = hit.point;
+			if (hit.transform.gameObject.layer == LayerMask.NameToLayer ("Ground")) 
+			{
+				if (!m_destinationPointer)
+					m_destinationPointer = (GameObject) Instantiate(m_pointer, hit.point, Quaternion.identity);
+				LineRenderer line = m_destinationPointer.GetComponent<LineRenderer>();
+				line.SetPosition(0, origin.position);
+				line.SetPosition(1, hit.point);
+				m_destinationPointer.transform.position = hit.point;
+			}
+			else{
+				//not a ground, but...
+			}
         }
     }
 
