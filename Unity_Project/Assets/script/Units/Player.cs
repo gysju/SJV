@@ -625,6 +625,8 @@ public class Player : MobileGroundUnit
 
 		JoystickRotation();
 
+        MoveFromLocalRotation(new Vector3(Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical")));
+
 		if (leftModifier)
 		{
 			MoveFromLocalRotation( new Vector3( Input.GetAxis("Horizontal"), 0.0f, Input.GetAxis("Vertical")) );
