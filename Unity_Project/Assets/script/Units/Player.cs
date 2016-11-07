@@ -581,8 +581,9 @@ public class Player : MobileGroundUnit
         if (Input.GetKey(KeyCode.S)) movementDirection.z -= 1f;
         if (Input.GetKey(KeyCode.D)) movementDirection.x += 1f;
         if (Input.GetKey(KeyCode.Q)) movementDirection.x -= 1f;
-        MoveFromLocalRotation(movementDirection);
-        if (movementDirection == Vector3.zero) ResumePath();
+        
+		if ( movementDirection != Vector3.zero) MoveFromLocalRotation(movementDirection);
+        else ResumePath();
 
         if (Input.GetMouseButton(2))
         {
