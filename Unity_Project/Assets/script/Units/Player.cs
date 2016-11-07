@@ -298,13 +298,22 @@ public class Player : MobileGroundUnit
     void PSMoveLeftWeaponControl()
     {
         m_leftWeapon.transform.localPosition = m_leftWeaponDefaultPosition + ((m_leftController.transform.position - m_baseOffset) * m_sensitivity);
-        m_leftWeapon.transform.localRotation = m_leftController.transform.localRotation * m_leftWeaponDefaultRotation;
+		if (m_leftController.lookAtHit != Vector3.zero)
+			m_leftWeapon.transform.LookAt (m_leftController.lookAtHit);
+		else
+			m_leftWeapon.transform.localRotation = Quaternion.identity;
+		//m_leftWeapon.transform.localRotation = m_leftController.transform.localRotation * m_leftWeaponDefaultRotation;
     }
 
     void PSMoveRightWeaponControl()
     {
         m_rightWeapon.transform.localPosition = m_rightWeaponDefaultPosition + ((m_rightController.transform.position - m_baseOffset) * m_sensitivity);
-        m_rightWeapon.transform.localRotation = m_rightController.transform.localRotation * m_rightWeaponDefaultRotation;
+
+		if (m_rightController.lookAtHit != Vector3.zero)
+			m_rightWeapon.transform.LookAt (m_rightController.lookAtHit);
+		else
+			m_rightWeapon.transform.localRotation = Quaternion.identity;
+		//m_rightWeapon.transform.localRotation = m_rightController.transform.localRotation * m_rightWeaponDefaultRotation;
     }
 
     void PSMoveInputs()
