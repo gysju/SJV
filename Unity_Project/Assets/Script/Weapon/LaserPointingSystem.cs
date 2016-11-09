@@ -18,12 +18,13 @@ public class LaserPointingSystem : MonoBehaviour {
 		if(Physics.Raycast( transform.position, transform.forward, out hit) && hit.collider.tag != "Player")
 		{
 			lineRenderer.SetPosition (1, Vector3.forward * hit.distance);
+			#if UNITY_PS4
 			if ( move != null ) move.lookAtHit = hit.point;
+			#endif
 		}
 		else
 		{
 			lineRenderer.SetPosition (1, Vector3.forward * MinimalDistance);
-			move.lookAtHit = Vector3.zero;
 		}
 	}
 }
