@@ -57,8 +57,8 @@ public class ps4_move_debug : MonoBehaviour {
 		//
 		//}
 
-		string data = String.Format("left axis y : {0}, right axis y : {1}, angle : {2}" , (float)System.Math.Round(getMoveRotation(0).y, 2), 
-																						   (float)System.Math.Round(getMoveRotation(1).y, 2),
+		string data = String.Format("left axis y : {0}, right axis y : {1}, angle : {2}" , (float)System.Math.Round((Mathf.Clamp(getMoveRotation(0).y,-1,1) + 1) * 0.5f, 1), 
+																						   (float)System.Math.Round((Mathf.Clamp(getMoveRotation(1).y,-1,1) + 1) * 0.5f, 1),
 																							PSMoveRotation());
 		GUI.Label(new Rect(64, 64 + 40 + 20, 1500, 20), data);
 
@@ -95,21 +95,19 @@ public class ps4_move_debug : MonoBehaviour {
 
 	float PSMoveRotation()
 	{
-		Vector3 leftHand = new Vector3( 0.0f, getMoveRotation(0).y, 0.0f);
-		Vector3 RightHand = new Vector3( 0.0f, getMoveRotation(1).y, 0.0f);
+		float leftHand =  (float)System.Math.Round((Mathf.Clamp(getMoveRotation(0).y, -1, 1) + 1) * 0.5f, 1);
+		float RightHand = (float)System.Math.Round((Mathf.Clamp(getMoveRotation(1).y, -1, 1) + 1) * 0.5f, 1);
 
 		if(leftHand != RightHand)
 		{
-			float angle = Vector3.Angle(leftHand, RightHand);
+			float diff = Math.Abs(leftHand - RightHand);
+			diff *= 180.0f;
 
-			angle /= 90.0f;
-			angle = Mathf.Clamp01(angle) * Time.deltaTime;
-			angle = (float)System.Math.Round(angle, 2);
+			if (leftHand < RightHand)
+				diff = -diff;
 
-			if (getMoveRotation(0).y < getMoveRotation(1).y)
-				angle = -angle;
+			return Mathf.Round(diff);
 
-			return angle;
 		}
 		return 0.0f;
 	}
