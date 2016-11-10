@@ -155,8 +155,11 @@ public class IA : MonoBehaviour
     public void GiveCaptureOrder(Capture_point pointToCapture)
     {
         m_unitToDestroy = null;
-        m_pointToCapture = pointToCapture;
-        m_mobileGroundUnit.SetDestination(m_pointToCapture.transform.position);
+        if (m_pointToCapture != pointToCapture)
+        {
+            m_pointToCapture = pointToCapture;
+            m_mobileGroundUnit.SetDestination(m_pointToCapture.transform.position);
+        }
     }
 
     private void CheckCaptureOrder()
