@@ -34,6 +34,8 @@ public class Player : MobileGroundUnit
     [Header("PSMove Related")]
 
     public TrackedDeviceMoveControllers trackedDeviceMoveControllers;
+	public float MinimumAngleToRotate = 15.0f;
+
     private MoveController m_leftController;
     private MoveController m_rightController;
 
@@ -281,30 +283,43 @@ public class Player : MobileGroundUnit
 
     void PSMoveRotation()
     {
-		Vector3 leftHand = new Vector3(m_leftController.getMoveRotation().y, 0.0f, 0.0f);
-		Vector3 RightHand = new Vector3(m_rightController.getMoveRotation().y, 0.0f, 0.0f);
-		float angle = Vector3.Angle(leftHand, RightHand);
+		float leftHand =  (float)System.Math.Round((Mathf.Clamp( m_leftController.getMoveRotation().y, -1, 1) + 1) * 0.5f, 2);
+		float RightHand = (float)System.Math.Round((Mathf.Clamp(m_rightController.getMoveRotation().y, -1, 1) + 1) * 0.5f, 2);
 
-		angle /= 90.0f;
-        angle = Mathf.Clamp01(angle) * Time.deltaTime;
-        angle = (float)System.Math.Round(angle, 2);
+		if(leftHand != RightHand)
+		{
+			float diff = Mathf.Abs(leftHand - RightHand);
 
-		if (m_leftController.getMoveRotation().y < m_rightController.getMoveRotation().y)
-            angle = -angle;
+			if (leftHand > RightHand)
+				diff = -diff;
 
-        RotateMechaHorizontaly(-angle * m_rotationSpeed);
+			if (MinimumAngleToRotate < Mathf.Abs ( Mathf.Round(diff * 180.0f))) 
+			{
+				
+				RotateMechaHorizontaly(diff * m_rotationSpeed * Time.deltaTime);
+			}
+		}
     }
 
     void PSMoveLeftWeaponControl()
     {
         m_leftWeapon.transform.localPosition = m_leftWeaponDefaultPosition + ((m_leftController.transform.position - m_baseOffset) * m_sensitivity);
-        m_leftWeapon.transform.localRotation = m_leftController.transform.localRotation * m_leftWeaponDefaultRotation;
+		if (m_leftController.lookAtHit != Vector3.zero)
+			m_leftWeapon.transform.LookAt (m_leftController.lookAtHit);
+		else
+			m_leftWeapon.transform.localRotation = Quaternion.identity;
+		//m_leftWeapon.transform.localRotation = m_leftController.transform.localRotation * m_leftWeaponDefaultRotation;
     }
 
     void PSMoveRightWeaponControl()
     {
         m_rightWeapon.transform.localPosition = m_rightWeaponDefaultPosition + ((m_rightController.transform.position - m_baseOffset) * m_sensitivity);
-        m_rightWeapon.transform.localRotation = m_rightController.transform.localRotation * m_rightWeaponDefaultRotation;
+
+		if (m_rightController.lookAtHit != Vector3.zero)
+			m_rightWeapon.transform.LookAt (m_rightController.lookAtHit);
+		else
+			m_rightWeapon.transform.localRotation = Quaternion.identity;
+		//m_rightWeapon.transform.localRotation = m_rightController.transform.localRotation * m_rightWeaponDefaultRotation;
     }
 
     void PSMoveInputs()
@@ -322,7 +337,7 @@ public class Player : MobileGroundUnit
 
 		if(debug != null)
 		{
-			debug.GetComponent<Text>().text = "left:" + m_leftController.GetButton(MoveController.MoveButton.MoveButton_Trigger) + "right:" + m_rightController.GetButton(MoveController.MoveButton.MoveButton_Trigger);
+			//debug.GetComponent<Text>().text = "left:" + m_leftController.GetButton(MoveController.MoveButton.MoveButton_Trigger) + "right:" + m_rightController.GetButton(MoveController.MoveButton.MoveButton_Trigger);
 		}
 
 		if (leftModifier)

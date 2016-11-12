@@ -12,9 +12,11 @@ public class MoveController : MonoBehaviour {
 
     public bool isMoveController = false;
     public bool isSecondaryMoveController = false;
+	public Vector3 lookAtHit;
 
 	private int currentButtons = 0;
 	private int prevButtons = 0;
+
 
 	void Start () 
 	{
