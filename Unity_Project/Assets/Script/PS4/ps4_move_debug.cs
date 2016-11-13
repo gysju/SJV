@@ -89,8 +89,6 @@ public class ps4_move_debug : MonoBehaviour {
 	public Vector3 getMoveRotation(int index)
 	{
 		return PS4Input.GetLastMoveAcceleration (0, index);
-
-		return Vector3.zero;
 	}
 
 	float PSMoveRotation()
