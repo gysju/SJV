@@ -3,10 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 
 [AddComponentMenu("MechaVR/Units/DEV/Combat Unit")]
-[RequireComponent(typeof(SphereCollider))]
 public class CombatUnit : Unit
 {
-    protected SphereCollider m_radar;
+    public SphereCollider m_radar;
 
     [Header("Radar")]
     [Tooltip("Unit's radar's range.")]
@@ -33,7 +32,7 @@ public class CombatUnit : Unit
     {
         base.Start();
 
-        m_radar = GetComponent<SphereCollider>();
+        m_radar = GetComponentInChildren<SphereCollider>();
         m_radar.isTrigger = true;
         UpdateRadarRange();
     }
@@ -57,34 +56,6 @@ public class CombatUnit : Unit
     public void DetectedUnitDestroyed(Unit destroyedUnit)
     {
         m_detectedEnemies.Remove(destroyedUnit);
-    }
-
-    protected virtual void OnTriggerEnter(Collider col)
-    {
-        if(m_faction != UnitFaction.Neutral)
-        {
-            if (!col.isTrigger)
-            {
-                Unit detectedUnit = col.GetComponent<Unit>();
-                if (detectedUnit != null && detectedUnit.m_faction != m_faction && !detectedUnit.IsDestroyed())
-                {
-                    m_detectedEnemies.Add(detectedUnit);
-                }
-            }
-        }
-        
-    }
-
-    protected virtual void OnTriggerExit(Collider col)
-    {
-        if (!col.isTrigger)
-        {
-            Unit detectedUnit = col.GetComponent<Unit>();
-            if (detectedUnit != null && detectedUnit.m_faction != m_faction)
-            {
-                m_detectedEnemies.Remove(detectedUnit);
-            }
-        }
     }
     #endregion
 
