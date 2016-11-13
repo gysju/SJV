@@ -15,7 +15,7 @@ public class LaserPointingSystem : MonoBehaviour {
 	
 	void Update () 
 	{
-		if(Physics.Raycast( transform.position, transform.forward, out hit) && hit.collider.tag != "Player")
+		if(Physics.Raycast( transform.position, transform.forward, out hit, LayerMask.NameToLayer("TrackedDevice")) && hit.collider.tag != "Player")
 		{
 			lineRenderer.SetPosition (1, Vector3.forward * hit.distance);
 			#if UNITY_PS4
