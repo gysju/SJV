@@ -2622,6 +2622,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1000013982239762
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 4000014115680906}
+  - 135: {fileID: 135000012049651464}
+  - 114: {fileID: 114000013965127518}
+  m_Layer: 0
+  m_Name: Radar
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1000014019086946
 GameObject:
   m_ObjectHideFlags: 0
@@ -5142,6 +5159,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4000014221613268}
   m_RootOrder: 1
+--- !u!4 &4000014115680906
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013982239762}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 4000014221613268}
+  m_RootOrder: 2
 --- !u!4 &4000014120890788
 Transform:
   m_ObjectHideFlags: 1
@@ -5214,13 +5244,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000014019086946}
-  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 132.54, y: 7.5, z: 125.55}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
   m_Children:
   - {fileID: 4000011945480278}
   - {fileID: 4000014097013036}
+  - {fileID: 4000014115680906}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &4000014232691298
@@ -8873,9 +8904,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ea57611536a55543ba98908d7b2f74a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMoveController: 1
-  isSecondaryMoveController: 0
-  lookAtHit: {x: 0, y: 0, z: 0}
 --- !u!114 &114000011140535854
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8895,6 +8923,7 @@ MonoBehaviour:
   m_destructionSpawn: {fileID: 100010, guid: 0b6dc5cf11433424ab9859ff1ea59f4c, type: 2}
   m_armor: 5
   m_targetPoint: {fileID: 4000011945480278}
+  m_radar: {fileID: 0}
   m_radarRange: 50
   m_detectedEnemies: []
   m_weapons:
@@ -8908,8 +8937,6 @@ MonoBehaviour:
   m_torso: {fileID: 1000010427927384}
   m_legs: {fileID: 1000011387755860}
   m_pointer: {fileID: 1000013968135328, guid: 5ec254d5897b5114e8f74e0df760a8f2, type: 2}
-  trackedDeviceMoveControllers: {fileID: 114000012994522768}
-  MinimumAngleToRotate: 15
 --- !u!114 &114000011167543296
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8956,9 +8983,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ea57611536a55543ba98908d7b2f74a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMoveController: 1
-  isSecondaryMoveController: 1
-  lookAtHit: {x: 0, y: 0, z: 0}
 --- !u!114 &114000012994522768
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8996,6 +9020,18 @@ MonoBehaviour:
   m_reloadTime: 3
   m_optimalRange: 25
   m_precision: 0
+--- !u!114 &114000013965127518
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013982239762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bededaaa27b78c40914310aecb8f805, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_combatUnit: {fileID: 0}
 --- !u!114 &114000014203908236
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9119,6 +9155,18 @@ SphereCollider:
   m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!135 &135000012049651464
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013982239762}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 50
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &136000010765394006
 CapsuleCollider:
