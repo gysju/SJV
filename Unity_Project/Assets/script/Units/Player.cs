@@ -337,7 +337,7 @@ public class Player : MobileGroundUnit
 
 		if(debug != null)
 		{
-			//debug.GetComponent<Text>().text = "left:" + m_leftController.GetButton(MoveController.MoveButton.MoveButton_Trigger) + "right:" + m_rightController.GetButton(MoveController.MoveButton.MoveButton_Trigger);
+			debug.GetComponent<Text>().text = "left:" + m_leftController.GetButton(MoveController.MoveButton.MoveButton_Trigger) + "right:" + m_rightController.GetButton(MoveController.MoveButton.MoveButton_Trigger);
 		}
 
 		if (leftModifier)

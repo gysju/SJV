@@ -14,7 +14,7 @@ public class Unit : MonoBehaviour
     const int MIN_ARMOR = 0;
     const int MAX_ARMOR = 100;
 
-    const float TIME_TO_DIE = 1f;
+    public float TIME_TO_DIE = 1f;
 
     public enum UnitFaction
     {
@@ -110,7 +110,7 @@ public class Unit : MonoBehaviour
     protected IEnumerator Dying()
     {
         yield return new WaitForSeconds(TIME_TO_DIE);
-        Instantiate(m_destructionSpawn, transform.position, transform.rotation);
+        if (m_destructionSpawn) Instantiate(m_destructionSpawn, transform.position, transform.rotation);
         Destroy(gameObject);
     }
 

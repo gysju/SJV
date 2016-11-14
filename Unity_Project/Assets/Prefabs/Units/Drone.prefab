@@ -26,23 +26,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1000010939943380
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 4000013916065800}
-  - 135: {fileID: 135000012662813138}
-  - 114: {fileID: 114000011144552956}
-  m_Layer: 0
-  m_Name: Radar
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1000011333922654
 GameObject:
   m_ObjectHideFlags: 0
@@ -105,8 +88,26 @@ GameObject:
   - 208: {fileID: 208000014287152518}
   - 65: {fileID: 65000012065988780}
   - 114: {fileID: 114000011707586038}
+  - 114: {fileID: 114000011781703506}
   m_Layer: 0
   m_Name: Drone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1000013475500880
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 4000014211374144}
+  - 135: {fileID: 135000011009868672}
+  - 114: {fileID: 114000012645954184}
+  m_Layer: 14
+  m_Name: Radar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -173,22 +174,22 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012829476306}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 10, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 27.52, y: 23.15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 4000012732873600}
-  - {fileID: 4000013916065800}
+  - {fileID: 4000014211374144}
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!4 &4000013916065800
+--- !u!4 &4000014211374144
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010939943380}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_GameObject: {fileID: 1000013475500880}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -208,7 +209,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: c430eef91e09cf14bb25c6af720bcd13, type: 2}
+  - {fileID: 2100000, guid: 51fbdf2700e4cf14e9c3d64b3e4cf163, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
@@ -270,18 +271,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0, y: 0, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114000011144552956
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010939943380}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bededaaa27b78c40914310aecb8f805, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_combatUnit: {fileID: 0}
 --- !u!114 &114000011707586038
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -293,15 +282,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 109628e1bc824274dbaa0989e5dcd554, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_faction: 2
+  TIME_TO_DIE: 3
+  m_faction: 0
   m_capturable: 0
   m_maxHitPoints: 10
   m_startingHitPoints: 10
   m_currentHitPoints: 0
-  m_destructionSpawn: {fileID: 100010, guid: 031d08f52af1daa4f929b85221519426, type: 2}
+  m_destructionSpawn: {fileID: 0}
   m_armor: 0
   m_targetPoint: {fileID: 4000012732873600}
-  m_radar: {fileID: 135000012662813138}
+  m_radar: {fileID: 135000011009868672}
   m_radarRange: 50
   m_detectedEnemies: []
   m_weapons:
@@ -314,6 +304,22 @@ MonoBehaviour:
   m_cannonDegreesPerSecond: 45
   m_maxCannonAngle: 45
   m_imprecisioAngle: 10
+--- !u!114 &114000011781703506
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012829476306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b81cb8f32b2f2d4dab06669f5004323, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_allyCommander: {fileID: 0}
+  m_enemyCommander: {fileID: 0}
+  m_currentTarget: {fileID: 0}
+  m_imprecisioAngle: 10
+  m_pointToCapture: {fileID: 0}
 --- !u!114 &114000011897114554
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -335,17 +341,29 @@ MonoBehaviour:
   m_reloadTime: 1
   m_optimalRange: 25
   m_precision: 10
---- !u!135 &135000012662813138
+--- !u!114 &114000012645954184
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013475500880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bededaaa27b78c40914310aecb8f805, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_combatUnit: {fileID: 0}
+--- !u!135 &135000011009868672
 SphereCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010939943380}
+  m_GameObject: {fileID: 1000013475500880}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 50
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!195 &195000010286611724
 NavMeshAgent:
