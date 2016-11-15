@@ -15,7 +15,8 @@ public class LaserPointingSystem : MonoBehaviour {
 	
 	void Update () 
 	{
-		if(Physics.Raycast( transform.position + ( transform.forward * 10 ), transform.forward, out hit, LayerMask.NameToLayer("Radar")))
+		int mask = ( 1 << LayerMask.NameToLayer ("Ground")) | ( 1 << LayerMask.NameToLayer ("Unit"));
+		if(Physics.Raycast( transform.position, transform.forward, out hit, 100.0f, mask))
 		{
 			lineRenderer.SetPosition (1, Vector3.forward * hit.distance);
 			#if UNITY_PS4
