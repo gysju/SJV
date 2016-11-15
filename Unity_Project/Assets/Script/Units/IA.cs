@@ -260,16 +260,19 @@ public class IA : MonoBehaviour
     #region Updates
     void Update ()
     {
-        if (m_mobileGroundUnit)
+        if (!m_unit.IsDestroyed())
         {
-            CheckCurrentOrder();
+            if (m_mobileGroundUnit)
+            {
+                CheckCurrentOrder();
+            }
+            if (m_combatUnit)
+            {
+                ChooseTarget();
+                CheckCurrentTargetStatus();
+            }
+            Behaviour();
         }
-        if (m_combatUnit)
-        {
-            ChooseTarget();
-            CheckCurrentTargetStatus();
-        }
-        Behaviour();
     }
     #endregion
 }
