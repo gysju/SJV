@@ -14,8 +14,6 @@ public class Unit : MonoBehaviour
     const int MIN_ARMOR = 0;
     const int MAX_ARMOR = 100;
 
-    public float TIME_TO_DIE = 1f;
-
     public enum UnitFaction
     {
         Ally,
@@ -23,9 +21,12 @@ public class Unit : MonoBehaviour
         Enemy
     };
 
+    protected BattleManager m_battleManager;
+
     protected bool m_destroyed = false;
 
     protected NavMeshObstacle m_navMeshObstacle;
+
 
     [Header("Faction")]
     [Tooltip("Unit's current faction.")]
@@ -47,6 +48,8 @@ public class Unit : MonoBehaviour
     [SerializeField]
     [ContextMenuItem("Destroy Unit", "Die")]
     protected int m_currentHitPoints;
+
+    public float m_timeToDie = 1f;
 
     public GameObject m_destructionSpawn;
 
@@ -73,6 +76,7 @@ public class Unit : MonoBehaviour
 
     protected virtual void Awake()
     {
+        m_battleManager = FindObjectOfType<BattleManager>();
         m_navMeshObstacle = GetComponent<NavMeshObstacle>();
     }
 
@@ -80,6 +84,13 @@ public class Unit : MonoBehaviour
     {
         m_currentHitPoints = m_startingHitPoints;
         CheckHitPoints();
+    }
+
+    public virtual void ResetUnit()
+    {
+        m_destroyed = false;
+
+        GetComponent<BoxCollider>().enabled = true;
     }
     #endregion
 
@@ -109,9 +120,9 @@ public class Unit : MonoBehaviour
 
     protected IEnumerator Dying()
     {
-        yield return new WaitForSeconds(TIME_TO_DIE);
+        yield return new WaitForSeconds(m_timeToDie);
         if (m_destructionSpawn) Instantiate(m_destructionSpawn, transform.position, transform.rotation);
-        Destroy(gameObject);
+        m_battleManager.PoolUnit(this);
     }
 
     /// <summary>A appeler à la mort de l'unité.</summary>
