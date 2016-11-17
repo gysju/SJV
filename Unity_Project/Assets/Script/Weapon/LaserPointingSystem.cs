@@ -4,6 +4,10 @@ using System.Collections;
 public class LaserPointingSystem : MonoBehaviour {
 
 	public float MinimalDistance = 1.0f;
+
+	[SerializeField]
+	private LayerMask mask;
+
 	private LineRenderer lineRenderer;
 	private RaycastHit hit;
 	private MoveController move;
@@ -15,8 +19,8 @@ public class LaserPointingSystem : MonoBehaviour {
 	
 	void Update () 
 	{
-		int mask = ( 1 << LayerMask.NameToLayer ("Ground")) | ( 1 << LayerMask.NameToLayer ("Unit"));
-		if(Physics.Raycast( transform.position, transform.forward, out hit, 100.0f, mask))
+		//int mask = ( 1 << LayerMask.NameToLayer ("Ground")) | ( 1 << LayerMask.NameToLayer ("Unit"));
+		if(Physics.Raycast( transform.position, transform.forward, out hit, 1000.0f, mask))
 		{
 			lineRenderer.SetPosition (1, Vector3.forward * hit.distance);
 			#if UNITY_PS4
@@ -27,7 +31,7 @@ public class LaserPointingSystem : MonoBehaviour {
 		{
 			lineRenderer.SetPosition (1, Vector3.forward * MinimalDistance);
 			#if UNITY_PS4
-			if ( move != null ) move.lookAtHit = transform.position + transform.forward * 200.0f;
+			if ( move != null ) move.lookAtHit = transform.position + transform.forward * 1000.0f;
 			#endif
 		}
 	}

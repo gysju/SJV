@@ -5241,7 +5241,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000014019086946}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 132.54, y: 7.5, z: 125.55}
+  m_LocalPosition: {x: 122.9, y: -0.17, z: 195.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
   m_Children:
@@ -8852,8 +8852,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ea57611536a55543ba98908d7b2f74a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMoveController: 1
-  isSecondaryMoveController: 0
+  MoveIndex: 0
   lookAtHit: {x: 0, y: 0, z: 0}
 --- !u!114 &114000011140535854
 MonoBehaviour:
@@ -8866,6 +8865,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb75b7b1af3adb941b65471a3a6240c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TIME_TO_DIE: 1
   m_faction: 0
   m_capturable: 0
   m_maxHitPoints: 100
@@ -8902,6 +8902,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MinimalDistance: 1
+  mask:
+    serializedVersion: 2
+    m_Bits: 3584
 --- !u!114 &114000012496064176
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8914,6 +8917,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MinimalDistance: 1
+  mask:
+    serializedVersion: 2
+    m_Bits: 3584
 --- !u!114 &114000012553125024
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8936,8 +8942,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ea57611536a55543ba98908d7b2f74a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMoveController: 1
-  isSecondaryMoveController: 1
+  MoveIndex: 1
   lookAtHit: {x: 0, y: 0, z: 0}
 --- !u!114 &114000012994522768
 MonoBehaviour:
