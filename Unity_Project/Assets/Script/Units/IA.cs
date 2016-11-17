@@ -11,6 +11,7 @@ public class IA : MonoBehaviour
     protected Unit m_unit = null;
     protected CombatUnit m_combatUnit = null;
     protected MobileGroundUnit m_mobileGroundUnit = null;
+    protected AirUnit m_airUnit = null;
 
     [Header("Combat Related")]
     [SerializeField]
@@ -38,6 +39,10 @@ public class IA : MonoBehaviour
         if (m_unit is MobileGroundUnit)
         {
             m_mobileGroundUnit = (MobileGroundUnit)m_unit;
+        }
+        if (m_mobileGroundUnit is AirUnit)
+        {
+            m_airUnit = (AirUnit)m_mobileGroundUnit;
         }
 
         m_pointToCapture = null;
@@ -155,8 +160,11 @@ public class IA : MonoBehaviour
     public void GiveCaptureOrder(Capture_point pointToCapture)
     {
         m_unitToDestroy = null;
-        m_pointToCapture = pointToCapture;
-        m_mobileGroundUnit.SetDestination(m_pointToCapture.transform.position);
+        if (m_pointToCapture != pointToCapture)
+        {
+            m_pointToCapture = pointToCapture;
+            m_mobileGroundUnit.SetDestination(m_pointToCapture.transform.position);
+        }
     }
 
     private void CheckCaptureOrder()
@@ -252,16 +260,19 @@ public class IA : MonoBehaviour
     #region Updates
     void Update ()
     {
-        if (m_mobileGroundUnit)
+        if (!m_unit.IsDestroyed())
         {
-            CheckCurrentOrder();
+            if (m_mobileGroundUnit)
+            {
+                CheckCurrentOrder();
+            }
+            if (m_combatUnit)
+            {
+                ChooseTarget();
+                CheckCurrentTargetStatus();
+            }
+            Behaviour();
         }
-        if (m_combatUnit)
-        {
-            ChooseTarget();
-            CheckCurrentTargetStatus();
-        }
-        Behaviour();
     }
     #endregion
 }

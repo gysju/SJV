@@ -81,6 +81,11 @@ public class MobileGroundUnit : CombatUnit
         }
     }
 
+    public bool CompareDestination(Vector3 otherDestination)
+    {
+        return (m_navMeshAgent.destination == otherDestination);
+    }
+
     public void SetDestination(Vector3 newDestination)
     {
         EnableNavMeshAgent();

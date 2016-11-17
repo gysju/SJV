@@ -37,27 +37,31 @@ public class ps4_move_debug : MonoBehaviour {
 	void OnGUI() 
 	{
 		int numDetected = 0;
-		for (int slot=0;slot<4;slot++)
-		{
-			for (int controller=0; controller<1; controller++)
-			{
-				if (PS4Input.MoveIsConnected(slot,controller))
-				{
-					string data = String.Format("get button up : {0}, get button Down : {1} , get button : {2}, prevButtons : {3}, currentButtons : {4}" ,
-						GetButtonUp(MoveButton.MoveButton_Move, controller),
-						GetButtonDown(MoveButton.MoveButton_Move, controller),
-						GetButton(MoveButton.MoveButton_Move, controller),
-						prevButtons,
-						currentButtons
-							);
-					GUI.Label(new Rect(64, 64 + slot*40 + controller*20, 1500, 20), data);
-					numDetected++;
-				}
-			}
+		//for (int slot=0;slot<4;slot++)
+		//{
+		//	for (int controller=0; controller<1; controller++)
+		//	{
+		//		if (PS4Input.MoveIsConnected(slot,controller))
+		//		{
+		//			string data = String.Format("get button up : {0}, get button Down : {1} , get button : {2}, prevButtons : {3}, currentButtons : {4}" ,
+		//				GetButtonUp(MoveButton.MoveButton_Move, controller),
+		//				GetButtonDown(MoveButton.MoveButton_Move, controller),
+		//				GetButton(MoveButton.MoveButton_Move, controller),
+		//				prevButtons,
+		//				currentButtons
+		//					);
+		//			GUI.Label(new Rect(64, 64 + slot*40 + controller*20, 1500, 20), data);
+		//			numDetected++;
+		//		}
+		//	}
+		//
+		//}
 
-		}
-		GUI.Label(new Rect(64, 800, 1500, 20), String.Format("{0} Move controlers detected", numDetected) );
-		
+		string data = String.Format("left axis y : {0}, right axis y : {1}, angle : {2}" , (float)System.Math.Round((Mathf.Clamp(getMoveRotation(0).y,-1,1) + 1) * 0.5f, 1), 
+																						   (float)System.Math.Round((Mathf.Clamp(getMoveRotation(1).y,-1,1) + 1) * 0.5f, 1),
+																							PSMoveRotation());
+		GUI.Label(new Rect(64, 64 + 40 + 20, 1500, 20), data);
+
 	}
 
 	public bool GetButton( MoveButton button, int slot )
@@ -82,5 +86,28 @@ public class ps4_move_debug : MonoBehaviour {
 		return ((prevButtons != (int)button) && ((currentButtons == (int)button)));
 	}
 		
+	public Vector3 getMoveRotation(int index)
+	{
+		return PS4Input.GetLastMoveAcceleration (0, index);
+	}
+
+	float PSMoveRotation()
+	{
+		float leftHand =  (float)System.Math.Round((Mathf.Clamp(getMoveRotation(0).y, -1, 1) + 1) * 0.5f, 1);
+		float RightHand = (float)System.Math.Round((Mathf.Clamp(getMoveRotation(1).y, -1, 1) + 1) * 0.5f, 1);
+
+		if(leftHand != RightHand)
+		{
+			float diff = Math.Abs(leftHand - RightHand);
+			diff *= 180.0f;
+
+			if (leftHand < RightHand)
+				diff = -diff;
+
+			return Mathf.Round(diff);
+
+		}
+		return 0.0f;
+	}
 	#endif
 }
