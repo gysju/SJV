@@ -25,8 +25,8 @@ public class AirUnit : HoverTank
     {
         base.ResetUnit();
 
-        GetComponentInChildren<MeshCollider>().convex = false;
         GetComponent<Rigidbody>().isKinematic = true;
+        GetComponentInChildren<MeshCollider>().convex = false;
     }
     #endregion
 
