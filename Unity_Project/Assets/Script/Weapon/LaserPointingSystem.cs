@@ -26,6 +26,9 @@ public class LaserPointingSystem : MonoBehaviour {
 		else
 		{
 			lineRenderer.SetPosition (1, Vector3.forward * MinimalDistance);
+			#if UNITY_PS4
+			if ( move != null ) move.lookAtHit = transform.position + transform.forward * 200.0f;
+			#endif
 		}
 	}
 }

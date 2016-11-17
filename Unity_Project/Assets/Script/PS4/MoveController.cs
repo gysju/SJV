@@ -10,8 +10,7 @@ public class MoveController : MonoBehaviour {
 
 	public enum MoveButton { MoveButton_Trigger = 2, MoveButton_Move = 4, MoveButton_Start = 8, MoveButton_Triangle = 16, MoveButton_Circle = 32, MoveButton_Cross = 64, MoveButton_Square = 128, MoveButton_MaxAnalogueValue = 255, MoveButton_Count = 8}
 
-    public bool isMoveController = false;
-    public bool isSecondaryMoveController = false;
+	public int MoveIndex = 0;
 	public Vector3 lookAtHit;
 
 	private int currentButtons = 0;
@@ -28,32 +27,26 @@ public class MoveController : MonoBehaviour {
 		prevButtons = currentButtons;
 	}
 
-	void LateUpdate()
-	{
-		currentButtons = 0;
-	}
-
 	public bool GetButton( MoveButton button )
 	{
 		for (int slot = 0; slot < 4; slot++) 
 		{
-			if (!isSecondaryMoveController && PS4Input.MoveIsConnected (slot, 0) && PS4Input.MoveGetButtons (slot, 0) == (int)button) 
+			if (PS4Input.MoveIsConnected (slot, MoveIndex) 
+				&& (PS4Input.MoveGetButtons (slot, MoveIndex) == (int)button)) 
 			{
 				currentButtons = (int)button;
 				return true;
 			} 
-			else if ( isSecondaryMoveController && PS4Input.MoveIsConnected (slot, 1) && PS4Input.MoveGetButtons (slot, 1) == (int)button) 
-			{	
-				currentButtons = (int)button;
-				return true;
-			}
 		}
 		return false;
 	}
 
 	public bool GetButtonUp(MoveButton button)
 	{
-		return ((prevButtons == (int)button) && !GetButton(button));
+		//return !GetButton (button) && (prevButtons == currentButtons); 
+		bool test = ((prevButtons == (int)button) && !GetButton(button));
+		if ( test ) currentButtons = 0;
+		return test;
 	}
 
 	public bool GetButtonDown(MoveButton button)
@@ -67,10 +60,8 @@ public class MoveController : MonoBehaviour {
 	{
 		for (int slot = 0; slot < 4; slot++) 
 		{
-			if (!isSecondaryMoveController && PS4Input.MoveIsConnected (slot, 0))
-				return PS4Input.GetLastMoveAcceleration (slot, 0);
-			else if ( PS4Input.MoveIsConnected (slot, 1))
-				return PS4Input.GetLastMoveAcceleration (slot, 1);
+			if (PS4Input.MoveIsConnected (slot, MoveIndex))
+				return PS4Input.GetLastMoveAcceleration (slot, MoveIndex);
 		}
 		return Vector3.zero;
 	}
