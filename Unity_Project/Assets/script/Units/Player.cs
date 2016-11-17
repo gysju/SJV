@@ -28,8 +28,9 @@ public class Player : MobileGroundUnit
 
     public GameObject m_pointer;
     private GameObject m_destinationPointer = null;
-	private bool RazerAreConnected = false;
 
+	[SerializeField]
+	private LayerMask maskRaycast;
     #if UNITY_PS4
     [Header("PSMove Related")]
 
@@ -41,6 +42,7 @@ public class Player : MobileGroundUnit
 
     #else
         [Header("Razer Hydra Related")]
+		private bool RazerAreConnected = false;
         SixenseInput.Controller m_leftController;
         SixenseInput.Controller m_rightController;
     #endif
@@ -210,7 +212,7 @@ public class Player : MobileGroundUnit
     void PointDestination(Transform origin)
     {
         RaycastHit hit;
-		if (Physics.Raycast(origin.transform.position, origin.transform.forward, out hit))
+		if (Physics.Raycast(origin.transform.position, origin.transform.forward, out hit,1000.0f, maskRaycast))
         {
 			if (hit.transform.gameObject.layer == LayerMask.NameToLayer ("Ground")) 
 			{
