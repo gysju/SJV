@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Tank
-  m_Shader: {fileID: 4800000, guid: 2b638a69690fea642b287be2a1d8d3f2, type: 3}
+  m_Shader: {fileID: 4800000, guid: 156eb108ba906b5449c21965f4feba7b, type: 3}
   m_ShaderKeywords: _EMISSION
   m_LightmapFlags: 1
   m_CustomRenderQueue: -1
@@ -52,6 +52,12 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
+        name: _MRE_nY
+      second:
+        m_Texture: {fileID: 2800000, guid: 70fafb6bf967f7448b2216950fd6703c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
         name: _MainTex
       second:
         m_Texture: {fileID: 0}
@@ -81,6 +87,12 @@ Material:
         m_Texture: {fileID: 2800000, guid: 4c124a07bde72df4480afaf66448b189, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 1, y: 1}
+    - first:
+        name: _RGB_nX
+      second:
+        m_Texture: {fileID: 2800000, guid: 4c124a07bde72df4480afaf66448b189, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
     - first:
         name: _BumpScale
