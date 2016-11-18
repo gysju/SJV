@@ -8,7 +8,8 @@ Shader "Custom/Shader_Test"
 		[NoScaleOffset]	_MRE_nY ("MRE_nY", 2D) = "" {}
 
 		_EmissiveColor ("EmissiveColor", Color) = (1,1,1,1)
-		_Emission ("Emission", Range(1,10)) = 1.0
+		_EmissiveIntensity ("EmissiveIntensity", Range(1,10)) = 1.0
+		_EmissivePower ("Emissive Power", Range(1.0, 3.0)) = 1
 	}
 	SubShader
 	{
@@ -26,7 +27,9 @@ Shader "Custom/Shader_Test"
 			#include "AutoLight.cginc"
 			
 			sampler2D _RGB_nX, _MRE_nY;
-			float4 _RGB_nX_ST;
+			float4 _RGB_nX_ST, _EmissiveColor;
+			float _EmissiveIntensity, _EmissivePower;
+
 			struct appData	
 			{
 				float4 vertex	: POSITION;
@@ -108,7 +111,10 @@ Shader "Custom/Shader_Test"
 				half mipOffset = 1-saturate(gloss+envCurve);
 				half4 envData = UNITY_SAMPLE_TEXCUBE_LOD(unity_SpecCube0, R, mipOffset*7);
 				half3 env = DecodeHDR(envData, unity_SpecCube0_HDR);
-				
+
+				//emissive
+				float3 emissive = MRE_nY.z * pow(_EmissiveIntensity, _EmissivePower) * _EmissiveColor.rgb;
+
 				//geovis
 				half geoVis = NdotV * (1-gloss) + gloss;
 
@@ -123,7 +129,7 @@ Shader "Custom/Shader_Test"
 				half3 ambient = DecodeHDR ( ambData, unity_SpecCube0_HDR) * baseColor * ( 1 - metalness);
 				
 				//final compo
-				o.rgb =( diffuse + specular) * _LightColor0 * LIGHT_ATTENUATION(i) + ambSpec + ambient;
+				o.rgb =( diffuse + specular + emissive) * _LightColor0 * LIGHT_ATTENUATION(i) + ambSpec + ambient;
 				o.a = 1;
 				
 				return o;

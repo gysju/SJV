@@ -332,15 +332,8 @@ public class Player : MobileGroundUnit
 		bool leftPointer = m_leftController.GetButton(MoveController.MoveButton.MoveButton_Move);
 		bool rightPointer = m_rightController.GetButton(MoveController.MoveButton.MoveButton_Move);
 
-		if (m_leftController.GetButtonUp(MoveController.MoveButton.MoveButton_Move) && !rightPointer) ConfirmDestination();
-		if (m_rightController.GetButtonUp(MoveController.MoveButton.MoveButton_Move) && !leftPointer) ConfirmDestination();
-
-		GameObject debug = GameObject.FindGameObjectWithTag ("Debug");
-
-		if(debug != null)
-		{
-			debug.GetComponent<Text>().text = "left:" + m_leftController.GetButton(MoveController.MoveButton.MoveButton_Trigger) + "right:" + m_rightController.GetButton(MoveController.MoveButton.MoveButton_Trigger);
-		}
+		if (!rightPointer && m_leftController.GetButtonUp(MoveController.MoveButton.MoveButton_Move)) ConfirmDestination();
+		if (!leftPointer && m_rightController.GetButtonUp(MoveController.MoveButton.MoveButton_Move)) ConfirmDestination();
 
 		if (leftModifier)
         {

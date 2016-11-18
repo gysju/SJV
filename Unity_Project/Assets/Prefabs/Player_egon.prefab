@@ -5241,7 +5241,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000014019086946}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 122.9, y: -0.17, z: 195.4}
+  m_LocalPosition: {x: 358.8, y: -0.1, z: 51.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
   m_Children:
@@ -8880,14 +8880,17 @@ MonoBehaviour:
   m_weapons:
   - {fileID: 114000014203908236}
   - {fileID: 114000013180151678}
-  m_maxSpeed: 5
+  m_maxSpeed: 10
   m_acceleration: 8
   m_rotationSpeed: 50
-  m_maxHorinzontalHeadAngle: 35
+  m_maxHorinzontalHeadAngle: 20
   m_maxVerticalHeadAngle: 30
   m_torso: {fileID: 1000010427927384}
   m_legs: {fileID: 1000011387755860}
   m_pointer: {fileID: 1000013968135328, guid: 5ec254d5897b5114e8f74e0df760a8f2, type: 2}
+  maskRaycast:
+    serializedVersion: 2
+    m_Bits: 3584
   trackedDeviceMoveControllers: {fileID: 114000012994522768}
   MinimumAngleToRotate: 15
 --- !u!114 &114000011167543296
@@ -8987,7 +8990,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011952839804}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7fceaeb339b971b429c4cc600acabd13, type: 3}
   m_Name: 
