@@ -12,7 +12,7 @@ public class LaserPointingSystem : MonoBehaviour {
 	private RaycastHit hit;
 	private MoveController move;
 
-	private int count = 0;
+	private int count = 3;
 	void Start () 
 	{
 		lineRenderer = GetComponent<LineRenderer> ();
