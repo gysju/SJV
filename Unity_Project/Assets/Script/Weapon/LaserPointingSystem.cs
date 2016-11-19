@@ -12,7 +12,7 @@ public class LaserPointingSystem : MonoBehaviour {
 	private RaycastHit hit;
 	private MoveController move;
 
-	private int count = 3;
+	private int count = 1;
 	void Start () 
 	{
 		lineRenderer = GetComponent<LineRenderer> ();
@@ -21,7 +21,7 @@ public class LaserPointingSystem : MonoBehaviour {
 	
 	void Update () 
 	{
-		if (count == 3) {
+		if (count >= 1) {
 			if (Physics.Raycast (transform.position, transform.forward, out hit, 1000.0f, mask)) {
 				lineRenderer.SetPosition (1, Vector3.forward * hit.distance);
 				#if UNITY_PS4

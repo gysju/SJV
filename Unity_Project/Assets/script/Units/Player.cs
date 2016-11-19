@@ -309,7 +309,6 @@ public class Player : MobileGroundUnit
 			m_leftWeapon.transform.LookAt (m_leftController.lookAtHit);
 		else
 			m_leftWeapon.transform.localRotation = Quaternion.identity;
-		//m_leftWeapon.transform.localRotation = m_leftController.transform.localRotation * m_leftWeaponDefaultRotation;
     }
 
     void PSMoveRightWeaponControl()
@@ -320,7 +319,6 @@ public class Player : MobileGroundUnit
 			m_rightWeapon.transform.LookAt (m_rightController.lookAtHit);
 		else
 			m_rightWeapon.transform.localRotation = Quaternion.identity;
-		//m_rightWeapon.transform.localRotation = m_rightController.transform.localRotation * m_rightWeaponDefaultRotation;
     }
 
     void PSMoveInputs()
