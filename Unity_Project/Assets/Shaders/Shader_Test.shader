@@ -113,7 +113,7 @@ Shader "Custom/Shader_Test"
 				half3 env = DecodeHDR(envData, unity_SpecCube0_HDR);
 
 				//emissive
-				float3 emissive = MRE_nY.z * pow(_EmissiveIntensity, _EmissivePower) * _EmissiveColor.rgb;
+				float3 emissive = (MRE_nY.z * pow(_EmissiveIntensity, _EmissivePower)) * _EmissiveColor.rgb;
 
 				//geovis
 				half geoVis = NdotV * (1-gloss) + gloss;
