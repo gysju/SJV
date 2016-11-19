@@ -87,7 +87,6 @@ GameObject:
   - 195: {fileID: 195000010967187634}
   - 54: {fileID: 54000012707660706}
   - 208: {fileID: 208000012174768892}
-  - 65: {fileID: 65000013060539106}
   - 114: {fileID: 114000013025239708}
   - 114: {fileID: 114000012684447070}
   m_Layer: 11
@@ -162,7 +161,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013847432484}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 29.052101, y: -19.41, z: 243.56046}
+  m_LocalPosition: {x: 59.9, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -295,20 +294,8 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Convex: 0
+  m_Convex: 1
   m_Mesh: {fileID: 4300000, guid: 4165b69b078c27047816e61c75fe234c, type: 3}
---- !u!65 &65000013060539106
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013847432484}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0, y: 0, z: 0}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114000012317472400
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -369,12 +356,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b2f4d299b2379f40a0c02754fd17438, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TIME_TO_DIE: 1
   m_faction: 2
   m_capturable: 0
   m_maxHitPoints: 10
   m_startingHitPoints: 10
   m_currentHitPoints: 0
+  m_timeToDie: 1
   m_destructionSpawn: {fileID: 0}
   m_armor: 10
   m_targetPoint: {fileID: 4000014197950862}

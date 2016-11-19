@@ -28,13 +28,13 @@ public class Factory : Unit
 
         Unit newUnit = null;
 
-        if (m_produceUnit is HoverTank)
-        {
-            newUnit = (m_battleManager.IsThereUnusedTanks()) ? m_battleManager.GetUnusedTank(m_productionExit.position, m_productionExit.rotation).GetComponent<Unit>() : (Unit)Instantiate(m_produceUnit, m_productionExit.position, m_productionExit.rotation);
-        }
-        else if (m_produceUnit is AirUnit)
+        if (m_produceUnit is AirUnit)
         {
             newUnit = (m_battleManager.IsThereUnusedDrones()) ? m_battleManager.GetUnusedDrone(m_productionExit.position, m_productionExit.rotation).GetComponent<Unit>() : (Unit)Instantiate(m_produceUnit, m_productionExit.position, m_productionExit.rotation);
+        }
+        else if (m_produceUnit is HoverTank)
+        {
+            newUnit = (m_battleManager.IsThereUnusedTanks()) ? m_battleManager.GetUnusedTank(m_productionExit.position, m_productionExit.rotation).GetComponent<Unit>() : (Unit)Instantiate(m_produceUnit, m_productionExit.position, m_productionExit.rotation);
         }
 
         newUnit.ChangeFaction(m_faction);
