@@ -28,8 +28,9 @@ public class Player : MobileGroundUnit
 
     public GameObject m_pointer;
     private GameObject m_destinationPointer = null;
-	private bool RazerAreConnected = false;
 
+	[SerializeField]
+	private LayerMask maskRaycast;
     #if UNITY_PS4
     [Header("PSMove Related")]
 
@@ -41,6 +42,7 @@ public class Player : MobileGroundUnit
 
     #else
         [Header("Razer Hydra Related")]
+		private bool RazerAreConnected = false;
         SixenseInput.Controller m_leftController;
         SixenseInput.Controller m_rightController;
     #endif
@@ -207,26 +209,25 @@ public class Player : MobileGroundUnit
         m_mainCamera.transform.rotation = currentRotation * verticalRotation;
     }
 
-    void PointDestination(Transform origin)
+	#if UNITY_PS4
+	void PointDestination(Vector3 hit) // recupere le hit du laser pointer // ps4 version
+	{
+		if (!m_destinationPointer)
+			m_destinationPointer = (GameObject) Instantiate(m_pointer, hit, Quaternion.identity);
+		m_destinationPointer.transform.position = hit;
+	}
+	#else
+    void PointDestination(Transform origin) // pc version
     {
         RaycastHit hit;
-		if (Physics.Raycast(origin.transform.position, origin.transform.forward, out hit))
-        {
-			if (hit.transform.gameObject.layer == LayerMask.NameToLayer ("Ground")) 
-			{
-				if (!m_destinationPointer)
-					m_destinationPointer = (GameObject) Instantiate(m_pointer, hit.point, Quaternion.identity);
-				LineRenderer line = m_destinationPointer.GetComponent<LineRenderer>();
-				line.SetPosition(0, origin.position);
-				line.SetPosition(1, hit.point);
-				m_destinationPointer.transform.position = hit.point;
-			}
-			else{
-				//not a ground, but...
-			}
+		if (Physics.Raycast(origin.transform.position, origin.transform.forward, out hit,1000.0f, maskRaycast))
+		{
+			if (!m_destinationPointer)
+				m_destinationPointer = (GameObject) Instantiate(m_pointer, hit.point, Quaternion.identity);
+			m_destinationPointer.transform.position = hit.point;
         }
     }
-
+	#endif
     void ConfirmDestination()
     {
         if (m_destinationPointer)
@@ -308,7 +309,6 @@ public class Player : MobileGroundUnit
 			m_leftWeapon.transform.LookAt (m_leftController.lookAtHit);
 		else
 			m_leftWeapon.transform.localRotation = Quaternion.identity;
-		//m_leftWeapon.transform.localRotation = m_leftController.transform.localRotation * m_leftWeaponDefaultRotation;
     }
 
     void PSMoveRightWeaponControl()
@@ -319,7 +319,6 @@ public class Player : MobileGroundUnit
 			m_rightWeapon.transform.LookAt (m_rightController.lookAtHit);
 		else
 			m_rightWeapon.transform.localRotation = Quaternion.identity;
-		//m_rightWeapon.transform.localRotation = m_rightController.transform.localRotation * m_rightWeaponDefaultRotation;
     }
 
     void PSMoveInputs()
@@ -330,15 +329,8 @@ public class Player : MobileGroundUnit
 		bool leftPointer = m_leftController.GetButton(MoveController.MoveButton.MoveButton_Move);
 		bool rightPointer = m_rightController.GetButton(MoveController.MoveButton.MoveButton_Move);
 
-		if (m_leftController.GetButtonUp(MoveController.MoveButton.MoveButton_Move) && !rightPointer) ConfirmDestination();
-		if (m_rightController.GetButtonUp(MoveController.MoveButton.MoveButton_Move) && !leftPointer) ConfirmDestination();
-
-		GameObject debug = GameObject.FindGameObjectWithTag ("Debug");
-
-		if(debug != null)
-		{
-			debug.GetComponent<Text>().text = "left:" + m_leftController.GetButton(MoveController.MoveButton.MoveButton_Trigger) + "right:" + m_rightController.GetButton(MoveController.MoveButton.MoveButton_Trigger);
-		}
+		if (!rightPointer && m_leftController.GetButtonUp(MoveController.MoveButton.MoveButton_Move)) ConfirmDestination();
+		if (!leftPointer && m_rightController.GetButtonUp(MoveController.MoveButton.MoveButton_Move)) ConfirmDestination();
 
 		if (leftModifier)
         {
@@ -357,7 +349,7 @@ public class Player : MobileGroundUnit
             PSMoveLeftWeaponControl();
             if (leftPointer)
             {
-                PointDestination(m_leftWeapon.m_muzzle);
+				PointDestination(m_leftController.lookAtHit);
                 LeftArmWeaponTriggerReleased();
             }
             else
@@ -384,7 +376,7 @@ public class Player : MobileGroundUnit
             PSMoveRightWeaponControl();
             if (rightPointer)
             {
-                PointDestination(m_rightWeapon.m_muzzle);
+				PointDestination(m_rightController.lookAtHit);
                 RightArmWeaponTriggerReleased();
             }
             else
@@ -663,7 +655,11 @@ public class Player : MobileGroundUnit
 		{
 			if (leftPointer)
 			{
+				#if UNITY_PS4
+				PointDestination(m_leftController.lookAtHit);
+				#else
 				PointDestination(m_leftWeapon.m_muzzle);
+				#endif
 				LeftArmWeaponTriggerReleased();
 			}
 			else
@@ -682,7 +678,11 @@ public class Player : MobileGroundUnit
 		{
 			if (rightPointer)
 			{
+				#if UNITY_PS4
+				PointDestination(m_rightController.lookAtHit);
+				#else
 				PointDestination(m_rightWeapon.m_muzzle);
+				#endif
 				RightArmWeaponTriggerReleased();
 			}
 			else

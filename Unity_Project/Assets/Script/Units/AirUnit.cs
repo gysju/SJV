@@ -20,6 +20,14 @@ public class AirUnit : HoverTank
     {
         base.Start();
     }
+
+    public override void ResetUnit()
+    {
+        base.ResetUnit();
+
+        GetComponent<Rigidbody>().isKinematic = true;
+        GetComponentInChildren<MeshCollider>().convex = false;
+    }
     #endregion
 
     #region Hit Points Related
