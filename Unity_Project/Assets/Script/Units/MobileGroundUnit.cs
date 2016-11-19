@@ -38,6 +38,11 @@ public class MobileGroundUnit : CombatUnit
     {
         base.Start();
     }
+
+    public override void ResetUnit()
+    {
+        base.ResetUnit();
+    }
     #endregion
 
     #region Hit Points Related

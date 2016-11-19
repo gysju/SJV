@@ -36,6 +36,13 @@ public class CombatUnit : Unit
         m_radar.isTrigger = true;
         UpdateRadarRange();
     }
+
+    public override void ResetUnit()
+    {
+        base.ResetUnit();
+
+        m_radar.enabled = true;
+    }
     #endregion
 
     #region HitPoints Related
