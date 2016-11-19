@@ -124,7 +124,7 @@ public class Ammo : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        Unit unit = collision.gameObject.GetComponent<Unit>();
+        Unit unit = collision.gameObject.GetComponentInParent<Unit>();
         PhysicMaterial physicMaterial = collision.collider.material;
 
         bool couldRicochet = (physicMaterial.name == "Metal (Instance)");

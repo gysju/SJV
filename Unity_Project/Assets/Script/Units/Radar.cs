@@ -18,7 +18,7 @@ public class Radar : MonoBehaviour
         {
             if (!col.isTrigger)
             {
-                Unit detectedUnit = col.GetComponent<Unit>();
+                Unit detectedUnit = col.GetComponentInParent<Unit>();
                 if (detectedUnit != null && detectedUnit.m_faction != m_combatUnit.m_faction && !detectedUnit.IsDestroyed())
                 {
                     m_combatUnit.m_detectedEnemies.Add(detectedUnit);
@@ -32,7 +32,7 @@ public class Radar : MonoBehaviour
     {
         if (!col.isTrigger)
         {
-            Unit detectedUnit = col.GetComponent<Unit>();
+            Unit detectedUnit = col.GetComponentInParent<Unit>();
             if (detectedUnit != null && detectedUnit.m_faction != m_combatUnit.m_faction)
             {
                 m_combatUnit.m_detectedEnemies.Remove(detectedUnit);
