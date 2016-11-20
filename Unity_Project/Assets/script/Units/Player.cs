@@ -18,6 +18,7 @@ public class Player : MobileGroundUnit
 
     [Header("Player Related")]
     public GameObject m_torso;
+    public float m_torsoRotationSpeed = 0.5f;
     public GameObject m_legs;
     private Weapon m_leftWeapon;
     private Vector3 m_leftWeaponDefaultPosition;
@@ -137,17 +138,14 @@ public class Player : MobileGroundUnit
     {
         float horizontalAnglePrevision = m_mainCamera.transform.localRotation.eulerAngles.y;
         horizontalAnglePrevision = (horizontalAnglePrevision > 180) ? horizontalAnglePrevision - 360 : horizontalAnglePrevision;
-        float toTransforToTorso = 0f;
 
         if (horizontalAnglePrevision > m_maxHorinzontalHeadAngle)
         {
-            toTransforToTorso = (horizontalAnglePrevision - m_maxHorinzontalHeadAngle);
-            RotateMechaHorizontaly(0.5f);
+            RotateMechaHorizontaly(m_torsoRotationSpeed);
         }
         else if (horizontalAnglePrevision < -(m_maxHorinzontalHeadAngle))
         {
-            toTransforToTorso = (horizontalAnglePrevision + m_maxHorinzontalHeadAngle);
-			RotateMechaHorizontaly(-0.5f);
+			RotateMechaHorizontaly(-m_torsoRotationSpeed);
         }
     }
 
