@@ -4,13 +4,17 @@ using System.Collections;
 [AddComponentMenu("MechaVR/Weapon/DEV/Weapon")]
 public class Weapon : MonoBehaviour
 {
+    [SerializeField]
+    [Tooltip("What can shoot the weapon.")]
+    protected LayerMask m_mask;
+
+    public LineRenderer m_lineRenderer;
+
     [Tooltip("From where the ammo is fired.")]
     public Transform m_muzzle;
-    public GameObject m_muzzleFlash;
 
-    [Header("Weapon Specs")]
-    [Tooltip("Ammo type the weapon fire.")]
-    public GameObject m_ammo;
+    [Tooltip("Graphical effect when firing.")]
+    public GameObject m_muzzleFlash;
 
     public enum FiringMethod
     {
@@ -18,16 +22,18 @@ public class Weapon : MonoBehaviour
         Burst,
         Automatic
     }
+    [Header("Weapon Specs")]
     [Tooltip("Firing Method.")]
-    public FiringMethod m_firingMethod = FiringMethod.Automatic;
+    protected FiringMethod m_firingMethod = FiringMethod.Automatic;
+
     private bool m_isFiring = false;
 
-    [Tooltip("Rate of fire (Rounds per minute).")]
+    [Tooltip("Rate of fire (Rounds per minute fired maximum).")]
     public float m_rpm = 60;
 
     [Tooltip("Number of ammo in a magazine.")]
-    public int m_magazine = 100;
-    private int m_currentAmmo;
+    public int m_magazineSize = 100;
+    private int m_ammoLeftInMagazine;
 
     [Tooltip("Time in seconds to reload a magazine.")]
     public float m_reloadTime = 1f;
@@ -38,12 +44,13 @@ public class Weapon : MonoBehaviour
 
     [Tooltip("Optimal range to use weapon.")]
     [Range(0f, 10f)]
-    public float m_precision = 0f;
+    public float m_imprecision = 0f;
 
     void Start ()
     {
-        m_currentAmmo = m_magazine;
-	}
+        m_ammoLeftInMagazine = m_magazineSize;
+        m_lineRenderer = GetComponent<LineRenderer>();
+    }
 
     public bool IsInAim(Vector3 targetPosition, float imprecisionAngle)
     {
@@ -57,19 +64,34 @@ public class Weapon : MonoBehaviour
     {
         return (Vector3.Distance(targetPosition, m_muzzle.position) < m_optimalRange);
     }
-	
-    public void FireWeapon()
+
+    protected Quaternion GetSpread()
     {
-        Quaternion spread = Quaternion.Euler(Random.Range(-m_precision, m_precision), Random.Range(-m_precision, m_precision), Random.Range(-m_precision, m_precision));
-        Instantiate(m_ammo, m_muzzle.position, m_muzzle.rotation * spread);
+        return Quaternion.Euler(Random.Range(-m_imprecision, m_imprecision), Random.Range(-m_imprecision, m_imprecision), Random.Range(-m_imprecision, m_imprecision));
+    }
+
+    public virtual void FireWeapon()
+    {
+        RaycastHit hit;
+        if (m_lineRenderer) m_lineRenderer.SetPosition(0, m_muzzle.position);
+        Vector3 shotDirection = (GetSpread() * m_muzzle.forward);
+        if (Physics.Raycast(m_muzzle.position, shotDirection, out hit, m_optimalRange, m_mask))
+        {
+            if (m_lineRenderer) m_lineRenderer.SetPosition(1, hit.point);
+            Unit unitHit = hit.transform.GetComponentInParent<Unit>();
+            if (unitHit) unitHit.ReceiveDamages(10, 1);
+        }
+        else
+        {
+            if (m_lineRenderer) m_lineRenderer.SetPosition(1, m_muzzle.position + (shotDirection * m_optimalRange));
+        }
         Instantiate(m_muzzleFlash, m_muzzle.position, m_muzzle.rotation);
     }
 
     IEnumerator Reload()
     {
         yield return new WaitForSeconds(m_reloadTime);
-        m_currentAmmo = m_magazine;
-        //Debug.Log("Reloaded");
+        m_ammoLeftInMagazine = m_magazineSize;
     }
 
     IEnumerator AutoFire()
@@ -77,11 +99,11 @@ public class Weapon : MonoBehaviour
         m_isFiring = true;
         while (m_isFiring)
         {
-            if (m_currentAmmo > 0)
+            if (m_ammoLeftInMagazine > 0)
             {
                 yield return new WaitForSeconds(60 / m_rpm);
                 FireWeapon();
-                m_currentAmmo--;
+                m_ammoLeftInMagazine--;
             }
             else
             {

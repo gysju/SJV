@@ -23,7 +23,7 @@ GameObject:
   - 65: {fileID: 65000011169075288}
   - 23: {fileID: 23000012221048580}
   - 114: {fileID: 114000014047246462}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cannon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013787729686}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - 4: {fileID: 4000013765184768}
   - 135: {fileID: 135000014073768406}
   - 114: {fileID: 114000012122401324}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Radar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ GameObject:
   - 33: {fileID: 33000013102185678}
   - 65: {fileID: 65000013513487342}
   - 23: {fileID: 23000013740367668}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Hull
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - 54: {fileID: 54000010153108958}
   - 114: {fileID: 114000012612179792}
   - 114: {fileID: 114000012172507244}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Enemy Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,7 +112,7 @@ GameObject:
   - 33: {fileID: 33000013395476432}
   - 135: {fileID: 135000013108107426}
   - 23: {fileID: 23000010298446322}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -400,12 +400,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52d8dcaebaa829a4b925d2371d9f5067, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TIME_TO_DIE: 1
   m_faction: 2
   m_capturable: 0
   m_maxHitPoints: 100
   m_startingHitPoints: 100
   m_currentHitPoints: 100
+  m_timeToDie: 1
   m_destructionSpawn: {fileID: 100010, guid: 0b6dc5cf11433424ab9859ff1ea59f4c, type: 2}
   m_armor: 5
   m_targetPoint: {fileID: 4000013037807558}
@@ -431,16 +431,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d093942f5325ad34491aecf96e7b00cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_mask:
+    serializedVersion: 2
+    m_Bits: 0
   m_muzzle: {fileID: 4000013787729686}
   m_muzzleFlash: {fileID: 1000012896234374, guid: 6062d7d4ed85af74790cd7caabc06acc,
     type: 2}
-  m_ammo: {fileID: 196214, guid: be77629a5b6628349b9cd18243b7228d, type: 2}
-  m_firingMethod: 2
   m_rpm: 600
-  m_magazine: 100
+  m_magazineSize: 100
   m_reloadTime: 1
   m_optimalRange: 25
-  m_precision: 10
+  m_imprecision: 0
+  m_lineRenderer: {fileID: 0}
 --- !u!135 &135000012580770046
 SphereCollider:
   m_ObjectHideFlags: 1

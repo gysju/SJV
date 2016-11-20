@@ -29,7 +29,6 @@ public class Capture_point : MonoBehaviour
     private float m_currentCaptureValue = 0f;
 
 	private CombatUnit combatUnitOnTarget;
-	private float time = 0.0f;
 
     #region Initialization
     void Start () 

@@ -1161,7 +1161,6 @@ GameObject:
   - 92: {fileID: 92000013446533478}
   - 124: {fileID: 124000013236352774}
   - 81: {fileID: 81000013266499324}
-  - 114: {fileID: 114000013392125800}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -8871,6 +8870,7 @@ MonoBehaviour:
   m_maxHorinzontalHeadAngle: 20
   m_maxVerticalHeadAngle: 30
   m_torso: {fileID: 1000010427927384}
+  m_torsoRotationSpeed: 0.5
   m_legs: {fileID: 1000011387755860}
   m_pointer: {fileID: 1000013968135328, guid: 5ec254d5897b5114e8f74e0df760a8f2, type: 2}
   maskRaycast:
@@ -8955,54 +8955,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d093942f5325ad34491aecf96e7b00cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_mask:
+    serializedVersion: 2
+    m_Bits: 3584
+  m_ammo: {fileID: 114000010206805478, guid: 3d89ac626f45f6b488b90edec0ec1912, type: 2}
   m_muzzle: {fileID: 4000010518118988}
   m_muzzleFlash: {fileID: 1000012896234374, guid: 6062d7d4ed85af74790cd7caabc06acc,
     type: 2}
-  m_ammo: {fileID: 196214, guid: be77629a5b6628349b9cd18243b7228d, type: 2}
-  m_firingMethod: 2
   m_rpm: 600
-  m_magazine: 100
+  m_magazineSize: 100
   m_reloadTime: 3
-  m_optimalRange: 25
-  m_precision: 0
---- !u!114 &114000013392125800
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011952839804}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fceaeb339b971b429c4cc600acabd13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tweakMode: 0
-  screenBlendMode: 1
-  hdr: 0
-  sepBlurSpread: 2.5
-  quality: 0
-  bloomIntensity: 0.5
-  bloomThreshold: 0.5
-  bloomThresholdColor: {r: 1, g: 1, b: 1, a: 1}
-  bloomBlurIterations: 2
-  hollywoodFlareBlurIterations: 2
-  flareRotation: 0
-  lensflareMode: 1
-  hollyStretchWidth: 2.5
-  lensflareIntensity: 0
-  lensflareThreshold: 0.3
-  lensFlareSaturation: 0.75
-  flareColorA: {r: 0.4, g: 0.4, b: 0.8, a: 0.75}
-  flareColorB: {r: 0.4, g: 0.8, b: 0.8, a: 0.75}
-  flareColorC: {r: 0.8, g: 0.4, b: 0.8, a: 0.75}
-  flareColorD: {r: 0.8, g: 0.4, b: 0, a: 0.75}
-  lensFlareVignetteMask: {fileID: 2800000, guid: 95ef4804fe0be4c999ddaa383536cde8,
-    type: 3}
-  lensFlareShader: {fileID: 4800000, guid: 459fe69d2f6d74ddb92f04dbf45a866b, type: 3}
-  screenBlendShader: {fileID: 4800000, guid: 7856cbff0a0ca45c787d5431eb805bb0, type: 3}
-  blurAndFlaresShader: {fileID: 4800000, guid: be6e39cf196f146d5be72fbefb18ed75, type: 3}
-  brightPassFilterShader: {fileID: 4800000, guid: 0aeaa4cb29f5d4e9c8455f04c8575c8c,
-    type: 3}
+  m_optimalRange: 50
+  m_imprecision: 2
+  m_lineRenderer: {fileID: 0}
 --- !u!114 &114000013783817010
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9026,16 +8991,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d093942f5325ad34491aecf96e7b00cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_mask:
+    serializedVersion: 2
+    m_Bits: 3584
+  m_ammo: {fileID: 114000010206805478, guid: 3d89ac626f45f6b488b90edec0ec1912, type: 2}
   m_muzzle: {fileID: 4000012344916166}
   m_muzzleFlash: {fileID: 1000012896234374, guid: 6062d7d4ed85af74790cd7caabc06acc,
     type: 2}
-  m_ammo: {fileID: 196214, guid: be77629a5b6628349b9cd18243b7228d, type: 2}
-  m_firingMethod: 2
   m_rpm: 600
-  m_magazine: 100
+  m_magazineSize: 100
   m_reloadTime: 3
-  m_optimalRange: 25
-  m_precision: 0
+  m_optimalRange: 50
+  m_imprecision: 2
+  m_lineRenderer: {fileID: 0}
 --- !u!120 &120000012973624980
 LineRenderer:
   m_ObjectHideFlags: 1
