@@ -1640,22 +1640,22 @@ Prefab:
     - target: {fileID: 224000010046679020, guid: a5165cdab0c510e48a7e29ab6cf3c447,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 301
+      value: 510.5
       objectReference: {fileID: 0}
     - target: {fileID: 224000010046679020, guid: a5165cdab0c510e48a7e29ab6cf3c447,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 198
+      value: 242.5
       objectReference: {fileID: 0}
     - target: {fileID: 224000010046679020, guid: a5165cdab0c510e48a7e29ab6cf3c447,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 602
+      value: 1021
       objectReference: {fileID: 0}
     - target: {fileID: 224000010046679020, guid: a5165cdab0c510e48a7e29ab6cf3c447,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 396
+      value: 485
       objectReference: {fileID: 0}
     - target: {fileID: 223000014093146228, guid: a5165cdab0c510e48a7e29ab6cf3c447,
         type: 2}
@@ -9988,9 +9988,25 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114000011140535854, guid: 05f12f4d76aebd94c85408112077e2ce,
+        type: 2}
+      propertyPath: trackedDeviceMoveControllers
+      value: 
+      objectReference: {fileID: 2059483825}
+    - target: {fileID: 114000012972507794, guid: 05f12f4d76aebd94c85408112077e2ce,
+        type: 2}
+      propertyPath: MoveIndex
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 05f12f4d76aebd94c85408112077e2ce, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &2059483825 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114000012994522768, guid: 05f12f4d76aebd94c85408112077e2ce,
+    type: 2}
+  m_PrefabInternal: {fileID: 2059483824}
+  m_Script: {fileID: 11500000, guid: f5e9437d753653848977982ec5c3c0f4, type: 3}
 --- !u!1 &2064816652
 GameObject:
   m_ObjectHideFlags: 0
