@@ -14,7 +14,7 @@ public class Weapon : MonoBehaviour
     public Transform m_muzzle;
 
     [Tooltip("Graphical effect when firing.")]
-    public GameObject m_muzzleFlash;
+	public GameObject m_muzzleFlash;
 
     public enum FiringMethod
     {
@@ -88,8 +88,8 @@ public class Weapon : MonoBehaviour
         {
             if (m_lineRenderer) m_lineRenderer.SetPosition(1, m_muzzle.position + (shotDirection * m_optimalRange));
         }
-        Instantiate(m_muzzleFlash, m_muzzle.position, m_muzzle.rotation);
-    }
+		//m_muzzleFlash.Emit ();
+	}
 
     IEnumerator Reload()
     {

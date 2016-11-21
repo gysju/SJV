@@ -92,7 +92,7 @@ public class Capture_point : MonoBehaviour
     {
         if (!col.isTrigger)
         {
-            MobileGroundUnit detectedUnit = col.GetComponent<MobileGroundUnit>();
+            MobileGroundUnit detectedUnit = col.GetComponentInParent<MobileGroundUnit>();
             if (detectedUnit != null && !detectedUnit.IsDestroyed())
             {
                 switch (detectedUnit.m_faction)
@@ -116,7 +116,7 @@ public class Capture_point : MonoBehaviour
     {
         if (!col.isTrigger)
         {
-            MobileGroundUnit detectedUnit = col.GetComponent<MobileGroundUnit>();
+			MobileGroundUnit detectedUnit = col.GetComponentInParent<MobileGroundUnit>();
             if (detectedUnit != null && !detectedUnit.IsDestroyed())
             {
                 switch (detectedUnit.m_faction)
