@@ -420,7 +420,6 @@ GameObject:
   - 4: {fileID: 4000012228226560}
   - 198: {fileID: 198000012899763894}
   - 199: {fileID: 199000011810347936}
-  - 114: {fileID: 114000011580881554}
   m_Layer: 0
   m_Name: MuzzleFlash
   m_TagString: Untagged
@@ -540,7 +539,6 @@ GameObject:
   - 4: {fileID: 4000013703386774}
   - 198: {fileID: 198000012572505594}
   - 199: {fileID: 199000013764270442}
-  - 114: {fileID: 114000010941479024}
   m_Layer: 0
   m_Name: MuzzleFlash
   m_TagString: Untagged
@@ -5302,8 +5300,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000014019086946}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 358.8, y: -0.1, z: 51.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
   m_Children:
@@ -8891,17 +8889,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114000010941479024
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010913740292}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e22a4603dba6184391079c0bdaef431, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114000011016068626
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8926,8 +8913,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_faction: 0
   m_capturable: 0
-  m_maxHitPoints: 100
-  m_startingHitPoints: 100
+  m_maxHitPoints: 50
+  m_startingHitPoints: 50
   m_currentHitPoints: 0
   m_timeToDie: 1
   m_destructionSpawn: {fileID: 100010, guid: 0b6dc5cf11433424ab9859ff1ea59f4c, type: 2}
@@ -8966,17 +8953,6 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 3584
---- !u!114 &114000011580881554
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010751560154}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e22a4603dba6184391079c0bdaef431, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114000012496064176
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9046,7 +9022,7 @@ MonoBehaviour:
     m_Bits: 3584
   m_lineRenderer: {fileID: 0}
   m_muzzle: {fileID: 4000010518118988}
-  m_muzzleFlash: {fileID: 1000010751560154}
+  m_muzzleFlash: {fileID: 198000012899763894}
   m_rpm: 600
   m_magazineSize: 100
   m_reloadTime: 3
@@ -9082,7 +9058,7 @@ MonoBehaviour:
     m_Bits: 3584
   m_lineRenderer: {fileID: 0}
   m_muzzle: {fileID: 4000012344916166}
-  m_muzzleFlash: {fileID: 1000010913740292}
+  m_muzzleFlash: {fileID: 198000012572505594}
   m_rpm: 600
   m_magazineSize: 100
   m_reloadTime: 3
@@ -9385,7 +9361,7 @@ ParticleSystem:
   moveWithTransform: 1
   autoRandomSeed: 1
   scalingMode: 1
-  randomSeed: -1820296704
+  randomSeed: 268366967
   InitialModule:
     serializedVersion: 2
     enabled: 1
@@ -11119,7 +11095,7 @@ ParticleSystem:
   moveWithTransform: 1
   autoRandomSeed: 1
   scalingMode: 1
-  randomSeed: -1203658642
+  randomSeed: 382217271
   InitialModule:
     serializedVersion: 2
     enabled: 1
