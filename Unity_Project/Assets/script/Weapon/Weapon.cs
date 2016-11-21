@@ -46,6 +46,9 @@ public class Weapon : MonoBehaviour
     [Range(0f, 10f)]
     public float m_imprecision = 0f;
 
+	public int Damage = 1;
+	public int ArmorPenetration = 1;
+
     void Start ()
     {
         m_ammoLeftInMagazine = m_magazineSize;
@@ -79,7 +82,7 @@ public class Weapon : MonoBehaviour
         {
             if (m_lineRenderer) m_lineRenderer.SetPosition(1, hit.point);
             Unit unitHit = hit.transform.GetComponentInParent<Unit>();
-            if (unitHit) unitHit.ReceiveDamages(10, 1);
+			if (unitHit) unitHit.ReceiveDamages(Damage, ArmorPenetration);
         }
         else
         {

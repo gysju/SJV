@@ -335,16 +335,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d093942f5325ad34491aecf96e7b00cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_mask:
+    serializedVersion: 2
+    m_Bits: 7680
+  m_lineRenderer: {fileID: 0}
   m_muzzle: {fileID: 4000011111778278}
   m_muzzleFlash: {fileID: 1000012896234374, guid: 6062d7d4ed85af74790cd7caabc06acc,
     type: 2}
-  m_ammo: {fileID: 196214, guid: ee41412e45a4c5f44820cac4bb2795a1, type: 2}
-  m_firingMethod: 2
   m_rpm: 60
-  m_magazine: 1
+  m_magazineSize: 1
   m_reloadTime: 5
-  m_optimalRange: 25
-  m_precision: 0
+  m_optimalRange: 50
+  m_imprecision: 4
+  Damage: 10
+  ArmorPenetration: 5
 --- !u!114 &114000013025239708
 MonoBehaviour:
   m_ObjectHideFlags: 1
