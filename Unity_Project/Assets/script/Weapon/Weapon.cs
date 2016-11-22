@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 [AddComponentMenu("MechaVR/Weapon/DEV/Weapon")]
 public class Weapon : MonoBehaviour
@@ -8,13 +9,13 @@ public class Weapon : MonoBehaviour
     [Tooltip("What can shoot the weapon.")]
     protected LayerMask m_mask;
 
-    public LineRenderer m_lineRenderer;
-
     [Tooltip("From where the ammo is fired.")]
     public Transform m_muzzle;
 
     [Tooltip("Graphical effect when firing.")]
 	public ParticleSystem m_muzzleFlash;
+    public GameObject m_bulletHit;
+    protected List<ParticleSystem> m_bulletHits = new List<ParticleSystem>();
 
     public enum FiringMethod
     {
@@ -52,7 +53,12 @@ public class Weapon : MonoBehaviour
     void Start ()
     {
         m_ammoLeftInMagazine = m_magazineSize;
-        m_lineRenderer = GetComponent<LineRenderer>();
+        Transform bulletHitParent = transform.FindChild("Hits");
+        for (int i = 0; i < (int)(m_rpm/10); i++)
+        {
+            GameObject newBulletHit = (GameObject) Instantiate(m_bulletHit, bulletHitParent);
+            m_bulletHits.Add(newBulletHit.GetComponent<ParticleSystem>());
+        }
     }
 
     public bool IsInAim(Vector3 targetPosition, float imprecisionAngle)
@@ -76,17 +82,26 @@ public class Weapon : MonoBehaviour
     public virtual void FireWeapon()
     {
         RaycastHit hit;
-        if (m_lineRenderer) m_lineRenderer.SetPosition(0, m_muzzle.position);
         Vector3 shotDirection = (GetSpread() * m_muzzle.forward);
         if (Physics.Raycast(m_muzzle.position, shotDirection, out hit, m_optimalRange, m_mask))
         {
-            if (m_lineRenderer) m_lineRenderer.SetPosition(1, hit.point);
+            foreach (ParticleSystem ps in m_bulletHits)
+            {
+                if (!ps.IsAlive(true))
+                {
+                    ps.transform.position = hit.point;
+                    ps.transform.LookAt(transform);
+                    ps.Play(true);
+                    break;
+                }
+            }
+
             Unit unitHit = hit.transform.GetComponentInParent<Unit>();
 			if (unitHit) unitHit.ReceiveDamages(Damage, ArmorPenetration);
         }
         else
         {
-            if (m_lineRenderer) m_lineRenderer.SetPosition(1, m_muzzle.position + (shotDirection * m_optimalRange));
+
         }
 		m_muzzleFlash.Play();
 	}

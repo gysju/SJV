@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000013706001258}
   - 208: {fileID: 208000012152105052}
-  - 65: {fileID: 65000010513756678}
   - 54: {fileID: 54000010326406132}
   - 114: {fileID: 114000013453015562}
   m_Layer: 11
@@ -155,18 +154,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &65000010513756678
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012919755078}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0, y: 0, z: 0}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65000012469545132
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -196,7 +183,7 @@ MonoBehaviour:
   m_startingHitPoints: 10
   m_currentHitPoints: 0
   m_timeToDie: 1
-  m_destructionSpawn: {fileID: 100010, guid: 0b6dc5cf11433424ab9859ff1ea59f4c, type: 2}
+  m_destructionSpawn: {fileID: 0}
   m_armor: 0
   m_targetPoint: {fileID: 4000012150020758}
   m_producing: 1

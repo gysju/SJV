@@ -129,7 +129,7 @@ public class Unit : MonoBehaviour
     {
         m_destroyed = true;
 
-        GetComponentInChildren<MeshCollider>().enabled = false;
+        GetComponentInChildren<Collider>().enabled = false;
 
         foreach (CombatUnit detectingUnit in m_detectingUnits)
         {
