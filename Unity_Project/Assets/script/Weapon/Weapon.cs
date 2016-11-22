@@ -14,8 +14,8 @@ public class Weapon : MonoBehaviour
 
     [Tooltip("Graphical effect when firing.")]
 	public ParticleSystem m_muzzleFlash;
-
-    public List<ParticleSystem> m_bulletHits = new List<ParticleSystem>();
+    public GameObject m_bulletHit;
+    protected List<ParticleSystem> m_bulletHits = new List<ParticleSystem>();
 
     public enum FiringMethod
     {
@@ -53,6 +53,12 @@ public class Weapon : MonoBehaviour
     void Start ()
     {
         m_ammoLeftInMagazine = m_magazineSize;
+        Transform bulletHitParent = transform.FindChild("Hits");
+        for (int i = 0; i < (int)(m_rpm/10); i++)
+        {
+            GameObject newBulletHit = (GameObject) Instantiate(m_bulletHit, bulletHitParent);
+            m_bulletHits.Add(newBulletHit.GetComponent<ParticleSystem>());
+        }
     }
 
     public bool IsInAim(Vector3 targetPosition, float imprecisionAngle)
@@ -84,6 +90,7 @@ public class Weapon : MonoBehaviour
                 if (!ps.IsAlive(true))
                 {
                     ps.transform.position = hit.point;
+                    ps.transform.LookAt(transform);
                     ps.Play(true);
                     break;
                 }
