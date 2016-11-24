@@ -90,13 +90,13 @@ public class BattleManager : MonoBehaviour
     public void PoolUnit(Unit unitToPool)
     {
         unitToPool.transform.position = m_poolPosition;
-        if (unitToPool is HoverTank)
-        {
-            m_unusedTanks.Add(unitToPool.gameObject);
-        }
-        else if (unitToPool is AirUnit)
+        if (unitToPool is AirUnit)
         {
             m_unusedDrones.Add(unitToPool.gameObject);
+        }
+        else if (unitToPool is HoverTank)
+        {
+            m_unusedTanks.Add(unitToPool.gameObject);
         }
         else
         {

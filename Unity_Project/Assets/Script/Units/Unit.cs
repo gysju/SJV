@@ -5,7 +5,6 @@ using System.Collections.Generic;
 [AddComponentMenu("MechaVR/Units/DEV/Unit")]
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(NavMeshObstacle))]
-[RequireComponent(typeof(BoxCollider))]
 public class Unit : MonoBehaviour
 {
     const int MIN_HIT_POINTS = 0;
@@ -90,7 +89,7 @@ public class Unit : MonoBehaviour
     {
         m_destroyed = false;
 
-        GetComponent<BoxCollider>().enabled = true;
+        GetComponentInChildren<MeshCollider>().enabled = true;
     }
     #endregion
 
@@ -130,7 +129,7 @@ public class Unit : MonoBehaviour
     {
         m_destroyed = true;
 
-        GetComponent<BoxCollider>().enabled = false;
+        GetComponentInChildren<Collider>().enabled = false;
 
         foreach (CombatUnit detectingUnit in m_detectingUnits)
         {

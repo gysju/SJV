@@ -20,10 +20,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000010982419352}
   - 54: {fileID: 54000012020165520}
-  - 65: {fileID: 65000011528047440}
   - 208: {fileID: 208000010067607730}
   - 114: {fileID: 114000010995955052}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Ally Base Center
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +40,7 @@ GameObject:
   - 33: {fileID: 33000010373236476}
   - 65: {fileID: 65000011343590832}
   - 23: {fileID: 23000012476611888}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Hull
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,18 +137,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65000011528047440
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012159879696}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0, y: 0, z: 0}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114000010995955052
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -161,13 +148,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85a5b17563112db4fbf0077e668af96d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TIME_TO_DIE: 1
   m_faction: 0
   m_capturable: 0
   m_maxHitPoints: 100
   m_startingHitPoints: 100
   m_currentHitPoints: 0
-  m_destructionSpawn: {fileID: 100010, guid: 0b6dc5cf11433424ab9859ff1ea59f4c, type: 2}
+  m_timeToDie: 1
+  m_destructionSpawn: {fileID: 0}
   m_armor: 5
   m_targetPoint: {fileID: 4000013551113406}
 --- !u!208 &208000010067607730

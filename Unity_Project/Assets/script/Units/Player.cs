@@ -18,6 +18,7 @@ public class Player : MobileGroundUnit
 
     [Header("Player Related")]
     public GameObject m_torso;
+    public float m_torsoRotationSpeed = 0.5f;
     public GameObject m_legs;
     private Weapon m_leftWeapon;
     private Vector3 m_leftWeaponDefaultPosition;
@@ -40,6 +41,7 @@ public class Player : MobileGroundUnit
     private MoveController m_leftController;
     private MoveController m_rightController;
 
+	private Vector3 lastMovement;
     #else
         [Header("Razer Hydra Related")]
 		private bool RazerAreConnected = false;
@@ -66,8 +68,9 @@ public class Player : MobileGroundUnit
     private void PSMoveStart()
     {
         m_baseOffset = Vector3.zero;
-        m_leftController = trackedDeviceMoveControllers.primaryController.GetComponent<MoveController>(); ;
-        m_rightController = trackedDeviceMoveControllers.secondaryController.GetComponent<MoveController>(); ;
+        m_leftController = trackedDeviceMoveControllers.primaryController.GetComponent<MoveController>();
+        m_rightController = trackedDeviceMoveControllers.secondaryController.GetComponent<MoveController>();
+		lastMovement = Vector3.zero;
     }
 	#endif
     protected override void Start()
@@ -137,17 +140,14 @@ public class Player : MobileGroundUnit
     {
         float horizontalAnglePrevision = m_mainCamera.transform.localRotation.eulerAngles.y;
         horizontalAnglePrevision = (horizontalAnglePrevision > 180) ? horizontalAnglePrevision - 360 : horizontalAnglePrevision;
-        float toTransforToTorso = 0f;
 
         if (horizontalAnglePrevision > m_maxHorinzontalHeadAngle)
         {
-            toTransforToTorso = (horizontalAnglePrevision - m_maxHorinzontalHeadAngle);
-            RotateMechaHorizontaly(0.5f);
+            RotateMechaHorizontaly(m_torsoRotationSpeed);
         }
         else if (horizontalAnglePrevision < -(m_maxHorinzontalHeadAngle))
         {
-            toTransforToTorso = (horizontalAnglePrevision + m_maxHorinzontalHeadAngle);
-			RotateMechaHorizontaly(-0.5f);
+			RotateMechaHorizontaly(-m_torsoRotationSpeed);
         }
     }
 
@@ -215,6 +215,7 @@ public class Player : MobileGroundUnit
 		if (!m_destinationPointer)
 			m_destinationPointer = (GameObject) Instantiate(m_pointer, hit, Quaternion.identity);
 		m_destinationPointer.transform.position = hit;
+		SetDestination(m_destinationPointer.transform.position);
 	}
 	#else
     void PointDestination(Transform origin) // pc version
@@ -334,13 +335,16 @@ public class Player : MobileGroundUnit
 
 		if (leftModifier)
         {
-            if (leftModifier && rightModifier)
+            if (rightModifier)
             {
+				MoveFromLocalRotation(lastMovement);
                 PSMoveRotation();
             }
             else
             {
-                MoveFromLocalRotation(PSMoveVirtualJoysticksConvertion(0));
+				Vector3 movement = PSMoveVirtualJoysticksConvertion (0);
+				MoveFromLocalRotation(movement);
+				lastMovement = movement;
                 LeftArmWeaponTriggerReleased();
             }
         }
@@ -361,13 +365,16 @@ public class Player : MobileGroundUnit
 
         if (rightModifier)
         {
-            if (leftModifier && rightModifier)
+            if (leftModifier)
             {
+				MoveFromLocalRotation(lastMovement);
                 PSMoveRotation();
             }
             else
             {
-                MoveFromLocalRotation(PSMoveVirtualJoysticksConvertion(1));
+				Vector3 movement = PSMoveVirtualJoysticksConvertion (1);
+				MoveFromLocalRotation(movement);
+				lastMovement = movement;
                 RightArmWeaponTriggerReleased();
             }
         }
