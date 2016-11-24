@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: lambert11
-  m_Shader: {fileID: 4800000, guid: 156eb108ba906b5449c21965f4feba7b, type: 3}
+  m_Shader: {fileID: 4800000, guid: 2b638a69690fea642b287be2a1d8d3f2, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
   m_CustomRenderQueue: -1
@@ -46,6 +46,12 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
+        name: _MRE_Ny
+      second:
+        m_Texture: {fileID: 2800000, guid: 275144dff1c33294fbde23db71214297, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
         name: _MRE_nY
       second:
         m_Texture: {fileID: 2800000, guid: 275144dff1c33294fbde23db71214297, type: 3}
@@ -76,6 +82,12 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
+        name: _RGB_Nx
+      second:
+        m_Texture: {fileID: 2800000, guid: 69bacdc687e9f774884821a5e9417286, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
         name: _RGB_nX
       second:
         m_Texture: {fileID: 2800000, guid: 192f78e24b79da944a6bed84462d8964, type: 3}
@@ -95,8 +107,11 @@ Material:
         name: _DstBlend
       second: 0
     - first:
-        name: _EmissiveIntensity
+        name: _Emission
       second: 1
+    - first:
+        name: _EmissiveIntensity
+      second: 2.87
     - first:
         name: _EmissivePower
       second: 1
@@ -145,4 +160,4 @@ Material:
       second: {r: 0, g: 0, b: 0, a: 1}
     - first:
         name: _EmissiveColor
-      second: {r: 0, g: 0, b: 0, a: 1}
+      second: {r: 1, g: 0, b: 0, a: 1}
