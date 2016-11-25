@@ -14,7 +14,7 @@ Shader "Custom/StantardShader_Opti" {
 		LOD 200
 		
 		CGPROGRAM
-		#pragma surface surf Standard Lambert vertex:vert
+		#pragma surface surf Standard fullforwardshadows  vertex:vert
 
 		#pragma target 5.0
 
