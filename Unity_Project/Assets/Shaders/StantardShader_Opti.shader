@@ -1,13 +1,13 @@
 ﻿// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
 
-Shader "Custom/StantardShader_Opti" {
+Shader "Custom/StantardShader_RGB_N_MGE" {
 	Properties {
 		_RGB_Nx ("RGB_Nx", 2D) = "white" {}
 		[NoScaleOffset]_MRE_Ny ("MRE_Ny", 2D) = "white" {}
 		_EmissiveColor ("EmissiveColor", Color) = (1,1,1,1)
 		_Glossiness ("Smoothness", Range(0,1)) = 0.5
 		_Metallic ("Metallic", Range(0,1)) = 0.0
-		_Emission ("Emission", Range(1,10)) = 1.0
+		_Emission ("Emission", Range(0,10)) = 1.0
 	}
 	SubShader {
 		Tags { "RenderType"="Opaque" }
