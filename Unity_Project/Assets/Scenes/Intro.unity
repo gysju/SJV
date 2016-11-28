@@ -712,26 +712,6 @@ Prefab:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 881663234}
-    - target: {fileID: 223000013148108456, guid: 62bf73edad70c7747af5d219bef74254,
-        type: 2}
-      propertyPath: m_RenderMode
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 224000011163047548, guid: 62bf73edad70c7747af5d219bef74254,
-        type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1.35125
-      objectReference: {fileID: 0}
-    - target: {fileID: 224000011163047548, guid: 62bf73edad70c7747af5d219bef74254,
-        type: 2}
-      propertyPath: m_LocalScale.y
-      value: 1.35125
-      objectReference: {fileID: 0}
-    - target: {fileID: 224000011163047548, guid: 62bf73edad70c7747af5d219bef74254,
-        type: 2}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 62bf73edad70c7747af5d219bef74254, type: 2}
   m_IsPrefabParent: 0
@@ -3402,68 +3382,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 791735576}
   m_Mesh: {fileID: 4300030, guid: e3a4dd7760072b34993f7eb7549fcea6, type: 3}
---- !u!1 &797381129
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 797381132}
-  - 114: {fileID: 797381131}
-  - 114: {fileID: 797381130}
-  m_Layer: 0
-  m_Name: EventSystem
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &797381130
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 797381129}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1077351063, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_HorizontalAxis: Horizontal
-  m_VerticalAxis: Vertical
-  m_SubmitButton: Submit
-  m_CancelButton: Cancel
-  m_InputActionsPerSecond: 10
-  m_RepeatDelay: 0.5
-  m_ForceModuleActive: 1
---- !u!114 &797381131
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 797381129}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -619905303, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
-  m_sendNavigationEvents: 1
-  m_DragThreshold: 5
---- !u!4 &797381132
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 797381129}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -300}
-  m_LocalScale: {x: 0.7400555, y: 0.7400555, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_Children: []
-  m_Father: {fileID: 1237619843}
-  m_RootOrder: 2
 --- !u!1 &802999521
 GameObject:
   m_ObjectHideFlags: 0
@@ -5358,11 +5276,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1230936452}
   m_Mesh: {fileID: 4300068, guid: e3a4dd7760072b34993f7eb7549fcea6, type: 3}
---- !u!224 &1237619843 stripped
-RectTransform:
-  m_PrefabParentObject: {fileID: 224000011163047548, guid: 62bf73edad70c7747af5d219bef74254,
-    type: 2}
-  m_PrefabInternal: {fileID: 200416201}
 --- !u!1 &1247682700
 GameObject:
   m_ObjectHideFlags: 0
@@ -6753,7 +6666,9 @@ MonoBehaviour:
   MinimalDistance: 1
   mask:
     serializedVersion: 2
-    m_Bits: 3584
+    m_Bits: 3616
+  currentButtonTarget: {fileID: 0}
+  OtherLaserPointingSystem: {fileID: 2113891433}
   count: 1
 --- !u!120 &1556389520
 LineRenderer:
@@ -6810,6 +6725,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ea57611536a55543ba98908d7b2f74a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MoveIndex: 0
+  lookAtHit: {x: 0, y: 0, z: 0}
 --- !u!1 &1574224996
 GameObject:
   m_ObjectHideFlags: 0
@@ -8866,6 +8783,8 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 3616
+  currentButtonTarget: {fileID: 0}
+  OtherLaserPointingSystem: {fileID: 1556389519}
   count: 0
 --- !u!120 &2113891434
 LineRenderer:
@@ -8922,3 +8841,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ea57611536a55543ba98908d7b2f74a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MoveIndex: 0
+  lookAtHit: {x: 0, y: 0, z: 0}
