@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -16,6 +17,7 @@ public class MoveController : MonoBehaviour {
 	private int currentButtons = 0;
 	private int prevButtons = 0;
 
+	public Button currentUIButtonSelected;
 
 	void Start () 
 	{

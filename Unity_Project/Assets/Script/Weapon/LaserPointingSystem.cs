@@ -9,10 +9,10 @@ public class LaserPointingSystem : MonoBehaviour {
 
 	[SerializeField]
 	private LayerMask mask;
+	private MoveController moveController;
 
     [SerializeField]
-    private Button currentButtonTarget;
-    public LaserPointingSystem OtherLaserPointingSystem;
+	public MoveController OtherMoveController;
 
 	private LineRenderer lineRenderer;
 	private RaycastHit hit;
@@ -28,6 +28,7 @@ public class LaserPointingSystem : MonoBehaviour {
 	{
 		eventSystem =  GameObject.Find("EventSystem").GetComponent<EventSystem>();
 		lineRenderer = GetComponent<LineRenderer> ();
+		moveController = GetComponent<MoveController> ();
 #if UNITY_PS4
 		move = GetComponent<MoveController> ();
 #endif
@@ -40,10 +41,10 @@ public class LaserPointingSystem : MonoBehaviour {
 					lineRenderer.SetPosition (1, Vector3.forward * hit.distance);
 
 				Button but = hit.transform.GetComponent<Button>() ;
-                if (but != null && OtherLaserPointingSystem.currentButtonTarget == null) 
+				if (but != null && OtherMoveController.currentUIButtonSelected == null) 
 				{
 					but.Select();
-                    currentButtonTarget = but;
+					moveController.currentUIButtonSelected = but;
 				}
 #if UNITY_PS4
 				if (move != null)
@@ -55,9 +56,9 @@ public class LaserPointingSystem : MonoBehaviour {
 			else 
 			{
 				lineRenderer.SetPosition (1, Vector3.forward * MinimalDistance);
-                currentButtonTarget = null;
+				moveController.currentUIButtonSelected = null;
 
-                if (eventSystem != null && OtherLaserPointingSystem.currentButtonTarget == null)
+				if (eventSystem != null && OtherMoveController.currentUIButtonSelected == null)
 					eventSystem.SetSelectedGameObject(null);
 #if UNITY_PS4
 				if (move != null)
