@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -6,17 +7,15 @@ using System.Collections.Generic;
 using UnityEngine.PS4;
 #endif
 public class MoveController : MonoBehaviour {
-	#if UNITY_PS4
-
 	public enum MoveButton { MoveButton_Trigger = 2, MoveButton_Move = 4, MoveButton_Start = 8, MoveButton_Triangle = 16, MoveButton_Circle = 32, MoveButton_Cross = 64, MoveButton_Square = 128, MoveButton_MaxAnalogueValue = 255, MoveButton_Count = 8}
-
-	public int MoveIndex = 0;
-	public Vector3 lookAtHit;
-
-	private int currentButtons = 0;
+	
+	public Button currentUIButtonSelected;
+	
+    private int currentButtons = 0;
 	private int prevButtons = 0;
-
-
+	
+    public Vector3 lookAtHit;
+	public int MoveIndex = 0;
 	void Start () 
 	{
 	
@@ -29,7 +28,9 @@ public class MoveController : MonoBehaviour {
 
 	public bool GetButton( MoveButton button )
 	{
-		for (int slot = 0; slot < 4; slot++) 
+		#if UNITY_PS4
+		
+		for (int slot = 0; slot < 4; slot++)  
 		{
 			if (PS4Input.MoveIsConnected (slot, MoveIndex) 
 				&& (PS4Input.MoveGetButtons (slot, MoveIndex) == (int)button)) 
@@ -38,6 +39,7 @@ public class MoveController : MonoBehaviour {
 				return true;
 			} 
 		}
+		#endif
 		return false;
 	}
 
@@ -58,12 +60,14 @@ public class MoveController : MonoBehaviour {
 
 	public Vector3 getMoveRotation()
 	{
+		#if UNITY_PS4
+
 		for (int slot = 0; slot < 4; slot++) 
 		{
 			if (PS4Input.MoveIsConnected (slot, MoveIndex))
 				return PS4Input.GetLastMoveAcceleration (slot, MoveIndex);
 		}
+		#endif
 		return Vector3.zero;
 	}
-	#endif
 }

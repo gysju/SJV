@@ -17,7 +17,7 @@ public class StartMenuAnimatorBehaviour : GameStateBaseAnimatorBehaviour
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) 
     {
-        if (GetMenu().bOnClick && !animator.IsInTransition(layerIndex))
+		if (GetMenu().bOnClick && !animator.IsInTransition(layerIndex))
         {
             FadeToBlack();
             GetMenu().bOnClick = false;
@@ -31,8 +31,10 @@ public class StartMenuAnimatorBehaviour : GameStateBaseAnimatorBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         base.OnStateExit(animator, stateInfo, layerIndex);
-
-        if (GetMenu().NextState == "Playing")
+		if (GetMenu().NextState == "Playing")
+        { 
 			SceneManager.LoadSceneAsync(NextScene);
+        
+        }
     }
 }
