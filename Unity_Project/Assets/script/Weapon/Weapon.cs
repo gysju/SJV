@@ -53,10 +53,15 @@ public class Weapon : MonoBehaviour
     void Start ()
     {
         m_ammoLeftInMagazine = m_magazineSize;
+        BuildBulletHits();
+    }
+
+    protected void BuildBulletHits()
+    {
         Transform bulletHitParent = transform.FindChild("Hits");
-        for (int i = 0; i < (int)(m_rpm/10); i++)
+        for (int i = 0; i < (int)((m_rpm/60) / m_bulletHit.GetComponent<ParticleSystem>().startLifetime); i++)
         {
-            GameObject newBulletHit = (GameObject) Instantiate(m_bulletHit, bulletHitParent);
+            GameObject newBulletHit = (GameObject)Instantiate(m_bulletHit, bulletHitParent);
             m_bulletHits.Add(newBulletHit.GetComponent<ParticleSystem>());
         }
     }
@@ -79,22 +84,27 @@ public class Weapon : MonoBehaviour
         return Quaternion.Euler(Random.Range(-m_imprecision, m_imprecision), Random.Range(-m_imprecision, m_imprecision), Random.Range(-m_imprecision, m_imprecision));
     }
 
+    protected void BulletHitParticle(RaycastHit hit)
+    {
+        foreach (ParticleSystem ps in m_bulletHits)
+        {
+            if (!ps.IsAlive(true))
+            {
+                ps.transform.position = hit.point;
+                ps.transform.LookAt(transform);
+                ps.Play(true);
+                break;
+            }
+        }
+    }
+
     public virtual void FireWeapon()
     {
         RaycastHit hit;
         Vector3 shotDirection = (GetSpread() * m_muzzle.forward);
         if (Physics.Raycast(m_muzzle.position, shotDirection, out hit, m_optimalRange, m_mask))
         {
-            foreach (ParticleSystem ps in m_bulletHits)
-            {
-                if (!ps.IsAlive(true))
-                {
-                    ps.transform.position = hit.point;
-                    ps.transform.LookAt(transform);
-                    ps.Play(true);
-                    break;
-                }
-            }
+            BulletHitParticle(hit);
 
             Unit unitHit = hit.transform.GetComponentInParent<Unit>();
 			if (unitHit) unitHit.ReceiveDamages(Damage, ArmorPenetration);
