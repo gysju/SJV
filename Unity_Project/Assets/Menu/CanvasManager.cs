@@ -12,11 +12,14 @@ public class CanvasManager : MonoBehaviour {
     public EState_Menu eState_Menu = EState_Menu.EState_Menu_Main;
 
     private Animator animator;
+	public TrackedDeviceMoveControllers trackedDeviceControllers;
+	private MoveController[] moveControllers;
 
     void Start() 
 	{
         Get = this;
         animator = GetComponent<Animator>();
+		moveControllers = GetComponentsInChildren<MoveController> ();
 	}
 
     void Update() 
@@ -43,7 +46,17 @@ public class CanvasManager : MonoBehaviour {
         }
  	}
 
-    public void SetTriggerDeath()
+	public bool CheckInputAnyPsMove( MoveController.MoveButton moveButton)
+	{
+		for(int i = 0; i < moveControllers.Length; i++)
+		{
+			if (moveControllers [i].GetButtonDown (moveButton))
+				return true;
+		}
+		return false;
+	}
+
+	public void SetTriggerDeath()
     {
 		eState_Menu = EState_Menu.EState_Menu_Death;
     }
