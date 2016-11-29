@@ -59,7 +59,6 @@ public class GameStateBaseAnimatorBehaviour : StateMachineBehaviour
         if (m_Fade == null)
         {
             m_Fade = FadeManager.INSTANCE.gameObject;
-            //m_Fade.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform);
 
             m_FadeManager = m_Fade.GetComponent<FadeManager>();
             m_FadeAnimator = m_Fade.GetComponent<Animator>();
@@ -75,7 +74,9 @@ public class GameStateBaseAnimatorBehaviour : StateMachineBehaviour
 
         if (ButtonSelected != null)
         {
+			#if UNITY_STANDALONE
             ButtonSelected.Select();
+			#endif
         }
 
 		m_RelatedMenu.transform.localPosition = Vector3.zero;

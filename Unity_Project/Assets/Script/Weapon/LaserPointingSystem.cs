@@ -9,65 +9,75 @@ public class LaserPointingSystem : MonoBehaviour {
 
 	[SerializeField]
 	private LayerMask mask;
-	private MoveController moveController;
 
-    [SerializeField]
-	public MoveController OtherMoveController;
+	public LaserPointingSystem OtherLaser;
 
 	private LineRenderer lineRenderer;
 	private RaycastHit hit;
 
 	private EventSystem eventSystem;
 
-#if UNITY_PS4
 	private MoveController move;
-#endif
-	[SerializeField]
-    private int count = 1;
+	private Button buttonSelected;
+	[SerializeField] 
+    private int count = 1; 
+
 	void Start () 
 	{
 		eventSystem =  GameObject.Find("EventSystem").GetComponent<EventSystem>();
 		lineRenderer = GetComponent<LineRenderer> ();
-		moveController = GetComponent<MoveController> ();
-#if UNITY_PS4
 		move = GetComponent<MoveController> ();
-#endif
     }
 
     void Update () 
 	{
-		if (count >= 1) {
-			if (Physics.Raycast (transform.position, transform.forward, out hit, 1000.0f, mask)) {
-					lineRenderer.SetPosition (1, Vector3.forward * hit.distance);
+		InputUI(); 
 
-				Button but = hit.transform.GetComponent<Button>() ;
-                if (but != null && OtherMoveController != null && OtherMoveController.currentUIButtonSelected == null) 
+		if (count >= 1)  
+		{
+			if (Physics.Raycast (transform.position, transform.forward, out hit, 1000.0f, mask))  
+			{
+				lineRenderer.SetPosition (1, Vector3.forward * hit.distance);
+
+				buttonSelected = hit.transform.GetComponent<Button>() ;
+				if (buttonSelected != null 
+					&& OtherLaser != null 
+					&& OtherLaser.buttonSelected == null) 
 				{
-					but.Select();
-					moveController.currentUIButtonSelected = but;
+					buttonSelected.Select();
 				}
-#if UNITY_PS4
+				#if UNITY_PS4
 				if (move != null)
 				{
 					move.lookAtHit = hit.point;
 				}
-#endif
+				#endif
 			} 
 			else 
 			{
 				lineRenderer.SetPosition (1, Vector3.forward * MinimalDistance);
-				moveController.currentUIButtonSelected = null;
+				buttonSelected = null;
 
-                //if (eventSystem != null && OtherMoveController != null && OtherMoveController.currentUIButtonSelected == null)
-					//eventSystem.SetSelectedGameObject(null);
-#if UNITY_PS4
+				if (eventSystem != null && OtherLaser != null && OtherLaser.buttonSelected == null) 
+				{
+					eventSystem.SetSelectedGameObject(null);
+				}
+				#if UNITY_PS4
 				if (move != null)
 					move.lookAtHit = transform.position + transform.forward * 1000.0f;
-#endif
+				#endif
 			}
 			count = 0;
 		}
 		else
 			count += 1;
+	}
+
+	void InputUI()
+	{
+		if(buttonSelected != null && move.GetButtonDown(MoveController.MoveButton.MoveButton_Move))
+		{
+			buttonSelected.onClick.Invoke ();
+		}
 	}
 }
