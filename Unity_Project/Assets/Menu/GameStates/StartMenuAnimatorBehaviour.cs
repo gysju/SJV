@@ -17,7 +17,11 @@ public class StartMenuAnimatorBehaviour : GameStateBaseAnimatorBehaviour
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) 
     {
-		if ((GetMenu().bOnClick || CanvasManager.Get.CheckInputAnyPsMove(MoveController.MoveButton.MoveButton_Move)) && !animator.IsInTransition(layerIndex))
+		if ((GetMenu().bOnClick 
+        #if UNITY_PS4 
+            || CanvasManager.Get.CheckInputAnyPsMove(MoveController.MoveButton.MoveButton_Move) 
+        #endif
+        ) && !animator.IsInTransition(layerIndex))
         {
             FadeToBlack();
             GetMenu().bOnClick = false;
