@@ -1,6 +1,3 @@
- #pragma exclude_renderers wiiu flash psp2 n3ds xboxone metal 
- #pragma target 5.0
-
 struct Input 
 {
    float2 uv_Tex1;

@@ -60,6 +60,10 @@ Shader "VertexPainter/SplatBlend_2Layer"
       #pragma shader_feature __ _FLOWREFRACTION
       #pragma shader_feature __ _DISTBLEND
 
+      #pragma exclude_renderers wiiu flash psp2 n3ds xboxone metal 
+
+ 	  #pragma target 5.0
+
       #include "SplatBlend_Shared.cginc"
       
       void vert (inout appdata_full v, out Input o) 
