@@ -2,7 +2,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml;
 using System.Xml.Serialization;
+using System.IO;
 
 // Xml2CSharp generator http://xmltocsharp.azurewebsites.net/
 namespace Xml2CSharp
@@ -243,14 +245,6 @@ namespace Xml2CSharp
         [XmlElement(ElementName = "German")]
         public German German { get; set; }
     }
-
-    [XmlRoot(ElementName = "XML")]
-    public class XML
-    {
-        [XmlElement(ElementName = "Languages")]
-        public Languages Languages { get; set; }
-    }
-
 }
 
 public class XmlManager : MonoBehaviour
@@ -258,7 +252,7 @@ public class XmlManager : MonoBehaviour
     public static XmlManager Instance { get; private set; }
     public enum Language { French = 0, English, Dutch, German };
     public Language languageSelected = Language.English;
-    Xml2CSharp.XML XML;
+    Xml2CSharp.Languages languages;
 
     public void Start()
     {
@@ -269,19 +263,24 @@ public class XmlManager : MonoBehaviour
             Destroy(gameObject);
 
         DontDestroyOnLoad(gameObject);
+
+        XmlSerializer serial = new XmlSerializer(typeof(Xml2CSharp.Languages));
+        Stream reader = new FileStream("Assets/Resources/Language.xml", FileMode.Open);
+        languages = (Xml2CSharp.Languages)serial.Deserialize(reader);
     }
+
     public Xml2CSharp.UI GetUI()
     {
         switch (languageSelected)
         {
             case Language.French:
-                return XML.Languages.French.UI;
+                return languages.French.UI;
             case Language.English:
-                return XML.Languages.English.UI;
+                return languages.English.UI;
             case Language.Dutch:
-                return XML.Languages.Dutch.UI;
+                return languages.Dutch.UI;
             case Language.German:
-                return XML.Languages.German.UI;
+                return languages.German.UI;
         }
         return null;
     }
