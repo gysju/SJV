@@ -98,7 +98,7 @@ public class Player : MobileGroundUnit
     }
     #endregion
 
-    protected override void Die()
+    protected override void StartDying()
     {
         m_destroyed = true;
 

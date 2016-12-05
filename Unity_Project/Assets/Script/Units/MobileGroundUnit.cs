@@ -46,14 +46,22 @@ public class MobileGroundUnit : CombatUnit
     #endregion
 
     #region Hit Points Related
-    protected override void Die()
+    protected override void StartDying()
     {
-        base.Die();
+        base.StartDying();
+
+        EnableNavMeshAgent();
+        CancelPath();
 
         foreach (Capture_point capturePoint in m_currentlyCapturing)
         {
             capturePoint.CapturingUnitDestroyed(this);
         }
+    }
+
+    protected override void FinishDying()
+    {
+        base.FinishDying();
     }
     #endregion
 
@@ -95,16 +103,16 @@ public class MobileGroundUnit : CombatUnit
     {
         EnableNavMeshAgent();
         NavMeshHit hit;
-        if (NavMesh.SamplePosition(newDestination, out hit, 5.0f, NavMesh.AllAreas))
+        //if (NavMesh.SamplePosition(newDestination, out hit, 5.0f, NavMesh.AllAreas))
         {
-			m_destination = hit.position;
-            m_navMeshAgent.SetDestination(m_destination.Value);
+			//m_destination = hit.position;
+            m_navMeshAgent.SetDestination(newDestination/* m_destination.Value*/);
         }
-        else
-        {
-            CancelPath();
-            m_destination = null;
-        }
+        //else
+        //{
+        //    CancelPath();
+        //    m_destination = null;
+        //}
     }
 
     public void PausePath()

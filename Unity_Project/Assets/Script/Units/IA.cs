@@ -145,12 +145,12 @@ public class IA : MonoBehaviour
         switch (m_mobileGroundUnit.m_faction)
         {
             case Unit.UnitFaction.Ally:
-                m_allyCommander.AskMovementOrder(this);
+                m_allyCommander.AskOrder(this);
                 break;
             case Unit.UnitFaction.Neutral:
                 break;
             case Unit.UnitFaction.Enemy:
-                m_enemyCommander.AskMovementOrder(this);
+                m_enemyCommander.AskOrder(this);
                 break;
             default:
                 break;

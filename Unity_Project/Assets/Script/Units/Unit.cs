@@ -121,11 +121,11 @@ public class Unit : MonoBehaviour
     {
         yield return new WaitForSeconds(m_timeToDie);
         if (m_destructionSpawn) Instantiate(m_destructionSpawn, transform.position, transform.rotation);
-        m_battleManager.PoolUnit(this);
+        FinishDying();
     }
 
     /// <summary>A appeler à la mort de l'unité.</summary>
-    protected virtual void Die()
+    protected virtual void StartDying()
     {
         m_destroyed = true;
 
@@ -143,7 +143,12 @@ public class Unit : MonoBehaviour
 
         StartCoroutine(Dying());
     }
-    
+
+    protected virtual void FinishDying()
+    {
+        m_battleManager.PoolUnit(this);
+    }
+
     /// <summary>Vérifie si les hit points ne sont pas inférieurs à 0 ou supérieurs au maximum.</summary>
     private void CheckHitPoints()
     {
@@ -153,7 +158,7 @@ public class Unit : MonoBehaviour
 #if UNITY_EDITOR
             Debug.Log("Unit '" + name + "' is destroyed.");
 #endif
-            Die();
+            StartDying();
         }
     }
 
