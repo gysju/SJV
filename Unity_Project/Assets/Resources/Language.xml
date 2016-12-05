@@ -1,222 +1,218 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <Languages>
 	<French text="francais">
-		<UI>
-			<Menu>
-				<Setup_scene>
+		<Menu>
+			<Setup_scene>			
+				<HMD_Setup>
+					<Title_Text text = "Aucun HMD detecté !" font-style="Normal" font-size="10" text-align="Center" />
+					<Description_text text = "Vous ne serez pas compable de continuer sans casque VR! Merci de presser X pour lancer la configuration." font-style="Normal" font-size="10" text-align="Center" />
+				</HMD_Setup>
 				
-					<HMD_Setup>
-						<Title_Text text = "Aucun HMD detecté !" font-style="Normal" font-size="10" text-align="Center" />
-						<Description_text text = "Vous ne serez pas compable de continuer sans casque VR! Merci de presser X pour lancer la configuration." font-style="Normal" font-size="10" text-align="Center" />
-					</HMD_Setup>
-					
-					<UI_Interaction>
-						<Title_Text text = "Let's Begin" font-style="Normal" font-size="10" text-align="Center" />
-						<Description_text text ="LOOK AT INTERACTABLES, HOLD TO SELECT \n Let’s practice! Select the button below" font-style="Normal" font-size="10" text-align="Center" />
-						<Button>
-							<Look_here text ="Look here!" font-style="Normal" font-size="10" text-align="Center" />
-						</Button>
-					</UI_Interaction>
-					
-					<Recenter>
-						<Title_Text text ="Parfait!" font-style="Normal" font-size="10" text-align="Center" />
-						<Description_text text ="FEELING LOST? Enfoncer Option ou start pour reset \n votre position et rotation \nEssayer maintenant!" font-style="Normal" font-size="10" text-align="Center" />
-					</Recenter>
-					
-					<Finished>
-						<Title_Text text = "C'est tout !" font-style="Normal" font-size="10" text-align="Center" />
-						<Description_text text = "That's all you need to know, maintenat\n appuyé sur le bouton X pour continuer vers le menu principal" font-style="Normal" font-size="10" text-align="Center" />
-						<Button>
-							<Main_Menu text = "Menu principal" font-style="Normal" font-size="10" text-align="Center" />
-						</Button>
-					</Finished>
-					
-				</Setup_scene>
+				<UI_Interaction>
+					<Title_Text text = "Let's Begin" font-style="Normal" font-size="10" text-align="Center" />
+					<Description_text text ="LOOK AT INTERACTABLES, HOLD TO SELECT \n Let’s practice! Select the button below" font-style="Normal" font-size="10" text-align="Center" />
+					<Button_text text ="Look here!" font-style="Normal" font-size="10" text-align="Center"/>
+				</UI_Interaction>
 				
-				<Intro>
-					<Main_Menu>
-					
-						<Button>
-							<Start text = "Commencer" font-style="Normal" font-size="10" text-align="Center" />
-						</Button>
-						
-						<Button>
-							<Options text = "Options" font-style="Normal" font-size="10" text-align="Center" />
-						</Button>
-					</Main_Menu>
-					
-					<Options>
-						<Button>
-							<Return text = "Revenir" font-style="Normal" font-size="10" text-align="Center" />
-						</Button>
-					</Options>
-				</Intro>
-			</Menu>
-		</UI>
+				<Recenter>
+					<Title_Text text ="Parfait!" font-style="Normal" font-size="10" text-align="Center" />
+					<Description_text text ="FEELING LOST? Enfoncer Option ou start pour reset \n votre position et rotation \nEssayer maintenant!" font-style="Normal" font-size="10" text-align="Center" />
+				</Recenter>
+				
+				<Finished>
+					<Title_Text text = "C'est tout !" font-style="Normal" font-size="10" text-align="Center" />
+					<Description_text text = "That's all you need to know, maintenat\n appuyé sur le bouton X pour continuer vers le menu principal" font-style="Normal" font-size="10" text-align="Center" />
+					<Button text = "Menu principal" font-style="Normal" font-size="10" text-align="Center" />
+				</Finished>				
+			</Setup_scene>
+			
+			<Intro>
+				<Main_Menu>
+					<Button_Start text = "Commencer" font-style="Normal" font-size="10" text-align="Center" />	
+					<Button_Options text = "Options" font-style="Normal" font-size="10" text-align="Center" />
+				</Main_Menu>
+				
+				<Options>
+					<Button_Return text = "Revenir" font-style="Normal" font-size="10" text-align="Center" />
+				</Options>		
+			</Intro>
+		</Menu>
+		
+		<Gameplay>
+			<HUD>
+				<Life text = "Vies" font-style="Normal" font-size="10" text-align="Center"/>
+				<Radar text = "Radar" font-style="Normal" font-size="10" text-align="Center"/>
+				<Shield text = "Armure" font-style="Normal" font-size="10" text-align="Center"/>
+				
+				<Weapons>
+					<LaserGun text = "Laser" font-style="Normal" font-size="10" text-align="Center"/>
+					<MachineGun text = "Sulfateuse" font-style="Normal" font-size="10" text-align="Center"/>
+					<RocketGun text = "Lance-missiles" font-style="Normal" font-size="10" text-align="Center"/>
+				</Weapons>
+				
+			</HUD>
+		</Gameplay>
 	</French>
 	
 	<English text="English">
-		<UI>
-			<Menu>
-				<Setup_scene>
+		<Menu>
+			<Setup_scene>			
+				<HMD_Setup>
+					<Title_Text text = "Aucun HMD detecté !" font-style="Normal" font-size="10" text-align="Center" />
+					<Description_text text = "Vous ne serez pas compable de continuer sans casque VR! Merci de presser X pour lancer la configuration." font-style="Normal" font-size="10" text-align="Center" />
+				</HMD_Setup>
 				
-					<HMD_Setup>
-						<Title_Text text = "No HMD Detected!" font-style="Normal" font-size="10" text-align="Center" />
-						<Description_text text = "You will not be able to proceed without a VR Device! Please PRESS X to begin setup." font-style="Normal" font-size="10" text-align="Center" />
-					</HMD_Setup>
-					
-					<UI_Interaction>
-						<Title_Text text = "Let's Begin" font-style="Normal" font-size="10" text-align="Center" />
-						<Description_text text = "LOOK AT INTERACTABLES, HOLD TO SELECT \n Let’s practice! Select the button below" font-style="Normal" font-size="10" text-align="Center" />
-						<Button>
-							<Look_here text = "Look here!" font-style="Normal" font-size="10" text-align="Center" />
-						</Button>
-					</UI_Interaction>
-					
-					<Recenter>
-						<Title_Text text = "Great!" font-style="Normal" font-size="10" text-align="Center" />
-						<Description_text text = "FEELING LOST? HOLD OPTIONS  OR  START TO RESET \nYOUR POSITION AND ROTATION \nTry this now!" font-style="Normal" font-size="10" text-align="Center" />
-					</Recenter>
-					
-					<Finished>
-						<Title_Text text = "That's everything" font-style="Normal" font-size="10" text-align="Center" />
-						<Description_text text = "That's all you need to know, now just\n use the button below to go to the main menu" font-style="Normal" font-size="10" text-align="Center" />
-						<Button>
-							<Main_Menu text = "Main Menu" font-style="Normal" font-size="10" text-align="Center" />
-						</Button>
-					</Finished>
-					
-				</Setup_scene>
+				<UI_Interaction>
+					<Title_Text text = "Let's Begin" font-style="Normal" font-size="10" text-align="Center" />
+					<Description_text text ="LOOK AT INTERACTABLES, HOLD TO SELECT \n Let’s practice! Select the button below" font-style="Normal" font-size="10" text-align="Center" />
+					<Button_text text ="Look here!" font-style="Normal" font-size="10" text-align="Center"/>
+				</UI_Interaction>
 				
-				<Intro>
-					<Main_Menu>
-					
-						<Button>
-							<Start text = "Start" font-style="Normal" font-size="10" text-align="Center" />
-						</Button>
-						
-						<Button>
-							<Options text = "Options" font-style="Normal" font-size="10" text-align="Center" />
-						</Button>
-					</Main_Menu>
-					
-					<Options>
-						<Button>
-							<Return text = "Return" font-style="Normal" font-size="10" text-align="Center" />
-						</Button>
-					</Options>
-				</Intro>
-			</Menu>
-		</UI>
+				<Recenter>
+					<Title_Text text ="Parfait!" font-style="Normal" font-size="10" text-align="Center" />
+					<Description_text text ="FEELING LOST? Enfoncer Option ou start pour reset \n votre position et rotation \nEssayer maintenant!" font-style="Normal" font-size="10" text-align="Center" />
+				</Recenter>
+				
+				<Finished>
+					<Title_Text text = "C'est tout !" font-style="Normal" font-size="10" text-align="Center" />
+					<Description_text text = "That's all you need to know, maintenat\n appuyé sur le bouton X pour continuer vers le menu principal" font-style="Normal" font-size="10" text-align="Center" />
+					<Button text = "Menu principal" font-style="Normal" font-size="10" text-align="Center" />
+				</Finished>				
+			</Setup_scene>
+			
+			<Intro>
+				<Main_Menu>
+					<Button_Start text = "Commencer" font-style="Normal" font-size="10" text-align="Center" />	
+					<Button_Options text = "Options" font-style="Normal" font-size="10" text-align="Center" />
+				</Main_Menu>
+				
+				<Options>
+					<Button_Return text = "Revenir" font-style="Normal" font-size="10" text-align="Center" />
+				</Options>		
+			</Intro>
+		</Menu>
+		
+		<Gameplay>
+			<HUD>
+				<Life text = "Vies" font-style="Normal" font-size="10" text-align="Center"/>
+				<Radar text = "Radar" font-style="Normal" font-size="10" text-align="Center"/>
+				<Shield text = "Armure" font-style="Normal" font-size="10" text-align="Center"/>
+				
+				<Weapons>
+					<LaserGun text = "Laser" font-style="Normal" font-size="10" text-align="Center"/>
+					<MachineGun text = "Sulfateuse" font-style="Normal" font-size="10" text-align="Center"/>
+					<RocketGun text = "Lance-missiles" font-style="Normal" font-size="10" text-align="Center"/>
+				</Weapons>
+				
+			</HUD>
+		</Gameplay>
 	</English>
 	
-	<Dutch value="Neederlands" >
-		<UI>
-			<Menu>
-				<Setup_scene>
+	<Dutch text="Neederlands" >
+		<Menu>
+			<Setup_scene>			
+				<HMD_Setup>
+					<Title_Text text = "Aucun HMD detecté !" font-style="Normal" font-size="10" text-align="Center" />
+					<Description_text text = "Vous ne serez pas compable de continuer sans casque VR! Merci de presser X pour lancer la configuration." font-style="Normal" font-size="10" text-align="Center" />
+				</HMD_Setup>
 				
-					<HMD_Setup>
-						<Title_Text text = "No HMD Detected!" font-style="Normal" font-size="10" text-align="Center" />
-						<Description_text text = "You will not be able to proceed without a VR Device! Please PRESS X to begin setup." font-style="Normal" font-size="10" text-align="Center" />
-					</HMD_Setup>
-					
-					<UI_Interaction>
-						<Title_Text text = "Let's Begin" font-style="Normal" font-size="10" text-align="Center" />
-						<Description_text text = "LOOK AT INTERACTABLES, HOLD TO SELECT \n Let’s practice! Select the button below" font-style="Normal" font-size="10" text-align="Center" />
-						<Button>
-							<Look_here text = "Look here!" font-style="Normal" font-size="10" text-align="Center" />
-						</Button>
-					</UI_Interaction>
-					
-					<Recenter>
-						<Title_Text text = "Great!" font-style="Normal" font-size="10" text-align="Center" />
-						<Description_text text = "FEELING LOST? HOLD OPTIONS  OR  START TO RESET \nYOUR POSITION AND ROTATION \nTry this now!" font-style="Normal" font-size="10" text-align="Center" />
-					</Recenter>
-					
-					<Finished>
-						<Title_Text text = "That's everything" font-style="Normal" font-size="10" text-align="Center" />
-						<Description_text text = "That's all you need to know, now just\n use the button below to go to the main menu" font-style="Normal" font-size="10" text-align="Center" />
-						<Button>
-							<Main_Menu text = "Main Menu" font-style="Normal" font-size="10" text-align="Center" />
-						</Button>
-					</Finished>
-					
-				</Setup_scene>
+				<UI_Interaction>
+					<Title_Text text = "Let's Begin" font-style="Normal" font-size="10" text-align="Center" />
+					<Description_text text ="LOOK AT INTERACTABLES, HOLD TO SELECT \n Let’s practice! Select the button below" font-style="Normal" font-size="10" text-align="Center" />
+					<Button_text text ="Look here!" font-style="Normal" font-size="10" text-align="Center"/>
+				</UI_Interaction>
 				
-				<Intro>
-					<Main_Menu>
-					
-						<Button>
-							<Start text = "Start" font-style="Normal" font-size="10" text-align="Center" />
-						</Button>
-						
-						<Button>
-							<Options text = "Options" font-style="Normal" font-size="10" text-align="Center" />
-						</Button>
-					</Main_Menu>
-					
-					<Options>
-						<Button>
-							<Return text = "Return" font-style="Normal" font-size="10" text-align="Center" />
-						</Button>
-					</Options>
-				</Intro>
-			</Menu>
-		</UI>
+				<Recenter>
+					<Title_Text text ="Parfait!" font-style="Normal" font-size="10" text-align="Center" />
+					<Description_text text ="FEELING LOST? Enfoncer Option ou start pour reset \n votre position et rotation \nEssayer maintenant!" font-style="Normal" font-size="10" text-align="Center" />
+				</Recenter>
+				
+				<Finished>
+					<Title_Text text = "C'est tout !" font-style="Normal" font-size="10" text-align="Center" />
+					<Description_text text = "That's all you need to know, maintenat\n appuyé sur le bouton X pour continuer vers le menu principal" font-style="Normal" font-size="10" text-align="Center" />
+					<Button text = "Menu principal" font-style="Normal" font-size="10" text-align="Center" />
+				</Finished>				
+			</Setup_scene>
+			
+			<Intro>
+				<Main_Menu>
+					<Button_Start text = "Commencer" font-style="Normal" font-size="10" text-align="Center" />	
+					<Button_Options text = "Options" font-style="Normal" font-size="10" text-align="Center" />
+				</Main_Menu>
+				
+				<Options>
+					<Button_Return text = "Revenir" font-style="Normal" font-size="10" text-align="Center" />
+				</Options>		
+			</Intro>
+		</Menu>
+		
+		<Gameplay>
+			<HUD>
+				<Life text = "Vies" font-style="Normal" font-size="10" text-align="Center"/>
+				<Radar text = "Radar" font-style="Normal" font-size="10" text-align="Center"/>
+				<Shield text = "Armure" font-style="Normal" font-size="10" text-align="Center"/>
+				
+				<Weapons>
+					<LaserGun text = "Laser" font-style="Normal" font-size="10" text-align="Center"/>
+					<MachineGun text = "Sulfateuse" font-style="Normal" font-size="10" text-align="Center"/>
+					<RocketGun text = "Lance-missiles" font-style="Normal" font-size="10" text-align="Center"/>
+				</Weapons>
+				
+			</HUD>
+		</Gameplay>
 	</Dutch>
 	
 	<German text="German">
-		<UI>
-			<Menu>
-				<Setup_scene>
+		<Menu>
+			<Setup_scene>			
+				<HMD_Setup>
+					<Title_Text text = "Aucun HMD detecté !" font-style="Normal" font-size="10" text-align="Center" />
+					<Description_text text = "Vous ne serez pas compable de continuer sans casque VR! Merci de presser X pour lancer la configuration." font-style="Normal" font-size="10" text-align="Center" />
+				</HMD_Setup>
 				
-					<HMD_Setup>
-						<Title_Text text = "No HMD Detected!" font-style="Normal" font-size="10" text-align="Center" />
-						<Description_text text = "You will not be able to proceed without a VR Device! Please PRESS X to begin setup." font-style="Normal" font-size="10" text-align="Center" />
-					</HMD_Setup>
-					
-					<UI_Interaction>
-						<Title_Text text = "Let's Begin" font-style="Normal" font-size="10" text-align="Center" />
-						<Description_text text = "LOOK AT INTERACTABLES, HOLD TO SELECT \n Let’s practice! Select the button below" font-style="Normal" font-size="10" text-align="Center" />
-						<Button>
-							<Look_here text = "Look here!" font-style="Normal" font-size="10" text-align="Center" />
-						</Button>
-					</UI_Interaction>
-					
-					<Recenter>
-						<Title_Text text = "Great!" font-style="Normal" font-size="10" text-align="Center" />
-						<Description_text text = "FEELING LOST? HOLD OPTIONS  OR  START TO RESET \nYOUR POSITION AND ROTATION \nTry this now!" font-style="Normal" font-size="10" text-align="Center" />
-					</Recenter>
-					
-					<Finished>
-						<Title_Text text = "That's everything" font-style="Normal" font-size="10" text-align="Center" />
-						<Description_text text = "That's all you need to know, now just\n use the button below to go to the main menu" font-style="Normal" font-size="10" text-align="Center" />
-						<Button>
-							<Main_Menu text = "Main Menu" font-style="Normal" font-size="10" text-align="Center" />
-						</Button>
-					</Finished>
-					
-				</Setup_scene>
+				<UI_Interaction>
+					<Title_Text text = "Let's Begin" font-style="Normal" font-size="10" text-align="Center" />
+					<Description_text text ="LOOK AT INTERACTABLES, HOLD TO SELECT \n Let’s practice! Select the button below" font-style="Normal" font-size="10" text-align="Center" />
+					<Button_text text ="Look here!" font-style="Normal" font-size="10" text-align="Center"/>
+				</UI_Interaction>
 				
-				<Intro>
-					<Main_Menu>
-					
-						<Button>
-							<Start text = "Start" font-style="Normal" font-size="10" text-align="Center" />
-						</Button>
-						
-						<Button>
-							<Options text = "Options" font-style="Normal" font-size="10" text-align="Center" />
-						</Button>
-					</Main_Menu>
-					
-					<Options>
-						<Button>
-							<Return text = "Return" font-style="Normal" font-size="10" text-align="Center" />
-						</Button>
-					</Options>
-				</Intro>
-			</Menu>
-		</UI>
+				<Recenter>
+					<Title_Text text ="Parfait!" font-style="Normal" font-size="10" text-align="Center" />
+					<Description_text text ="FEELING LOST? Enfoncer Option ou start pour reset \n votre position et rotation \nEssayer maintenant!" font-style="Normal" font-size="10" text-align="Center" />
+				</Recenter>
+				
+				<Finished>
+					<Title_Text text = "C'est tout !" font-style="Normal" font-size="10" text-align="Center" />
+					<Description_text text = "That's all you need to know, maintenat\n appuyé sur le bouton X pour continuer vers le menu principal" font-style="Normal" font-size="10" text-align="Center" />
+					<Button text = "Menu principal" font-style="Normal" font-size="10" text-align="Center" />
+				</Finished>				
+			</Setup_scene>
+			
+			<Intro>
+				<Main_Menu>
+					<Button_Start text = "Commencer" font-style="Normal" font-size="10" text-align="Center" />	
+					<Button_Options text = "Options" font-style="Normal" font-size="10" text-align="Center" />
+				</Main_Menu>
+				
+				<Options>
+					<Button_Return text = "Revenir" font-style="Normal" font-size="10" text-align="Center" />
+				</Options>		
+			</Intro>
+		</Menu>
+		
+		<Gameplay>
+			<HUD>
+				<Life text = "Vies" font-style="Normal" font-size="10" text-align="Center"/>
+				<Radar text = "Radar" font-style="Normal" font-size="10" text-align="Center"/>
+				<Shield text = "Armure" font-style="Normal" font-size="10" text-align="Center"/>
+				
+				<Weapons>
+					<LaserGun text = "Laser" font-style="Normal" font-size="10" text-align="Center"/>
+					<MachineGun text = "Sulfateuse" font-style="Normal" font-size="10" text-align="Center"/>
+					<RocketGun text = "Lance-missiles" font-style="Normal" font-size="10" text-align="Center"/>
+				</Weapons>
+				
+			</HUD>
+		</Gameplay>
 	</German>
 </Languages>
