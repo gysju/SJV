@@ -95,16 +95,16 @@ public class MobileGroundUnit : CombatUnit
     {
         EnableNavMeshAgent();
         NavMeshHit hit;
-        if (NavMesh.SamplePosition(newDestination, out hit, 5.0f, NavMesh.AllAreas))
+        //if (NavMesh.SamplePosition(newDestination, out hit, 5.0f, NavMesh.AllAreas))
         {
-			m_destination = hit.position;
-            m_navMeshAgent.SetDestination(m_destination.Value);
+			//m_destination = hit.position;
+            m_navMeshAgent.SetDestination(newDestination/* m_destination.Value*/);
         }
-        else
-        {
-            CancelPath();
-            m_destination = null;
-        }
+        //else
+        //{
+        //    CancelPath();
+        //    m_destination = null;
+        //}
     }
 
     public void PausePath()

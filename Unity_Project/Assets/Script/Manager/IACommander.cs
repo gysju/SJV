@@ -90,10 +90,10 @@ public class IACommander : MonoBehaviour
 
     public void AskMovementOrder(IA unitAskingOrder)
     {
-        if (unitAskingOrder.GetComponent<Unit>() is HoverTank)
-            CaptureClosestPoint(unitAskingOrder);
-        else if (unitAskingOrder.GetComponent<Unit>() is AirUnit)
+        if (unitAskingOrder.GetComponent<Unit>() is AirUnit)
             PatrolToPlayer(unitAskingOrder);
+        else if(unitAskingOrder.GetComponent<Unit>() is HoverTank)
+            CaptureClosestPoint(unitAskingOrder);
     }
 
 	void Update ()

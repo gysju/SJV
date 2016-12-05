@@ -27,6 +27,7 @@ public class BattleManager : MonoBehaviour
     private List<GameObject> m_unusedBullets = new List<GameObject>();
     [SerializeField]
     private List<GameObject> m_unusedTanks = new List<GameObject>();
+    [SerializeField]
     private List<GameObject> m_unusedDrones = new List<GameObject>();
 
     void Start ()
