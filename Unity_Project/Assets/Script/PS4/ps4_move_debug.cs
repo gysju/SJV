@@ -36,7 +36,7 @@ public class ps4_move_debug : MonoBehaviour {
 
 	void OnGUI() 
 	{
-		int numDetected = 0;
+		//int numDetected = 0;
 		//for (int slot=0;slot<4;slot++)
 		//{
 		//	for (int controller=0; controller<1; controller++)

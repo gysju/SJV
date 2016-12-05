@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: protogun_03 - Default
-  m_Shader: {fileID: 4800000, guid: 156eb108ba906b5449c21965f4feba7b, type: 3}
+  m_Shader: {fileID: 4800000, guid: 2b638a69690fea642b287be2a1d8d3f2, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
   m_CustomRenderQueue: -1
@@ -46,6 +46,12 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
+        name: _MRE_Ny
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
         name: _MRE_nY
       second:
         m_Texture: {fileID: 0}
@@ -76,6 +82,12 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
+        name: _RGB_Nx
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
         name: _RGB_nX
       second:
         m_Texture: {fileID: 0}
@@ -94,6 +106,9 @@ Material:
     - first:
         name: _DstBlend
       second: 0
+    - first:
+        name: _Emission
+      second: 1
     - first:
         name: _EmissiveIntensity
       second: 1

@@ -22,9 +22,7 @@ public class Player : MobileGroundUnit
     public GameObject m_legs;
     private Weapon m_leftWeapon;
     private Vector3 m_leftWeaponDefaultPosition;
-    private Quaternion m_leftWeaponDefaultRotation;
     private Vector3 m_rightWeaponDefaultPosition;
-    private Quaternion m_rightWeaponDefaultRotation;
     private Weapon m_rightWeapon;
 
     public GameObject m_pointer;
@@ -47,6 +45,9 @@ public class Player : MobileGroundUnit
 		private bool RazerAreConnected = false;
         SixenseInput.Controller m_leftController;
         SixenseInput.Controller m_rightController;
+		
+		private Quaternion m_leftWeaponDefaultRotation;
+		private Quaternion m_rightWeaponDefaultRotation;
     #endif
     Vector3 m_baseOffset;
     float m_sensitivity = 0.001f;
@@ -79,13 +80,13 @@ public class Player : MobileGroundUnit
         m_mainCamera = Camera.main;
         m_leftWeapon = m_weapons[0];
         m_leftWeaponDefaultPosition = m_leftWeapon.transform.localPosition;
-        m_leftWeaponDefaultRotation = m_leftWeapon.transform.localRotation;
         m_rightWeapon = m_weapons[1];
         m_rightWeaponDefaultPosition = m_rightWeapon.transform.localPosition;
-        m_rightWeaponDefaultRotation = m_rightWeapon.transform.localRotation;
 
         #if UNITY_STANDALONE
 
+		m_leftWeaponDefaultRotation = m_leftWeapon.transform.localRotation;
+		m_rightWeaponDefaultRotation = m_rightWeapon.transform.localRotation;
 		if(SixenseInput.Controllers[0] != null)
 		{
 			RazerStart();
@@ -97,7 +98,7 @@ public class Player : MobileGroundUnit
     }
     #endregion
 
-    protected override void Die()
+    protected override void StartDying()
     {
         m_destroyed = true;
 
@@ -330,68 +331,62 @@ public class Player : MobileGroundUnit
 		bool leftPointer = m_leftController.GetButton(MoveController.MoveButton.MoveButton_Move);
 		bool rightPointer = m_rightController.GetButton(MoveController.MoveButton.MoveButton_Move);
 
+		bool AllModifier= leftModifier && rightModifier;
+
 		if (!rightPointer && m_leftController.GetButtonUp(MoveController.MoveButton.MoveButton_Move)) ConfirmDestination();
 		if (!leftPointer && m_rightController.GetButtonUp(MoveController.MoveButton.MoveButton_Move)) ConfirmDestination();
 
-		if (leftModifier)
+		if (leftModifier && !AllModifier)
         {
-            if (rightModifier)
-            {
-				MoveFromLocalRotation(lastMovement);
-                PSMoveRotation();
-            }
-            else
-            {
-				Vector3 movement = PSMoveVirtualJoysticksConvertion (0);
-				MoveFromLocalRotation(movement);
-				lastMovement = movement;
-                LeftArmWeaponTriggerReleased();
-            }
+            Vector3 movement = PSMoveVirtualJoysticksConvertion (0);
+			MoveFromLocalRotation(movement);
+			lastMovement = movement;
+            LeftArmWeaponTriggerReleased();
         }
         else
         {
             PSMoveLeftWeaponControl();
             if (leftPointer)
             {
-				PointDestination(m_leftController.lookAtHit);
+				MoveToDir ((m_leftController.lookAtHit - transform.position).normalized);
                 LeftArmWeaponTriggerReleased();
             }
             else
             {
 				if (m_leftController.GetButtonDown(MoveController.MoveButton.MoveButton_Trigger)) LeftArmWeaponTriggered();
 				if (m_leftController.GetButtonUp(MoveController.MoveButton.MoveButton_Trigger)) LeftArmWeaponTriggerReleased();
+				if (m_leftController.GetButtonUp (MoveController.MoveButton.MoveButton_Move)) PointDestination(m_leftController.lookAtHit);  // when you release move button, you use navmesh and not the direction.
             }
         }
 
-        if (rightModifier)
+		if (rightModifier && !AllModifier)
         {
-            if (leftModifier)
-            {
-				MoveFromLocalRotation(lastMovement);
-                PSMoveRotation();
-            }
-            else
-            {
-				Vector3 movement = PSMoveVirtualJoysticksConvertion (1);
-				MoveFromLocalRotation(movement);
-				lastMovement = movement;
-                RightArmWeaponTriggerReleased();
-            }
+            Vector3 movement = PSMoveVirtualJoysticksConvertion (1);
+			MoveFromLocalRotation(movement);
+			lastMovement = movement;
+            RightArmWeaponTriggerReleased();
         }
         else
         {
             PSMoveRightWeaponControl();
             if (rightPointer)
             {
-				PointDestination(m_rightController.lookAtHit);
+				MoveToDir ((m_rightController.lookAtHit - transform.position).normalized);
                 RightArmWeaponTriggerReleased();
             }
             else
             {
 				if (m_rightController.GetButtonDown(MoveController.MoveButton.MoveButton_Trigger)) RightArmWeaponTriggered();
 				if (m_rightController.GetButtonUp(MoveController.MoveButton.MoveButton_Trigger)) RightArmWeaponTriggerReleased();
+				if (m_rightController.GetButtonUp (MoveController.MoveButton.MoveButton_Move)) PointDestination(m_leftController.lookAtHit);  // when you release move button, you use navmesh and not the direction.
             }
         }
+
+		if (AllModifier) 
+		{
+			MoveFromLocalRotation(lastMovement);
+			PSMoveRotation();
+		}
     }
 
     Vector3 PSMoveVirtualJoysticksConvertion(int index)
