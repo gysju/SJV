@@ -22,7 +22,7 @@ GameObject:
   - 33: {fileID: 33000012717066766}
   - 65: {fileID: 65000013331139004}
   - 23: {fileID: 23000011880131970}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Hull
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,10 +38,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000011791232824}
   - 208: {fileID: 208000012992041346}
-  - 65: {fileID: 65000012795217690}
   - 54: {fileID: 54000011681477784}
   - 114: {fileID: 114000010433748346}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Ally SpiderTank Factory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,7 +55,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000010436625840}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Production Exit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -83,7 +82,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013440690586}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -48.5, y: 0, z: -47.4}
+  m_LocalPosition: {x: -33.245342, y: 0, z: -50.570858}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: -176.197, z: 0}
   m_Children:
@@ -155,18 +154,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &65000012795217690
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013440690586}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0, y: 0, z: 0}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65000013331139004
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -196,7 +183,7 @@ MonoBehaviour:
   m_startingHitPoints: 10
   m_currentHitPoints: 10
   m_timeToDie: 1
-  m_destructionSpawn: {fileID: 100010, guid: 0b6dc5cf11433424ab9859ff1ea59f4c, type: 2}
+  m_destructionSpawn: {fileID: 0}
   m_armor: 0
   m_targetPoint: {fileID: 4000012197120566}
   m_producing: 1

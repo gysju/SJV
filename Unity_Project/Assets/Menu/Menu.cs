@@ -26,11 +26,11 @@ public class Menu : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetButtonDown("Start") && PreviousState != null && PreviousState != "")
-       {
-           bOnClick = true;
-           NextState = PreviousState;
-       }
+		if (Input.GetButtonDown("Start") && PreviousState != null && PreviousState != "")
+		{
+		   bOnClick = true;
+		   NextState = PreviousState;
+		}
     }
     #endregion
 

@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: obstacles_barrieres
-  m_Shader: {fileID: 4800000, guid: 156eb108ba906b5449c21965f4feba7b, type: 3}
+  m_Shader: {fileID: 4800000, guid: 2b638a69690fea642b287be2a1d8d3f2, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
   m_CustomRenderQueue: -1
@@ -46,6 +46,12 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
+        name: _MRE_Ny
+      second:
+        m_Texture: {fileID: 2800000, guid: d132c58906267d14f8afc0f2a8d2f892, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
         name: _MRE_nY
       second:
         m_Texture: {fileID: 2800000, guid: d132c58906267d14f8afc0f2a8d2f892, type: 3}
@@ -73,6 +79,12 @@ Material:
         name: _ParallaxMap
       second:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _RGB_Nx
+      second:
+        m_Texture: {fileID: 2800000, guid: b83b6a036dc41774eba9e1b7e9f89e0e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:

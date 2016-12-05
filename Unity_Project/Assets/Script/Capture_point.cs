@@ -29,7 +29,6 @@ public class Capture_point : MonoBehaviour
     private float m_currentCaptureValue = 0f;
 
 	private CombatUnit combatUnitOnTarget;
-	private float time = 0.0f;
 
     #region Initialization
     void Start () 
@@ -93,7 +92,7 @@ public class Capture_point : MonoBehaviour
     {
         if (!col.isTrigger)
         {
-            MobileGroundUnit detectedUnit = col.GetComponent<MobileGroundUnit>();
+            MobileGroundUnit detectedUnit = col.GetComponentInParent<MobileGroundUnit>();
             if (detectedUnit != null && !detectedUnit.IsDestroyed())
             {
                 switch (detectedUnit.m_faction)
@@ -117,7 +116,7 @@ public class Capture_point : MonoBehaviour
     {
         if (!col.isTrigger)
         {
-            MobileGroundUnit detectedUnit = col.GetComponent<MobileGroundUnit>();
+			MobileGroundUnit detectedUnit = col.GetComponentInParent<MobileGroundUnit>();
             if (detectedUnit != null && !detectedUnit.IsDestroyed())
             {
                 switch (detectedUnit.m_faction)

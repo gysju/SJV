@@ -49,7 +49,7 @@ public class CombatUnit : Unit
     protected override void Die()
     {
         base.Die();
-
+        CeaseFire();
         m_radar.enabled = false;
     }
     #endregion
