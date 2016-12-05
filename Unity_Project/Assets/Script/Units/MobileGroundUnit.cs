@@ -46,14 +46,22 @@ public class MobileGroundUnit : CombatUnit
     #endregion
 
     #region Hit Points Related
-    protected override void Die()
+    protected override void StartDying()
     {
-        base.Die();
+        base.StartDying();
+
+        EnableNavMeshAgent();
+        CancelPath();
 
         foreach (Capture_point capturePoint in m_currentlyCapturing)
         {
             capturePoint.CapturingUnitDestroyed(this);
         }
+    }
+
+    protected override void FinishDying()
+    {
+        base.FinishDying();
     }
     #endregion
 
