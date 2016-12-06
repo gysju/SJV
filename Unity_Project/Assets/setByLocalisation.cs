@@ -20,7 +20,7 @@ public class setByLocalisation : MonoBehaviour {
 
 	public Text titleText = null;
 	public Text descriptionText = null;
-	public Text textButton = null;
+	public Text[] textButton;
 
 	void Start () 
 	{
@@ -30,8 +30,12 @@ public class setByLocalisation : MonoBehaviour {
 
 	void setLanguage( )
 	{
-		if (setupScene != 0)
+		if (setupScene != SetupScene.no_selected)
 			setSetupScene ();
+        if (intro != Intro.no_selected)
+            setIntro();
+        if (gameplay != Gameplay.Gameplay_HUD)
+            setHUD();
 	}
 
 	void setSetupScene()
@@ -43,7 +47,7 @@ public class setByLocalisation : MonoBehaviour {
 				descriptionText.text = XmlManager.Instance.GetSetupScene ().HMD_Setup.Description_Text.Text;
 			break;
 			case SetupScene.SetupScene_UI_Interaction:
-				textButton.text = XmlManager.Instance.GetSetupScene ().UI_Interaction.Button_Text.Text;
+				textButton[0].text = XmlManager.Instance.GetSetupScene ().UI_Interaction.Button_Text.Text;
 				titleText.text = XmlManager.Instance.GetSetupScene ().UI_Interaction.Title_Text.Text;
 				descriptionText.text = XmlManager.Instance.GetSetupScene ().UI_Interaction.Description_Text.Text;
 				break;
@@ -52,10 +56,33 @@ public class setByLocalisation : MonoBehaviour {
                 descriptionText.text = XmlManager.Instance.GetSetupScene().Recenter.Description_Text.Text;
                 break;
 			case SetupScene.SetupScene_Finished:
-                textButton.text = XmlManager.Instance.GetSetupScene().Finished.Button_Text.Text;
+                textButton[0].text = XmlManager.Instance.GetSetupScene().Finished.Button_Text.Text;
                 titleText.text = XmlManager.Instance.GetSetupScene().Finished.Title_Text.Text;
                 descriptionText.text = XmlManager.Instance.GetSetupScene().Finished.Description_Text.Text;
                 break;
 		}
 	}
+
+    void setIntro()
+    {
+        switch (intro)
+        {
+            case Intro.Intro_MainMenu:
+                textButton[0].text = XmlManager.Instance.GetIntro().Main_Menu.Button_Start.Text;
+                textButton[1].text = XmlManager.Instance.GetIntro().Main_Menu.Button_Options.Text;
+                break;
+            case Intro.Intro_Options:
+                textButton[0].text = XmlManager.Instance.GetIntro().Options.Button_Return.Text;
+                break;
+        }
+    }
+
+    void setHUD()
+    {
+        switch (gameplay)
+        {
+            case Gameplay.Gameplay_HUD:
+                break;
+        }
+    }
 }

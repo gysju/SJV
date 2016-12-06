@@ -73,6 +73,7 @@ GameObject:
   - 222: {fileID: 222000013319703482}
   - 81: {fileID: 81000011196735308}
   - 114: {fileID: 114000013167652992}
+  - 114: {fileID: 114000012491199706}
   m_Layer: 0
   m_Name: Intro_OptionMenu 1
   m_TagString: Untagged
@@ -173,6 +174,26 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Return
+--- !u!114 &114000012491199706
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012077469310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b6888cea6a9efd44befdc4f66a00e36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  root: 1
+  gameplay: 0
+  menu: 2
+  setupScene: 0
+  intro: 2
+  titleText: {fileID: 0}
+  descriptionText: {fileID: 0}
+  textButton:
+  - {fileID: 114000012426537996}
 --- !u!114 &114000013167652992
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -70,7 +70,7 @@ public class PropertyHolderEditor : Editor
 		if(DescriptionText)
 			EditorGUILayout.PropertyField (descriptionText_Prop, new GUIContent("descriptionText"));
 		if(Buttons)
-			EditorGUILayout.PropertyField (textButton_Prop, new GUIContent("textButton"));
+			EditorGUILayout.PropertyField (textButton_Prop, new GUIContent("textButton"),true);
 	}
 	/*void setState<T>(SerializedProperty State, SerializedProperty prop1 = null, 
 					 SerializedProperty prop2 = null, SerializedProperty prop3 = null, SerializedProperty prop4 = null)
