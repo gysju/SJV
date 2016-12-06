@@ -538,9 +538,9 @@ Transform:
   m_Children:
   - {fileID: 224000014277841800}
   - {fileID: 224000010315713986}
-  - {fileID: 224000011318592782}
   - {fileID: 224000011984598762}
   - {fileID: 224000011496048728}
+  - {fileID: 224000011318592782}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!65 &65000011004000696
@@ -947,17 +947,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000011172684218}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b6888cea6a9efd44befdc4f66a00e36, type: 3}
+  m_Script: {fileID: 11500000, guid: a73f83951baab2a48a48730c5f11516f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   root: 1
-  gameplay: 1
+  gameplay: 0
   menu: 1
   setupScene: 4
-  intro: 2
+  intro: 0
   titleText: {fileID: 114000011267772992}
   descriptionText: {fileID: 114000011370726984}
-  textButton: {fileID: 114000012256469926}
+  textButton:
+  - {fileID: 114000012256469926}
 --- !u!114 &114000010963871326
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1114,17 +1115,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000013578492602}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b6888cea6a9efd44befdc4f66a00e36, type: 3}
+  m_Script: {fileID: 11500000, guid: a73f83951baab2a48a48730c5f11516f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   root: 1
-  gameplay: 1
+  gameplay: 0
   menu: 1
   setupScene: 3
-  intro: 2
+  intro: 0
   titleText: {fileID: 114000013488012158}
   descriptionText: {fileID: 114000014166620090}
-  textButton: {fileID: 0}
+  textButton: []
 --- !u!114 &114000011850596582
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1133,17 +1134,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000012897362420}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b6888cea6a9efd44befdc4f66a00e36, type: 3}
+  m_Script: {fileID: 11500000, guid: a73f83951baab2a48a48730c5f11516f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   root: 1
-  gameplay: 1
+  gameplay: 0
   menu: 1
   setupScene: 1
-  intro: 1
+  intro: 0
   titleText: {fileID: 114000010387344582}
   descriptionText: {fileID: 114000013481160208}
-  textButton: {fileID: 0}
+  textButton: []
 --- !u!114 &114000012239987920
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1271,17 +1272,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000011701663700}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b6888cea6a9efd44befdc4f66a00e36, type: 3}
+  m_Script: {fileID: 11500000, guid: a73f83951baab2a48a48730c5f11516f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   root: 1
-  gameplay: 1
+  gameplay: 0
   menu: 1
   setupScene: 2
-  intro: 2
+  intro: 0
   titleText: {fileID: 114000013110231830}
   descriptionText: {fileID: 114000013702029350}
-  textButton: {fileID: 114000012446515038}
+  textButton:
+  - {fileID: 114000012446515038}
 --- !u!114 &114000012743367754
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1931,7 +1933,7 @@ RectTransform:
   - {fileID: 224000010711205200}
   - {fileID: 224000010954837798}
   m_Father: {fileID: 4000011602647384}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 1.7}
@@ -1968,7 +1970,7 @@ RectTransform:
   m_Children:
   - {fileID: 224000010013750156}
   m_Father: {fileID: 4000011602647384}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 1.7}
@@ -2080,7 +2082,7 @@ RectTransform:
   - {fileID: 224000010189767438}
   - {fileID: 224000012541417524}
   m_Father: {fileID: 4000011602647384}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 1.7}
