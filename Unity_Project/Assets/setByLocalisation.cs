@@ -32,10 +32,6 @@ public class setByLocalisation : MonoBehaviour {
 	{
 		if (setupScene != 0)
 			setSetupScene ();
-		else if (intro != 0)
-			setIntro ();
-		else if (gameplay != 0)
-			setGameplay ();
 	}
 
 	void setSetupScene()
@@ -43,36 +39,23 @@ public class setByLocalisation : MonoBehaviour {
 		switch( setupScene )
 		{
 			case SetupScene.SetupScene_HmdSetup:
-				titleText = XmlManager.Instance.GetSetupScene ().HMD_Setup.Title_Text;
-				descriptionText = XmlManager.Instance.GetSetupScene ().HMD_Setup.Description_text;
+                titleText.text = XmlManager.Instance.GetSetupScene().HMD_Setup.Title_Text.Text;
+				descriptionText.text = XmlManager.Instance.GetSetupScene ().HMD_Setup.Description_Text.Text;
 			break;
 			case SetupScene.SetupScene_UI_Interaction:
-				textButton = XmlManager.Instance.GetSetupScene ().UI_Interaction.Button;
-				titleText = XmlManager.Instance.GetSetupScene ().UI_Interaction.Title_Text;
-				descriptionText = XmlManager.Instance.GetSetupScene ().UI_Interaction.Description_text;
+				textButton.text = XmlManager.Instance.GetSetupScene ().UI_Interaction.Button_Text.Text;
+				titleText.text = XmlManager.Instance.GetSetupScene ().UI_Interaction.Title_Text.Text;
+				descriptionText.text = XmlManager.Instance.GetSetupScene ().UI_Interaction.Description_Text.Text;
 				break;
 			case SetupScene.SetupScene_Recenter:
-				XmlManager.Instance.GetSetupScene ().Recenter;
-				break;
+                titleText.text = XmlManager.Instance.GetSetupScene().Recenter.Title_Text.Text;
+                descriptionText.text = XmlManager.Instance.GetSetupScene().Recenter.Description_Text.Text;
+                break;
 			case SetupScene.SetupScene_Finished:
-				XmlManager.Instance.GetSetupScene ().Finished;
-				break;
-		}
-	}
-
-	void setIntro()
-	{
-		switch()
-		{
-
-		}
-	}
-
-	void setGameplay()
-	{
-		switch()
-		{
-
+                textButton.text = XmlManager.Instance.GetSetupScene().Finished.Button_Text.Text;
+                titleText.text = XmlManager.Instance.GetSetupScene().Finished.Title_Text.Text;
+                descriptionText.text = XmlManager.Instance.GetSetupScene().Finished.Description_Text.Text;
+                break;
 		}
 	}
 }
