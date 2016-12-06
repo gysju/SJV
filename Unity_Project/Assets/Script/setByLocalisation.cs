@@ -73,6 +73,7 @@ public class setByLocalisation : MonoBehaviour {
                 break;
             case Intro.Intro_Options:
                 textButton[0].text = XmlManager.Instance.GetIntro().Options.Button_Return.Text;
+                textButton[1].text = XmlManager.Instance.GetIntro().Options.Button_Language.Text;
                 break;
         }
     }

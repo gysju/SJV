@@ -149,11 +149,26 @@ namespace Xml2CSharp
         public string Textalign { get; set; }
     }
 
+    [XmlRoot(ElementName = "Button_Language")]
+    public class Button_Language
+    {
+        [XmlAttribute(AttributeName = "text")]
+        public string Text { get; set; }
+        [XmlAttribute(AttributeName = "font-style")]
+        public string Fontstyle { get; set; }
+        [XmlAttribute(AttributeName = "font-size")]
+        public string Fontsize { get; set; }
+        [XmlAttribute(AttributeName = "text-align")]
+        public string Textalign { get; set; }
+    }
+
     [XmlRoot(ElementName = "Options")]
     public class Options
     {
         [XmlElement(ElementName = "Button_Return")]
         public Button_Return Button_Return { get; set; }
+        [XmlElement(ElementName = "Button_Language")]
+        public Button_Language Button_Language { get; set; }
     }
 
     [XmlRoot(ElementName = "Intro")]
