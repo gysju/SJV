@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Building_Capture_Point_2_Part_1
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 4800000, guid: 2b638a69690fea642b287be2a1d8d3f2, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
   m_CustomRenderQueue: -1
@@ -46,6 +46,12 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
+        name: _MRE_Ny
+      second:
+        m_Texture: {fileID: 2800000, guid: 6abedf4805beb9d458b9e6e95112f1bb, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
         name: _MainTex
       second:
         m_Texture: {fileID: 0}
@@ -69,6 +75,12 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - first:
+        name: _RGB_Nx
+      second:
+        m_Texture: {fileID: 2800000, guid: ae2608d70b64756459b4bb43f8491819, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
     - first:
         name: _BumpScale
@@ -83,11 +95,14 @@ Material:
         name: _DstBlend
       second: 0
     - first:
+        name: _Emission
+      second: 1
+    - first:
         name: _GlossMapScale
       second: 1
     - first:
         name: _Glossiness
-      second: 0.5
+      second: 1
     - first:
         name: _GlossyReflections
       second: 1
@@ -125,3 +140,6 @@ Material:
     - first:
         name: _EmissionColor
       second: {r: 0, g: 0, b: 0, a: 1}
+    - first:
+        name: _EmissiveColor
+      second: {r: 0.09019608, g: 0.47058824, b: 1, a: 1}
