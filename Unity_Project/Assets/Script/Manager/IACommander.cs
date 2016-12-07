@@ -96,6 +96,11 @@ public class IACommander : MonoBehaviour
             PatrolToPlayer(unitAskingOrder);
     }
 
+	public void ReactionDroneSquadron()
+	{
+		
+	}
+
 	void Update ()
     {
 	    

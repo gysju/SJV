@@ -30,6 +30,8 @@ public class Capture_point : MonoBehaviour
 
 	private CombatUnit combatUnitOnTarget;
 
+	private IACommander m_enemyCommander;
+
     #region Initialization
     void Start () 
 	{
@@ -37,6 +39,7 @@ public class Capture_point : MonoBehaviour
         m_captureZone = GetComponent<SphereCollider>();
         m_captureZone.isTrigger = true;
         UpdateRadarRange();
+		m_enemyCommander = GameObject.Find ("Enemy Commander").GetComponent<IACommander>();
     }
     #endregion
 
@@ -169,6 +172,7 @@ public class Capture_point : MonoBehaviour
             {
                 m_faction = Unit.UnitFaction.Ally;
                 m_currentCaptureValue = 1f;
+				m_enemyCommander.ReactionDroneSquadron ();
             }
             else if (m_currentCaptureValue <= -1f)
             {
