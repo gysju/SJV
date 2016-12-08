@@ -4,7 +4,7 @@
 
 struct Input 
 {
-   float2 uv_Tex1;
+   float2 uv_RGB_Nx1;
    float4 color : COLOR;
    #if (_FLOW1 || _FLOW2 || _FLOW3 || _FLOW4 )
    float4 flowDir;
@@ -15,7 +15,7 @@ struct Input
 };
 
 // macro for one layer of texture data      
-#define LAYER(__N) sampler2D _Tex##__N; fixed4 _Tint##__N; sampler2D _Normal##__N; sampler2D _GlossinessTex##__N; half _Glossiness##__N; half _Metallic##__N; half _TexScale##__N; half _Contrast##__N; sampler2D _Emissive##__N; half _EmissiveMult##__N; fixed4 _SpecColor##__N; sampler2D _SpecGlossMap##__N; float _DistUVScale##__N;
+#define LAYER(__N) sampler2D _Tex##__N; sampler2D _RGB_Nx##__N;sampler2D _MEH_Ny##__N;fixed4 _Tint##__N;fixed4 _EmissiveColor##__N; sampler2D _Normal##__N; sampler2D _GlossinessTex##__N; half _Glossiness##__N; half _Metallic##__N; half _TexScale##__N; half _Contrast##__N; sampler2D _Emissive##__N; half _EmissiveMult##__N; fixed4 _SpecColor##__N; sampler2D _SpecGlossMap##__N; float _DistUVScale##__N;
 
 LAYER(1)
 LAYER(2)
@@ -121,7 +121,7 @@ void SharedVert (inout appdata_full v, out Input o)
     o.flowDir.xy *= _TexScale4;
     #endif
 
-    o.uv_Tex1 = v.texcoord.xy;
+    o.uv_RGB_Nx1 = v.texcoord.xy;
     o.color = v.color;
 
     #if _DISTBLEND

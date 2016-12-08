@@ -7,72 +7,47 @@ using System.Linq;
 public class SplatMapShaderGUI : ShaderGUI 
 {
 
-   void DrawLayer(MaterialEditor editor, int i, MaterialProperty[] props, string[] keyWords, Workflow workflow, 
-      bool hasGloss, bool hasSpec, bool hasEmis, bool hasDistBlend)
-   {
-      EditorGUIUtility.labelWidth = 0f;
-      var albedoMap = FindProperty ("_Tex" + i, props);
-      var tint = FindProperty("_Tint" + i, props);
-      var normalMap = FindProperty ("_Normal" + i, props);
-      var smoothness = FindProperty("_Glossiness" + i, props);
-      var glossinessMap = FindProperty("_GlossinessTex" + i, props, false);
-      var metallic = FindProperty("_Metallic" + i, props, false);
-      var emissionTex = FindProperty("_Emissive" + i, props);
-      var emissionMult = FindProperty("_EmissiveMult" + i, props);
-      var texScale = FindProperty("_TexScale" + i, props);
-      var specMap = FindProperty("_SpecGlossMap" + i, props, false);
-      var specColor = FindProperty("_SpecColor" + i, props, false);
-      var distUVScale = FindProperty("_DistUVScale" + i, props, false);
+	void DrawLayer(MaterialEditor editor, int i, MaterialProperty[] props, string[] keyWords, 
+	  bool hasGloss, bool hasSpec, bool hasEmis, bool hasDistBlend)
+	{
+		EditorGUIUtility.labelWidth = 0f;
+		var RGB_Nx = FindProperty ("_RGB_Nx" + i, props);
+		var MHE_Ny = FindProperty ("_MEH_Ny" + i, props);
+		var tint = FindProperty("_Tint" + i, props);
+		var smoothness = FindProperty("_Glossiness" + i, props);
+		var emissionMult = FindProperty("_EmissiveMult" + i, props);
+		var emissionColor = FindProperty("_EmissiveColor" + i, props);
+		var texScale = FindProperty("_TexScale" + i, props);
+		var distUVScale = FindProperty("_DistUVScale" + i, props, false);
 
-      editor.TexturePropertySingleLine(new GUIContent("Albedo/Height"), albedoMap);
-      editor.ShaderProperty(tint, "Tint");
-      editor.TexturePropertySingleLine(new GUIContent("Normal"), normalMap);
-      if (workflow == Workflow.Metallic)
-      {
-         editor.TexturePropertySingleLine(new GUIContent("Metal(R)/Smoothness(A)"), glossinessMap);
-      }
-      else
-      {
-         editor.TexturePropertySingleLine(new GUIContent("Specular(RGB)/Gloss(A)"), specMap);
-      }
-      if (workflow == Workflow.Metallic && !hasGloss)
-      { 
-         editor.ShaderProperty(smoothness, "Smoothness");
-         editor.ShaderProperty(metallic, "Metallic");
-      }
-      else if (workflow == Workflow.Specular && !hasSpec)
-      {
-         editor.ShaderProperty(smoothness, "Smoothness");
-         editor.ShaderProperty(specColor, "Specular Color");
-      }
-      editor.TexturePropertySingleLine(new GUIContent("Emission"), emissionTex);
-      editor.ShaderProperty(emissionMult, "Emissive Multiplier");
+		editor.TexturePropertySingleLine(new GUIContent("Albedo + Nx"), RGB_Nx);
+		editor.TexturePropertySingleLine(new GUIContent("Metal + Emissive + Height + Ny"), MHE_Ny);
+		editor.ShaderProperty(tint, "Tint");
 
-      editor.ShaderProperty(texScale, "Texture Scale");
-      if (hasDistBlend)
-      {
-         editor.ShaderProperty(distUVScale, "Distance UV Scale");
-      }
+		editor.ShaderProperty(smoothness, "Smoothness");
 
-      if (i != 1)
-      {
-         editor.ShaderProperty(FindProperty("_Contrast"+i, props), "Interpolation Contrast");
-      }
-   }
+		editor.ShaderProperty(emissionMult, "Emissive Multiplier");
+		editor.ShaderProperty(emissionColor, "Emissive Color");
 
-   enum Workflow
-   {
-      Metallic = 0,
-      Specular
-   }
+		editor.ShaderProperty(texScale, "Texture Scale");
+		if (hasDistBlend)
+		{
+			editor.ShaderProperty(distUVScale, "Distance UV Scale");
+		}
+
+		if (i != 1)
+		{
+			editor.ShaderProperty(FindProperty("_Contrast"+i, props), "Interpolation Contrast");
+		}
+	}
 
    enum FlowChannel
    {
-      None = 0,
-      One,
-      Two,
-      Three,
-      Four
+		None = 0,
+		One,
+		Two,
+		Three,
+		Four
    }
 
    string[] flowChannelNames = new string[]
@@ -87,7 +62,6 @@ public class SplatMapShaderGUI : ShaderGUI
       string[] keyWords = targetMat.shaderKeywords;
 
       int layerCount = 1;
-      Workflow workflow = Workflow.Metallic;
       if (targetMat.shader.name == "VertexPainter/SplatBlend_1Layer")
       {
          layerCount = 1;
@@ -123,26 +97,18 @@ public class SplatMapShaderGUI : ShaderGUI
       bool hasDistBlend = keyWords.Contains("_DISTBLEND");
 
       EditorGUI.BeginChangeCheck();
-      Workflow oldWorkflow = workflow;
-      workflow = (Workflow)EditorGUILayout.EnumPopup("Workflow", workflow);
 
       int oldLayerCount = layerCount;
       layerCount = EditorGUILayout.IntField("Layer Count", layerCount);
-      if (oldLayerCount != layerCount || workflow != oldWorkflow)
+      if (oldLayerCount != layerCount)
       {
          if (layerCount < 1)
             layerCount = 1;
          if (layerCount > 4)
             layerCount = 4;
 
-         if (workflow == Workflow.Metallic)
-         {
-            targetMat.shader = Shader.Find("VertexPainter/SplatBlend_" + layerCount + "Layer");
-         }
-         else
-         {
-            targetMat.shader = Shader.Find("VertexPainter/SplatBlendSpecular_" + layerCount + "Layer");
-         }
+         targetMat.shader = Shader.Find("VertexPainter/SplatBlend_" + layerCount + "Layer");
+         
          return;
       }
 
@@ -171,7 +137,7 @@ public class SplatMapShaderGUI : ShaderGUI
 
       for (int i = 0; i < layerCount; ++i)
       {
-         DrawLayer(materialEditor, i+1, props, keyWords, workflow, hasGloss, hasSpec, hasEmis, hasDistBlend);
+         DrawLayer(materialEditor, i+1, props, keyWords, hasGloss, hasSpec, hasEmis, hasDistBlend);
 
          EditorGUILayout.Space();
       }
@@ -214,13 +180,9 @@ public class SplatMapShaderGUI : ShaderGUI
          {
             newKeywords.Add("_NORMALMAP");
          }
-         if (hasGloss && workflow == Workflow.Metallic)
+         if (hasGloss)
          {
             newKeywords.Add("_METALLICGLOSSMAP");
-         }
-         if (hasSpec && workflow == Workflow.Specular)
-         {
-            newKeywords.Add("_SPECGLOSSMAP");
          }
          if (hasEmis)
          {

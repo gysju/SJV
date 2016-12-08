@@ -6,6 +6,7 @@
 Shader "VertexPainter/SplatBlend_4Layer" 
 {
    Properties {
+      _RGB_Nx1 ("Albedo + Nx", 2D) = "white" {}
       _Tex1 ("Albedo + Height", 2D) = "white" {}
       _Tint1 ("Tint", Color) = (1, 1, 1, 1)
       [NoScaleOffset][Normal]_Normal1("Normal", 2D) = "bump" {}

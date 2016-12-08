@@ -6,6 +6,7 @@
 Shader "VertexPainter/SplatBlend_3Layer" 
 {
    Properties {
+      _RGB_Nx1 ("Albedo + Nx", 2D) = "white" {}
       _Tex1 ("Albedo + Height", 2D) = "white" {}
       _Tint1 ("Tint", Color) = (1, 1, 1, 1)
       [NoScaleOffset][Normal]_Normal1("Normal", 2D) = "bump" {}
@@ -79,9 +80,9 @@ Shader "VertexPainter/SplatBlend_3Layer"
       {
          COMPUTEDISTBLEND
 
-         float2 uv1 = IN.uv_Tex1 * _TexScale1;
-         float2 uv2 = IN.uv_Tex1 * _TexScale2;
-         float2 uv3 = IN.uv_Tex1 * _TexScale3;
+         float2 uv1 = IN.uv_RGB_Nx1 * _TexScale1;
+         float2 uv2 = IN.uv_RGB_Nx1 * _TexScale2;
+         float2 uv3 = IN.uv_RGB_Nx1 * _TexScale3;
          INIT_FLOW
          #if _FLOWDRIFT 
          fixed4 c1 = FETCH_TEX1(_Tex1, uv1);
