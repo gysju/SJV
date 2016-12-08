@@ -40,10 +40,10 @@ Shader "VertexPainter/SplatBlend_2Layer"
       
       #pragma surface surf Standard vertex:vert fullforwardshadows
 
-      //#pragma shader_feature __ _FLOW1 _FLOW2 
-      //#pragma shader_feature __ _FLOWDRIFT 
-      //#pragma shader_feature __ _FLOWREFRACTION
-      //#pragma shader_feature __ _DISTBLEND
+      #pragma shader_feature __ _FLOW1 _FLOW2 
+      #pragma shader_feature __ _FLOWDRIFT 
+      #pragma shader_feature __ _FLOWREFRACTION
+      #pragma shader_feature __ _DISTBLEND
   
 
       #include "SplatBlend_Shared.cginc"
@@ -59,26 +59,27 @@ Shader "VertexPainter/SplatBlend_2Layer"
 
          float2 uv1 = IN.uv_RGB_Nx1 * _TexScale1;
          float2 uv2 = IN.uv_RGB_Nx1 * _TexScale2;
-        // INIT_FLOW
-        // #if _FLOWDRIFT 
-        // fixed4 RGB_Nx1 = FETCH_TEX1(_RGB_Nx1, uv1);
-        // fixed4 RGB_Nx2 = FETCH_TEX2(_RGB_Nx2, uv2);
-		//
-        // fixed4 MEH_Ny1 = FETCH_TEX1(_MEH_Ny1, uv1);
-        // fixed4 MEH_Ny2 = FETCH_TEX2(_MEH_Ny2, uv2);
-        // #elif _DISTBLEND
-        // fixed4 RGB_Nx1 = lerp(tex2D(_RGB_Nx1, uv1), tex2D(_RGB_Nx1, uv1*_DistUVScale1), dist);
-        // fixed4 RGB_Nx2 = lerp(tex2D(_RGB_Nx2, uv2), tex2D(_RGB_Nx2, uv2*_DistUVScale2), dist);
-		//
-        // fixed4 MEH_Ny1 = lerp(tex2D(_MEH_Ny1, uv1), tex2D(_MEH_Ny1, uv1*_DistUVScale1), dist);
-        // fixed4 MEH_Ny2 = lerp(tex2D(_MEH_Ny2, uv2), tex2D(_MEH_Ny2, uv2*_DistUVScale2), dist);
-        // #else
+
+         INIT_FLOW
+         #if _FLOWDRIFT 
+         fixed4 RGB_Nx1 = FETCH_TEX1(_RGB_Nx1, uv1);
+         fixed4 RGB_Nx2 = FETCH_TEX2(_RGB_Nx2, uv2);
+		 
+         fixed4 MEH_Ny1 = FETCH_TEX1(_MEH_Ny1, uv1);
+         fixed4 MEH_Ny2 = FETCH_TEX2(_MEH_Ny2, uv2);
+         #elif _DISTBLEND
+         fixed4 RGB_Nx1 = lerp(tex2D(_RGB_Nx1, uv1), tex2D(_RGB_Nx1, uv1*_DistUVScale1), dist);
+         fixed4 RGB_Nx2 = lerp(tex2D(_RGB_Nx2, uv2), tex2D(_RGB_Nx2, uv2*_DistUVScale2), dist);
+		 
+         fixed4 MEH_Ny1 = lerp(tex2D(_MEH_Ny1, uv1), tex2D(_MEH_Ny1, uv1*_DistUVScale1), dist);
+         fixed4 MEH_Ny2 = lerp(tex2D(_MEH_Ny2, uv2), tex2D(_MEH_Ny2, uv2*_DistUVScale2), dist);
+         #else
          fixed4 RGB_Nx1 = tex2D(_RGB_Nx1, uv1);
          fixed4 RGB_Nx2 = tex2D(_RGB_Nx2, uv2);
 
          fixed4 MEH_Ny1 = tex2D(_MEH_Ny1, uv1);
          fixed4 MEH_Ny2 = tex2D(_MEH_Ny2, uv2);
-        // #endif
+         #endif
 
          RGB_Nx1.rgb *= _Tint1.rgb;
          RGB_Nx2.rgb *= _Tint2.rgb;
@@ -86,15 +87,15 @@ Shader "VertexPainter/SplatBlend_2Layer"
          MEH_Ny2.g *=_EmissiveMult2;
 
          half b1 = HeightBlend(0, 0, IN.color.r, _Contrast2);
-         fixed4 rgb_nX = lerp(RGB_Nx1, RGB_Nx2, b1);
-         fixed4 meh_nY = lerp(MEH_Ny1, MEH_Ny2, b1);
+         fixed4 RGB_Nx = lerp(RGB_Nx1, RGB_Nx2, b1);
+         fixed4 MEH_Ny = lerp(MEH_Ny1, MEH_Ny2, b1);
 
-         o.Normal =  UnpackNormal(float4(0, rgb_nX.a,0, meh_nY.a));
+         o.Normal =  UnpackNormal(float4(0, RGB_Nx.a,0, MEH_Ny.a));
 
          // flow refraction; use difference in depth to control refraction amount, refetch all previous color textures if not parallaxing
          #if _FLOW2
             b1 *= _FlowAlpha;
-            #if _FLOWREFRACTION && _NORMALMAP
+            #if _FLOWREFRACTION
                half4 rn = FETCH_TEX2 (_Normal2, uv2) - 0.5;
                uv1 += rn.xy * b1 * _FlowRefraction;
             #endif
@@ -102,9 +103,9 @@ Shader "VertexPainter/SplatBlend_2Layer"
                            
          
          o.Smoothness = 0;
-         o.Metallic = MEH_Ny1.r;
-         o.Emission = MEH_Ny1.g;// * lerp(_EmissiveColor1, _EmissiveColor2, b1);
-         o.Albedo = rgb_nX.rgb;
+         o.Metallic = MEH_Ny.r;
+		 o.Emission = 0;// MEH_Ny.g;// * lerp(_EmissiveColor1, _EmissiveColor2, b1);
+         o.Albedo = RGB_Nx.rgb;
          
       }
       ENDCG
