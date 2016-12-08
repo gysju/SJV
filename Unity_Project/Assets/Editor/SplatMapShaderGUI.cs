@@ -8,7 +8,7 @@ public class SplatMapShaderGUI : ShaderGUI
 {
 
    void DrawLayer(MaterialEditor editor, int i, MaterialProperty[] props, string[] keyWords, Workflow workflow, 
-      bool hasGloss, bool hasSpec, bool isParallax, bool hasEmis, bool hasDistBlend)
+      bool hasGloss, bool hasSpec, bool hasEmis, bool hasDistBlend)
    {
       EditorGUIUtility.labelWidth = 0f;
       var albedoMap = FindProperty ("_Tex" + i, props);
@@ -19,7 +19,6 @@ public class SplatMapShaderGUI : ShaderGUI
       var metallic = FindProperty("_Metallic" + i, props, false);
       var emissionTex = FindProperty("_Emissive" + i, props);
       var emissionMult = FindProperty("_EmissiveMult" + i, props);
-      var parallax = FindProperty("_Parallax" + i, props);
       var texScale = FindProperty("_TexScale" + i, props);
       var specMap = FindProperty("_SpecGlossMap" + i, props, false);
       var specColor = FindProperty("_SpecColor" + i, props, false);
@@ -54,10 +53,6 @@ public class SplatMapShaderGUI : ShaderGUI
       {
          editor.ShaderProperty(distUVScale, "Distance UV Scale");
       }
-      if (isParallax)
-      {
-         editor.ShaderProperty(parallax, "Parallax Height");
-      }
 
       if (i != 1)
       {
@@ -77,13 +72,12 @@ public class SplatMapShaderGUI : ShaderGUI
       One,
       Two,
       Three,
-      Four,
-      Five
+      Four
    }
 
    string[] flowChannelNames = new string[]
    {
-      "None", "One", "Two", "Three", "Four", "Five"
+      "None", "One", "Two", "Three", "Four"
    };
 
    public override void OnGUI (MaterialEditor materialEditor, MaterialProperty[] props)
@@ -110,36 +104,7 @@ public class SplatMapShaderGUI : ShaderGUI
       {
          layerCount = 4;
       }
-      else if (targetMat.shader.name == "VertexPainter/SplatBlend_5Layer")
-      {
-         layerCount = 5;
-      }
-      else if (targetMat.shader.name == "VertexPainter/SplatBlendSpecular_1Layer")
-      {
-         workflow = Workflow.Specular;
-         layerCount = 1;
-      }
-      else if (targetMat.shader.name == "VertexPainter/SplatBlendSpecular_2Layer")
-      {
-         workflow = Workflow.Specular;
-         layerCount = 2;
-      }
-      else if (targetMat.shader.name == "VertexPainter/SplatBlendSpecular_3Layer")
-      {
-         workflow = Workflow.Specular;
-         layerCount = 3;
-      }
-      else if (targetMat.shader.name == "VertexPainter/SplatBlendSpecular_4Layer")
-      {
-         workflow = Workflow.Specular;
-         layerCount = 4;
-      }
-      else if (targetMat.shader.name == "VertexPainter/SplatBlendSpecular_5Layer")
-      {
-         workflow = Workflow.Specular;
-         layerCount = 5;
-      }
-
+      
       FlowChannel fchannel = FlowChannel.None;
       if (keyWords.Contains("_FLOW1"))
          fchannel = FlowChannel.One;
@@ -149,12 +114,9 @@ public class SplatMapShaderGUI : ShaderGUI
          fchannel = FlowChannel.Three;
       if (keyWords.Contains("_FLOW4"))
          fchannel = FlowChannel.Four;
-      if (keyWords.Contains("_FLOW5"))
-         fchannel = FlowChannel.Five;
 
       bool flowDrift = keyWords.Contains("_FLOWDRIFT");
       bool flowRefraction = keyWords.Contains("_FLOWREFRACTION");
-      bool parallax = keyWords.Contains ("_PARALLAXMAP");
       bool hasGloss = (HasTexture(layerCount, targetMat, "_GlossinessTex"));
       bool hasSpec = (HasTexture(layerCount, targetMat, "_SpecGlossMap"));
       bool hasEmis = (HasTexture(layerCount, targetMat, "_Emissive"));
@@ -170,8 +132,8 @@ public class SplatMapShaderGUI : ShaderGUI
       {
          if (layerCount < 1)
             layerCount = 1;
-         if (layerCount > 5)
-            layerCount = 5;
+         if (layerCount > 4)
+            layerCount = 4;
 
          if (workflow == Workflow.Metallic)
          {
@@ -185,7 +147,6 @@ public class SplatMapShaderGUI : ShaderGUI
       }
 
 
-      parallax = EditorGUILayout.Toggle ("Parallax Offset", parallax);
       hasDistBlend = EditorGUILayout.Toggle("UV Scale in distance", hasDistBlend);
       var distBlendMin = FindProperty("_DistBlendMin", props);
       var distBlendMax = FindProperty("_DistBlendMax", props); 
@@ -210,7 +171,7 @@ public class SplatMapShaderGUI : ShaderGUI
 
       for (int i = 0; i < layerCount; ++i)
       {
-         DrawLayer(materialEditor, i+1, props, keyWords, workflow, hasGloss, hasSpec, parallax, hasEmis, hasDistBlend);
+         DrawLayer(materialEditor, i+1, props, keyWords, workflow, hasGloss, hasSpec, hasEmis, hasDistBlend);
 
          EditorGUILayout.Space();
       }
@@ -248,10 +209,6 @@ public class SplatMapShaderGUI : ShaderGUI
          if (hasDistBlend)
          {
             newKeywords.Add("_DISTBLEND");
-         }
-         if (parallax) 
-         {
-            newKeywords.Add("_PARALLAXMAP");
          }
          if (HasTexture(layerCount, targetMat, "_Normal"))
          {

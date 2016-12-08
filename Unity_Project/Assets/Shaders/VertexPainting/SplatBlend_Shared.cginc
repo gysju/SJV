@@ -1,11 +1,12 @@
+#pragma exclude_renderers wiiu flash psp2 n3ds xboxone metal 
+
+#pragma target 5.0
+
 struct Input 
 {
    float2 uv_Tex1;
    float4 color : COLOR;
-   #if _PARALLAXMAP
-   float3 viewDir;
-   #endif
-   #if (_FLOW1 || _FLOW2 || _FLOW3 || _FLOW4 || _FLOW5)
+   #if (_FLOW1 || _FLOW2 || _FLOW3 || _FLOW4 )
    float4 flowDir;
    #endif
    #if _DISTBLEND
@@ -14,13 +15,12 @@ struct Input
 };
 
 // macro for one layer of texture data      
-#define LAYER(__N) sampler2D _Tex##__N; fixed4 _Tint##__N; sampler2D _Normal##__N; sampler2D _GlossinessTex##__N; half _Glossiness##__N; half _Metallic##__N; half _Parallax##__N; half _TexScale##__N; half _Contrast##__N; sampler2D _Emissive##__N; half _EmissiveMult##__N; fixed4 _SpecColor##__N; sampler2D _SpecGlossMap##__N; float _DistUVScale##__N;
+#define LAYER(__N) sampler2D _Tex##__N; fixed4 _Tint##__N; sampler2D _Normal##__N; sampler2D _GlossinessTex##__N; half _Glossiness##__N; half _Metallic##__N; half _TexScale##__N; half _Contrast##__N; sampler2D _Emissive##__N; half _EmissiveMult##__N; fixed4 _SpecColor##__N; sampler2D _SpecGlossMap##__N; float _DistUVScale##__N;
 
 LAYER(1)
 LAYER(2)
 LAYER(3)
 LAYER(4)
-LAYER(5)
 
 half  _FlowSpeed;
 half  _FlowIntensity;
@@ -37,7 +37,7 @@ float _DistBlendMax;
 
 
 // macros to make dealing with the flow map option not a nightmare
-#if (_FLOW1 || _FLOW2 || _FLOW3 || _FLOW4 || _FLOW5)
+#if (_FLOW1 || _FLOW2 || _FLOW3 || _FLOW4 )
 #define INIT_FLOW half flowInterp; float2 fuv1; float2 fuv2; Flow(IN.flowDir.xy, IN.flowDir.zw, _FlowSpeed, _FlowIntensity, fuv1, fuv2, flowInterp);
 #else
 #define INIT_FLOW  
@@ -76,14 +76,6 @@ float _DistBlendMax;
 #define FETCH_TEX4(_T, _UV) tex2D(_T, _UV)
 #endif
 
-#if _FLOW5
-#define FETCH_TEX5(_T, _UV) lerp(tex2D(_T, fuv1), tex2D(_T, fuv2), flowInterp)
-#elif _DISTBLEND
-#define FETCH_TEX5(_T, _UV) lerp(tex2D(_T, _UV), tex2D(_T, _UV*_DistUVScale5), dist)
-#else
-#define FETCH_TEX5(_T, _UV) tex2D(_T, _UV)
-#endif  
-
 // given two height values (from textures) and a height value for the current pixel (from vertex)
 // compute the blend factor between the two with a small blending area between them.
 half HeightBlend(half h1, half h2, half slope, half contrast)
@@ -111,7 +103,7 @@ void Flow(float2 uv, half2 flow, half speed, float intensity, out float2 uv1, ou
 
 void SharedVert (inout appdata_full v, out Input o) 
 {
-    #if (_FLOW1 || _FLOW2 || _FLOW3 || _FLOW4 || _FLOW5)
+    #if (_FLOW1 || _FLOW2 || _FLOW3 || _FLOW4)
     o.flowDir.xy = v.texcoord.xy;
     o.flowDir.zw = v.texcoord2.xy;
     #endif
@@ -128,16 +120,9 @@ void SharedVert (inout appdata_full v, out Input o)
     #if (_FLOW4)
     o.flowDir.xy *= _TexScale4;
     #endif
-    #if (_FLOW5)
-    o.flowDir.xy *= _TexScale5;
-    #endif
 
     o.uv_Tex1 = v.texcoord.xy;
     o.color = v.color;
-
-    #if _PARALLAXMAP
-    o.viewDir = float3(0,0,0);
-    #endif
 
     #if _DISTBLEND
     o.worldPos = float3(0,0,0);

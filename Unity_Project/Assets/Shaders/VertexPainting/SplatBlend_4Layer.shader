@@ -14,7 +14,6 @@ Shader "VertexPainter/SplatBlend_4Layer"
       _Metallic1 ("Metallic", Range(0,1)) = 0.0
       _Emissive1  ("Emissive", 2D) = "black" {}
       _EmissiveMult1("Emissive Multiplier", Float) = 1
-      _Parallax1 ("Parallax Height", Range (0.005, 0.08)) = 0.02
       _TexScale1 ("Texture Scale", Float) = 1
       
       
@@ -26,7 +25,6 @@ Shader "VertexPainter/SplatBlend_4Layer"
       _Metallic2 ("Metallic", Range(0,1)) = 0.0
       _Emissive2  ("Emissive", 2D) = "black" {}
       _EmissiveMult2("Emissive Multiplier", Float) = 1
-      _Parallax2 ("Parallax Height", Range (0.005, 0.08)) = 0.02
       _TexScale2 ("Texture Scale", Float) = 1
       _Contrast2("Contrast", Range(0,0.99)) = 0.5
       
@@ -38,7 +36,6 @@ Shader "VertexPainter/SplatBlend_4Layer"
       _Metallic3 ("Metallic", Range(0,1)) = 0.0
       _Emissive3  ("Emissive", 2D) = "black" {}
       _EmissiveMult3("Emissive Multiplier", Float) = 1
-      _Parallax3 ("Parallax Height", Range (0.005, 0.08)) = 0.02 
       _TexScale3 ("Texture Scale", Float) = 1
       _Contrast3("Contrast", Range(0,0.99)) = 0.5
       
@@ -50,7 +47,6 @@ Shader "VertexPainter/SplatBlend_4Layer"
       _Metallic4 ("Metallic", Range(0,1)) = 0.0
       _Emissive4  ("Emissive", 2D) = "black" {}
       _EmissiveMult4("Emissive Multiplier", Float) = 1
-      _Parallax4 ("Parallax Height", Range (0.005, 0.08)) = 0.02 
       _TexScale4 ("Texture Scale", Float) = 1
       _Contrast4("Contrast", Range(0,0.99)) = 0.5
       
@@ -77,7 +73,6 @@ Shader "VertexPainter/SplatBlend_4Layer"
       // doing a branch would be fine since the branch would always go the same direction on
       // each pixel. If you are running low on keywords, that could be a viable option for you.
       #pragma surface surf Standard vertex:vert fullforwardshadows
-      #pragma shader_feature __ _PARALLAXMAP
       #pragma shader_feature __ _NORMALMAP
       #pragma shader_feature __ _METALLICGLOSSMAP
       #pragma shader_feature __ _EMISSION
@@ -107,7 +102,7 @@ Shader "VertexPainter/SplatBlend_4Layer"
          float2 uv3 = IN.uv_Tex1 * _TexScale3;
          float2 uv4 = IN.uv_Tex1 * _TexScale4;
          INIT_FLOW
-         #if _FLOWDRIFT || !_PARALLAXMAP
+         #if _FLOWDRIFT
          fixed4 c1 = FETCH_TEX1(_Tex1, uv1);
          fixed4 c2 = FETCH_TEX2(_Tex2, uv2);
          fixed4 c3 = FETCH_TEX3(_Tex3, uv3);
@@ -134,9 +129,6 @@ Shader "VertexPainter/SplatBlend_4Layer"
             #if _FLOWREFRACTION && _NORMALMAP
                half4 rn = FETCH_TEX2 (_Normal2, uv2) - 0.5;
                uv1 += rn.xy * b1 * _FlowRefraction;
-               #if !_PARALLAXMAP 
-                  c1 = FETCH_TEX1(_Tex1, uv1);
-               #endif
             #endif
          #endif
          #if _FLOW3
@@ -145,10 +137,6 @@ Shader "VertexPainter/SplatBlend_4Layer"
                half4 rn = FETCH_TEX3 (_Normal3, uv3) - 0.5;
                uv1 += rn.xy * b1 * _FlowRefraction;
                uv2 += rn.xy * b2 * _FlowRefraction;
-               #if !_PARALLAXMAP 
-                  c1 = FETCH_TEX1(_Tex1, uv1);
-                  c2 = FETCH_TEX2(_Tex2, uv2);
-               #endif
             #endif
          #endif
          #if _FLOW4
@@ -158,32 +146,9 @@ Shader "VertexPainter/SplatBlend_4Layer"
                uv1 += rn.xy * b1 * _FlowRefraction;
                uv2 += rn.xy * b2 * _FlowRefraction;
                uv3 += rn.xy * b3 * _FlowRefraction;
-               #if !_PARALLAXMAP 
-                  c1 = FETCH_TEX1(_Tex1, uv1);
-                  c2 = FETCH_TEX2(_Tex2, uv2);
-                  c3 = FETCH_TEX3(_Tex3, uv3);
-               #endif
             #endif
          #endif
-
-         #if _PARALLAXMAP
-         float parallax = lerp(lerp(lerp(_Parallax1, _Parallax2, b1), _Parallax3, b2), _Parallax4, b3);
-         float2 offset = ParallaxOffset (lerp(lerp(lerp(c1.a, c2.a, b1),c3.a, b2), c4.a, b3), parallax, IN.viewDir);
-         uv1 += offset;
-         uv2 += offset;
-         uv3 += offset;
-         uv4 += offset;
-         c1 = FETCH_TEX1(_Tex1, uv1);
-         c2 = FETCH_TEX2(_Tex2, uv2);
-         c3 = FETCH_TEX3(_Tex3, uv3);
-         c4 = FETCH_TEX4(_Tex4, uv4);
-         #if (_FLOW1 || _FLOW2 || _FLOW3 || _FLOW4 || _FLOW5)
-         fuv1 += offset;
-         fuv2 += offset;
-         #endif
-         #endif
-         
-         
+                  
          fixed4 c = lerp(lerp(lerp(c1 * _Tint1, c2 * _Tint2, b1), c3 * _Tint3, b2), c4 * _Tint4, b3);
          
          #if _METALLICGLOSSMAP

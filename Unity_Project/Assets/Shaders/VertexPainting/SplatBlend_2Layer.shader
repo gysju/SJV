@@ -14,7 +14,6 @@ Shader "VertexPainter/SplatBlend_2Layer"
       _Metallic1 ("Metallic", Range(0,1)) = 0.0
       _Emissive1  ("Emissive", 2D) = "black" {}
       _EmissiveMult1("Emissive Multiplier", Float) = 1
-      _Parallax1 ("Parallax Height", Range (0.005, 0.08)) = 0.02
       _TexScale1 ("Texture Scale", Float) = 1
       
       
@@ -26,7 +25,6 @@ Shader "VertexPainter/SplatBlend_2Layer"
       _Metallic2 ("Metallic", Range(0,1)) = 0.0
       _Emissive2  ("Emissive", 2D) = "black" {}
       _EmissiveMult2("Emissive Multiplier", Float) = 1
-      _Parallax2 ("Parallax Height", Range (0.005, 0.08)) = 0.02
       _TexScale2 ("Texture Scale", Float) = 1
       _Contrast2("Contrast", Range(0,0.99)) = 0.5
       
@@ -50,7 +48,6 @@ Shader "VertexPainter/SplatBlend_2Layer"
       // doing a branch would be fine since the branch would always go the same direction on
       // each pixel. If you are running low on keywords, that could be a viable option for you.
       #pragma surface surf Standard vertex:vert fullforwardshadows
-      #pragma shader_feature __ _PARALLAXMAP
       #pragma shader_feature __ _NORMALMAP
       #pragma shader_feature __ _METALLICGLOSSMAP
       #pragma shader_feature __ _EMISSION
@@ -59,10 +56,6 @@ Shader "VertexPainter/SplatBlend_2Layer"
       #pragma shader_feature __ _FLOWDRIFT 
       #pragma shader_feature __ _FLOWREFRACTION
       #pragma shader_feature __ _DISTBLEND
-
-      #pragma exclude_renderers wiiu flash psp2 n3ds xboxone metal 
-
- 	  #pragma target 5.0
 
       #include "SplatBlend_Shared.cginc"
       
@@ -78,7 +71,7 @@ Shader "VertexPainter/SplatBlend_2Layer"
          float2 uv1 = IN.uv_Tex1 * _TexScale1;
          float2 uv2 = IN.uv_Tex1 * _TexScale2;
          INIT_FLOW
-         #if _FLOWDRIFT || !_PARALLAXMAP 
+         #if _FLOWDRIFT 
          fixed4 c1 = FETCH_TEX1(_Tex1, uv1);
          fixed4 c2 = FETCH_TEX2(_Tex2, uv2);
          #elif _DISTBLEND
@@ -98,26 +91,9 @@ Shader "VertexPainter/SplatBlend_2Layer"
             #if _FLOWREFRACTION && _NORMALMAP
                half4 rn = FETCH_TEX2 (_Normal2, uv2) - 0.5;
                uv1 += rn.xy * b1 * _FlowRefraction;
-               #if !_PARALLAXMAP 
-                  c1 = FETCH_TEX1(_Tex1, uv1);
-               #endif
             #endif
          #endif
-
-
-         #if _PARALLAXMAP
-         float parallax = lerp(_Parallax1, _Parallax2, b1);
-         float2 offset = ParallaxOffset (lerp(c1.a, c2.a, b1), parallax, IN.viewDir);
-         uv1 += offset;
-         uv2 += offset;
-         c1 = FETCH_TEX1(_Tex1, uv1);
-         c2 = FETCH_TEX2(_Tex2, uv2);
-         #if (_FLOW1 || _FLOW2 || _FLOW3 || _FLOW4 || _FLOW5)
-         fuv1 += offset;
-         fuv2 += offset;
-         #endif
-         #endif
-         
+                  
          fixed4 c = lerp(c1 * _Tint1, c2 * _Tint2, b1);
          
          #if _METALLICGLOSSMAP
