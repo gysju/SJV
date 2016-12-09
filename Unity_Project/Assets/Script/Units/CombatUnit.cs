@@ -46,11 +46,16 @@ public class CombatUnit : Unit
     #endregion
 
     #region HitPoints Related
-    protected override void Die()
+    protected override void StartDying()
     {
-        base.Die();
+        base.StartDying();
         CeaseFire();
         m_radar.enabled = false;
+    }
+
+    protected override void FinishDying()
+    {
+        base.FinishDying();
     }
     #endregion
 

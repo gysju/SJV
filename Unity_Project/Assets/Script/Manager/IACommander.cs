@@ -36,7 +36,7 @@ public class IACommander : MonoBehaviour
         return lengthSoFar;
     }
 
-    protected void PatrolToPlayer(IA unitAskingOrder)
+    protected void SearchPlayerLastPosition(IA unitAskingOrder)
     {
         unitAskingOrder.GiverDestroyOrder(m_player);
     }
@@ -88,12 +88,12 @@ public class IACommander : MonoBehaviour
         }
     }
 
-    public void AskMovementOrder(IA unitAskingOrder)
+    public void AskOrder(IA unitAskingOrder)
     {
-        if (unitAskingOrder.GetComponent<Unit>() is HoverTank)
+        if (unitAskingOrder.GetComponent<Unit>() is AirUnit)
+            SearchPlayerLastPosition(unitAskingOrder);
+        else if(unitAskingOrder.GetComponent<Unit>() is HoverTank)
             CaptureClosestPoint(unitAskingOrder);
-        else if (unitAskingOrder.GetComponent<Unit>() is AirUnit)
-            PatrolToPlayer(unitAskingOrder);
     }
 
 	public void ReactionDroneSquadron()
