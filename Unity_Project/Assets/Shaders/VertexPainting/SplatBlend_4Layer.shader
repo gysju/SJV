@@ -162,12 +162,13 @@ Shader "VertexPainter/SplatBlend_4Layer"
 
 			fixed4 RGB_Nx = lerp(lerp(lerp(RGB_Nx1, RGB_Nx2, b1), RGB_Nx3, b2), RGB_Nx4, b3);
 			fixed4 MEH_Ny = lerp(lerp(lerp(MEH_Ny1, MEH_Ny2, b1), MEH_Ny3, b2), MEH_Ny4, b3);
+			fixed emissiveColor = lerp(lerp(lerp(_EmissiveColor1, _EmissiveColor2, b1), _EmissiveColor3, b2), _EmissiveColor4, b3);
 
 			o.Normal = UnpackNormal(float4(0, RGB_Nx.a, 0, MEH_Ny.a));
 			o.Smoothness = 0;
 			o.Metallic = MEH_Ny.r;
 
-			o.Emission = 0;
+			o.Emission = MEH_Ny.g * emissiveColor;
 			o.Albedo = RGB_Nx.rgb;
 		}
 		ENDCG

@@ -1,8 +1,3 @@
-//
-// If your looking for example code to make your own shaders, I suggest looking at the included examples. 
-// This shader uses lots of compiler/C Macro abuse which is going to make it much harder to understand
-// than the included examples. 
-
 Shader "VertexPainter/SplatBlend_3Layer" 
 {
 	Properties 
@@ -105,9 +100,9 @@ Shader "VertexPainter/SplatBlend_3Layer"
 			fixed4 MEH_Ny3 = tex2D(_MEH_Ny3, uv3);
 			#endif
          
-			half b1 = HeightBlend(0, 0, IN.color.r, _Contrast2);
-			fixed h1 =  lerp(RGB_Nx1.a, RGB_Nx2.a, b1);
-			half b2 = HeightBlend(h1, 0, IN.color.g, _Contrast3);
+			half b1 = HeightBlend(MEH_Ny1.g, MEH_Ny1.g, IN.color.r, _Contrast2);
+			fixed h1 =  lerp(MEH_Ny1.g, MEH_Ny2.g, b1);
+			half b2 = HeightBlend(h1, MEH_Ny3.g, IN.color.g, _Contrast3);
 
 			#if _FLOW2
 			b1 *= _FlowAlpha;
@@ -135,11 +130,12 @@ Shader "VertexPainter/SplatBlend_3Layer"
 			fixed4 RGB_Nx = lerp(lerp( RGB_Nx1, RGB_Nx2, b1), RGB_Nx3, b2);
 			fixed4 MEH_Ny = lerp(lerp(MEH_Ny1, MEH_Ny2, b1), MEH_Ny3, b2);
 
+			float emissiveColor = lerp(lerp(_EmissiveColor1, _EmissiveColor2, b1), _EmissiveColor3, b2);
 			o.Normal = UnpackNormal(float4(0, RGB_Nx.a, 0, MEH_Ny.a));
 			
 			o.Smoothness = 0;
 			o.Metallic = MEH_Ny.r;		         
-			o.Emission = 0;// MEH_Ny.g;
+			o.Emission = MEH_Ny.g *= emissiveColor;
          	o.Albedo = RGB_Nx.rgb;
 		
 		}

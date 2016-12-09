@@ -86,14 +86,13 @@ Shader "VertexPainter/SplatBlend_2Layer"
          MEH_Ny1.g *=_EmissiveMult1;
          MEH_Ny2.g *=_EmissiveMult2;
 
-         half b1 = HeightBlend(0, 0, IN.color.r, _Contrast2);
+         half b1 = HeightBlend(MEH_Ny1.g, MEH_Ny2.g, IN.color.r, _Contrast2);
          fixed4 RGB_Nx = lerp(RGB_Nx1, RGB_Nx2, b1);
          fixed4 MEH_Ny = lerp(MEH_Ny1, MEH_Ny2, b1);
-
-         o.Normal =  UnpackNormal(float4(0, RGB_Nx.a,0, MEH_Ny.a));
-
+		 fixed emissiveColor = lerp(_EmissiveColor1, _EmissiveColor2, b1);
          // flow refraction; use difference in depth to control refraction amount, refetch all previous color textures if not parallaxing
          #if _FLOW2
+			
             b1 *= _FlowAlpha;
             #if _FLOWREFRACTION
                half4 rn = FETCH_TEX2 (_Normal2, uv2) - 0.5;
@@ -101,10 +100,11 @@ Shader "VertexPainter/SplatBlend_2Layer"
             #endif
          #endif
                            
+         o.Normal =  UnpackNormal(float4(0, RGB_Nx.a,0, MEH_Ny.a));
          
          o.Smoothness = 0;
          o.Metallic = MEH_Ny.r;
-		 o.Emission = 0;// MEH_Ny.g;// * lerp(_EmissiveColor1, _EmissiveColor2, b1);
+		 o.Emission = MEH_Ny.g * emissiveColor;// * lerp(_EmissiveColor1, _EmissiveColor2, b1);
          o.Albedo = RGB_Nx.rgb;
          
       }
