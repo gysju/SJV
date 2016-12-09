@@ -12,19 +12,19 @@ public class SplatMapShaderGUI : ShaderGUI
 	{
 		EditorGUIUtility.labelWidth = 0f;
 		var RGB_Nx = FindProperty ("_RGB_Nx" + i, props);
-		var MHE_Ny = FindProperty ("_MEH_Ny" + i, props);
+		var RHE_Ny = FindProperty ("_REH_Ny" + i, props);
 		var tint = FindProperty("_Tint" + i, props);
-		var smoothness = FindProperty("_Glossiness" + i, props);
+		var smoothness = FindProperty("_Roughness" + i, props);
 		var emissionMult = FindProperty("_EmissiveMult" + i, props);
 		var emissionColor = FindProperty("_EmissiveColor" + i, props);
 		var texScale = FindProperty("_TexScale" + i, props);
 		var distUVScale = FindProperty("_DistUVScale" + i, props, false);
 
 		editor.TexturePropertySingleLine(new GUIContent("Albedo + Nx"), RGB_Nx);
-		editor.TexturePropertySingleLine(new GUIContent("Metal + Emissive + Height + Ny"), MHE_Ny);
+		editor.TexturePropertySingleLine(new GUIContent("Roughness + Emissive + Height + Ny"), RHE_Ny);
 		editor.ShaderProperty(tint, "Tint");
 
-		editor.ShaderProperty(smoothness, "Smoothness");
+		editor.ShaderProperty(smoothness, "Roughness");
 
 		editor.ShaderProperty(emissionMult, "Emissive Multiplier");
 		editor.ShaderProperty(emissionColor, "Emissive Color");
