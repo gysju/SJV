@@ -1,82 +1,67 @@
-//
-// If your looking for example code to make your own shaders, I suggest looking at the included examples. 
-// This shader uses lots of compiler/C Macro abuse which is going to make it much harder to understand
-// than the included examples. 
-
 Shader "VertexPainter/SplatBlend_4Layer" 
 {
-   Properties {
-      _RGB_Nx1 ("Albedo + Nx", 2D) = "white" {}
-      _Tex1 ("Albedo + Height", 2D) = "white" {}
-      _Tint1 ("Tint", Color) = (1, 1, 1, 1)
-      [NoScaleOffset][Normal]_Normal1("Normal", 2D) = "bump" {}
-      _Glossiness1 ("Smoothness", Range(0,1)) = 0.5
-      [NoScaleOffset]_GlossinessTex1("Metallic(R)/Smoothness(A)", 2D) = "black" {}
-      _Metallic1 ("Metallic", Range(0,1)) = 0.0
-      _Emissive1  ("Emissive", 2D) = "black" {}
-      _EmissiveMult1("Emissive Multiplier", Float) = 1
-      _TexScale1 ("Texture Scale", Float) = 1
-      
-      
-      _Tex2("Albedo + Height", 2D) = "white" {}
-      _Tint2 ("Tint", Color) = (1, 1, 1, 1)
-      [NoScaleOffset][Normal]_Normal2("Normal", 2D) = "bump" {}
-      _Glossiness2 ("Smoothness", Range(0,1)) = 0.5
-      [NoScaleOffset]_GlossinessTex2("Metallic(R)/Smoothness(A)", 2D) = "black" {}
-      _Metallic2 ("Metallic", Range(0,1)) = 0.0
-      _Emissive2  ("Emissive", 2D) = "black" {}
-      _EmissiveMult2("Emissive Multiplier", Float) = 1
-      _TexScale2 ("Texture Scale", Float) = 1
-      _Contrast2("Contrast", Range(0,0.99)) = 0.5
-      
-      _Tex3("Albedo + Height", 2D) = "white" {}
-      _Tint3 ("Tint", Color) = (1, 1, 1, 1)
-      [NoScaleOffset][Normal]_Normal3("Normal", 2D) = "bump" {}
-      _Glossiness3 ("Smoothness", Range(0,1)) = 0.5
-      [NoScaleOffset]_GlossinessTex3("Metallic(R)/Smoothness(A)", 2D) = "black" {}
-      _Metallic3 ("Metallic", Range(0,1)) = 0.0
-      _Emissive3  ("Emissive", 2D) = "black" {}
-      _EmissiveMult3("Emissive Multiplier", Float) = 1
-      _TexScale3 ("Texture Scale", Float) = 1
-      _Contrast3("Contrast", Range(0,0.99)) = 0.5
-      
-      _Tex4("Albedo + Height", 2D) = "white" {}
-      _Tint4 ("Tint", Color) = (1, 1, 1, 1)
-      [NoScaleOffset][Normal]_Normal4("Normal", 2D) = "bump" {}
-      _Glossiness4 ("Smoothness", Range(0,1)) = 0.5
-      [NoScaleOffset]_GlossinessTex4("Metallic(R)/Smoothness(A)", 2D) = "black" {}
-      _Metallic4 ("Metallic", Range(0,1)) = 0.0
-      _Emissive4  ("Emissive", 2D) = "black" {}
-      _EmissiveMult4("Emissive Multiplier", Float) = 1
-      _TexScale4 ("Texture Scale", Float) = 1
-      _Contrast4("Contrast", Range(0,0.99)) = 0.5
-      
-      
-      _FlowSpeed ("Flow Speed", Float) = 0
-      _FlowIntensity ("Flow Intensity", Float) = 1
-      _FlowAlpha ("Flow Alpha", Range(0, 1)) = 1
-      _FlowRefraction("Flow Refraction", Range(0, 0.3)) = 0.04
+	Properties 
+	{
+		_RGB_Nx1("Albedo + Nx", 2D) = "white" {}
+		[NoScaleOffset]_MEH_Ny1("Metal + Emissive + Height + Ny", 2D) = "white" {}
+		_Tint1("Tint", Color) = (1, 1, 1, 1)
+		_Glossiness1("Smoothness", Range(0,1)) = 0.5
+		_Metallic1("Metallic", Range(0,1)) = 0.0
+		_EmissiveMult1("Emissive Multiplier", Float) = 1
+		_EmissiveColor1("EmissiveColor", Color) = (1, 1, 1, 1)
+		_TexScale1("Texture Scale", Float) = 1
 
-      _DistBlendMin("Distance Blend Begin", Float) = 0
-      _DistBlendMax("Distance Blend Max", Float) = 100
-      _DistUVScale1("Distance UV Scale", Float) = 0.5
-      _DistUVScale2("Distance UV Scale", Float) = 0.5
-      _DistUVScale3("Distance UV Scale", Float) = 0.5
-      _DistUVScale4("Distance UV Scale", Float) = 0.5
-   }
-   SubShader {
+		_RGB_Nx2("Albedo + Nx", 2D) = "white" {}
+		[NoScaleOffset]_MEH_Ny2("Metal + Emissive + Height + Ny", 2D) = "white" {}
+		_Tint2("Tint", Color) = (1, 1, 1, 1)
+		_Glossiness2("Smoothness", Range(0,1)) = 0.5
+		_Metallic2("Metallic", Range(0,1)) = 0.0
+		_EmissiveMult2("Emissive Multiplier", Float) = 1
+		_EmissiveColor2("EmissiveColor", Color) = (1, 1, 1, 1)
+		_TexScale2("Texture Scale", Float) = 1
+		_Contrast2("Contrast", Range(0,0.99)) = 0.5
+
+		_RGB_Nx3("Albedo + Nx", 2D) = "white" {}
+		[NoScaleOffset]_MEH_Ny3("Metal + Emissive + Height + Ny", 2D) = "white" {}
+		_Tint3("Tint", Color) = (1, 1, 1, 1)
+		_Glossiness3("Smoothness", Range(0,1)) = 0.5
+		_Metallic3("Metallic", Range(0,1)) = 0.0
+		_EmissiveMult3("Emissive Multiplier", Float) = 1
+		_EmissiveColor3("EmissiveColor", Color) = (1, 1, 1, 1)
+		_TexScale3("Texture Scale", Float) = 1
+		_Contrast3("Contrast", Range(0,0.99)) = 0.5
+
+		_RGB_Nx4("Albedo + Nx", 2D) = "white" {}
+		[NoScaleOffset]_MEH_Ny4("Metal + Emissive + Height + Ny", 2D) = "white" {}
+		_Tint4("Tint", Color) = (1, 1, 1, 1)
+		_Glossiness4("Smoothness", Range(0,1)) = 0.5
+		_Metallic4("Metallic", Range(0,1)) = 0.0
+		_EmissiveMult4("Emissive Multiplier", Float) = 1
+		_EmissiveColor4("EmissiveColor", Color) = (1, 1, 1, 1)
+		_TexScale4("Texture Scale", Float) = 1
+		_Contrast4("Contrast", Range(0,0.99)) = 0.5
+
+		_FlowSpeed("Flow Speed", Float) = 0
+		_FlowIntensity("Flow Intensity", Float) = 1
+		_FlowAlpha("Flow Alpha", Range(0, 1)) = 1
+		_FlowRefraction("Flow Refraction", Range(0, 0.3)) = 0.04
+
+		_DistBlendMin("Distance Blend Begin", Float) = 0
+		_DistBlendMax("Distance Blend Max", Float) = 100
+		_DistUVScale1("Distance UV Scale", Float) = 0.5
+		_DistUVScale2("Distance UV Scale", Float) = 0.5
+		_DistUVScale3("Distance UV Scale", Float) = 0.5
+		_DistUVScale4("Distance UV Scale", Float) = 0.5
+	}
+	SubShader 
+	{
       Tags { "RenderType"="Opaque" }
       LOD 200
       
       CGPROGRAM
       
-      // these are done with shader compile options - but honestly, on most modern hardware,
-      // doing a branch would be fine since the branch would always go the same direction on
-      // each pixel. If you are running low on keywords, that could be a viable option for you.
       #pragma surface surf Standard vertex:vert fullforwardshadows
-      #pragma shader_feature __ _NORMALMAP
-      #pragma shader_feature __ _METALLICGLOSSMAP
-      #pragma shader_feature __ _EMISSION
+      
       // flow map keywords. 
       #pragma shader_feature __ _FLOW1 _FLOW2 _FLOW3 _FLOW4 
       #pragma shader_feature __ _FLOWDRIFT 
@@ -92,105 +77,101 @@ Shader "VertexPainter/SplatBlend_4Layer"
       
       void surf (Input IN, inout SurfaceOutputStandard o) 
       {
-         
-         //////////////////
-         // Four Layer
-         //////////////////
-         COMPUTEDISTBLEND
+			COMPUTEDISTBLEND
 
-         float2 uv1 = IN.uv_Tex1 * _TexScale1;
-         float2 uv2 = IN.uv_Tex1 * _TexScale2;
-         float2 uv3 = IN.uv_Tex1 * _TexScale3;
-         float2 uv4 = IN.uv_Tex1 * _TexScale4;
-         INIT_FLOW
-         #if _FLOWDRIFT
-         fixed4 c1 = FETCH_TEX1(_Tex1, uv1);
-         fixed4 c2 = FETCH_TEX2(_Tex2, uv2);
-         fixed4 c3 = FETCH_TEX3(_Tex3, uv3);
-         fixed4 c4 = FETCH_TEX4(_Tex4, uv4);
-         #elif _DISTBLEND
-         fixed4 c1 = lerp(tex2D(_Tex1, uv1), tex2D(_Tex1, uv1*_DistUVScale1), dist);
-         fixed4 c2 = lerp(tex2D(_Tex2, uv2), tex2D(_Tex2, uv2*_DistUVScale2), dist);
-         fixed4 c3 = lerp(tex2D(_Tex3, uv3), tex2D(_Tex3, uv3*_DistUVScale3), dist);
-         fixed4 c4 = lerp(tex2D(_Tex4, uv4), tex2D(_Tex4, uv4*_DistUVScale4), dist);
-         #else
-         fixed4 c1 = tex2D(_Tex1, uv1);
-         fixed4 c2 = tex2D(_Tex2, uv2);
-         fixed4 c3 = tex2D(_Tex3, uv3);
-         fixed4 c4 = tex2D(_Tex4, uv4);
-         #endif
-         half b1 = HeightBlend(c1.a, c2.a, IN.color.r, _Contrast2);
-         fixed h1 = lerp(c1.a, c2.a, b1);
-         half b2 = HeightBlend(h1, c3.a, IN.color.g, _Contrast3);
-         fixed h2 = lerp(h1, c2.a, b1);
-         half b3 = HeightBlend(h2, c4.a, IN.color.b, _Contrast4);
+			float2 uv1 = IN.uv_RGB_Nx1 * _TexScale1;
+			float2 uv2 = IN.uv_RGB_Nx1 * _TexScale2;
+			float2 uv3 = IN.uv_RGB_Nx1 * _TexScale3;
+			float2 uv4 = IN.uv_RGB_Nx1 * _TexScale4;
 
-         #if _FLOW2
-            b1 *= _FlowAlpha;
-            #if _FLOWREFRACTION && _NORMALMAP
-               half4 rn = FETCH_TEX2 (_Normal2, uv2) - 0.5;
-               uv1 += rn.xy * b1 * _FlowRefraction;
-            #endif
-         #endif
-         #if _FLOW3
-            b2 *= _FlowAlpha;
-            #if _FLOWREFRACTION && _NORMALMAP
-               half4 rn = FETCH_TEX3 (_Normal3, uv3) - 0.5;
-               uv1 += rn.xy * b1 * _FlowRefraction;
-               uv2 += rn.xy * b2 * _FlowRefraction;
-            #endif
-         #endif
-         #if _FLOW4
-            b3 *= _FlowAlpha;
-            #if _FLOWREFRACTION && _NORMALMAP
-               half4 rn = FETCH_TEX4 (_Normal4, uv4) - 0.5;
-               uv1 += rn.xy * b1 * _FlowRefraction;
-               uv2 += rn.xy * b2 * _FlowRefraction;
-               uv3 += rn.xy * b3 * _FlowRefraction;
-            #endif
-         #endif
+			INIT_FLOW
+			#if _FLOWDRIFT
+			fixed4 RGB_Nx1 = FETCH_TEX1(_RGB_Nx1, uv1);
+			fixed4 RGB_Nx2 = FETCH_TEX2(_RGB_Nx2, uv2);
+			fixed4 RGB_Nx3 = FETCH_TEX3(_RGB_Nx3, uv3);
+			fixed4 RGB_Nx4 = FETCH_TEX4(_RGB_Nx4, uv4);
+
+			fixed4 MEH_Ny1 = FETCH_TEX1(_MEH_Ny1, uv1);
+			fixed4 MEH_Ny2 = FETCH_TEX2(_MEH_Ny2, uv2);
+			fixed4 MEH_Ny3 = FETCH_TEX3(_MEH_Ny3, uv3);
+			fixed4 MEH_Ny4 = FETCH_TEX4(_MEH_Ny4, uv4);
+
+			#elif _DISTBLEND
+			fixed4 RGB_Nx1 = lerp(tex2D(_RGB_Nx1, uv1), tex2D(_RGB_Nx1, uv1*_DistUVScale1), dist);
+			fixed4 RGB_Nx2 = lerp(tex2D(_RGB_Nx2, uv2), tex2D(_RGB_Nx2, uv2*_DistUVScale2), dist);
+			fixed4 RGB_Nx3 = lerp(tex2D(_RGB_Nx3, uv3), tex2D(_RGB_Nx3, uv3*_DistUVScale3), dist);
+			fixed4 RGB_Nx4 = lerp(tex2D(_RGB_Nx4, uv4), tex2D(_RGB_Nx4, uv4*_DistUVScale4), dist);
+
+			fixed4 MEH_Ny1 = lerp(tex2D(_MEH_Ny1, uv1), tex2D(_MEH_Ny1, uv1*_DistUVScale1), dist);
+			fixed4 MEH_Ny2 = lerp(tex2D(_MEH_Ny2, uv2), tex2D(_MEH_Ny2, uv2*_DistUVScale2), dist);
+			fixed4 MEH_Ny3 = lerp(tex2D(_MEH_Ny3, uv3), tex2D(_MEH_Ny3, uv3*_DistUVScale3), dist);
+			fixed4 MEH_Ny4 = lerp(tex2D(_MEH_Ny4, uv4), tex2D(_MEH_Ny4, uv4*_DistUVScale4), dist);
+
+			#else
+			fixed4 RGB_Nx1 = tex2D(_RGB_Nx1, uv1);
+			fixed4 RGB_Nx2 = tex2D(_RGB_Nx2, uv2);
+			fixed4 RGB_Nx3 = tex2D(_RGB_Nx3, uv3);
+			fixed4 RGB_Nx4 = tex2D(_RGB_Nx4, uv4);
+
+			fixed4 MEH_Ny1 = tex2D(_MEH_Ny1, uv1);
+			fixed4 MEH_Ny2 = tex2D(_MEH_Ny2, uv2);
+			fixed4 MEH_Ny3 = tex2D(_MEH_Ny3, uv3);
+			fixed4 MEH_Ny4 = tex2D(_MEH_Ny4, uv4);
+			#endif
+
+			half b1 = HeightBlend(0, 0, IN.color.r, _Contrast2);
+			fixed h1 = lerp(0, 0, b1);
+			half b2 = HeightBlend(h1, 0, IN.color.g, _Contrast3);
+			fixed h2 = lerp(h1, 0, b1);
+			half b3 = HeightBlend(h2, 0, IN.color.b, _Contrast4);
+
+			#if _FLOW2
+			b1 *= _FlowAlpha;
+			#if _FLOWREFRACTION
+				half4 rn = FETCH_TEX2 (_Normal2, uv2) - 0.5;
+				uv1 += rn.xy * b1 * _FlowRefraction;
+			#endif
+			#endif
+			#if _FLOW3
+			b2 *= _FlowAlpha;
+			#if _FLOWREFRACTION
+				half4 rn = FETCH_TEX3 (_Normal3, uv3) - 0.5;
+				uv1 += rn.xy * b1 * _FlowRefraction;
+				uv2 += rn.xy * b2 * _FlowRefraction;
+			#endif
+			#endif
+			#if _FLOW4
+			b3 *= _FlowAlpha;
+			#if _FLOWREFRACTION
+				half4 rn = FETCH_TEX4 (_Normal4, uv4) - 0.5;
+				uv1 += rn.xy * b1 * _FlowRefraction;
+				uv2 += rn.xy * b2 * _FlowRefraction;
+				uv3 += rn.xy * b3 * _FlowRefraction;
+			#endif
+			#endif
                   
-         fixed4 c = lerp(lerp(lerp(c1 * _Tint1, c2 * _Tint2, b1), c3 * _Tint3, b2), c4 * _Tint4, b3);
-         
-         #if _METALLICGLOSSMAP
-         fixed4 g1 = FETCH_TEX1(_GlossinessTex1, uv1);
-         fixed4 g2 = FETCH_TEX2(_GlossinessTex2, uv2);
-         fixed4 g3 = FETCH_TEX3(_GlossinessTex3, uv3);
-         fixed4 g4 = FETCH_TEX4(_GlossinessTex4, uv4);
-         fixed4 gf = lerp(lerp(lerp(g1, g2, b1), g3, b2), g4, b3);
-         o.Smoothness = gf.a;
-         o.Metallic = gf.r;
-         #else
-         o.Smoothness = lerp(lerp(lerp(_Glossiness1, _Glossiness2, b1), _Glossiness3, b2), _Glossiness4, b3);
-         o.Metallic = lerp(lerp(lerp(_Metallic1, _Metallic2, b1), _Metallic3, b2), _Metallic3, b3);
-         #endif
+			RGB_Nx1.rgb *= _Tint1.rgb;
+			RGB_Nx2.rgb *= _Tint2.rgb;
+			RGB_Nx3.rgb *= _Tint3.rgb;
+			RGB_Nx4.rgb *= _Tint4.rgb;
 
-         
-         #if _EMISSION
-         fixed4 e1 = FETCH_TEX1(_Emissive1, uv1);
-         fixed4 e2 = FETCH_TEX2(_Emissive2, uv2);
-         fixed4 e3 = FETCH_TEX3(_Emissive3, uv3);
-         fixed4 e4 = FETCH_TEX4(_Emissive4, uv4);
-         o.Emission = lerp(lerp(lerp(e1.rgb * _EmissiveMult1, 
-                                     e2.rgb * _EmissiveMult2, b1), 
-                                     e3.rgb * _EmissiveMult3, b2),
-                                     e4.rgb * _EmissiveMult4, b3);
-         #endif
-         
-         
-         #if _NORMALMAP
-         half4 n1 =  (FETCH_TEX1 (_Normal1, uv1));
-         half4 n2 =  (FETCH_TEX2 (_Normal2, uv2));
-         half4 n3 =  (FETCH_TEX3 (_Normal3, uv3));
-         half4 n4 =  (FETCH_TEX4 (_Normal4, uv4));
-         o.Normal = UnpackNormal(lerp(lerp(lerp(n1, n2, b1), n3, b2), n4, b3));
-         #endif
-         
-         o.Albedo = c.rgb;
-         
-      }
-      ENDCG
-   } 
-   CustomEditor "SplatMapShaderGUI"
-   FallBack "Diffuse"
+			MEH_Ny1.g *= _EmissiveMult1;
+			MEH_Ny2.g *= _EmissiveMult2;
+			MEH_Ny3.g *= _EmissiveMult3;
+			MEH_Ny4.g *= _EmissiveMult4;
+
+			fixed4 RGB_Nx = lerp(lerp(lerp(RGB_Nx1, RGB_Nx2, b1), RGB_Nx3, b2), RGB_Nx4, b3);
+			fixed4 MEH_Ny = lerp(lerp(lerp(MEH_Ny1, MEH_Ny2, b1), MEH_Ny3, b2), MEH_Ny4, b3);
+
+			o.Normal = UnpackNormal(float4(0, RGB_Nx.a, 0, MEH_Ny.a));
+			o.Smoothness = 0;
+			o.Metallic = MEH_Ny.r;
+
+			o.Emission = 0;
+			o.Albedo = RGB_Nx.rgb;
+		}
+		ENDCG
+	} 
+	CustomEditor "SplatMapShaderGUI"
+	FallBack "Diffuse"
 }
