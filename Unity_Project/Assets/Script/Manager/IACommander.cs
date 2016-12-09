@@ -96,6 +96,11 @@ public class IACommander : MonoBehaviour
             CaptureClosestPoint(unitAskingOrder);
     }
 
+	public void ReactionDroneSquadron()
+	{
+		
+	}
+
 	void Update ()
     {
 	    
