@@ -14,18 +14,15 @@ Shader "Custom/StantardShader_RGB_N_MGE" {
 		LOD 200
 		
 		CGPROGRAM
-		#pragma surface surf Standard fullforwardshadows  vertex:vert
+		#pragma surface surf Standard fullforwardshadows
 
 		#pragma target 5.0
 
 		sampler2D _RGB_Nx, _MRE_Ny;
-		half4 _RGB_Nx_ST;
 
 		struct Input 
 		{
-            half4 normal_U;
-            half4 tangent_V;
-            half3 binormal;
+			float2 uv_RGB_Nx;
         };
 
 		half _Glossiness;
@@ -34,27 +31,20 @@ Shader "Custom/StantardShader_RGB_N_MGE" {
 
 		fixed4 _EmissiveColor;
 
-		void vert( inout appdata_full v, out Input o )
-        {
-            float2 UV = v.texcoord;
-            o.normal_U = half4(normalize(mul(unity_ObjectToWorld, half4(v.normal,0)).xyz), UV.x);
-            o.tangent_V = half4(normalize(mul(unity_ObjectToWorld, half4(v.tangent.xyz,0)).xyz), UV.y);
-            o.binormal = cross( o.normal_U.xyz, o.tangent_V.xyz ) * v.tangent.w;          
-        }
-
 		void surf (Input IN, inout SurfaceOutputStandard o) 
 		{
-			fixed4 RGB_Nx = tex2D (_RGB_Nx, float2(IN.normal_U.a, IN.tangent_V.a) * _RGB_Nx_ST.xy + _RGB_Nx_ST.wz);
-			fixed4 MRE_Ny = tex2D (_MRE_Ny, float2(IN.normal_U.a, IN.tangent_V.a) * _RGB_Nx_ST.xy + _RGB_Nx_ST.wz);
+			fixed4 RGB_Nx = tex2D (_RGB_Nx, IN.uv_RGB_Nx);
+			fixed4 MRE_Ny = tex2D (_MRE_Ny, IN.uv_RGB_Nx);
 
-            half3 N = UnpackNormal(float4(0,MRE_Ny.a,0,RGB_Nx.a));
+            half3 N = UnpackNormal(float4(0,RGB_Nx.a, 0, MRE_Ny.a));
 
-  			o.Albedo = RGB_Nx.rgb;
-			o.Normal = N;
-			o.Metallic = _Metallic * MRE_Ny.x;
-			o.Smoothness = _Glossiness;
 			o.Emission = MRE_Ny.z * (_EmissiveColor * _Emission );
 			o.Alpha = 1;
+  			
+			o.Albedo = RGB_Nx.rgb;
+			o.Normal = N;
+			o.Metallic = (_Metallic * MRE_Ny.x);
+			o.Smoothness = _Glossiness * ( 1 - MRE_Ny.y);
 		}
 		ENDCG
 	}
