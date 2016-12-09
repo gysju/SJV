@@ -25,6 +25,9 @@ public class Player : MobileGroundUnit
     private Vector3 m_rightWeaponDefaultPosition;
     private Weapon m_rightWeapon;
 
+	public int m_healPower;
+	public float m_healCastTime;
+
     public GameObject m_pointer;
     private GameObject m_destinationPointer = null;
 
@@ -276,6 +279,25 @@ public class Player : MobileGroundUnit
     {
         m_rightWeapon.transform.LookAt(targetPosition);
     }
+
+	IEnumerator SelfRepair()
+	{
+		while (true)
+		{
+			yield return new WaitForSeconds (m_healCastTime);
+			Repair (m_healPower);
+		}
+	}
+
+	void StartSelfRepair()
+	{
+		StartCoroutine (SelfRepair());
+	}
+
+	void StopSelfRepair()
+	{
+		StopCoroutine (SelfRepair());
+	}
     #endregion
     #endregion
 
