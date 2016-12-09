@@ -20,6 +20,7 @@ Shader "VertexPainter/SplatBlend_2Layer"
       _TexScale2 ("Texture Scale", Float) = 1
       _Contrast2("Contrast", Range(0,0.99)) = 0.5
       
+	  _NormalIntensity("NormalIntensity", Range(1,5)) = 1
       _FlowSpeed ("Flow Speed", Float) = 0
       _FlowIntensity ("Flow Intensity", Float) = 1
       _FlowAlpha ("Flow Alpha", Range(0, 1)) = 1
@@ -100,7 +101,7 @@ Shader "VertexPainter/SplatBlend_2Layer"
          //   #endif
          //#endif
                            
-         o.Normal =  UnpackNormal(float4(0, RGB_Nx.a,0, REH_Ny.a));
+         o.Normal =  UnpackNormal(float4(0, RGB_Nx.a,0, REH_Ny.a)) * _NormalIntensity;
          
          o.Smoothness = 1 - REH_Ny.r;
          o.Metallic = 0;

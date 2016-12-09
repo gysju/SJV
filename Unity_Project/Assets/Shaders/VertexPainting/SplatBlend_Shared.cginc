@@ -22,6 +22,7 @@ LAYER(2)
 LAYER(3)
 LAYER(4)
 
+half _NormalIntensity;
 half  _FlowSpeed;
 half  _FlowIntensity;
 fixed _FlowAlpha;
