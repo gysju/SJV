@@ -172,7 +172,7 @@ public class Capture_point : MonoBehaviour
             {
                 m_faction = Unit.UnitFaction.Ally;
                 m_currentCaptureValue = 1f;
-				m_enemyCommander.ReactionDroneSquadron ();
+				m_enemyCommander.ReactionDroneSquadron (this);
             }
             else if (m_currentCaptureValue <= -1f)
             {
