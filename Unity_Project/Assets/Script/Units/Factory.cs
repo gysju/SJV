@@ -15,7 +15,7 @@ public class Factory : Unit
         if (m_producing) StartContinuousProduction();
     }
 
-    private void CreateUnit()
+    private void CreateUnit(Capture_point order = null)
     {
         Unit newUnit = null;
 
@@ -29,6 +29,7 @@ public class Factory : Unit
         }
 
         newUnit.ChangeFaction(m_faction);
+        if (order) newUnit.GetComponent<IA>().GiveCaptureOrder(order);
     }
 
     IEnumerator ContinuousProduction()
@@ -45,23 +46,23 @@ public class Factory : Unit
         StartCoroutine(ContinuousProduction());
     }
 
-    IEnumerator Production(float m_timeBetweenSpawns, int m_spawnsCount)
+    IEnumerator Production(float timeBetweenSpawns, int spawnsCount, Capture_point order = null)
     {
-        for (int i = 0 ; i < m_spawnsCount; i++)
+        for (int i = 0 ; i < spawnsCount; i++)
         {
-            CreateUnit();
-            yield return new WaitForSeconds(m_timeBetweenSpawns);
+            CreateUnit(order);
+            yield return new WaitForSeconds(timeBetweenSpawns);
         }
     }
 
-    public void ProduceUnit(float m_timeBetweenSpawns, int m_spawnsCount)
+    public void ProduceUnit(float timeBetweenSpawns, int spawnsCount, Capture_point order = null)
     {
-        StartCoroutine(Production(m_timeBetweenSpawns, m_spawnsCount));
+        StartCoroutine(Production(timeBetweenSpawns, spawnsCount, order));
     }
 
-    public void ProduceSquadron()
+    public void ProduceSquadron(Capture_point order = null)
     {
-        ProduceUnit(1f, 5);
+        ProduceUnit(1f, 5, order);
     }
 
     protected override void Update()
