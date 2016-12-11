@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections;
+using System.Collections.Generic;
 
 public class LaserPointingSystem : MonoBehaviour {
 
@@ -38,14 +39,8 @@ public class LaserPointingSystem : MonoBehaviour {
 			if (Physics.Raycast (transform.position, transform.forward, out hit, 1000.0f, mask))  
 			{
 				lineRenderer.SetPosition (1, Vector3.forward * hit.distance);
+				detectionType (hit);
 
-				buttonSelected = hit.transform.GetComponent<Button>() ;
-				if (buttonSelected != null 
-					&& OtherLaser != null 
-					&& OtherLaser.buttonSelected == null) 
-				{
-					buttonSelected.Select();
-				}
 				#if UNITY_PS4
 				if (move != null)
 				{
@@ -78,6 +73,28 @@ public class LaserPointingSystem : MonoBehaviour {
 		if(buttonSelected != null && move.GetButtonDown(MoveController.MoveButton.MoveButton_Move))
 		{
 			buttonSelected.onClick.Invoke ();
+		}
+	}
+
+	void detectionType(RaycastHit hit)
+	{
+		buttonSelected = hit.transform.GetComponent<Button>() ;
+		if (buttonSelected != null 
+			&& OtherLaser != null 
+			&& OtherLaser.buttonSelected == null) 
+		{
+			buttonSelected.Select();
+		}
+		else
+		{
+			if(hit.transform.GetComponent<Unit>() != null)
+			{
+				// instantié dans l'espace écran l'effet pour les unit
+			}
+			else
+			{
+				// instantié dans l'espace écran l'effet pour le sol
+			}
 		}
 	}
 }
