@@ -18,7 +18,7 @@ public class IA : MonoBehaviour
     protected Unit m_currentTarget = null;
     [Tooltip("IA's imprecision angle.")]
     [Range(0.1f, 10.0f)]
-    public float m_imprecisioAngle = 10.0f;
+    public float m_imprecisionAngle = 10.0f;
     
     [Header("Order Specifics")]
 	[SerializeField]
@@ -107,7 +107,7 @@ public class IA : MonoBehaviour
     #region Aim Related
     protected bool IsWeaponAimingTarget(Weapon weapon)
     {
-        return weapon.IsInAim(m_currentTarget.m_targetPoint.position, m_imprecisioAngle);
+        return weapon.IsInAim(m_currentTarget.m_targetPoint.position, m_imprecisionAngle);
     }
 
     protected bool IsTargetInOptimalRange(Weapon weapon)
