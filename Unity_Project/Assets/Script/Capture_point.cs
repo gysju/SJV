@@ -29,7 +29,8 @@ public class Capture_point : MonoBehaviour
     private float m_currentCaptureValue = 0f;
 
 	private CombatUnit combatUnitOnTarget;
-	private float time = 0.0f;
+
+	private IACommander m_enemyCommander;
 
     #region Initialization
     void Start () 
@@ -38,6 +39,7 @@ public class Capture_point : MonoBehaviour
         m_captureZone = GetComponent<SphereCollider>();
         m_captureZone.isTrigger = true;
         UpdateRadarRange();
+		m_enemyCommander = GameObject.Find ("Enemy Commander").GetComponent<IACommander>();
     }
     #endregion
 
@@ -93,7 +95,7 @@ public class Capture_point : MonoBehaviour
     {
         if (!col.isTrigger)
         {
-            MobileGroundUnit detectedUnit = col.GetComponent<MobileGroundUnit>();
+            MobileGroundUnit detectedUnit = col.GetComponentInParent<MobileGroundUnit>();
             if (detectedUnit != null && !detectedUnit.IsDestroyed())
             {
                 switch (detectedUnit.m_faction)
@@ -117,7 +119,7 @@ public class Capture_point : MonoBehaviour
     {
         if (!col.isTrigger)
         {
-            MobileGroundUnit detectedUnit = col.GetComponent<MobileGroundUnit>();
+			MobileGroundUnit detectedUnit = col.GetComponentInParent<MobileGroundUnit>();
             if (detectedUnit != null && !detectedUnit.IsDestroyed())
             {
                 switch (detectedUnit.m_faction)
@@ -170,6 +172,7 @@ public class Capture_point : MonoBehaviour
             {
                 m_faction = Unit.UnitFaction.Ally;
                 m_currentCaptureValue = 1f;
+				m_enemyCommander.ReactionDroneSquadron (this);
             }
             else if (m_currentCaptureValue <= -1f)
             {

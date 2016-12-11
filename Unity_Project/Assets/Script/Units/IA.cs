@@ -11,6 +11,7 @@ public class IA : MonoBehaviour
     protected Unit m_unit = null;
     protected CombatUnit m_combatUnit = null;
     protected MobileGroundUnit m_mobileGroundUnit = null;
+    protected AirUnit m_airUnit = null;
 
     [Header("Combat Related")]
     [SerializeField]
@@ -38,6 +39,10 @@ public class IA : MonoBehaviour
         if (m_unit is MobileGroundUnit)
         {
             m_mobileGroundUnit = (MobileGroundUnit)m_unit;
+        }
+        if (m_mobileGroundUnit is AirUnit)
+        {
+            m_airUnit = (AirUnit)m_mobileGroundUnit;
         }
 
         m_pointToCapture = null;
@@ -140,12 +145,12 @@ public class IA : MonoBehaviour
         switch (m_mobileGroundUnit.m_faction)
         {
             case Unit.UnitFaction.Ally:
-                m_allyCommander.AskMovementOrder(this);
+                m_allyCommander.AskOrder(this);
                 break;
             case Unit.UnitFaction.Neutral:
                 break;
             case Unit.UnitFaction.Enemy:
-                m_enemyCommander.AskMovementOrder(this);
+                m_enemyCommander.AskOrder(this);
                 break;
             default:
                 break;
@@ -255,16 +260,19 @@ public class IA : MonoBehaviour
     #region Updates
     void Update ()
     {
-        if (m_mobileGroundUnit)
+        if (!m_unit.IsDestroyed())
         {
-            CheckCurrentOrder();
+            if (m_mobileGroundUnit)
+            {
+                CheckCurrentOrder();
+            }
+            if (m_combatUnit)
+            {
+                ChooseTarget();
+                CheckCurrentTargetStatus();
+            }
+            Behaviour();
         }
-        if (m_combatUnit)
-        {
-            ChooseTarget();
-            CheckCurrentTargetStatus();
-        }
-        Behaviour();
     }
     #endregion
 }

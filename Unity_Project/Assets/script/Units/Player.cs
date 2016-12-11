@@ -18,18 +18,21 @@ public class Player : MobileGroundUnit
 
     [Header("Player Related")]
     public GameObject m_torso;
+    public float m_torsoRotationSpeed = 0.5f;
     public GameObject m_legs;
     private Weapon m_leftWeapon;
     private Vector3 m_leftWeaponDefaultPosition;
-    private Quaternion m_leftWeaponDefaultRotation;
     private Vector3 m_rightWeaponDefaultPosition;
-    private Quaternion m_rightWeaponDefaultRotation;
     private Weapon m_rightWeapon;
+
+	public int m_healPower;
+	public float m_healCastTime;
 
     public GameObject m_pointer;
     private GameObject m_destinationPointer = null;
-	private bool RazerAreConnected = false;
 
+	[SerializeField]
+	private LayerMask maskRaycast;
     #if UNITY_PS4
     [Header("PSMove Related")]
 
@@ -39,10 +42,15 @@ public class Player : MobileGroundUnit
     private MoveController m_leftController;
     private MoveController m_rightController;
 
+	private Vector3 lastMovement;
     #else
         [Header("Razer Hydra Related")]
+		private bool RazerAreConnected = false;
         SixenseInput.Controller m_leftController;
         SixenseInput.Controller m_rightController;
+		
+		private Quaternion m_leftWeaponDefaultRotation;
+		private Quaternion m_rightWeaponDefaultRotation;
     #endif
     Vector3 m_baseOffset;
     float m_sensitivity = 0.001f;
@@ -64,8 +72,9 @@ public class Player : MobileGroundUnit
     private void PSMoveStart()
     {
         m_baseOffset = Vector3.zero;
-        m_leftController = trackedDeviceMoveControllers.primaryController.GetComponent<MoveController>(); ;
-        m_rightController = trackedDeviceMoveControllers.secondaryController.GetComponent<MoveController>(); ;
+        m_leftController = trackedDeviceMoveControllers.primaryController.GetComponent<MoveController>();
+        m_rightController = trackedDeviceMoveControllers.secondaryController.GetComponent<MoveController>();
+		lastMovement = Vector3.zero;
     }
 	#endif
     protected override void Start()
@@ -74,13 +83,13 @@ public class Player : MobileGroundUnit
         m_mainCamera = Camera.main;
         m_leftWeapon = m_weapons[0];
         m_leftWeaponDefaultPosition = m_leftWeapon.transform.localPosition;
-        m_leftWeaponDefaultRotation = m_leftWeapon.transform.localRotation;
         m_rightWeapon = m_weapons[1];
         m_rightWeaponDefaultPosition = m_rightWeapon.transform.localPosition;
-        m_rightWeaponDefaultRotation = m_rightWeapon.transform.localRotation;
 
         #if UNITY_STANDALONE
 
+		m_leftWeaponDefaultRotation = m_leftWeapon.transform.localRotation;
+		m_rightWeaponDefaultRotation = m_rightWeapon.transform.localRotation;
 		if(SixenseInput.Controllers[0] != null)
 		{
 			RazerStart();
@@ -92,7 +101,7 @@ public class Player : MobileGroundUnit
     }
     #endregion
 
-    protected override void Die()
+    protected override void StartDying()
     {
         m_destroyed = true;
 
@@ -135,17 +144,14 @@ public class Player : MobileGroundUnit
     {
         float horizontalAnglePrevision = m_mainCamera.transform.localRotation.eulerAngles.y;
         horizontalAnglePrevision = (horizontalAnglePrevision > 180) ? horizontalAnglePrevision - 360 : horizontalAnglePrevision;
-        float toTransforToTorso = 0f;
 
         if (horizontalAnglePrevision > m_maxHorinzontalHeadAngle)
         {
-            toTransforToTorso = (horizontalAnglePrevision - m_maxHorinzontalHeadAngle);
-            RotateMechaHorizontaly(0.5f);
+            RotateMechaHorizontaly(m_torsoRotationSpeed);
         }
         else if (horizontalAnglePrevision < -(m_maxHorinzontalHeadAngle))
         {
-            toTransforToTorso = (horizontalAnglePrevision + m_maxHorinzontalHeadAngle);
-			RotateMechaHorizontaly(-0.5f);
+			RotateMechaHorizontaly(-m_torsoRotationSpeed);
         }
     }
 
@@ -207,26 +213,26 @@ public class Player : MobileGroundUnit
         m_mainCamera.transform.rotation = currentRotation * verticalRotation;
     }
 
-    void PointDestination(Transform origin)
+	#if UNITY_PS4
+	void PointDestination(Vector3 hit) // recupere le hit du laser pointer // ps4 version
+	{
+		if (!m_destinationPointer)
+			m_destinationPointer = (GameObject) Instantiate(m_pointer, hit, Quaternion.identity);
+		m_destinationPointer.transform.position = hit;
+		SetDestination(m_destinationPointer.transform.position);
+	}
+	#else
+    void PointDestination(Transform origin) // pc version
     {
         RaycastHit hit;
-		if (Physics.Raycast(origin.transform.position, origin.transform.forward, out hit))
-        {
-			if (hit.transform.gameObject.layer == LayerMask.NameToLayer ("Ground")) 
-			{
-				if (!m_destinationPointer)
-					m_destinationPointer = (GameObject) Instantiate(m_pointer, hit.point, Quaternion.identity);
-				LineRenderer line = m_destinationPointer.GetComponent<LineRenderer>();
-				line.SetPosition(0, origin.position);
-				line.SetPosition(1, hit.point);
-				m_destinationPointer.transform.position = hit.point;
-			}
-			else{
-				//not a ground, but...
-			}
+		if (Physics.Raycast(origin.transform.position, origin.transform.forward, out hit,1000.0f, maskRaycast))
+		{
+			if (!m_destinationPointer)
+				m_destinationPointer = (GameObject) Instantiate(m_pointer, hit.point, Quaternion.identity);
+			m_destinationPointer.transform.position = hit.point;
         }
     }
-
+	#endif
     void ConfirmDestination()
     {
         if (m_destinationPointer)
@@ -273,6 +279,25 @@ public class Player : MobileGroundUnit
     {
         m_rightWeapon.transform.LookAt(targetPosition);
     }
+
+	IEnumerator SelfRepair()
+	{
+		while (true)
+		{
+			yield return new WaitForSeconds (m_healCastTime);
+			Repair (m_healPower);
+		}
+	}
+
+	void StartSelfRepair()
+	{
+		StartCoroutine (SelfRepair());
+	}
+
+	void StopSelfRepair()
+	{
+		StopCoroutine (SelfRepair());
+	}
     #endregion
     #endregion
 
@@ -308,7 +333,6 @@ public class Player : MobileGroundUnit
 			m_leftWeapon.transform.LookAt (m_leftController.lookAtHit);
 		else
 			m_leftWeapon.transform.localRotation = Quaternion.identity;
-		//m_leftWeapon.transform.localRotation = m_leftController.transform.localRotation * m_leftWeaponDefaultRotation;
     }
 
     void PSMoveRightWeaponControl()
@@ -319,7 +343,6 @@ public class Player : MobileGroundUnit
 			m_rightWeapon.transform.LookAt (m_rightController.lookAtHit);
 		else
 			m_rightWeapon.transform.localRotation = Quaternion.identity;
-		//m_rightWeapon.transform.localRotation = m_rightController.transform.localRotation * m_rightWeaponDefaultRotation;
     }
 
     void PSMoveInputs()
@@ -330,69 +353,62 @@ public class Player : MobileGroundUnit
 		bool leftPointer = m_leftController.GetButton(MoveController.MoveButton.MoveButton_Move);
 		bool rightPointer = m_rightController.GetButton(MoveController.MoveButton.MoveButton_Move);
 
-		if (m_leftController.GetButtonUp(MoveController.MoveButton.MoveButton_Move) && !rightPointer) ConfirmDestination();
-		if (m_rightController.GetButtonUp(MoveController.MoveButton.MoveButton_Move) && !leftPointer) ConfirmDestination();
+		bool AllModifier= leftModifier && rightModifier;
 
-		GameObject debug = GameObject.FindGameObjectWithTag ("Debug");
+		if (!rightPointer && m_leftController.GetButtonUp(MoveController.MoveButton.MoveButton_Move)) ConfirmDestination();
+		if (!leftPointer && m_rightController.GetButtonUp(MoveController.MoveButton.MoveButton_Move)) ConfirmDestination();
 
-		if(debug != null)
-		{
-			//debug.GetComponent<Text>().text = "left:" + m_leftController.GetButton(MoveController.MoveButton.MoveButton_Trigger) + "right:" + m_rightController.GetButton(MoveController.MoveButton.MoveButton_Trigger);
-		}
-
-		if (leftModifier)
+		if (leftModifier && !AllModifier)
         {
-            if (leftModifier && rightModifier)
-            {
-                PSMoveRotation();
-            }
-            else
-            {
-                MoveFromLocalRotation(PSMoveVirtualJoysticksConvertion(0));
-                LeftArmWeaponTriggerReleased();
-            }
+            Vector3 movement = PSMoveVirtualJoysticksConvertion (0);
+			MoveFromLocalRotation(movement);
+			lastMovement = movement;
+            LeftArmWeaponTriggerReleased();
         }
         else
         {
             PSMoveLeftWeaponControl();
             if (leftPointer)
             {
-                PointDestination(m_leftWeapon.m_muzzle);
+				MoveToDir ((m_leftController.lookAtHit - transform.position).normalized);
                 LeftArmWeaponTriggerReleased();
             }
             else
             {
 				if (m_leftController.GetButtonDown(MoveController.MoveButton.MoveButton_Trigger)) LeftArmWeaponTriggered();
 				if (m_leftController.GetButtonUp(MoveController.MoveButton.MoveButton_Trigger)) LeftArmWeaponTriggerReleased();
+				if (m_leftController.GetButtonUp (MoveController.MoveButton.MoveButton_Move)) PointDestination(m_leftController.lookAtHit);  // when you release move button, you use navmesh and not the direction.
             }
         }
 
-        if (rightModifier)
+		if (rightModifier && !AllModifier)
         {
-            if (leftModifier && rightModifier)
-            {
-                PSMoveRotation();
-            }
-            else
-            {
-                MoveFromLocalRotation(PSMoveVirtualJoysticksConvertion(1));
-                RightArmWeaponTriggerReleased();
-            }
+            Vector3 movement = PSMoveVirtualJoysticksConvertion (1);
+			MoveFromLocalRotation(movement);
+			lastMovement = movement;
+            RightArmWeaponTriggerReleased();
         }
         else
         {
             PSMoveRightWeaponControl();
             if (rightPointer)
             {
-                PointDestination(m_rightWeapon.m_muzzle);
+				MoveToDir ((m_rightController.lookAtHit - transform.position).normalized);
                 RightArmWeaponTriggerReleased();
             }
             else
             {
 				if (m_rightController.GetButtonDown(MoveController.MoveButton.MoveButton_Trigger)) RightArmWeaponTriggered();
 				if (m_rightController.GetButtonUp(MoveController.MoveButton.MoveButton_Trigger)) RightArmWeaponTriggerReleased();
+				if (m_rightController.GetButtonUp (MoveController.MoveButton.MoveButton_Move)) PointDestination(m_leftController.lookAtHit);  // when you release move button, you use navmesh and not the direction.
             }
         }
+
+		if (AllModifier) 
+		{
+			MoveFromLocalRotation(lastMovement);
+			PSMoveRotation();
+		}
     }
 
     Vector3 PSMoveVirtualJoysticksConvertion(int index)
@@ -663,7 +679,11 @@ public class Player : MobileGroundUnit
 		{
 			if (leftPointer)
 			{
+				#if UNITY_PS4
+				PointDestination(m_leftController.lookAtHit);
+				#else
 				PointDestination(m_leftWeapon.m_muzzle);
+				#endif
 				LeftArmWeaponTriggerReleased();
 			}
 			else
@@ -682,7 +702,11 @@ public class Player : MobileGroundUnit
 		{
 			if (rightPointer)
 			{
+				#if UNITY_PS4
+				PointDestination(m_rightController.lookAtHit);
+				#else
 				PointDestination(m_rightWeapon.m_muzzle);
+				#endif
 				RightArmWeaponTriggerReleased();
 			}
 			else

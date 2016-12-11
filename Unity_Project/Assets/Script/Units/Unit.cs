@@ -5,7 +5,6 @@ using System.Collections.Generic;
 [AddComponentMenu("MechaVR/Units/DEV/Unit")]
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(NavMeshObstacle))]
-[RequireComponent(typeof(BoxCollider))]
 public class Unit : MonoBehaviour
 {
     const int MIN_HIT_POINTS = 0;
@@ -14,8 +13,6 @@ public class Unit : MonoBehaviour
     const int MIN_ARMOR = 0;
     const int MAX_ARMOR = 100;
 
-    const float TIME_TO_DIE = 1f;
-
     public enum UnitFaction
     {
         Ally,
@@ -23,9 +20,12 @@ public class Unit : MonoBehaviour
         Enemy
     };
 
+    protected BattleManager m_battleManager;
+
     protected bool m_destroyed = false;
 
     protected NavMeshObstacle m_navMeshObstacle;
+
 
     [Header("Faction")]
     [Tooltip("Unit's current faction.")]
@@ -47,6 +47,8 @@ public class Unit : MonoBehaviour
     [SerializeField]
     [ContextMenuItem("Destroy Unit", "Die")]
     protected int m_currentHitPoints;
+
+    public float m_timeToDie = 1f;
 
     public GameObject m_destructionSpawn;
 
@@ -73,6 +75,7 @@ public class Unit : MonoBehaviour
 
     protected virtual void Awake()
     {
+        m_battleManager = FindObjectOfType<BattleManager>();
         m_navMeshObstacle = GetComponent<NavMeshObstacle>();
     }
 
@@ -80,6 +83,13 @@ public class Unit : MonoBehaviour
     {
         m_currentHitPoints = m_startingHitPoints;
         CheckHitPoints();
+    }
+
+    public virtual void ResetUnit()
+    {
+        m_destroyed = false;
+
+        GetComponentInChildren<MeshCollider>().enabled = true;
     }
     #endregion
 
@@ -109,17 +119,17 @@ public class Unit : MonoBehaviour
 
     protected IEnumerator Dying()
     {
-        yield return new WaitForSeconds(TIME_TO_DIE);
-        Instantiate(m_destructionSpawn, transform.position, transform.rotation);
-        Destroy(gameObject);
+        yield return new WaitForSeconds(m_timeToDie);
+        if (m_destructionSpawn) Instantiate(m_destructionSpawn, transform.position, transform.rotation);
+        FinishDying();
     }
 
     /// <summary>A appeler à la mort de l'unité.</summary>
-    protected virtual void Die()
+    protected virtual void StartDying()
     {
         m_destroyed = true;
 
-        GetComponent<BoxCollider>().enabled = false;
+        GetComponentInChildren<Collider>().enabled = false;
 
         foreach (CombatUnit detectingUnit in m_detectingUnits)
         {
@@ -133,7 +143,12 @@ public class Unit : MonoBehaviour
 
         StartCoroutine(Dying());
     }
-    
+
+    protected virtual void FinishDying()
+    {
+        m_battleManager.PoolUnit(this);
+    }
+
     /// <summary>Vérifie si les hit points ne sont pas inférieurs à 0 ou supérieurs au maximum.</summary>
     private void CheckHitPoints()
     {
@@ -143,7 +158,7 @@ public class Unit : MonoBehaviour
 #if UNITY_EDITOR
             Debug.Log("Unit '" + name + "' is destroyed.");
 #endif
-            Die();
+            StartDying();
         }
     }
 

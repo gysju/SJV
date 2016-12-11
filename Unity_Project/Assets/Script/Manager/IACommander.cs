@@ -7,13 +7,17 @@ public class IACommander : MonoBehaviour
     public Unit m_allyBaseCenter;
     public Unit m_enemyBaseCenter;
 
+    protected Player m_player;
+
     public List<Capture_point> m_capturePoints = new List<Capture_point>();
 
     public Unit.UnitFaction m_faction;
 
+    public Factory m_reactionFactory;
+
     void Start ()
     {
-	    
+        m_player = FindObjectOfType<Player>();
 	}
 
     float PathLength(NavMeshPath path)
@@ -32,6 +36,11 @@ public class IACommander : MonoBehaviour
             i++;
         }
         return lengthSoFar;
+    }
+
+    protected void SearchPlayerLastPosition(IA unitAskingOrder)
+    {
+        unitAskingOrder.GiverDestroyOrder(m_player);
     }
 
     protected void CaptureClosestPoint(IA unitAskingOrder)
@@ -81,10 +90,18 @@ public class IACommander : MonoBehaviour
         }
     }
 
-    public void AskMovementOrder(IA unitAskingOrder)
+    public void AskOrder(IA unitAskingOrder)
     {
-        CaptureClosestPoint(unitAskingOrder);
+        if (unitAskingOrder.GetComponent<Unit>() is AirUnit)
+            SearchPlayerLastPosition(unitAskingOrder);
+        else if(unitAskingOrder.GetComponent<Unit>() is HoverTank)
+            CaptureClosestPoint(unitAskingOrder);
     }
+
+	public void ReactionDroneSquadron(Capture_point pointCaptured)
+	{
+        m_reactionFactory.ProduceSquadron(pointCaptured);
+	}
 
 	void Update ()
     {
