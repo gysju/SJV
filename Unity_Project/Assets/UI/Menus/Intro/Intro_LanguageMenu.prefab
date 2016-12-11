@@ -55,6 +55,7 @@ GameObject:
   - 224: {fileID: 224000013076618308}
   - 222: {fileID: 222000012974739472}
   - 114: {fileID: 114000011959777966}
+  - 65: {fileID: 65000010443872910}
   m_Layer: 5
   m_Name: English
   m_TagString: Untagged
@@ -123,6 +124,7 @@ GameObject:
   - 224: {fileID: 224000012166904426}
   - 222: {fileID: 222000013938630306}
   - 114: {fileID: 114000013535712766}
+  - 65: {fileID: 65000012452605656}
   m_Layer: 5
   m_Name: German
   m_TagString: Untagged
@@ -174,6 +176,7 @@ GameObject:
   - 224: {fileID: 224000010444733886}
   - 222: {fileID: 222000012673032776}
   - 114: {fileID: 114000010491012472}
+  - 65: {fileID: 65000013632795312}
   m_Layer: 5
   m_Name: Dutch
   m_TagString: Untagged
@@ -191,6 +194,7 @@ GameObject:
   - 224: {fileID: 224000011570981766}
   - 222: {fileID: 222000013204655880}
   - 114: {fileID: 114000012407967254}
+  - 65: {fileID: 65000012670597516}
   m_Layer: 5
   m_Name: French
   m_TagString: Untagged
@@ -232,6 +236,54 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!65 &65000010443872910
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010553644842}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 170, y: 100, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65000012452605656
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012054533700}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 170, y: 100, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65000012670597516
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013234107458}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 170, y: 100, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65000013632795312
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012874529414}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 170, y: 100, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114000010060582974
 MonoBehaviour:
   m_ObjectHideFlags: 1
