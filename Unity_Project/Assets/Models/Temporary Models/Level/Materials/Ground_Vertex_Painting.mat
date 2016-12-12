@@ -94,6 +94,18 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
+        name: _REH_Ny3
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _REH_Ny4
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
         name: _RGB_Nx1
       second:
         m_Texture: {fileID: 2800000, guid: 66eb9f3a84346b242af98a87cdda0854, type: 3}
@@ -105,13 +117,31 @@ Material:
         m_Texture: {fileID: 2800000, guid: af78bfdab271fa34a842eaceaa21d025, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - first:
+        name: _RGB_Nx3
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _RGB_Nx4
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
     - first:
         name: _BumpScale
       second: 1
     - first:
         name: _Contrast2
-      second: 0.3
+      second: 0
+    - first:
+        name: _Contrast3
+      second: 0.5
+    - first:
+        name: _Contrast4
+      second: 0.5
     - first:
         name: _Cutoff
       second: 0.5
@@ -131,6 +161,12 @@ Material:
         name: _DistUVScale2
       second: 0.5
     - first:
+        name: _DistUVScale3
+      second: 0.5
+    - first:
+        name: _DistUVScale4
+      second: 0.5
+    - first:
         name: _DstBlend
       second: 0
     - first:
@@ -139,6 +175,12 @@ Material:
     - first:
         name: _EmissiveMult2
       second: 0
+    - first:
+        name: _EmissiveMult3
+      second: 1
+    - first:
+        name: _EmissiveMult4
+      second: 1
     - first:
         name: _FlowAlpha
       second: 1
@@ -179,8 +221,11 @@ Material:
         name: _Mode
       second: 0
     - first:
+        name: _Normal
+      second: 1
+    - first:
         name: _NormalIntensity
-      second: 1.5
+      second: 1
     - first:
         name: _OcclusionStrength
       second: 1
@@ -193,6 +238,12 @@ Material:
     - first:
         name: _Roughness2
       second: 1
+    - first:
+        name: _Roughness3
+      second: 0.5
+    - first:
+        name: _Roughness4
+      second: 0.5
     - first:
         name: _SmoothnessTextureChannel
       second: 0
@@ -208,6 +259,12 @@ Material:
     - first:
         name: _TexScale2
       second: 20
+    - first:
+        name: _TexScale3
+      second: 1
+    - first:
+        name: _TexScale4
+      second: 1
     - first:
         name: _UVSec
       second: 0
@@ -228,8 +285,20 @@ Material:
         name: _EmissiveColor2
       second: {r: 0, g: 0, b: 0, a: 1}
     - first:
+        name: _EmissiveColor3
+      second: {r: 1, g: 1, b: 1, a: 1}
+    - first:
+        name: _EmissiveColor4
+      second: {r: 1, g: 1, b: 1, a: 1}
+    - first:
         name: _Tint1
       second: {r: 1, g: 1, b: 1, a: 1}
     - first:
         name: _Tint2
+      second: {r: 1, g: 1, b: 1, a: 1}
+    - first:
+        name: _Tint3
+      second: {r: 1, g: 1, b: 1, a: 1}
+    - first:
+        name: _Tint4
       second: {r: 1, g: 1, b: 1, a: 1}
