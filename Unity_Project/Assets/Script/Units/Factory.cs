@@ -8,7 +8,10 @@ public class Factory : Unit
     public Unit m_produceUnit;
     public float m_productionTime;
     public Transform m_productionExit;
-    
+
+    public enum SpawnType { SpawnType_ByConstanteTime = 0, SpawnType_ByCurve }
+    public SpawnType spawnType = SpawnType.SpawnType_ByConstanteTime;
+
     protected override void Start()
     {
         base.Start();
