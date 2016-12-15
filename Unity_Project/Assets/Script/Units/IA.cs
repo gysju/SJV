@@ -108,7 +108,7 @@ public class IA : MonoBehaviour
     #region Aim Related
     protected bool IsWeaponAimingTarget(Weapon weapon)
     {
-        return weapon.IsInAim(m_currentTarget, m_imprecisionAngle);
+        return weapon.IsInAim(m_currentTarget.transform.position, m_imprecisionAngle);
     }
 
     protected bool IsTargetInOptimalRange(Weapon weapon)
