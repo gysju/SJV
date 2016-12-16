@@ -14,7 +14,6 @@ public class Factory : Unit
 
     [Header("Wave system")]
     public AnimationCurve SpawnTimeline;
-    public float ZaTime = 10.0f;
     private float currentTime;
 
     protected override void Start()
