@@ -12,9 +12,15 @@ public class Factory : Unit
     public enum SpawnType { SpawnType_ByConstanteTime = 0, SpawnType_ByCurve }
     public SpawnType spawnType = SpawnType.SpawnType_ByConstanteTime;
 
+    [Header("Wave system")]
+    public AnimationCurve SpawnTimeline;
+    public float ZaTime = 10.0f;
+    private float currentTime;
+
     protected override void Start()
     {
         base.Start();
+        currentTime = Time.deltaTime;
         if (m_producing) StartContinuousProduction();
     }
 
@@ -46,7 +52,10 @@ public class Factory : Unit
 
     protected void StartContinuousProduction()
     {
-        StartCoroutine(ContinuousProduction());
+        if(spawnType == SpawnType.SpawnType_ByConstanteTime)
+            StartCoroutine(ContinuousProduction());
+        //else
+        //    SpawnTimeline.
     }
 
     IEnumerator Production(float timeBetweenSpawns, int spawnsCount, Capture_point order = null)
