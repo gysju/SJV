@@ -19,7 +19,8 @@ public class CanvasManager : MonoBehaviour {
 	{
         Get = this;
         animator = GetComponent<Animator>();
-		moveControllers = GetComponentsInChildren<MoveController> ();
+        trackedDeviceControllers = GameObject.Find("TrackedDevices").GetComponent<TrackedDeviceMoveControllers>();
+        moveControllers = trackedDeviceControllers.GetComponentsInChildren<MoveController> ();
 	}
 
     void Update() 
