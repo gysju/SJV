@@ -5,6 +5,8 @@ using System.Collections.Generic;
 
 public class BattleManager : MonoBehaviour
 {
+	public BattleManager Instance { get; private set;}
+
     public enum BattleState
     {
         BattleState_OnGoing,
@@ -32,6 +34,11 @@ public class BattleManager : MonoBehaviour
 
     void Start ()
     {
+		if (Instance == null) 
+			Instance = this;
+		else if (Instance != this)
+			Destroy(gameObject);
+		
         m_victoryText.SetActive(false);
         m_defeatText.SetActive(false);
     }
