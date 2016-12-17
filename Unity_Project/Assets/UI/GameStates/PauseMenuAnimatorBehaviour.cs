@@ -15,7 +15,7 @@ public class PauseMenuAnimatorBehaviour : GameStateBaseAnimatorBehaviour
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (GetMenu().bOnClick && !animator.IsInTransition(layerIndex))
+		if ((GetMenu().bOnClick || Input.GetButtonDown("Start") )&& !animator.IsInTransition(layerIndex))
         {
             FadeToBlack();
             GetMenu().bOnClick = false;
@@ -24,7 +24,11 @@ public class PauseMenuAnimatorBehaviour : GameStateBaseAnimatorBehaviour
         }
         else if (fadeToBlackIsFinish() && !animator.IsInTransition(layerIndex))
         { 
-            animator.SetTrigger(GetMenu().NextState);
+			string nextState = GetMenu ().NextState;
+			if(nextState == null)
+            	animator.SetTrigger("Playing");
+			else
+				animator.SetTrigger(nextState);
         }
     }
 
