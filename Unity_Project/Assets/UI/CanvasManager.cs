@@ -8,7 +8,7 @@ public class CanvasManager : MonoBehaviour {
 
     public static CanvasManager Get { get; private set; }
 
-    public enum EState_Menu { EState_Menu_Main, EState_Menu_Pause, EState_Menu_Death, EState_Menu_InGame, EState_Menu_EndGame };
+    public enum EState_Menu { EState_Menu_Main, EState_Menu_Pause, EState_Menu_Defeat, EState_Menu_InGame, EState_Menu_Victory };
     public EState_Menu eState_Menu = EState_Menu.EState_Menu_Main;
 
     private Animator animator;
@@ -36,13 +36,13 @@ public class CanvasManager : MonoBehaviour {
             case EState_Menu.EState_Menu_Pause :
                 Time.timeScale = 0.0f;
                 break;
-            case EState_Menu.EState_Menu_Death :
+			case EState_Menu.EState_Menu_Defeat :
 				Time.timeScale = 0.0f;
-                SetTrigger("DeathMenu");
+                SetTrigger("Defeat");
                 break;
-            case EState_Menu.EState_Menu_EndGame:
+			case EState_Menu.EState_Menu_Victory:
                 Time.timeScale = 0.0f;
-                SetTrigger("EndGame");
+                SetTrigger("Victory");
                 break;
         }
  	}
@@ -57,9 +57,9 @@ public class CanvasManager : MonoBehaviour {
 		return false;
 	}
 
-	public void SetTriggerDeath()
+	public void SetTriggerDefeat()
     {
-		eState_Menu = EState_Menu.EState_Menu_Death;
+		eState_Menu = EState_Menu.EState_Menu_Defeat;
     }
 
     public void SetTrigger(string trigger)
