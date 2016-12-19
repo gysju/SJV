@@ -72,7 +72,7 @@ public class LaserPointingSystem : MonoBehaviour {
 	{
 		if(buttonSelected != null && move.GetButtonDown(MoveController.MoveButton.MoveButton_Move) )
 		{
-			buttonSelected.onClick.Invoke ();
+			//buttonSelected.onClick.Invoke (); a fixer, le GetButtonDown ne fonctionne qu'une seul fois ( par manette )
 		}
 	}
 
