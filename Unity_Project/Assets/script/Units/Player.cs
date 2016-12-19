@@ -720,7 +720,7 @@ public class Player : MobileGroundUnit
 
     protected override void Update()
     {
-        if (!m_destroyed)
+        if (!m_destroyed && CanvasManager.EState_Menu.EState_Menu_InGame == CanvasManager.Get.eState_Menu)
         {
             base.Update();
             InputsUpdate();

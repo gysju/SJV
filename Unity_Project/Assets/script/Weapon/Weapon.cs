@@ -164,7 +164,7 @@ public class Weapon : MonoBehaviour
 
     void Update ()
     {
-        if (m_laser)
+        if (m_laser && CanvasManager.EState_Menu.EState_Menu_InGame == CanvasManager.Get.eState_Menu)
         {
             m_laser.SetPosition(0, m_muzzle.position);
             m_laser.SetPosition(1, m_muzzle.position + m_muzzle.forward * 20);

@@ -13,14 +13,12 @@ public class CanvasManager : MonoBehaviour {
 
     private Animator animator;
 	public TrackedDeviceMoveControllers trackedDeviceControllers;
-	private MoveController[] moveControllers;
 
     void Start() 
 	{
         Get = this;
         animator = GetComponent<Animator>();
         trackedDeviceControllers = GameObject.Find("TrackedDevices").GetComponent<TrackedDeviceMoveControllers>();
-        moveControllers = trackedDeviceControllers.GetComponentsInChildren<MoveController> ();
 	}
 
     void Update() 
@@ -46,16 +44,6 @@ public class CanvasManager : MonoBehaviour {
                 break;
         }
  	}
-
-	public bool CheckInputAnyPsMove( MoveController.MoveButton moveButton)
-	{
-		for(int i = 0; i < moveControllers.Length; i++)
-		{
-			if (moveControllers [i].GetButtonDown (moveButton))
-				return true;
-		}
-		return false;
-	}
 
 	public void SetTriggerDefeat()
     {

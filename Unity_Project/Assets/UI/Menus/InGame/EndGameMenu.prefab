@@ -21,6 +21,7 @@ GameObject:
   - 224: {fileID: 224000012927578522}
   - 222: {fileID: 222000010030889716}
   - 114: {fileID: 114000010944521190}
+  - 65: {fileID: 65000011711164938}
   m_Layer: 5
   m_Name: End
   m_TagString: Untagged
@@ -72,13 +73,25 @@ GameObject:
   - 224: {fileID: 224000013475017350}
   - 222: {fileID: 222000013319703482}
   - 114: {fileID: 114000013167652992}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: EndGameMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!65 &65000011711164938
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010454108480}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 170, y: 100, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114000010944521190
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -179,7 +192,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bOnClick: 0
-  PreviousState: 
 --- !u!114 &114000013761957986
 MonoBehaviour:
   m_ObjectHideFlags: 1
