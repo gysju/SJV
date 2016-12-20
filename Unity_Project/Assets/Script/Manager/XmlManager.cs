@@ -377,8 +377,10 @@ public class XmlManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         XmlSerializer serial = new XmlSerializer(typeof(Xml2CSharp.Languages));
-        Stream reader = new FileStream("Assets/Resources/Language.xml", FileMode.Open);
-        languages = (Xml2CSharp.Languages)serial.Deserialize(reader);
+
+        //Stream reader = new FileStream("Assets/Resources/Language.xml", FileMode.Open);
+		TextAsset textAsset = (TextAsset)Resources.Load("Language");
+		languages = (Xml2CSharp.Languages)serial.Deserialize(new StringReader (textAsset.text));
     }
 
 	public Xml2CSharp.Setup_scene GetSetupScene()

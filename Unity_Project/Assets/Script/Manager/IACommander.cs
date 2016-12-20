@@ -100,7 +100,7 @@ public class IACommander : MonoBehaviour
 
 	public void ReactionDroneSquadron(Capture_point pointCaptured)
 	{
-        m_reactionFactory.ProduceSquadron(pointCaptured);
+		if(m_reactionFactory) m_reactionFactory.ProduceSquadron(pointCaptured);
 	}
 
 	void Update ()
