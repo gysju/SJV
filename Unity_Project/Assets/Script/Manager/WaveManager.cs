@@ -1,15 +1,25 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class WaveManager : MonoBehaviour {
     
     public static WaveManager Instance { get; private set; }
-    public float ZaTime = 60.0f;
-    public AnimationCurve UnitByTime;
-	public int maxUnitByTime = 1;
 
-	private float time;
-	private int CurrentNbrOfUnit = 0;
+	[SerializeField]
+	public struct Wave 
+	{
+		public float WaveTime;
+		public AnimationCurve TankByTime;
+		public int maxTankByTime;
+		public AnimationCurve DroneByTime;
+		public int maxDroneByTime;
+	}
+	[SerializeField]
+	public List<Wave> Waves = new List<Wave> ();
+
+    private float ZaTime = 0.0f;
+	private float time = 0.0f;
 
     void Start ()
     {
@@ -22,12 +32,11 @@ public class WaveManager : MonoBehaviour {
 	void Update ()
     {
 		time += Time.deltaTime;
-		Debug.Log (getMaxUnit());
 	}
 
 	public int getMaxUnit()
 	{
-		return Mathf.FloorToInt((UnitByTime.Evaluate(time / 60.0f) * maxUnitByTime));
+		return 0;//return Mathf.FloorToInt((UnitByTime.Evaluate(time / 60.0f) * maxUnitByTime));
 	}
 
 	public bool WaveIsOver()
