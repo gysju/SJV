@@ -11,43 +11,59 @@ public class WaveManager : MonoBehaviour {
 	{
 		public float WaveTime;
 		public AnimationCurve TankByTime;
-		public int maxTankByTime;
 		public AnimationCurve DroneByTime;
-		public int maxDroneByTime;
+		public int CallNumber;
 	}
-
 
 	public List<Wave> Waves = new List<Wave> ();
 	private int CurrentWaveIndex;
 
-	private float time = 0.0f;
+	private int MaxTankByCurrentCall;
+	private int MaxDroneByCurrentCall;
 
+	private float time = 0.0f;
+	private float secondeTimer = 0.0f;
     void Start ()
     {
         if (Instance == null) 
             Instance = this;
         else if (Instance != this)
             Destroy(gameObject);
+
+		MaxTankByCurrentCall = Mathf.FloorToInt( Waves[CurrentWaveIndex].TankByTime.Evaluate(0) );
+		MaxDroneByCurrentCall = Mathf.FloorToInt( Waves[CurrentWaveIndex].DroneByTime.Evaluate(0) );
 	}
 	
 	void Update ()
     {
 		time += Time.deltaTime;
+		secondeTimer += Time.deltaTime;
+
 		if (WaveIsOver()) 
 		{
 			time = 0;
 			CurrentWaveIndex = ( CurrentWaveIndex + 1 ) % Waves.Count ;
 		}
+		else if (secondeTimer > (Waves[CurrentWaveIndex].WaveTime / Waves[CurrentWaveIndex].CallNumber))
+		{
+			float value = time / Waves [CurrentWaveIndex].WaveTime;
+			MaxTankByCurrentCall = Mathf.FloorToInt( Waves[CurrentWaveIndex].TankByTime.Evaluate(0.1f) );
+			MaxDroneByCurrentCall = Mathf.FloorToInt( Waves[CurrentWaveIndex].DroneByTime.Evaluate(0.1f) );
+			secondeTimer = 0.0f;
+
+			BattleManager.Instance.setcurrentNbrTankSinceLastWave ( 0 );
+			BattleManager.Instance.setcurrentNbrDroneSinceLastWave ( 0 );
+		}
 	}
 
 	public int getCurrentMaxTank()
 	{
-		return Mathf.FloorToInt((Waves[CurrentWaveIndex].TankByTime.Evaluate(time / Waves[CurrentWaveIndex].WaveTime) * Waves[CurrentWaveIndex].maxTankByTime));
+		return MaxTankByCurrentCall;
 	}
 
 	public int getCurrentMaxDrone()
 	{
-		return Mathf.FloorToInt((Waves[CurrentWaveIndex].DroneByTime.Evaluate(time / Waves[CurrentWaveIndex].WaveTime) * Waves[CurrentWaveIndex].maxTankByTime));
+		return MaxDroneByCurrentCall;
 	}
 
 	public bool WaveIsOver()

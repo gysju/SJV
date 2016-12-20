@@ -22,14 +22,14 @@ public class Factory : Unit
         if (m_produceUnit is AirUnit)
         {
             newUnit = (m_battleManager.IsThereUnusedDrones()) ? m_battleManager.GetUnusedDrone(m_productionExit.position, m_productionExit.rotation).GetComponent<Unit>() : (Unit)Instantiate(m_produceUnit, m_productionExit.position, m_productionExit.rotation);
-			BattleManager.Instance.IncreaseNbrDrone ();
-			Debug.Log("Increase drone");
+			BattleManager.Instance.setCurrentNbrDrone ( BattleManager.Instance.getCurrentNbrDrone() + 1 );
+			BattleManager.Instance.setcurrentNbrDroneSinceLastWave ( BattleManager.Instance.getCurrentNbrDrone() + 1 );
 		}
         else if (m_produceUnit is HoverTank)
         {
             newUnit = (m_battleManager.IsThereUnusedTanks()) ? m_battleManager.GetUnusedTank(m_productionExit.position, m_productionExit.rotation).GetComponent<Unit>() : (Unit)Instantiate(m_produceUnit, m_productionExit.position, m_productionExit.rotation);
-			BattleManager.Instance.IncreaseNbrTank ();
-			Debug.Log("Increase Tank");
+			BattleManager.Instance.setCurrentNbrTank ( BattleManager.Instance.getCurrentNbrTank() + 1 );
+			BattleManager.Instance.setcurrentNbrTankSinceLastWave ( BattleManager.Instance.getCurrentNbrTank() + 1 );
 		}
 
         newUnit.ChangeFaction(m_faction);
@@ -41,9 +41,9 @@ public class Factory : Unit
         while (m_producing)
         {
             yield return new WaitForSeconds(m_productionTime);
-			if ( m_produceUnit is HoverTank && WaveManager.Instance.getCurrentMaxTank() > BattleManager.Instance.getCurrentNbrTank())
+			if ( m_produceUnit is HoverTank && ( WaveManager.Instance.getCurrentMaxTank() > BattleManager.Instance.getCurrentNbrTank() ))
 				CreateUnit();
-			else if ( m_produceUnit is AirUnit && WaveManager.Instance.getCurrentMaxDrone() > BattleManager.Instance.getCurrentNbrDrone())
+			else if ( m_produceUnit is AirUnit && ( WaveManager.Instance.getCurrentMaxDrone() > BattleManager.Instance.getCurrentNbrDrone() ))
 				CreateUnit();
         }
     }

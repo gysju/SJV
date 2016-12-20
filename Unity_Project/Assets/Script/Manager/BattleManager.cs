@@ -23,6 +23,9 @@ public class BattleManager : MonoBehaviour
 	private int currentNbrTank = 0;
 	private int currentNbrDrone = 0;
 
+	private int currentNbrTankSinceLastWave = 0;
+	private int currentNbrDroneSinceLastWave = 0;
+
     void Start ()
     {
 		if (Instance == null) 
@@ -43,26 +46,42 @@ public class BattleManager : MonoBehaviour
 		return currentNbrDrone;
 	}
 
-	public void IncreaseNbrTank()
+	public int getcurrentNbrTankSinceLastWave()
 	{
-		currentNbrTank ++;
+		return currentNbrTankSinceLastWave;
 	}
 
-	public void IncreaseNbrDrone()
+	public int getcurrentNbrDroneSinceLastWave()
 	{
-		currentNbrDrone ++;
+		return currentNbrDroneSinceLastWave;
 	}
 		
-	public void DescreaseNbrTank()
+	public void setCurrentNbrTank( int value )
 	{
-		if (currentNbrTank > 0)
-			currentNbrTank--;
+		currentNbrTank = value;
+		if (currentNbrTank < 0)
+			currentNbrTank = 0;
 	}
 
-	public void DescreaseNbrDrone()
+	public void setCurrentNbrDrone(int value)
 	{
-		if (currentNbrDrone > 0)
-			currentNbrDrone--;
+		currentNbrDrone = value;
+		if (currentNbrDrone < 0)
+			currentNbrDrone = 0;
+	}
+
+	public void setcurrentNbrTankSinceLastWave( int value )
+	{
+		currentNbrTankSinceLastWave = value;
+		if (currentNbrTankSinceLastWave < 0)
+			currentNbrTankSinceLastWave = 0;
+	}
+
+	public void setcurrentNbrDroneSinceLastWave(int value)
+	{
+		currentNbrDroneSinceLastWave = value;
+		if (currentNbrDroneSinceLastWave < 0)
+			currentNbrDroneSinceLastWave = 0;
 	}
 
 	public int getCurrentNbrUnit()
@@ -129,14 +148,12 @@ public class BattleManager : MonoBehaviour
         unitToPool.transform.position = m_poolPosition;
         if (unitToPool is AirUnit)
         {
-			BattleManager.Instance.DescreaseNbrDrone ();
-			Debug.Log("Descrease drone");
+			setCurrentNbrDrone ( currentNbrDrone - 1);
             m_unusedDrones.Add(unitToPool.gameObject);
         }
         else if (unitToPool is HoverTank)
         {
-			BattleManager.Instance.DescreaseNbrTank ();
-			Debug.Log("Descrease Tank");
+			setCurrentNbrTank ( currentNbrTank - 1);
             m_unusedTanks.Add(unitToPool.gameObject);
         }
         else
