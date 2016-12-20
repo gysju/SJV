@@ -6,7 +6,7 @@ public class WaveManager : MonoBehaviour {
     
     public static WaveManager Instance { get; private set; }
 
-	[SerializeField]
+	[System.Serializable] 
 	public struct Wave 
 	{
 		public float WaveTime;
@@ -15,10 +15,11 @@ public class WaveManager : MonoBehaviour {
 		public AnimationCurve DroneByTime;
 		public int maxDroneByTime;
 	}
-	[SerializeField]
-	public List<Wave> Waves = new List<Wave> ();
 
-    private float ZaTime = 0.0f;
+
+	public List<Wave> Waves = new List<Wave> ();
+	private int CurrentWaveIndex;
+
 	private float time = 0.0f;
 
     void Start ()
@@ -32,16 +33,26 @@ public class WaveManager : MonoBehaviour {
 	void Update ()
     {
 		time += Time.deltaTime;
+		if (WaveIsOver()) 
+		{
+			time = 0;
+			CurrentWaveIndex = ( CurrentWaveIndex + 1 ) % Waves.Count ;
+		}
 	}
 
-	public int getMaxUnit()
+	public int getCurrentMaxTank()
 	{
-		return 0;//return Mathf.FloorToInt((UnitByTime.Evaluate(time / 60.0f) * maxUnitByTime));
+		return Mathf.FloorToInt((Waves[CurrentWaveIndex].TankByTime.Evaluate(time / Waves[CurrentWaveIndex].WaveTime) * Waves[CurrentWaveIndex].maxTankByTime));
+	}
+
+	public int getCurrentMaxDrone()
+	{
+		return Mathf.FloorToInt((Waves[CurrentWaveIndex].DroneByTime.Evaluate(time / Waves[CurrentWaveIndex].WaveTime) * Waves[CurrentWaveIndex].maxTankByTime));
 	}
 
 	public bool WaveIsOver()
 	{
-		if(ZaTime < time)
+		if(Waves[CurrentWaveIndex].WaveTime < time)
 		{
 			return true;
 		}

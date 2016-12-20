@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class BattleManager : MonoBehaviour
 {
-	public BattleManager Instance { get; private set;}
+	public static BattleManager Instance { get; private set;}
 
     public Player m_player;
 
@@ -20,16 +20,59 @@ public class BattleManager : MonoBehaviour
     [SerializeField]
     private List<GameObject> m_unusedDrones = new List<GameObject>();
 
+	private int currentNbrTank = 0;
+	private int currentNbrDrone = 0;
+
     void Start ()
     {
 		if (Instance == null) 
 			Instance = this;
 		else if (Instance != this)
 			Destroy(gameObject);
-		
     }
 
-    #region Pools
+	#region info
+
+	public int getCurrentNbrTank()
+	{
+		return currentNbrTank;
+	}
+
+	public int getCurrentNbrDrone()
+	{
+		return currentNbrDrone;
+	}
+
+	public void IncreaseNbrTank()
+	{
+		currentNbrTank ++;
+	}
+
+	public void IncreaseNbrDrone()
+	{
+		currentNbrDrone ++;
+	}
+		
+	public void DescreaseNbrTank()
+	{
+		if (currentNbrTank > 0)
+			currentNbrTank--;
+	}
+
+	public void DescreaseNbrDrone()
+	{
+		if (currentNbrDrone > 0)
+			currentNbrDrone--;
+	}
+
+	public int getCurrentNbrUnit()
+	{
+		return getCurrentNbrTank () + getCurrentNbrDrone ();
+	}
+
+	#endregion
+    
+	#region Pools
     public bool IsThereUnusedBullets()
     {
         return (m_unusedBullets.Count > 0);
@@ -86,10 +129,14 @@ public class BattleManager : MonoBehaviour
         unitToPool.transform.position = m_poolPosition;
         if (unitToPool is AirUnit)
         {
+			BattleManager.Instance.DescreaseNbrDrone ();
+			Debug.Log("Descrease drone");
             m_unusedDrones.Add(unitToPool.gameObject);
         }
         else if (unitToPool is HoverTank)
         {
+			BattleManager.Instance.DescreaseNbrTank ();
+			Debug.Log("Descrease Tank");
             m_unusedTanks.Add(unitToPool.gameObject);
         }
         else
