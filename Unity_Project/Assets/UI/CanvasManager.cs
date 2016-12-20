@@ -8,19 +8,17 @@ public class CanvasManager : MonoBehaviour {
 
     public static CanvasManager Get { get; private set; }
 
-    public enum EState_Menu { EState_Menu_Main, EState_Menu_Pause, EState_Menu_Death, EState_Menu_InGame, EState_Menu_EndGame };
+    public enum EState_Menu { EState_Menu_Main, EState_Menu_Pause, EState_Menu_Defeat, EState_Menu_InGame, EState_Menu_Victory };
     public EState_Menu eState_Menu = EState_Menu.EState_Menu_Main;
 
     private Animator animator;
 	public TrackedDeviceMoveControllers trackedDeviceControllers;
-	private MoveController[] moveControllers;
 
     void Start() 
 	{
         Get = this;
         animator = GetComponent<Animator>();
         trackedDeviceControllers = GameObject.Find("TrackedDevices").GetComponent<TrackedDeviceMoveControllers>();
-        moveControllers = trackedDeviceControllers.GetComponentsInChildren<MoveController> ();
 	}
 
     void Update() 
@@ -36,30 +34,20 @@ public class CanvasManager : MonoBehaviour {
             case EState_Menu.EState_Menu_Pause :
                 Time.timeScale = 0.0f;
                 break;
-            case EState_Menu.EState_Menu_Death :
+			case EState_Menu.EState_Menu_Defeat :
 				Time.timeScale = 0.0f;
-                SetTrigger("DeathMenu");
+                SetTrigger("Defeat");
                 break;
-            case EState_Menu.EState_Menu_EndGame:
+			case EState_Menu.EState_Menu_Victory:
                 Time.timeScale = 0.0f;
-                SetTrigger("EndGame");
+                SetTrigger("Victory");
                 break;
         }
  	}
 
-	public bool CheckInputAnyPsMove( MoveController.MoveButton moveButton)
-	{
-		for(int i = 0; i < moveControllers.Length; i++)
-		{
-			if (moveControllers [i].GetButtonDown (moveButton))
-				return true;
-		}
-		return false;
-	}
-
-	public void SetTriggerDeath()
+	public void SetTriggerDefeat()
     {
-		eState_Menu = EState_Menu.EState_Menu_Death;
+		eState_Menu = EState_Menu.EState_Menu_Defeat;
     }
 
     public void SetTrigger(string trigger)

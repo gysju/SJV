@@ -7,22 +7,10 @@ public class BattleManager : MonoBehaviour
 {
 	public BattleManager Instance { get; private set;}
 
-    public enum BattleState
-    {
-        BattleState_OnGoing,
-        BattleState_Victory,
-        BattleState_Defeat
-    }
-
-    public BattleState battleState = BattleState.BattleState_OnGoing;
-
     public Player m_player;
 
     public Unit m_allyBaseCenter;
     public Unit m_enemyBaseCenter;
-
-    public GameObject m_victoryText;
-    public GameObject m_defeatText;
 
     public Vector3 m_poolPosition = Vector3.zero;
 
@@ -39,8 +27,6 @@ public class BattleManager : MonoBehaviour
 		else if (Instance != this)
 			Destroy(gameObject);
 		
-        m_victoryText.SetActive(false);
-        m_defeatText.SetActive(false);
     }
 
     #region Pools
@@ -126,15 +112,13 @@ public class BattleManager : MonoBehaviour
 
     private void VictoryEvent()
     {
-        battleState = BattleState.BattleState_Victory;
-        m_victoryText.SetActive(true);
+		CanvasManager.Get.eState_Menu = CanvasManager.EState_Menu.EState_Menu_Victory;
         StartCoroutine(BackTimer());
     }
 
     private void DefeatEvent()
     {
-        battleState = BattleState.BattleState_Defeat;
-        m_defeatText.SetActive(true);
+		CanvasManager.Get.eState_Menu = CanvasManager.EState_Menu.EState_Menu_Defeat;
         StartCoroutine(BackTimer());
     }
 
@@ -152,20 +136,13 @@ public class BattleManager : MonoBehaviour
 
     void Update ()
     {
-        switch (battleState)
+		switch (CanvasManager.Get.eState_Menu)
         {
-            case BattleState.BattleState_OnGoing:
+			case CanvasManager.EState_Menu.EState_Menu_InGame:
                 if (VictoryCondition())
                     VictoryEvent();
                 else if (DefeatCondition())
                     DefeatEvent();
-
-                break;
-            case BattleState.BattleState_Victory:
-                break;
-            case BattleState.BattleState_Defeat:
-                break;
-            default:
                 break;
         }
     }
