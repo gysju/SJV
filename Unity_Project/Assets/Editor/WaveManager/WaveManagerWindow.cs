@@ -9,6 +9,6 @@ public partial class WaveManagerWindow : EditorWindow
 	{
 		var window = GetWindow<WaveManagerWindow>();
 		window.Init();
-		//window.Show();
+		window.Show();
 	}
 }
