@@ -43,7 +43,22 @@ public class BaseEnemy : MonoBehaviour
     [Tooltip("Unit's Weapons list.")]
     public List<Weapon> m_weapons = new List<Weapon>();
 
+
+    protected enum EnemyState
+    {
+        EnemyState_Sleep,
+        EnemyState_Moving,
+        EnemyState_Attacking
+    }
+    protected EnemyState m_enemyState = EnemyState.EnemyState_Sleep;
+
     protected Vector3? m_attackPosition = null;
+
+    [Header("Attack")]
+    [Tooltip("Time the unit will take to shoot.")]
+    [ContextMenuItem("Test Unit", "TestUnit")]
+    public float m_timeToAttack = 2f;
+    protected float m_currentTimeToAttack;
 
     protected Transform m_target;
 
@@ -51,6 +66,7 @@ public class BaseEnemy : MonoBehaviour
     protected virtual void Awake()
     {
         m_transform = transform;
+        m_currentTimeToAttack = m_timeToAttack;
         //if(!m_ZAManager) m_ZAManager = FindObjectOfType<BattleManager>();
     }
 
@@ -60,15 +76,25 @@ public class BaseEnemy : MonoBehaviour
         CheckHitPoints();
     }
 
-    public virtual void ResetUnit(Vector3 spawn, Vector3 movementTarget)
+    public virtual void ResetUnit(Vector3 spawn, Vector3 movementTarget, Transform target)
     {
         m_transform.position = spawn;
 
         m_attackPosition = movementTarget;
 
+        m_target = target;
+
         m_destroyed = false;
 
-        GetComponentInChildren<MeshCollider>().enabled = true;
+        m_enemyState = EnemyState.EnemyState_Moving;
+        
+
+        StartMovement(m_attackPosition.Value);
+    }
+
+    public virtual void TestUnit()
+    {
+        ResetUnit(new Vector3(10f,0f, 100f), new Vector3(5f, 0f, 50f), FindObjectOfType<Player>().transform);
     }
     #endregion
 
@@ -90,6 +116,8 @@ public class BaseEnemy : MonoBehaviour
     protected virtual void StartDying()
     {
         m_destroyed = true;
+
+        m_enemyState = EnemyState.EnemyState_Sleep;
 
         GetComponentInChildren<Collider>().enabled = false;
 
@@ -143,12 +171,20 @@ public class BaseEnemy : MonoBehaviour
         else return false;
     }
     #endregion
-    
-    #region Attack Related
-    //public virtual void AimWeaponAt(Vector3 target)
-    //{
 
-    //}
+    public virtual void StartMovement(Vector3 newDestination)
+    {
+
+    }
+
+    #region Attack Related
+    public virtual void AimWeaponAt(Vector3 target)
+    {
+        foreach (Weapon weapon in m_weapons)
+        {
+            weapon.transform.LookAt(target);
+        }
+    }
 
     public void PressWeaponTrigger(int weaponID)
     {

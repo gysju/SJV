@@ -27,9 +27,77 @@ public class GroundEnemy : BaseEnemy
         if(m_attackPosition.HasValue) m_navMeshAgent.SetDestination(m_attackPosition.Value);
     }
 
-    public override void ResetUnit(Vector3 spawn, Vector3 movementTarget)
+    public override void ResetUnit(Vector3 spawn, Vector3 movementTarget, Transform target)
     {
-        base.ResetUnit(spawn, movementTarget);
+        m_navMeshAgent.ResetPath();
+        base.ResetUnit(spawn, movementTarget, target);
+    }
+    #endregion
+
+    #region Movement Related
+    public override void StartMovement(Vector3 newDestination)
+    {
+        m_navMeshAgent.SetDestination(newDestination);
+    }
+
+    protected bool IsPathCompleted()
+    {
+        if (!m_navMeshAgent.pathPending)
+        {
+            if (m_navMeshAgent.remainingDistance <= m_navMeshAgent.stoppingDistance)
+            {
+                if (!m_navMeshAgent.hasPath || m_navMeshAgent.velocity.sqrMagnitude == 0f)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    protected void MovementOver()
+    {
+        m_enemyState = EnemyState.EnemyState_Attacking;
+        AimWeaponAt(m_target.position);
+    }
+    #endregion
+
+    #region Attack related
+    protected void Fire()
+    {
+        PressWeaponTrigger(0);
+        m_currentTimeToAttack = m_timeToAttack;
+    }
+    #endregion
+
+    #region Updates
+    protected override void Update()
+    {
+        if (!m_destroyed)
+        {
+            base.Update();
+            switch (m_enemyState)
+            {
+                case EnemyState.EnemyState_Sleep:
+                    break;
+                case EnemyState.EnemyState_Moving:
+                    if (IsPathCompleted())
+                    {
+                        MovementOver();
+                    }
+                    break;
+                case EnemyState.EnemyState_Attacking:
+                    ReleaseWeaponTrigger(0);
+                    m_currentTimeToAttack -= Time.deltaTime;
+                    if (m_currentTimeToAttack <= 0)
+                    {
+                        Fire();
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
     }
     #endregion
 }
