@@ -24,16 +24,12 @@ public class Factory : Unit
             newUnit = (m_battleManager.IsThereUnusedDrones()) ? m_battleManager.GetUnusedDrone(m_productionExit.position, m_productionExit.rotation).GetComponent<Unit>() : (Unit)Instantiate(m_produceUnit, m_productionExit.position, m_productionExit.rotation);
 			BattleManager.Instance.setCurrentNbrDrone ( BattleManager.Instance.getCurrentNbrDrone() + 1 );
 			BattleManager.Instance.setcurrentNbrDroneSinceLastWave ( BattleManager.Instance.getcurrentNbrDroneSinceLastWave() + 1 );
-
-			Debug.Log (BattleManager.Instance.getCurrentNbrDrone() + " : " + WaveManager.Instance.getCurrentMaxDrone());
 		}
         else if (m_produceUnit is HoverTank)
         {
             newUnit = (m_battleManager.IsThereUnusedTanks()) ? m_battleManager.GetUnusedTank(m_productionExit.position, m_productionExit.rotation).GetComponent<Unit>() : (Unit)Instantiate(m_produceUnit, m_productionExit.position, m_productionExit.rotation);
 			BattleManager.Instance.setCurrentNbrTank ( BattleManager.Instance.getCurrentNbrTank() + 1 );
 			BattleManager.Instance.setcurrentNbrTankSinceLastWave ( BattleManager.Instance.getcurrentNbrTankSinceLastWave() + 1 );
-
-			Debug.Log (BattleManager.Instance.getCurrentNbrTank() + " : " + WaveManager.Instance.getCurrentMaxTank());
 		}
 
         newUnit.ChangeFaction(m_faction);

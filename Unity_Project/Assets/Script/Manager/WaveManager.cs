@@ -47,7 +47,7 @@ public class WaveManager : MonoBehaviour {
 		else if (secondeTimer > (Waves[CurrentWaveIndex].WaveTime / Waves[CurrentWaveIndex].CallNumber))
 		{
 			float value = time / Waves [CurrentWaveIndex].WaveTime;
-			MaxTankByCurrentCall = Mathf.FloorToInt( Waves[CurrentWaveIndex].TankByTime.Evaluate(value) );
+			MaxTankByCurrentCall = Mathf.FloorToInt( Waves[CurrentWaveIndex].TankByTime.Evaluate(value) ); 
 			MaxDroneByCurrentCall = Mathf.FloorToInt( Waves[CurrentWaveIndex].DroneByTime.Evaluate(value) );
 			secondeTimer = 0.0f;
 
