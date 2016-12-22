@@ -80,7 +80,7 @@ public class GroundEnemy : BaseEnemy
             switch (m_enemyState)
             {
                 case EnemyState.EnemyState_Sleep:
-                    if (m_attackPosition)
+                    if (m_attackPosition.HasValue)
                     {
                         StartMovement();
                     }

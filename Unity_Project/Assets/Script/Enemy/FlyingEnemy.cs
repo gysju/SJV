@@ -6,6 +6,9 @@ public class FlyingEnemy : BaseEnemy
     [Header("Mobility")]
     public float m_maxSpeed = 2f;
     public float m_acceleration = 8f;
+    public float m_rotationSpeed = 1f;
+
+    public LayerMask m_layerToDodge;
 
     #region Initialization
     protected override void Awake()
@@ -23,10 +26,33 @@ public class FlyingEnemy : BaseEnemy
     {
         base.ResetUnit(spawn, movementTarget, target);
     }
+
+    public override void TestUnit()
+    {
+        ResetUnit(new Vector3(5f, 2f, 120f), new Vector3(5f, 10f, 25f), FindObjectOfType<Player>().transform);
+    }
     #endregion
 
     #region Movement Related
-    
+    protected void TurnTowardTarget(Vector3 targetPosition)
+    {
+        Vector3 movementDirection = (targetPosition - m_transform.position).normalized;
+        Vector3 rotationVector = movementDirection;
+        rotationVector.y = 0;
+        Quaternion rotation = Quaternion.LookRotation(movementDirection);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * m_rotationSpeed);
+    }
+
+    protected void MovementUpdate()
+    {
+        Vector3 movementDirection = (m_attackPosition.Value - m_transform.position).normalized;
+        RaycastHit hit;
+        Physics.SphereCast(m_transform.position, 3f, movementDirection, out hit, m_maxSpeed/2f, m_layerToDodge);
+        if (hit.transform) movementDirection = Vector3.up;
+        m_transform.position += movementDirection * m_maxSpeed * Time.deltaTime;
+        if (IsPathCompleted()) MovementOver();
+    }
+
     protected bool IsPathCompleted()
     {
         return (Vector3.Distance(m_transform.position, m_attackPosition.Value) < 1f);
@@ -56,14 +82,17 @@ public class FlyingEnemy : BaseEnemy
             switch (m_enemyState)
             {
                 case EnemyState.EnemyState_Sleep:
-                    break;
-                case EnemyState.EnemyState_Moving:
-                    if (IsPathCompleted())
+                    if (m_attackPosition.HasValue)
                     {
-                        MovementOver();
+                        StartMovement();
                     }
                     break;
+                case EnemyState.EnemyState_Moving:
+                    TurnTowardTarget(m_attackPosition.Value);
+                    MovementUpdate();
+                    break;
                 case EnemyState.EnemyState_Attacking:
+                    //TurnTowardTarget(m_target.position);
                     m_currentTimeToAttack -= Time.deltaTime;
                     if (m_currentTimeToAttack <= 0)
                     {

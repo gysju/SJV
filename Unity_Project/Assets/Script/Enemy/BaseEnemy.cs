@@ -91,9 +91,6 @@ public class BaseEnemy : MonoBehaviour
         m_destroyed = false;
 
         m_enemyState = EnemyState.EnemyState_Sleep;
-        
-
-        StartMovement(m_attackPosition.Value);
     }
 
     public virtual void TestUnit()
