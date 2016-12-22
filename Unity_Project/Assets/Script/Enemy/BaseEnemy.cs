@@ -95,7 +95,7 @@ public class BaseEnemy : MonoBehaviour
 
     public virtual void TestUnit()
     {
-        ResetUnit(new Vector3(10f,0f, 100f), new Vector3(5f, 0f, 50f), FindObjectOfType<Player>().transform);
+        ResetUnit(new Vector3(15f,0f, 120f), new Vector3(5f, 0f, 50f), FindObjectOfType<Player>().transform);
     }
     #endregion
 
