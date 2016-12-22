@@ -11,6 +11,8 @@ public class BaseEnemy : MonoBehaviour
     const int MAX_ARMOR = 100;
 
     protected Transform m_transform;
+    protected Renderer m_model;
+
 
     //public ZAManager m_ZAManager;
 
@@ -57,6 +59,7 @@ public class BaseEnemy : MonoBehaviour
     [Header("Attack")]
     [Tooltip("Time the unit will take to shoot.")]
     [ContextMenuItem("Test Unit", "TestUnit")]
+    [Range(1f, 5f)]
     public float m_timeToAttack = 2f;
     protected float m_currentTimeToAttack;
 
@@ -66,6 +69,7 @@ public class BaseEnemy : MonoBehaviour
     protected virtual void Awake()
     {
         m_transform = transform;
+        m_model = GetComponentInChildren<MeshRenderer>();
         m_currentTimeToAttack = m_timeToAttack;
         //if(!m_ZAManager) m_ZAManager = FindObjectOfType<BattleManager>();
     }
@@ -86,7 +90,7 @@ public class BaseEnemy : MonoBehaviour
 
         m_destroyed = false;
 
-        m_enemyState = EnemyState.EnemyState_Moving;
+        m_enemyState = EnemyState.EnemyState_Sleep;
         
 
         StartMovement(m_attackPosition.Value);
@@ -172,10 +176,12 @@ public class BaseEnemy : MonoBehaviour
     }
     #endregion
 
-    public virtual void StartMovement(Vector3 newDestination)
+    #region Movement Related
+    public virtual void StartMovement()
     {
-
+        m_enemyState = EnemyState.EnemyState_Moving;
     }
+    #endregion
 
     #region Attack Related
     public virtual void AimWeaponAt(Vector3 target)
@@ -184,6 +190,11 @@ public class BaseEnemy : MonoBehaviour
         {
             weapon.transform.LookAt(target);
         }
+    }
+
+    protected void FireWeapon(int weaponID)
+    {
+        m_weapons[weaponID].FireWeapon();
     }
 
     public void PressWeaponTrigger(int weaponID)
