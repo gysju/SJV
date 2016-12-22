@@ -3,7 +3,7 @@ using System.Collections;
 
 public class GroundEnemy : BaseEnemy
 {
-    protected NavMeshAgent m_navMeshAgent;
+    protected UnityEngine.AI.NavMeshAgent m_navMeshAgent;
 
     [Header("Mobility")]
     public float m_maxSpeed = 2f;
@@ -14,7 +14,7 @@ public class GroundEnemy : BaseEnemy
     protected override void Awake()
     {
         base.Awake();
-        m_navMeshAgent = GetComponent<NavMeshAgent>();
+        m_navMeshAgent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         m_navMeshAgent.stoppingDistance = 0.5f;
         m_navMeshAgent.speed = m_maxSpeed;
         m_navMeshAgent.acceleration = m_acceleration;

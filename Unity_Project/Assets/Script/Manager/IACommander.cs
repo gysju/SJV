@@ -20,7 +20,7 @@ public class IACommander : MonoBehaviour
         m_player = FindObjectOfType<Player>();
 	}
 
-    float PathLength(NavMeshPath path)
+    float PathLength(UnityEngine.AI.NavMeshPath path)
     {
         if (path.corners.Length < 2)
             return 0;
@@ -52,8 +52,8 @@ public class IACommander : MonoBehaviour
         {
             if (!capturePoint.IsSameFaction(m_faction))
             {
-                NavMeshPath possiblePath = new NavMeshPath();
-                if (NavMesh.CalculatePath(unitPosition, capturePoint.transform.position, 1, possiblePath))
+                UnityEngine.AI.NavMeshPath possiblePath = new UnityEngine.AI.NavMeshPath();
+                if (UnityEngine.AI.NavMesh.CalculatePath(unitPosition, capturePoint.transform.position, 1, possiblePath))
                 {
                     float possiblePathLength = PathLength(possiblePath);
                     if (possiblePathLength < smallestLength)
