@@ -18,15 +18,10 @@ public partial class WaveManagerWindow : EditorWindow {
 	float timeBeforeNextWave = 10.0f;
 	string name = "";
 
-	List<WaveScriptableObject.UnitType> firstButtonsType = new List<WaveScriptableObject.UnitType>();
-	List<WaveScriptableObject.UnitType> secondeButtonsType = new List<WaveScriptableObject.UnitType>();
-
 	public void Init()
 	{
 		labelStyle = new GUIStyle ();
 		setLabelStyle ();
-		firstButtonsType.Capacity = 100;
-		secondeButtonsType.Capacity = 100;
 	}
 
 	void OnGUI()
@@ -58,11 +53,11 @@ public partial class WaveManagerWindow : EditorWindow {
 			{
 				if(BeginingTemplateType == TemplateType.TemplateType_Square)
 				{
-					DrawSquareTemplate (ref firstsizeX, ref firstsizeY, firstButtonsType );
+					DrawSquareTemplate (ref firstsizeX, ref firstsizeY, ref wave.spawners );
 				}
 				else
 				{
-					DrawCircleTemplate (firstRadius, firstButtonsType );
+					DrawCircleTemplate (firstRadius, wave.spawners );
 				}
 			}
 
@@ -73,11 +68,11 @@ public partial class WaveManagerWindow : EditorWindow {
 
 				if(EndingTemplateType == TemplateType.TemplateType_Square)
 				{
-					DrawSquareTemplate (ref secondSizeX, ref secondSizeY, secondeButtonsType );
+					DrawSquareTemplate (ref secondSizeX, ref secondSizeY, ref wave.Destination );
 				}
 				else
 				{
-					DrawCircleTemplate (secondRadius, secondeButtonsType );
+					DrawCircleTemplate (secondRadius, wave.Destination );
 				}
 			}
 
@@ -108,8 +103,11 @@ public partial class WaveManagerWindow : EditorWindow {
 
 	void SaveWave()
 	{
-		//wave.spawners// set Initial pos 
-		//wave.Destination// set destination pos
+		wave.spawners.RemoveAll (x => x.type == WaveScriptableObject.UnitType.UnitType_None);// set Initial pos 
+		wave.Destination.RemoveAll( x => x.type == WaveScriptableObject.UnitType.UnitType_None);// set destination pos
+
+		wave.spawners.Capacity = wave.spawners.Count;
+		wave.Destination.Capacity = wave.Destination.Count;
 
 		wave.timeBeforeNextWave = timeBeforeNextWave;
 		wave.waitPreviousWave = WaitPreviousWave;
@@ -124,27 +122,32 @@ public partial class WaveManagerWindow : EditorWindow {
 		labelStyle.fontSize = 20;
 	}
 
-	void DrawSquareTemplate( ref int sizeX, ref int sizeY, List<WaveScriptableObject.UnitType> unitType)
+	void DrawSquareTemplate( ref int sizeX, ref int sizeY,ref List<WaveScriptableObject.Info> infos)
 	{
 		GUILayout.BeginHorizontal ();
 		sizeX = EditorGUILayout.IntField("Size X : ",  sizeX); sizeY = EditorGUILayout.IntField("Size Y : ",  sizeY);
 		GUILayout.EndHorizontal ();
 
-		initButtonState (unitType);
+		initInfoState (infos);
 
 		for( int y = 0; y < sizeY; y++ )
 		{
 			GUILayout.BeginHorizontal ();
 			for( int x = 0; x < sizeX; x++ )
 			{
-				int index = x + (x * y);
-				unitType[index] = checkButtonType ( unitType[index] );
+				int index = x + (sizeX * y);
+				infos[index].type = checkButtonType ( infos[index].type );
+				if (infos [index].type != WaveScriptableObject.UnitType.UnitType_None) 
+				{
+					infos [index].PosX = x;
+					infos [index].PosY = y;
+				}	
 			} 
 			GUILayout.EndHorizontal ();
 		}
 	}
 
-	void DrawCircleTemplate( int radius, List<WaveScriptableObject.UnitType> unitType)
+	void DrawCircleTemplate( int radius, List<WaveScriptableObject.Info> infos)
 	{
 		radius = EditorGUILayout.IntField("Radius : ",  radius);
 	}
@@ -171,13 +174,13 @@ public partial class WaveManagerWindow : EditorWindow {
 		return unitType;
 	}
 
-	void initButtonState(List<WaveScriptableObject.UnitType> unitType)
+	void initInfoState(List<WaveScriptableObject.Info> infos)
 	{
-		if(unitType.Count == 0)
+		if(infos.Count == 0)
 		{
-			for (int i = 0; i < 100; i++) 
+			for (int i = 0; i < 25; i++) 
 			{
-				unitType.Add (WaveScriptableObject.UnitType.UnitType_None);
+				infos.Add (new WaveScriptableObject.Info());
 			}
 		}
 	}
