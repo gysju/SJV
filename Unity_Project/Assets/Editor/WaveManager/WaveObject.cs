@@ -14,11 +14,18 @@ public class WaveScriptableObject : ScriptableObject
 		public UnitType type;
 	}
 
+	public string ObjectName;
 	public enum UnitType {UnitType_None = 0, UnitType_Tank, UnitType_Drone}
 
 	public float timeBeforeNextWave = 10.0f;
 	public bool waitPreviousWave = true;
 
 	public List<Info> spawners = new List<Info>();
+	public int SpawnSizeX = 0;
+	public int SpawnSizeY = 0;
+
 	public List<Info> Destination = new List<Info>();
+	public int DestinationSizeX = 0;
+	public int DestinationSizeY = 0;
+
 }

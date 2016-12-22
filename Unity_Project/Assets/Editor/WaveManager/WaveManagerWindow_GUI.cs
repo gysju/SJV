@@ -12,11 +12,6 @@ public partial class WaveManagerWindow : EditorWindow {
 	TemplateType EndingTemplateType = TemplateType.TemplateType_None;
 
 	WaveScriptableObject wave = null;
-	bool WaitPreviousWave;
-	int firstsizeX = 1; int firstsizeY = 1;int secondSizeX = 1; int secondSizeY = 1;
-	int firstRadius = 1;int secondRadius = 1;
-	float timeBeforeNextWave = 10.0f;
-	string name = "";
 
 	public void Init()
 	{
@@ -53,11 +48,11 @@ public partial class WaveManagerWindow : EditorWindow {
 			{
 				if(BeginingTemplateType == TemplateType.TemplateType_Square)
 				{
-					DrawSquareTemplate (ref firstsizeX, ref firstsizeY, ref wave.spawners );
+					DrawSquareTemplate (ref wave.SpawnSizeX, ref wave.SpawnSizeY, ref wave.spawners );
 				}
 				else
 				{
-					DrawCircleTemplate (firstRadius, wave.spawners );
+					DrawCircleTemplate (ref wave.SpawnSizeX, wave.spawners );
 				}
 			}
 
@@ -68,19 +63,19 @@ public partial class WaveManagerWindow : EditorWindow {
 
 				if(EndingTemplateType == TemplateType.TemplateType_Square)
 				{
-					DrawSquareTemplate (ref secondSizeX, ref secondSizeY, ref wave.Destination );
+					DrawSquareTemplate (ref wave.DestinationSizeX, ref wave.DestinationSizeY, ref wave.Destination );
 				}
 				else
 				{
-					DrawCircleTemplate (secondRadius, wave.Destination );
+					DrawCircleTemplate (ref wave.DestinationSizeX, wave.Destination );
 				}
 			}
 
-			WaitPreviousWave = GUILayout.Toggle (WaitPreviousWave, "Wait the previous wave"); 
-			timeBeforeNextWave = EditorGUILayout.FloatField ("Time before the next wave : ",timeBeforeNextWave);
-			name = EditorGUILayout.TextField("Name : ", name);
+			wave.waitPreviousWave = GUILayout.Toggle (wave.waitPreviousWave, "Wait the previous wave"); 
+			wave.timeBeforeNextWave = EditorGUILayout.FloatField ("Time before the next wave : ",wave.timeBeforeNextWave);
+			wave.ObjectName = EditorGUILayout.TextField("Name : ", wave.ObjectName);
 
-			if (name != "" && GUILayout.Button(" Save wave "))
+			if (wave.ObjectName != "" && GUILayout.Button(" Save wave "))
 			{
 				SaveWave();
 			}
@@ -92,7 +87,8 @@ public partial class WaveManagerWindow : EditorWindow {
 		string path = EditorUtility.OpenFilePanel ("Wave", "", "");
 		if (path.StartsWith (Application.dataPath)) 
 		{
-			
+			string relpath = path.Substring(Application.dataPath.Length - "Assets".Length);
+			wave = AssetDatabase.LoadAssetAtPath(relpath, typeof(WaveScriptableObject)) as WaveScriptableObject;
 		}
 	}
 
@@ -109,10 +105,7 @@ public partial class WaveManagerWindow : EditorWindow {
 		wave.spawners.Capacity = wave.spawners.Count;
 		wave.Destination.Capacity = wave.Destination.Count;
 
-		wave.timeBeforeNextWave = timeBeforeNextWave;
-		wave.waitPreviousWave = WaitPreviousWave;
-
-		AssetDatabase.CreateAsset ( wave,"Assets/Databases/Waves/" + name + ".asset"); //try catche
+		AssetDatabase.CreateAsset ( wave,"Assets/Databases/Waves/" + wave.ObjectName + ".asset"); //try catche
 		AssetDatabase.SaveAssets ();
 	}
 
@@ -147,7 +140,7 @@ public partial class WaveManagerWindow : EditorWindow {
 		}
 	}
 
-	void DrawCircleTemplate( int radius, List<WaveScriptableObject.Info> infos)
+	void DrawCircleTemplate( ref int radius, List<WaveScriptableObject.Info> infos)
 	{
 		radius = EditorGUILayout.IntField("Radius : ",  radius);
 	}
