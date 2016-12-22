@@ -13,18 +13,20 @@ public partial class WaveManagerWindow : EditorWindow {
 
 	WaveScriptableObject wave = null;
 	bool WaitPreviousWave;
-	int sizeX = 1; int sizeY = 1;
-	int radius = 1;
+	int firstsizeX = 1; int firstsizeY = 1;int secondSizeX = 1; int secondSizeY = 1;
+	int firstRadius = 1;int secondRadius = 1;
 	float timeBeforeNextWave = 10.0f;
 	string name = "";
 
-	List<WaveScriptableObject.UnitType> buttonsType = new List<WaveScriptableObject.UnitType>();
+	List<WaveScriptableObject.UnitType> firstButtonsType = new List<WaveScriptableObject.UnitType>();
+	List<WaveScriptableObject.UnitType> secondeButtonsType = new List<WaveScriptableObject.UnitType>();
 
 	public void Init()
 	{
 		labelStyle = new GUIStyle ();
 		setLabelStyle ();
-		buttonsType.Capacity = 100;
+		firstButtonsType.Capacity = 100;
+		secondeButtonsType.Capacity = 100;
 	}
 
 	void OnGUI()
@@ -56,11 +58,11 @@ public partial class WaveManagerWindow : EditorWindow {
 			{
 				if(BeginingTemplateType == TemplateType.TemplateType_Square)
 				{
-					DrawSquareTemplate ( wave.spawners );
+					DrawSquareTemplate (ref firstsizeX, ref firstsizeY, firstButtonsType );
 				}
 				else
 				{
-					DrawCircleTemplate ( wave.spawners );
+					DrawCircleTemplate (firstRadius, firstButtonsType );
 				}
 			}
 
@@ -71,11 +73,11 @@ public partial class WaveManagerWindow : EditorWindow {
 
 				if(EndingTemplateType == TemplateType.TemplateType_Square)
 				{
-					DrawSquareTemplate ( wave.Destination );
+					DrawSquareTemplate (ref secondSizeX, ref secondSizeY, secondeButtonsType );
 				}
 				else
 				{
-					DrawCircleTemplate ( wave.Destination );
+					DrawCircleTemplate (secondRadius, secondeButtonsType );
 				}
 			}
 
@@ -112,7 +114,7 @@ public partial class WaveManagerWindow : EditorWindow {
 		wave.timeBeforeNextWave = timeBeforeNextWave;
 		wave.waitPreviousWave = WaitPreviousWave;
 
-		AssetDatabase.CreateAsset ( wave,"Assets/Databases/Waves/" + name + ".asset");
+		AssetDatabase.CreateAsset ( wave,"Assets/Databases/Waves/" + name + ".asset"); //try catche
 		AssetDatabase.SaveAssets ();
 	}
 
@@ -122,50 +124,61 @@ public partial class WaveManagerWindow : EditorWindow {
 		labelStyle.fontSize = 20;
 	}
 
-	void DrawSquareTemplate(List<WaveScriptableObject.Info> infos)
+	void DrawSquareTemplate( ref int sizeX, ref int sizeY, List<WaveScriptableObject.UnitType> unitType)
 	{
 		GUILayout.BeginHorizontal ();
 		sizeX = EditorGUILayout.IntField("Size X : ",  sizeX); sizeY = EditorGUILayout.IntField("Size Y : ",  sizeY);
 		GUILayout.EndHorizontal ();
+
+		initButtonState (unitType);
 
 		for( int y = 0; y < sizeY; y++ )
 		{
 			GUILayout.BeginHorizontal ();
 			for( int x = 0; x < sizeX; x++ )
 			{
-				//change button by state
-
-				//if ( buttonsType[x + (x * y)] == null )
-					//buttonsType[x + (x * y)] = new WaveScriptableObject.UnitType();	
-				//checkButtonType ( buttonsType[x + (x * y)] );
+				int index = x + (x * y);
+				unitType[index] = checkButtonType ( unitType[index] );
 			} 
 			GUILayout.EndHorizontal ();
 		}
 	}
 
-	void DrawCircleTemplate( List<WaveScriptableObject.Info> infos)
+	void DrawCircleTemplate( int radius, List<WaveScriptableObject.UnitType> unitType)
 	{
 		radius = EditorGUILayout.IntField("Radius : ",  radius);
 	}
 
-	void checkButtonType(WaveScriptableObject.UnitType unitType)
+	WaveScriptableObject.UnitType checkButtonType(WaveScriptableObject.UnitType unitType)
 	{
 		switch(unitType)
 		{
 			case WaveScriptableObject.UnitType.UnitType_None:
 			if (GUILayout.Button ("X"))
-				unitType = WaveScriptableObject.UnitType.UnitType_Tank;
+				return WaveScriptableObject.UnitType.UnitType_Tank;
 			break;
 
 			case WaveScriptableObject.UnitType.UnitType_Tank:
 			if ( GUILayout.Button("T"))
-				unitType = WaveScriptableObject.UnitType.UnitType_Drone;
+				return WaveScriptableObject.UnitType.UnitType_Drone;
 			break;
 
 			case WaveScriptableObject.UnitType.UnitType_Drone:
 			if ( GUILayout.Button("D"))
-				unitType = WaveScriptableObject.UnitType.UnitType_None;
+				return WaveScriptableObject.UnitType.UnitType_None;
 			break;
 		} 
+		return unitType;
+	}
+
+	void initButtonState(List<WaveScriptableObject.UnitType> unitType)
+	{
+		if(unitType.Count == 0)
+		{
+			for (int i = 0; i < 100; i++) 
+			{
+				unitType.Add (WaveScriptableObject.UnitType.UnitType_None);
+			}
+		}
 	}
 }
