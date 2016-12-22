@@ -23,9 +23,10 @@ public class WaveScriptableObject : ScriptableObject
 	public List<Info> spawners = new List<Info>();
 	public int SpawnSizeX = 0;
 	public int SpawnSizeY = 0;
+	public WaveManagerWindow.TemplateType SpawnerType;
 
 	public List<Info> Destination = new List<Info>();
 	public int DestinationSizeX = 0;
 	public int DestinationSizeY = 0;
-
+	public WaveManagerWindow.TemplateType DestinationType;
 }

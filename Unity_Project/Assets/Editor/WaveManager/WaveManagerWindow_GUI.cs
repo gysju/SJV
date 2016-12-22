@@ -6,10 +6,7 @@ using System.Collections.Generic;
 public partial class WaveManagerWindow : EditorWindow {
 
 	GUIStyle labelStyle;
-	enum TemplateType { TemplateType_None = 0, TemplateType_Square, TemplateType_Circle};
-
-	TemplateType BeginingTemplateType = TemplateType.TemplateType_None;
-	TemplateType EndingTemplateType = TemplateType.TemplateType_None;
+	public enum TemplateType { TemplateType_None = 0, TemplateType_Square, TemplateType_Circle};
 
 	WaveScriptableObject wave = null;
 
@@ -42,11 +39,11 @@ public partial class WaveManagerWindow : EditorWindow {
 
 		if (wave != null) 
 		{
-			BeginingTemplateType = (TemplateType) EditorGUILayout.EnumPopup ("Begining pattern : ", BeginingTemplateType);
+			wave.SpawnerType = (TemplateType) EditorGUILayout.EnumPopup ("Begining pattern : ", wave.SpawnerType);
 
-			if(BeginingTemplateType != TemplateType.TemplateType_None)
+			if(wave.SpawnerType != TemplateType.TemplateType_None)
 			{
-				if(BeginingTemplateType == TemplateType.TemplateType_Square)
+				if(wave.SpawnerType == TemplateType.TemplateType_Square)
 				{
 					DrawSquareTemplate (ref wave.SpawnSizeX, ref wave.SpawnSizeY, ref wave.spawners );
 				}
@@ -56,12 +53,12 @@ public partial class WaveManagerWindow : EditorWindow {
 				}
 			}
 
-			EndingTemplateType = (TemplateType) EditorGUILayout.EnumPopup ("Ending pattern : ", EndingTemplateType);
+			wave.DestinationType = (TemplateType) EditorGUILayout.EnumPopup ("Ending pattern : ", wave.DestinationType);
 
-			if(EndingTemplateType != TemplateType.TemplateType_None)
+			if(wave.DestinationType != TemplateType.TemplateType_None)
 			{
 
-				if(EndingTemplateType == TemplateType.TemplateType_Square)
+				if(wave.DestinationType == TemplateType.TemplateType_Square)
 				{
 					DrawSquareTemplate (ref wave.DestinationSizeX, ref wave.DestinationSizeY, ref wave.Destination );
 				}
