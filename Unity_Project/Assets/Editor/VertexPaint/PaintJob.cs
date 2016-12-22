@@ -89,7 +89,7 @@ namespace JBooth.VertexPainterPro
 
       public void InitMeshConnections()
       {
-         Profiler.BeginSample("Generate Mesh Connections");
+         UnityEngine.Profiling.Profiler.BeginSample("Generate Mesh Connections");
          // a half edge representation would be nice, but really just care about adjacentcy for now.. 
          vertexConnections = new List<int>[meshFilter.sharedMesh.vertexCount];
          for (int i = 0; i < vertexConnections.Length; ++i)
@@ -133,7 +133,7 @@ namespace JBooth.VertexPainterPro
                l.Add(c0);
             }
          }
-         Profiler.EndSample();
+         UnityEngine.Profiling.Profiler.EndSample();
       }
 
       public List<int>[] vertexConnections;
