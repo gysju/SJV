@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class FlyingEnemy : BaseEnemy
+public class AirEnemy : BaseEnemy
 {
     [Header("Mobility")]
     public float m_maxSpeed = 2f;
@@ -48,7 +48,20 @@ public class FlyingEnemy : BaseEnemy
         Vector3 movementDirection = (m_attackPosition.Value - m_transform.position).normalized;
         RaycastHit hit;
         Physics.SphereCast(m_transform.position, 3f, movementDirection, out hit, m_maxSpeed/2f, m_layerToDodge);
-        if (hit.transform) movementDirection = Vector3.up;
+        if (hit.transform)
+        {
+            movementDirection = Vector3.up;
+        }
+        else
+        {
+            if (m_transform.position.y > m_attackPosition.Value.y)
+            {
+                Physics.SphereCast(m_transform.position, 3f, -m_transform.up, out hit, m_maxSpeed / 2f, m_layerToDodge);
+                if (!hit.transform)
+                    movementDirection += Vector3.down /2f;
+            }
+            
+        }
         m_transform.position += movementDirection * m_maxSpeed * Time.deltaTime;
         if (IsPathCompleted()) MovementOver();
     }
@@ -70,6 +83,7 @@ public class FlyingEnemy : BaseEnemy
     {
         FireWeapon(0);
         m_currentTimeToAttack = m_timeToAttack;
+        AimWeaponAt(m_target.gameObject.GetComponentInChildren<Renderer>().bounds.center);
     }
     #endregion
 
