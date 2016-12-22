@@ -50,6 +50,8 @@ public class Weapon : MonoBehaviour
 	public int Damage = 1;
 	public int ArmorPenetration = 1;
 
+    LineRenderer m_laser;
+
     void Start ()
     {
         m_ammoLeftInMagazine = m_magazineSize;
@@ -59,6 +61,8 @@ public class Weapon : MonoBehaviour
             GameObject newBulletHit = (GameObject) Instantiate(m_bulletHit, bulletHitParent);
             m_bulletHits.Add(newBulletHit.GetComponent<ParticleSystem>());
         }
+
+        m_laser = m_muzzle.GetComponent<LineRenderer>();
     }
 
     public bool IsInAim(Vector3 targetPosition, float imprecisionAngle)
@@ -95,7 +99,12 @@ public class Weapon : MonoBehaviour
                     break;
                 }
             }
-
+            LineRenderer line = m_muzzle.GetComponent<LineRenderer>();
+            if (line)
+            {
+                line.SetPosition(0, m_muzzle.position);
+                line.SetPosition(1, hit.point);
+            }
             Unit unitHit = hit.transform.GetComponentInParent<Unit>();
 			if (unitHit) unitHit.ReceiveDamages(Damage, ArmorPenetration);
         }
@@ -155,6 +164,10 @@ public class Weapon : MonoBehaviour
 
     void Update ()
     {
-	    
-	}
+        if (m_laser && CanvasManager.EState_Menu.EState_Menu_InGame == CanvasManager.Get.eState_Menu)
+        {
+            m_laser.SetPosition(0, m_muzzle.position);
+            m_laser.SetPosition(1, m_muzzle.position + m_muzzle.forward * 20);
+        }
+    }
 }

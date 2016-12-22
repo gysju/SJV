@@ -20,20 +20,20 @@ public class LaserPointingSystem : MonoBehaviour {
 
 	private MoveController move;
 	private Button buttonSelected;
-	[SerializeField] 
-    private int count = 1; 
+    private int count; 
 
 	void Start () 
 	{
 		eventSystem =  GameObject.Find("EventSystem").GetComponent<EventSystem>();
 		lineRenderer = GetComponent<LineRenderer> ();
 		move = GetComponent<MoveController> ();
+		count = move.MoveIndex;
     }
 
     void Update () 
 	{
+		CheckMask ();
 		InputUI(); 
-
 		if (count >= 1)  
 		{
 			if (Physics.Raycast (transform.position, transform.forward, out hit, 1000.0f, mask))  
@@ -70,31 +70,28 @@ public class LaserPointingSystem : MonoBehaviour {
 
 	void InputUI()
 	{
-		if(buttonSelected != null && move.GetButtonDown(MoveController.MoveButton.MoveButton_Move))
+		if(buttonSelected != null && move.GetButtonDown(MoveController.MoveButton.MoveButton_Move) )
 		{
-			buttonSelected.onClick.Invoke ();
+			//buttonSelected.onClick.Invoke (); a fixer, le GetButtonDown ne fonctionne qu'une seul fois ( par manette )
 		}
 	}
 
 	void detectionType(RaycastHit hit)
 	{
-		buttonSelected = hit.transform.GetComponent<Button>() ;
+		buttonSelected = hit.collider.transform.GetComponent<Button>() ;
 		if (buttonSelected != null 
 			&& OtherLaser != null 
 			&& OtherLaser.buttonSelected == null) 
 		{
 			buttonSelected.Select();
 		}
+	}
+
+	void CheckMask()
+	{
+		if (CanvasManager.EState_Menu.EState_Menu_InGame == CanvasManager.Get.eState_Menu)
+			mask = (1 << LayerMask.NameToLayer ("Ground") | 1 << LayerMask.NameToLayer ("Unit") | 1 << LayerMask.NameToLayer ("Environment"));
 		else
-		{
-			if(hit.transform.GetComponent<Unit>() != null)
-			{
-				// instantié dans l'espace écran l'effet pour les unit
-			}
-			else
-			{
-				// instantié dans l'espace écran l'effet pour le sol
-			}
-		}
+			mask = 1 << LayerMask.NameToLayer ("UI");
 	}
 }

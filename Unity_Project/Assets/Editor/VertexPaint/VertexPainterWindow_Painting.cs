@@ -8,7 +8,7 @@ namespace JBooth.VertexPainterPro
    public partial class VertexPainterWindow : EditorWindow
    {
 
-      // C# doesn't have *& or **, so it's not easy to pass a reference to a value for changing.
+      // C# doesn't have *& or **, so it's not easy to pass a reference to a value for changing.²
       // instead, we wrap the setter into a templated lambda which allows us to pass a changable
       // reference around via a function which sets it. Pretty tricky sis, but I'd rather just
       // be able to pass the freaking reference already..
@@ -1648,7 +1648,7 @@ namespace JBooth.VertexPainterPro
 
       void DrawVertexPoints(PaintJob j, Vector3 point)
       {
-         Profiler.BeginSample("Draw Vertex Points");
+         UnityEngine.Profiling.Profiler.BeginSample("Draw Vertex Points");
          if (j.HasStream() && j.HasData())
          {
             PrepBrushMode(j);
@@ -1675,7 +1675,7 @@ namespace JBooth.VertexPainterPro
                Handles.SphereCap(0, wp, Quaternion.identity, HandleUtility.GetHandleSize(wp) * 0.02f);
             }
          }
-         Profiler.EndSample();
+         UnityEngine.Profiling.Profiler.EndSample();
       }
 
 
@@ -1803,7 +1803,7 @@ namespace JBooth.VertexPainterPro
          // could possibly make this faster by avoiding the double apply..
          if (tab == Tab.Deform)
          {
-            Profiler.BeginSample("Recalculate Normals and Tangents");
+            UnityEngine.Profiling.Profiler.BeginSample("Recalculate Normals and Tangents");
             for (int i = 0; i < jobs.Length; ++i)
             {
                PaintJob j = jobs[i];
@@ -1831,7 +1831,7 @@ namespace JBooth.VertexPainterPro
                   j.stream.Apply();
                }
             }
-            Profiler.EndSample();
+            UnityEngine.Profiling.Profiler.EndSample();
          }
          for (int i = 0; i < jobs.Length; ++i)
          {

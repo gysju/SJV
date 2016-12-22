@@ -50,4 +50,12 @@ public class AirUnit : HoverTank
         base.Update();
     }
     #endregion
+
+	#region Destroy
+
+	void OnDestroy()
+	{
+		
+	}
+	#endregion
 }
