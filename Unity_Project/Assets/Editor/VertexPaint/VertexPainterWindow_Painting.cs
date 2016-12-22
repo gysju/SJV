@@ -8,7 +8,7 @@ namespace JBooth.VertexPainterPro
    public partial class VertexPainterWindow : EditorWindow
    {
 
-      // C# doesn't have *& or **, so it's not easy to pass a reference to a value for changing.
+      // C# doesn't have *& or **, so it's not easy to pass a reference to a value for changing.²
       // instead, we wrap the setter into a templated lambda which allows us to pass a changable
       // reference around via a function which sets it. Pretty tricky sis, but I'd rather just
       // be able to pass the freaking reference already..

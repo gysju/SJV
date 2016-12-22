@@ -72,4 +72,12 @@ public class HoverTank : MobileGroundUnit
         }
     }
     #endregion
+
+	#region Destroy
+
+	void OnDestroy()
+	{
+		
+	}
+	#endregion
 }

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class BattleManager : MonoBehaviour
 {
-	public BattleManager Instance { get; private set;}
+	public static BattleManager Instance { get; private set;}
 
     public Player m_player;
 
@@ -20,16 +20,78 @@ public class BattleManager : MonoBehaviour
     [SerializeField]
     private List<GameObject> m_unusedDrones = new List<GameObject>();
 
+	private int currentNbrTank = 0;
+	private int currentNbrDrone = 0;
+
+	private int currentNbrTankSinceLastWave = 0;
+	private int currentNbrDroneSinceLastWave = 0;
+
     void Start ()
     {
 		if (Instance == null) 
 			Instance = this;
 		else if (Instance != this)
 			Destroy(gameObject);
-		
     }
 
-    #region Pools
+	#region info
+
+	public int getCurrentNbrTank()
+	{
+		return currentNbrTank;
+	}
+
+	public int getCurrentNbrDrone()
+	{
+		return currentNbrDrone;
+	}
+
+	public int getcurrentNbrTankSinceLastWave()
+	{
+		return currentNbrTankSinceLastWave;
+	}
+
+	public int getcurrentNbrDroneSinceLastWave()
+	{
+		return currentNbrDroneSinceLastWave;
+	}
+		
+	public void setCurrentNbrTank( int value )
+	{
+		currentNbrTank = value;
+		if (currentNbrTank < 0)
+			currentNbrTank = 0;
+	}
+
+	public void setCurrentNbrDrone(int value)
+	{
+		currentNbrDrone = value;
+		if (currentNbrDrone < 0)
+			currentNbrDrone = 0;
+	}
+
+	public void setcurrentNbrTankSinceLastWave( int value )
+	{
+		currentNbrTankSinceLastWave = value;
+		if (currentNbrTankSinceLastWave < 0)
+			currentNbrTankSinceLastWave = 0;
+	}
+
+	public void setcurrentNbrDroneSinceLastWave(int value)
+	{
+		currentNbrDroneSinceLastWave = value;
+		if (currentNbrDroneSinceLastWave < 0)
+			currentNbrDroneSinceLastWave = 0;
+	}
+
+	public int getCurrentNbrUnit()
+	{
+		return getCurrentNbrTank () + getCurrentNbrDrone ();
+	}
+
+	#endregion
+    
+	#region Pools
     public bool IsThereUnusedBullets()
     {
         return (m_unusedBullets.Count > 0);
@@ -86,10 +148,12 @@ public class BattleManager : MonoBehaviour
         unitToPool.transform.position = m_poolPosition;
         if (unitToPool is AirUnit)
         {
+			setCurrentNbrDrone ( currentNbrDrone - 1);
             m_unusedDrones.Add(unitToPool.gameObject);
         }
         else if (unitToPool is HoverTank)
         {
+			setCurrentNbrTank ( currentNbrTank - 1);
             m_unusedTanks.Add(unitToPool.gameObject);
         }
         else
