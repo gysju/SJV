@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 
 [AddComponentMenu("MechaVR/Units/DEV/Ground Unit")]
-[RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(UnityEngine.AI.NavMeshAgent))]
 public class MobileGroundUnit : CombatUnit
 {
-    protected NavMeshAgent m_navMeshAgent;
+    protected UnityEngine.AI.NavMeshAgent m_navMeshAgent;
     protected Vector3? m_destination = null;
     public Balise m_targetBalise { get; private set; }
     protected UnitPath m_path;
@@ -26,7 +26,7 @@ public class MobileGroundUnit : CombatUnit
     protected override void Awake()
     {
         base.Awake();
-        m_navMeshAgent = GetComponent<NavMeshAgent>();
+        m_navMeshAgent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         m_navMeshAgent.stoppingDistance = 0.5f;
         m_navMeshAgent.speed = m_maxSpeed;
         m_navMeshAgent.acceleration = m_acceleration;
