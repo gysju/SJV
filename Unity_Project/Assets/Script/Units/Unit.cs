@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 [AddComponentMenu("MechaVR/Units/DEV/Unit")]
 [RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(NavMeshObstacle))]
+[RequireComponent(typeof(UnityEngine.AI.NavMeshObstacle))]
 public class Unit : MonoBehaviour
 {
     const int MIN_HIT_POINTS = 0;
@@ -24,7 +24,7 @@ public class Unit : MonoBehaviour
 
     protected bool m_destroyed = false;
 
-    protected NavMeshObstacle m_navMeshObstacle;
+    protected UnityEngine.AI.NavMeshObstacle m_navMeshObstacle;
 
 
     [Header("Faction")]
@@ -76,7 +76,7 @@ public class Unit : MonoBehaviour
     protected virtual void Awake()
     {
         m_battleManager = FindObjectOfType<BattleManager>();
-        m_navMeshObstacle = GetComponent<NavMeshObstacle>();
+        m_navMeshObstacle = GetComponent<UnityEngine.AI.NavMeshObstacle>();
     }
 
     protected virtual void Start()
