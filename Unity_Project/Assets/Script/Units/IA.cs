@@ -18,7 +18,7 @@ public class IA : MonoBehaviour
     protected Unit m_currentTarget = null;
     [Tooltip("IA's imprecision angle.")]
     [Range(0.1f, 10.0f)]
-    public float m_imprecisioAngle = 10.0f;
+    public float m_imprecisionAngle = 10.0f;
     
     [Header("Order Specifics")]
 	[SerializeField]
@@ -94,6 +94,7 @@ public class IA : MonoBehaviour
         {
             m_combatUnit.m_detectedEnemies.Remove(m_currentTarget);
             m_currentTarget = null;
+			if(m_mobileGroundUnit) ResumeCurrentOrder ();
         }
     }
 
@@ -107,7 +108,7 @@ public class IA : MonoBehaviour
     #region Aim Related
     protected bool IsWeaponAimingTarget(Weapon weapon)
     {
-        return weapon.IsInAim(m_currentTarget.m_targetPoint.position, m_imprecisioAngle);
+        return weapon.IsInAim(m_currentTarget.transform.position, m_imprecisionAngle);
     }
 
     protected bool IsTargetInOptimalRange(Weapon weapon)
@@ -160,7 +161,6 @@ public class IA : MonoBehaviour
     public void GiveCaptureOrder(Capture_point pointToCapture)
     {
         m_unitToDestroy = null;
-        if (m_pointToCapture != pointToCapture)
         {
             m_pointToCapture = pointToCapture;
             m_mobileGroundUnit.SetDestination(m_pointToCapture.transform.position);
@@ -226,34 +226,29 @@ public class IA : MonoBehaviour
         TargetClosestDetectedEnemy();
     }
 
-    protected void Behaviour()
+    protected bool BattleBehaviour()
     {
         if (m_currentTarget)
         {
-            if (m_mobileGroundUnit)
-            {
-                if (IsTargetInFullOptimalRange())
-                    m_mobileGroundUnit.PausePath();
-                else
-                    m_mobileGroundUnit.ResumePath();
-            }
+			bool fullOptimalRange = IsTargetInFullOptimalRange ();
 
 
             m_combatUnit.AimWeaponAt(m_currentTarget.m_targetPoint.position);
 
             foreach (Weapon weapon in m_combatUnit.m_weapons)
             {
-                if (IsTargetInOptimalRange(weapon) && IsWeaponAimingTarget(weapon))
-                    weapon.TriggerPressed();
+				if (IsTargetInOptimalRange (weapon) && IsWeaponAimingTarget (weapon)) {
+					if (fullOptimalRange && m_mobileGroundUnit) m_mobileGroundUnit.PausePath();
+					weapon.TriggerPressed ();
+					return true;
+				}
                 else
+				{
                     weapon.TriggerReleased();
+				}
             }
         }
-        else
-        {
-            if (m_mobileGroundUnit)
-                ResumeCurrentOrder();
-        }
+		return false;
     }
     #endregion
 
@@ -262,16 +257,18 @@ public class IA : MonoBehaviour
     {
         if (!m_unit.IsDestroyed())
         {
-            if (m_mobileGroundUnit)
-            {
-                CheckCurrentOrder();
-            }
             if (m_combatUnit)
             {
                 ChooseTarget();
                 CheckCurrentTargetStatus();
-            }
-            Behaviour();
+				if (!BattleBehaviour ())
+				{
+					if (m_mobileGroundUnit)
+					{
+						CheckCurrentOrder ();
+					}
+				}
+			}
         }
     }
     #endregion

@@ -13,6 +13,8 @@ public class IACommander : MonoBehaviour
 
     public Unit.UnitFaction m_faction;
 
+    public Factory m_reactionFactory;
+
     void Start ()
     {
         m_player = FindObjectOfType<Player>();
@@ -96,9 +98,9 @@ public class IACommander : MonoBehaviour
             CaptureClosestPoint(unitAskingOrder);
     }
 
-	public void ReactionDroneSquadron()
+	public void ReactionDroneSquadron(Capture_point pointCaptured)
 	{
-		
+		if(m_reactionFactory) m_reactionFactory.ProduceSquadron(pointCaptured);
 	}
 
 	void Update ()

@@ -17,7 +17,7 @@ public class BallisticWeapon : Weapon
 
     public override void FireWeapon()
     {
-        GameObject newAmmo = (GameObject) Instantiate(m_ammo, m_muzzle.position, m_muzzle.rotation * GetSpread());
+        GameObject newAmmo = Instantiate(m_ammo, m_muzzle.position, m_muzzle.rotation * GetSpread()).gameObject;
         m_ammoPool.Add(newAmmo);
         Instantiate(m_muzzleFlash, m_muzzle.position, m_muzzle.rotation);
     }

@@ -12,7 +12,7 @@ public class Capture_point : MonoBehaviour
     
     protected SphereCollider m_captureZone;
 
-	[Range(0.1f, 10.0f)]
+	[Range(0.1f, 20.0f)]
 	public float m_captureZoneRadius = 5.0f;
 
 	[Range(1.0f, 10.0f)]
@@ -172,7 +172,7 @@ public class Capture_point : MonoBehaviour
             {
                 m_faction = Unit.UnitFaction.Ally;
                 m_currentCaptureValue = 1f;
-				m_enemyCommander.ReactionDroneSquadron ();
+				m_enemyCommander.ReactionDroneSquadron (this);
             }
             else if (m_currentCaptureValue <= -1f)
             {
