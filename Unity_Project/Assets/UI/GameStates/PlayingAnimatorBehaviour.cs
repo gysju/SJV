@@ -15,8 +15,8 @@ public class PlayingAnimatorBehaviour : GameStateBaseAnimatorBehaviour
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         if ((Input.GetButtonDown("Start") 
-            || ( CanvasManager.Get.eState_Menu == CanvasManager.EState_Menu.EState_Menu_Death 
-            || CanvasManager.Get.eState_Menu == CanvasManager.EState_Menu.EState_Menu_EndGame) 
+			|| ( CanvasManager.Get.eState_Menu == CanvasManager.EState_Menu.EState_Menu_Defeat 
+			|| CanvasManager.Get.eState_Menu == CanvasManager.EState_Menu.EState_Menu_Victory) 
             && !IsDone && !animator.IsInTransition(layerIndex)) )
         {
             FadeToBlack();

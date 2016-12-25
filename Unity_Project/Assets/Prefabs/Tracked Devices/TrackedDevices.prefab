@@ -161,6 +161,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000011340887540}
   - 114: {fileID: 114000010868160408}
+  - 120: {fileID: 120000011808382510}
+  - 114: {fileID: 114000011779935150}
   m_Layer: 0
   m_Name: Move Controller Left
   m_TagString: Untagged
@@ -373,6 +375,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000013004029158}
   - 114: {fileID: 114000010000508312}
+  - 120: {fileID: 120000011812940214}
+  - 114: {fileID: 114000013200998090}
   m_Layer: 0
   m_Name: Move Controller Right
   m_TagString: Untagged
@@ -7737,8 +7741,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ea57611536a55543ba98908d7b2f74a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMoveController: 1
-  isSecondaryMoveController: 1
+  currentUIButtonSelected: {fileID: 0}
+  lookAtHit: {x: 0, y: 0, z: 0}
+  MoveIndex: 0
 --- !u!114 &114000010868160408
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7750,8 +7755,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ea57611536a55543ba98908d7b2f74a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMoveController: 1
-  isSecondaryMoveController: 0
+  currentUIButtonSelected: {fileID: 0}
+  lookAtHit: {x: 0, y: 0, z: 0}
+  MoveIndex: 0
+--- !u!114 &114000011779935150
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010283269916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f29577cb74066c438a002176de8689e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MinimalDistance: 1
+  mask:
+    serializedVersion: 2
+    m_Bits: 3616
+  OtherLaser: {fileID: 114000013200998090}
+  count: 0
 --- !u!114 &114000012422216232
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7768,6 +7791,107 @@ MonoBehaviour:
   illuminatedComponents:
   - {fileID: 23000011394373474}
   - {fileID: 23000011871091554}
+--- !u!114 &114000013200998090
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010639875362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f29577cb74066c438a002176de8689e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MinimalDistance: 1
+  mask:
+    serializedVersion: 2
+    m_Bits: 3616
+  OtherLaser: {fileID: 114000011779935150}
+  count: 1
+--- !u!120 &120000011808382510
+LineRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010283269916}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_MotionVectors: 0
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_Materials:
+  - {fileID: 2100000, guid: cce990e80c1fffb4c8648f60d1ae4783, type: 2}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedWireframeHidden: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_Positions:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 1}
+  m_Parameters:
+    startWidth: 0.01
+    endWidth: 0.01
+    m_StartColor:
+      serializedVersion: 2
+      rgba: 4294967295
+    m_EndColor:
+      serializedVersion: 2
+      rgba: 4294967295
+  m_UseWorldSpace: 0
+--- !u!120 &120000011812940214
+LineRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010639875362}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_MotionVectors: 0
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_Materials:
+  - {fileID: 2100000, guid: cce990e80c1fffb4c8648f60d1ae4783, type: 2}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedWireframeHidden: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_Positions:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 1}
+  m_Parameters:
+    startWidth: 0.01
+    endWidth: 0.01
+    m_StartColor:
+      serializedVersion: 2
+      rgba: 4294967295
+    m_EndColor:
+      serializedVersion: 2
+      rgba: 4294967295
+  m_UseWorldSpace: 0
 --- !u!137 &137000012483817218
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

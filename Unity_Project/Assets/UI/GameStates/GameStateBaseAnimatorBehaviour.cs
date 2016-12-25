@@ -117,5 +117,6 @@ public class GameStateBaseAnimatorBehaviour : StateMachineBehaviour
 		rectTransfrom.offsetMax = new Vector2(rectTransfrom.offsetMax.y, 0.0f);
 
 		m_RelatedMenu.transform.localScale = Vector3.one;
+		m_RelatedMenu.transform.localRotation = Quaternion.identity;
 	}
 }
