@@ -24,9 +24,11 @@ public class WaveScriptableObject : ScriptableObject
 	public int SpawnSizeX = 0;
 	public int SpawnSizeY = 0;
 	public WaveManagerWindow.TemplateType SpawnerType;
+	public float DistanceBetweenSpawnerPoint = 1.0f;
 
 	public List<Info> Destination = new List<Info>();
 	public int DestinationSizeX = 0;
 	public int DestinationSizeY = 0;
 	public WaveManagerWindow.TemplateType DestinationType;
+	public float DistanceBetweenDestinationPoint = 1.0f;
 }

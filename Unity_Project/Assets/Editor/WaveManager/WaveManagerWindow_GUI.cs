@@ -51,7 +51,10 @@ public partial class WaveManagerWindow : EditorWindow {
 				{
 					DrawCircleTemplate (ref wave.SpawnSizeX, wave.spawners );
 				}
+				wave.DistanceBetweenSpawnerPoint = EditorGUILayout.FloatField("Distance between Spawner point ", wave.DistanceBetweenSpawnerPoint); 
 			}
+
+			GUILayout.Space (10);
 
 			wave.DestinationType = (TemplateType) EditorGUILayout.EnumPopup ("Ending pattern : ", wave.DestinationType);
 
@@ -66,7 +69,10 @@ public partial class WaveManagerWindow : EditorWindow {
 				{
 					DrawCircleTemplate (ref wave.DestinationSizeX, wave.Destination );
 				}
+				wave.DistanceBetweenDestinationPoint = EditorGUILayout.FloatField("Distance between destination point ", wave.DistanceBetweenDestinationPoint);
 			}
+
+			GUILayout.Space (10);
 
 			wave.waitPreviousWave = GUILayout.Toggle (wave.waitPreviousWave, "Wait the previous wave"); 
 			wave.timeBeforeNextWave = EditorGUILayout.FloatField ("Time before the next wave : ",wave.timeBeforeNextWave);
