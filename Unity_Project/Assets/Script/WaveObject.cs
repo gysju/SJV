@@ -6,12 +6,12 @@ using System.Collections.Generic;
 public class WaveScriptableObject : ScriptableObject 
 {
 	[SerializeField]
-	public class Info
+	public class Spawn : ScriptableObject
 	{
-		public int PosX;
-		public int PosY;
-
 		public UnitType type;
+		public Vector3 SpawnPosition;
+		public Vector3 SpawnRotation;	
+		public Vector3 AttackPosition;
 	}
 
 	public string ObjectName;
@@ -20,15 +20,5 @@ public class WaveScriptableObject : ScriptableObject
 	public float timeBeforeNextWave = 10.0f;
 	public bool waitPreviousWave = true;
 
-	public List<Info> spawners = new List<Info>();
-	public int SpawnSizeX = 0;
-	public int SpawnSizeY = 0;
-	public WaveManagerWindow.TemplateType SpawnerType;
-	public float DistanceBetweenSpawnerPoint = 1.0f;
-
-	public List<Info> Destination = new List<Info>();
-	public int DestinationSizeX = 0;
-	public int DestinationSizeY = 0;
-	public WaveManagerWindow.TemplateType DestinationType;
-	public float DistanceBetweenDestinationPoint = 1.0f;
+	public List<Spawn> Spawns = new List<Spawn>();
 }
