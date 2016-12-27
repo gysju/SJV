@@ -102,7 +102,7 @@ public class MobileGroundUnit : CombatUnit
     public void SetDestination(Vector3 newDestination)
     {
         EnableNavMeshAgent();
-        //NavMeshHit hit;
+        UnityEngine.AI.NavMeshHit hit;
         //if (NavMesh.SamplePosition(newDestination, out hit, 5.0f, NavMesh.AllAreas))
         {
 			//m_destination = hit.position;
