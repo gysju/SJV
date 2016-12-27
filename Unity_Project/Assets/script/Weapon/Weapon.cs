@@ -58,7 +58,7 @@ public class Weapon : MonoBehaviour
         Transform bulletHitParent = transform.FindChild("Hits");
         for (int i = 0; i < (int)(m_rpm/10); i++)
         {
-            GameObject newBulletHit = (GameObject) Instantiate(m_bulletHit, bulletHitParent);
+            GameObject newBulletHit = Instantiate(m_bulletHit, bulletHitParent);
             m_bulletHits.Add(newBulletHit.GetComponent<ParticleSystem>());
         }
 
