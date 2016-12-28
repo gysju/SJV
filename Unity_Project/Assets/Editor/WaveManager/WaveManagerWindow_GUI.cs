@@ -7,7 +7,6 @@ public partial class WaveManagerWindow : EditorWindow {
 
 	GUIStyle labelStyle;
 	public enum TemplateType { TemplateType_None = 0, TemplateType_Square, TemplateType_Circle};
-	public List<WaveScriptableObject.Spawn> list = new List<WaveScriptableObject.Spawn>();
 
 	WaveScriptableObject wave = null;
 
@@ -45,29 +44,33 @@ public partial class WaveManagerWindow : EditorWindow {
 			wave.waitPreviousWave = GUILayout.Toggle (wave.waitPreviousWave, "Wait the previous wave"); wave.timeBeforeNextWave = EditorGUILayout.FloatField ("Time before the next wave : ",wave.timeBeforeNextWave);
 			GUILayout.EndHorizontal();
 
-			var list = wave.Spawns;
+			int newCount = Mathf.Max (0, EditorGUILayout.IntField ("size", wave.Spawns.Count));
 
-			int newCount = Mathf.Max (0, EditorGUILayout.IntField ("size", list.Count));
-
-			while (newCount < list.Count) 
+			while (newCount < wave.Spawns.Count) 
 			{
-				list.RemoveAt ( list.Count - 1);
+				wave.Spawns.RemoveAt ( wave.Spawns.Count - 1);
 			}
 
-			while (newCount > list.Count) 
+			while (newCount > wave.Spawns.Count) 
 			{
-				list.Add ( ScriptableObject.CreateInstance<WaveScriptableObject.Spawn>() );
+				wave.Spawns.Add ( ScriptableObject.CreateInstance<WaveScriptableObject.Spawn>() );
 			}
 
-			for(int i = 0; i < list.Count; i++)
+			for(int i = 0; i < wave.Spawns.Count; i++)
 			{
-				list [i] = (WaveScriptableObject.Spawn)EditorGUILayout.ObjectField (list[i], typeof(WaveScriptableObject.Spawn), true);
+				wave.Spawns [i] = (WaveScriptableObject.Spawn)EditorGUILayout.ObjectField (wave.Spawns[i], typeof(WaveScriptableObject.Spawn), true);
 			}
+			GUILayout.BeginHorizontal ();
 
+			if (GUILayout.Button(" Preview mode"))
+			{
+				Preview();
+			}
 			if (wave.ObjectName != "" && GUILayout.Button(" Save wave "))
 			{
 				SaveWave();
 			}
+			GUILayout.EndHorizontal ();
 		}
 	}
 
@@ -91,34 +94,21 @@ public partial class WaveManagerWindow : EditorWindow {
 		AssetDatabase.CreateAsset ( wave,"Assets/Databases/Waves/" + wave.ObjectName + ".asset"); //try catche
 		AssetDatabase.SaveAssets ();
 	}
-
-	void OnDrawGizmos( )
-	{
-		foreach(WaveScriptableObject.Spawn spawn in list)
-		{
-			Gizmos.color = Color.red;
-			Gizmos.DrawSphere ( spawn.SpawnPosition, 1.0f);
-			Gizmos.color = Color.green;
-			Gizmos.DrawLine (spawn.SpawnPosition, spawn.AttackPosition);
-			Gizmos.color = Color.red;
-			Gizmos.DrawSphere ( spawn.AttackPosition, 1.0f);
-		}
-	}
-
+		
 	void setLabelStyle()
 	{
 		labelStyle.alignment = TextAnchor.MiddleCenter;
 		labelStyle.fontSize = 20;
 	}
-
-	void initInfoState(List<WaveScriptableObject.Spawn> infos)
+		
+	void Preview( )
 	{
-		if(infos.Count == 0)
-		{
-			for (int i = 0; i < 25; i++) 
-			{
-				infos.Add (new WaveScriptableObject.Spawn());
-			}
-		}
+		WaveHelper.ClearDraw ();
+		WaveHelper.DrawWave (wave.Spawns);
+	}
+
+	void OnDestroy()
+	{
+		WaveHelper.ClearDraw ();
 	}
 }
