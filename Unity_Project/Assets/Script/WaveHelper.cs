@@ -26,10 +26,10 @@ public class WaveHelper : MonoBehaviour {
 
 			if (mesh == null)
 				return;
-			Gizmos.color = Color.red;
+			Gizmos.color = Color.green;
 			Gizmos.DrawWireMesh (mesh, spawn.SpawnPosition, Quaternion.Euler( spawn.SpawnRotation));
 
-			Gizmos.color = Color.green;
+			Gizmos.color = Color.red;
 			Gizmos.DrawLine (spawn.SpawnPosition + new Vector3(0.0f,1.0f,0.0f), spawn.AttackPosition + new Vector3(0.0f,1.0f,0.0f));
 
 			Gizmos.DrawWireMesh (mesh, spawn.AttackPosition, Quaternion.Euler( spawn.SpawnRotation ));
