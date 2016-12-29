@@ -58,6 +58,8 @@ public partial class WaveManagerWindow : EditorWindow {
 
 			for(int i = 0; i < wave.Spawns.Count; i++)
 			{
+				if (wave.Spawns [i] == null)
+					wave.Spawns [i] = ScriptableObject.CreateInstance<WaveScriptableObject.Spawn> ();
 				wave.Spawns [i] = (WaveScriptableObject.Spawn)EditorGUILayout.ObjectField (wave.Spawns[i], typeof(WaveScriptableObject.Spawn), true);
 			}
 			GUILayout.BeginHorizontal ();
