@@ -93,7 +93,12 @@ public partial class WaveManagerWindow : EditorWindow {
 
 	void SaveWave()
 	{
-		AssetDatabase.CreateAsset ( wave,"Assets/Databases/Waves/" + wave.ObjectName + ".asset"); //try catche
+		AssetDatabase.CreateFolder ( "Assets/Databases/Waves", wave.ObjectName);
+		AssetDatabase.CreateAsset ( wave,"Assets/Databases/Waves/" + wave.ObjectName + "/" + wave.ObjectName + ".asset"); //try catche
+		for( int i = 0; i < wave.Spawns.Count; i++ )
+		{
+			AssetDatabase.CreateAsset (wave.Spawns[i], "Assets/Databases/Waves/" + wave.ObjectName + "/" + "Spawn_" + i + ".asset");
+		}
 		AssetDatabase.SaveAssets ();
 	}
 		
