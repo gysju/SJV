@@ -41,7 +41,7 @@ public partial class WaveManagerWindow : EditorWindow {
 		{
 			wave.ObjectName = EditorGUILayout.TextField("Name : ", wave.ObjectName);
 			GUILayout.BeginHorizontal ();
-			wave.waitPreviousWave = GUILayout.Toggle (wave.waitPreviousWave, "Wait the previous wave"); wave.timeBeforeNextWave = EditorGUILayout.FloatField ("Time before the next wave : ",wave.timeBeforeNextWave);
+			wave.nextWaveWait = GUILayout.Toggle (wave.nextWaveWait, "Next wave has to wait"); wave.timeBeforeNextWave = EditorGUILayout.FloatField ("Time before the next wave : ",wave.timeBeforeNextWave);
 			GUILayout.EndHorizontal();
 
 			int newCount = Mathf.Max (0, EditorGUILayout.IntField ("size", wave.Spawns.Count));
