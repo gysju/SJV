@@ -78,11 +78,12 @@ public partial class WaveManagerWindow : EditorWindow {
 
 	void EditWave()
 	{
-		string path = EditorUtility.OpenFilePanel ("Wave", "", "");
+		string path = EditorUtility.OpenFilePanel ("Wave", "Assets/Databases", "asset");
 		if (path.StartsWith (Application.dataPath)) 
 		{
 			string relpath = path.Substring(Application.dataPath.Length - "Assets".Length);
 			wave = AssetDatabase.LoadAssetAtPath(relpath, typeof(WaveScriptableObject)) as WaveScriptableObject;
+			Debug.Log (wave);
 		}
 	}
 
