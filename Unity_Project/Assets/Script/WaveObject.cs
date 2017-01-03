@@ -2,10 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 
+[System.Serializable]
 [CreateAssetMenu(fileName = "Wave", menuName = "Databases/Waves", order = 1)]
 public class WaveScriptableObject : ScriptableObject 
 {
-	[SerializeField]
+	[System.Serializable]
 	public class Spawn : ScriptableObject
 	{
 		public GameObject Unit;
