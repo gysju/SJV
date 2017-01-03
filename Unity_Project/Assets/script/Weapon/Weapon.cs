@@ -106,7 +106,7 @@ public class Weapon : MonoBehaviour
                 line.SetPosition(1, hit.point);
             }
             Unit unitHit = hit.transform.GetComponentInParent<Unit>();
-			if (unitHit) unitHit.ReceiveDamages(Damage, ArmorPenetration);
+			if (unitHit) unitHit.ReceiveDamages(gameObject, Damage, ArmorPenetration);
         }
         else
         {

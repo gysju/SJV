@@ -26,6 +26,7 @@ public class Unit : MonoBehaviour
 
     protected UnityEngine.AI.NavMeshObstacle m_navMeshObstacle;
 
+	protected GameObject LastWeaponsWhoTouchYou;
 
     [Header("Faction")]
     [Tooltip("Unit's current faction.")]
@@ -129,7 +130,7 @@ public class Unit : MonoBehaviour
     {
         m_destroyed = true;
 
-        GetComponentInChildren<Collider>().enabled = false;
+        //GetComponentInChildren<Collider>().enabled = false;
 
         foreach (CombatUnit detectingUnit in m_detectingUnits)
         {
@@ -173,10 +174,11 @@ public class Unit : MonoBehaviour
     /// <summary>A utiliser pour infliger des dégâts à l'unité.</summary>
     /// <param name ="damages">Montant des dégâts reçus.</param>
     /// <param name ="armorPenetration">Nombre de points d'armure ignorés.</param>
-    public bool ReceiveDamages(int damages, int armorPenetration = 0)
+	public bool ReceiveDamages(GameObject Origin, int damages, int armorPenetration = 0)
     {
         if (m_vulnerable && !m_destroyed)
         {
+			LastWeaponsWhoTouchYou = Origin;
             int actualArmor = Mathf.Max((m_armor - armorPenetration), 0); //réduit l'armure de l'unité par la pénétration d'armure de l'attaque, avec un minimum de 0.
 
             int actualDamages = Mathf.Max((damages - actualArmor), 0); //réduit les dégâts par l'armure, avec un minimum de 0 (pour ne pas soigner...).
