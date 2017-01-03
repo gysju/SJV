@@ -53,14 +53,14 @@ public partial class WaveManagerWindow : EditorWindow {
 
 			while (newCount > wave.Spawns.Count) 
 			{
-				wave.Spawns.Add ( ScriptableObject.CreateInstance<WaveObject.Spawn>() );
+				wave.Spawns.Add ( ScriptableObject.CreateInstance<SpawnObject>() );
 			}
 
 			for(int i = 0; i < wave.Spawns.Count; i++)
 			{
 				if (wave.Spawns [i] == null)
-					wave.Spawns [i] = ScriptableObject.CreateInstance<WaveObject.Spawn> ();
-				wave.Spawns [i] = (WaveObject.Spawn)EditorGUILayout.ObjectField (wave.Spawns[i], typeof(WaveObject.Spawn), true);
+					wave.Spawns [i] = ScriptableObject.CreateInstance<SpawnObject> ();
+				wave.Spawns [i] = (SpawnObject)EditorGUILayout.ObjectField (wave.Spawns[i], typeof(SpawnObject), true);
 			}
 			GUILayout.BeginHorizontal ();
 

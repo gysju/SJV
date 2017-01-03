@@ -56,7 +56,7 @@ public class EnemiesManager : MonoBehaviour
         yield return new WaitForSeconds(m_timeBeforeFirstWave);
         while (currentWave)
         {
-			foreach (WaveObject.Spawn spawn in currentWave.Spawns)
+			foreach (SpawnObject spawn in currentWave.Spawns)
             {
                 BaseEnemy newEnemy = Instantiate(spawn.Unit, spawn.SpawnPosition, Quaternion.Euler(spawn.SpawnRotation)).GetComponent<BaseEnemy>();
                 newEnemy.ResetUnit(spawn.SpawnPosition, spawn.AttackPosition, m_player);
