@@ -215,6 +215,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &237600652 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4000010282865386, guid: 05f12f4d76aebd94c85408112077e2ce,
+    type: 2}
+  m_PrefabInternal: {fileID: 1476853361}
 --- !u!1 &1003519746
 GameObject:
   m_ObjectHideFlags: 0
@@ -347,6 +352,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1684081174}
   - component: {fileID: 1684081173}
+  - component: {fileID: 1684081175}
   m_Layer: 0
   m_Name: EnemiesManager
   m_TagString: Untagged
@@ -365,36 +371,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36155fbbbf24b964794fc554bc1ff296, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_showSpawnsInEditor: 0
+  m_player: {fileID: 237600652}
   m_enemiesWaves:
-  - timeBeforeNextWave: 0
-    waitPreviousWave: 0
-    Spawns:
-    - Enemy: {fileID: 114000013928711646, guid: e68beec415803974cab4ddfdaa632c05,
-        type: 2}
-      SpawnPosition: {x: 15, y: 0, z: 120}
-      SpawnRotation: {x: 0, y: 180, z: 0}
-      AttackPosition: {x: 0, y: 0, z: 50}
-    - Enemy: {fileID: 114000013928711646, guid: e68beec415803974cab4ddfdaa632c05,
-        type: 2}
-      SpawnPosition: {x: -15, y: 0, z: 120}
-      SpawnRotation: {x: 0, y: 180, z: 0}
-      AttackPosition: {x: 10, y: 0, z: 50}
-    - Enemy: {fileID: 114000012560693224, guid: 505ed11aff307fe488c184709cf9002b,
-        type: 2}
-      SpawnPosition: {x: 30, y: 20, z: 120}
-      SpawnRotation: {x: 0, y: 180, z: 0}
-      AttackPosition: {x: 0, y: 10, z: 50}
-  - timeBeforeNextWave: 0
-    waitPreviousWave: 0
-    Spawns:
-    - Enemy: {fileID: 0}
-      SpawnPosition: {x: 50, y: 0, z: 150}
-      SpawnRotation: {x: 0, y: 0, z: 0}
-      AttackPosition: {x: 0, y: 0, z: 0}
-  - timeBeforeNextWave: 0
-    waitPreviousWave: 0
-    Spawns: []
+  - {fileID: 0}
+  m_timeBeforeFirstWave: 5
 --- !u!4 &1684081174
 Transform:
   m_ObjectHideFlags: 0
@@ -408,6 +388,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1684081175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1684081172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30785946615217243a9083cff63e3503, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1920222844
 GameObject:
   m_ObjectHideFlags: 0

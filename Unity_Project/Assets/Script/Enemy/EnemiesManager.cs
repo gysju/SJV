@@ -17,7 +17,7 @@ public class EnemiesManager : MonoBehaviour
     //    }
 
     //    public float timeBeforeNextWave;
-    //    public bool waitPreviousWave;
+    //    public bool nextWaveWait;
     //    public List<Spawn> Spawns;
     //}
 
