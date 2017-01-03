@@ -8,7 +8,7 @@ public partial class WaveManagerWindow : EditorWindow {
 	GUIStyle labelStyle;
 	public enum TemplateType { TemplateType_None = 0, TemplateType_Square, TemplateType_Circle};
 
-	WaveScriptableObject wave = null;
+	WaveObject wave = null;
 
 	public void Init()
 	{
@@ -53,14 +53,14 @@ public partial class WaveManagerWindow : EditorWindow {
 
 			while (newCount > wave.Spawns.Count) 
 			{
-				wave.Spawns.Add ( ScriptableObject.CreateInstance<WaveScriptableObject.Spawn>() );
+				wave.Spawns.Add ( ScriptableObject.CreateInstance<WaveObject.Spawn>() );
 			}
 
 			for(int i = 0; i < wave.Spawns.Count; i++)
 			{
 				if (wave.Spawns [i] == null)
-					wave.Spawns [i] = ScriptableObject.CreateInstance<WaveScriptableObject.Spawn> ();
-				wave.Spawns [i] = (WaveScriptableObject.Spawn)EditorGUILayout.ObjectField (wave.Spawns[i], typeof(WaveScriptableObject.Spawn), true);
+					wave.Spawns [i] = ScriptableObject.CreateInstance<WaveObject.Spawn> ();
+				wave.Spawns [i] = (WaveObject.Spawn)EditorGUILayout.ObjectField (wave.Spawns[i], typeof(WaveObject.Spawn), true);
 			}
 			GUILayout.BeginHorizontal ();
 
@@ -82,14 +82,14 @@ public partial class WaveManagerWindow : EditorWindow {
 		if (path.StartsWith (Application.dataPath)) 
 		{
 			string relpath = path.Substring(Application.dataPath.Length - "Assets".Length);
-			wave = AssetDatabase.LoadAssetAtPath(relpath, typeof(WaveScriptableObject)) as WaveScriptableObject;
+			wave = AssetDatabase.LoadAssetAtPath(relpath, typeof(WaveObject)) as WaveObject;
 			Debug.Log (wave);
 		}
 	}
 
 	void CreateWave ()
 	{
-		wave = ScriptableObject.CreateInstance<WaveScriptableObject>(); // check si ca detruit quand tu quitte la fenetre ?
+		wave = ScriptableObject.CreateInstance<WaveObject>();  // check si ca detruit quand tu quitte la fenetre ?
 	}
 
 	void SaveWave()

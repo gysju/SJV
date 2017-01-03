@@ -5,7 +5,7 @@ using UnityEngine;
 public class WaveHelper : MonoBehaviour {
 
 	public static WaveHelper Instance;
-	static List<WaveScriptableObject.Spawn> ObjectToDraw = new List<WaveScriptableObject.Spawn>();
+	static List<WaveObject.Spawn> ObjectToDraw = new List<WaveObject.Spawn>();
 
 	void Start () 
 	{
@@ -17,7 +17,7 @@ public class WaveHelper : MonoBehaviour {
 	
 	void OnDrawGizmos()
 	{
-		foreach( WaveScriptableObject.Spawn spawn in ObjectToDraw)
+		foreach( WaveObject.Spawn spawn in ObjectToDraw)
 		{
 			if (spawn.Unit == null)
 				return;
@@ -36,7 +36,7 @@ public class WaveHelper : MonoBehaviour {
 		}
 	}
 
-	public static void DrawWave(List<WaveScriptableObject.Spawn> Spawns)
+	public static void DrawWave(List<WaveObject.Spawn> Spawns)
 	{
 		ObjectToDraw.AddRange (Spawns);
 	}

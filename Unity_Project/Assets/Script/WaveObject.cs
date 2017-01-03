@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 [System.Serializable]
 [CreateAssetMenu(fileName = "Wave", menuName = "Databases/Waves", order = 1)]
-public class WaveScriptableObject : ScriptableObject 
+public class WaveObject : ScriptableObject 
 {
 	[System.Serializable]
 	public class Spawn : ScriptableObject
