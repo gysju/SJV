@@ -58,7 +58,7 @@ public class Weapon : MonoBehaviour
         Transform bulletHitParent = transform.FindChild("Hits");
         for (int i = 0; i < (int)(m_rpm/10); i++)
         {
-            GameObject newBulletHit = (GameObject) Instantiate(m_bulletHit, bulletHitParent);
+            GameObject newBulletHit = Instantiate(m_bulletHit, bulletHitParent);
             m_bulletHits.Add(newBulletHit.GetComponent<ParticleSystem>());
         }
 
@@ -106,7 +106,7 @@ public class Weapon : MonoBehaviour
                 line.SetPosition(1, hit.point);
             }
             Unit unitHit = hit.transform.GetComponentInParent<Unit>();
-			if (unitHit) unitHit.ReceiveDamages(Damage, ArmorPenetration);
+			if (unitHit) unitHit.ReceiveDamages(gameObject, Damage, ArmorPenetration);
         }
         else
         {
