@@ -31,10 +31,20 @@ public class AirUnit : HoverTank
     protected override void StartDying()
     {
         base.StartDying();
+		GetComponentInChildren<MeshCollider>().convex = true; // julien : pourquoi tu réactive le convex ? ( il d'ailleur déja  true )
+        
+		Rigidbody rigid = GetComponent<Rigidbody> ();
+		rigid.isKinematic = false;
 
-        GetComponentInChildren<MeshCollider>().convex = true;
-        GetComponent<Rigidbody>().isKinematic = false;
+		InitDyingEffect (rigid);
     }
+
+	void InitDyingEffect( Rigidbody rigid )
+	{
+		Vector3 dir = (LastWeaponsWhoTouchYou.transform.position - transform.position).normalized;
+		rigid.AddForce( -dir* 500, ForceMode.Impulse);
+		rigid.AddTorque( -dir * 500, ForceMode.Impulse);
+	}
 
     protected override void FinishDying()
     {

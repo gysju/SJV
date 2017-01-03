@@ -116,7 +116,7 @@ public class BallisticAmmo : Ammo
 
         if (unit)
         {
-            if (unit.ReceiveDamages(m_directDamages, m_armorPenetration))
+			if (unit.ReceiveDamages(gameObject, m_directDamages, m_armorPenetration))
             {
                 CheckExplosion();
             }
