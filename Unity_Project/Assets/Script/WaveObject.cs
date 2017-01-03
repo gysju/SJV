@@ -17,7 +17,7 @@ public class WaveScriptableObject : ScriptableObject
 	public string ObjectName = "";
 
 	public float timeBeforeNextWave = 10.0f;
-	public bool nextWaveWait = true;
+	public bool waitPreviousWave = true;
 
 	public List<Spawn> Spawns = new List<Spawn>();
 }
