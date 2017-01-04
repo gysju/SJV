@@ -86,7 +86,7 @@
 			N_Two *= IN.color.g * _NormalIntensityTwo;
 			N_Three *= IN.color.b * _NormalIntensityThree;
 
-			o.Normal = N_One + N_Two + N_Three;
+			o.Normal = normalize(N_One + N_Two + N_Three);
 
 			// Metalness
 			MRE_Ny_One.r *= IN.color.r * _MetallicOne;
