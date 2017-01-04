@@ -4,7 +4,7 @@
 		_ColorOne ("Color", Color) = (1,1,1,1)
 		_RGB_Nx_One ("Albedo (RGB) Normal X (A)", 2D) = "white" {}
 		[NoScaleOffset]_MRE_Ny_One ("Metalness (R) Roughness (G) Emissive (B)  Normal Y (A)", 2D) = "black" {}
-		_NormalIntensityOne ("Normal intensity", Range ( 1, 5)) = 1
+		_NormalIntensityOne ("Normal intensity", Range ( 0, 5)) = 1
 		_RoughnessOne ("Roughness", Range(0,1)) = 0.5
 		_MetallicOne ("Metallic", Range(0,1)) = 0.0
 
@@ -16,7 +16,7 @@
 		_ColorTwo ("Color", Color) = (1,1,1,1)
 		_RGB_Nx_Two ("Albedo (RGB) Normal X (A)", 2D) = "white" {}
 		[NoScaleOffset]_MRE_Ny_Two ("Metalness (R) Roughness (G) Emissive (B)  Normal Y (A)", 2D) = "black" {}
-		_NormalIntensityTwo ("Normal intensity", Range ( 1, 5)) = 1
+		_NormalIntensityTwo ("Normal intensity", Range ( 0, 5)) = 1
 		_RoughnessTwo ("Roughness", Range(0,1)) = 0.5
 		_MetallicTwo ("Metallic", Range(0,1)) = 0.0
 
@@ -28,7 +28,7 @@
 		_ColorThree ("Color", Color) = (1,1,1,1)
 		_RGB_Nx_Three ("Albedo (RGB) Normal X (A)", 2D) = "white" {}
 		[NoScaleOffset]_MRE_Ny_Three ("Metalness (R) Roughness (G) Emissive (B)  Normal Y (A)", 2D) = "black" {}
-		_NormalIntensityThree ("Normal intensity", Range ( 1, 5)) = 1
+		_NormalIntensityThree ("Normal intensity", Range ( 0, 5)) = 1
 		_RoughnessThree ("Roughness", Range(0,1)) = 0.5
 		_MetallicThree ("Metallic", Range(0,1)) = 0.0
 
