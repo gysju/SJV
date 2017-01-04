@@ -1202,7 +1202,7 @@ namespace JBooth.VertexPainterPro
                   jobs[i].renderer.sharedMaterial = jobs[i].stream.originalMaterial[0];
                }
             }
-            EditorUtility.SetSelectedWireframeHidden(jobs[i].renderer, true);
+			EditorUtility.SetSelectedRenderState(jobs[i].renderer, EditorSelectedRenderState.Wireframe);
          }
       }
 
@@ -1245,7 +1245,12 @@ namespace JBooth.VertexPainterPro
          for (int i = 0; i < jobs.Length; ++i)
          {
             var job = jobs[i];
-            EditorUtility.SetSelectedWireframeHidden(job.renderer, hideMeshWireframe);
+
+			if( !hideMeshWireframe )
+				EditorUtility.SetSelectedRenderState(jobs[i].renderer, EditorSelectedRenderState.Highlight);
+			else
+				EditorUtility.SetSelectedRenderState(jobs[i].renderer, EditorSelectedRenderState.Wireframe);	
+            
             if (job.renderer != null && job.HasStream())
             {
                if (!showVertexShader || !enabled)
@@ -2108,7 +2113,10 @@ namespace JBooth.VertexPainterPro
             }
             if (toggleWireframe)
             {
-               EditorUtility.SetSelectedWireframeHidden(jobs[i].renderer, hideMeshWireframe);
+				if( !hideMeshWireframe )
+					EditorUtility.SetSelectedRenderState(jobs[i].renderer, EditorSelectedRenderState.Highlight);
+				else
+					EditorUtility.SetSelectedRenderState(jobs[i].renderer, EditorSelectedRenderState.Wireframe);	
             }
 
             Matrix4x4 mtx = jobs[i].meshFilter.transform.localToWorldMatrix;
