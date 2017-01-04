@@ -21,14 +21,14 @@ public class EnemiesManager : MonoBehaviour
     //    public List<Spawn> Spawns;
     //}
 
-    //public bool m_showSpawnsInEditor;
+    public bool m_showSpawnsInEditor;
     public Transform m_player;
 
 	public List<WaveObject> m_enemiesWaves;
 
     public float m_timeBeforeFirstWave = 5f;
 
-    protected List<BaseEnemy> m_enemiesCurrentWave;
+    protected List<BaseEnemy> m_enemiesCurrentWave = new List<BaseEnemy>();
 
     void Start()
     {
@@ -51,15 +51,18 @@ public class EnemiesManager : MonoBehaviour
     protected IEnumerator ManageWaves()
     {
         int currentWaveID = 0;
-		WaveObject currentWave = m_enemiesWaves[currentWaveID];
+        WaveObject currentWave = m_enemiesWaves[currentWaveID];
 
         yield return new WaitForSeconds(m_timeBeforeFirstWave);
         while (currentWave)
         {
-			foreach (SpawnObject spawn in currentWave.Spawns)
+            Transform currentWaveTransform = new GameObject("Wave" + currentWaveID).transform;
+
+            foreach (SpawnObject spawn in currentWave.Spawns)
             {
-                BaseEnemy newEnemy = Instantiate(spawn.Unit, spawn.SpawnPosition, Quaternion.Euler(spawn.SpawnRotation)).GetComponent<BaseEnemy>();
+                BaseEnemy newEnemy = Instantiate(spawn.Unit, spawn.SpawnPosition, Quaternion.Euler(spawn.SpawnRotation), currentWaveTransform);
                 newEnemy.ResetUnit(spawn.SpawnPosition, spawn.AttackPosition, m_player);
+
                 if (currentWave.nextWaveWait)
                 {
                     m_enemiesCurrentWave.Add(newEnemy);
@@ -68,7 +71,10 @@ public class EnemiesManager : MonoBehaviour
 
             if (currentWave.nextWaveWait)
             {
-                yield return IsCurrentWaveDestroyed();
+                while (!IsCurrentWaveDestroyed())
+                {
+                    yield return null;
+                }
                 m_enemiesCurrentWave.Clear();
             }
             yield return new WaitForSeconds(currentWave.timeBeforeNextWave);
@@ -81,32 +87,34 @@ public class EnemiesManager : MonoBehaviour
 
     }
 
-    //void OnDrawGizmos()
-    //{
-    //    if(m_showSpawnsInEditor)
-    //    {
-    //        foreach (EnemyWave enemyWave in m_enemiesWaves)
-    //        {
-    //            foreach (EnemyWave.Spawn spawn in enemyWave.Spawns)
-    //            {
-    //                Mesh mesh;
-    //                if(spawn.Enemy)
-    //                {
-    //                    mesh = spawn.Enemy.GetComponentsInChildren<MeshFilter>()[0].sharedMesh;
-    //                    Gizmos.color = Color.green;
-    //                    Gizmos.DrawWireMesh(mesh, spawn.SpawnPosition, Quaternion.Euler(spawn.SpawnRotation));
-    //                    Gizmos.color = Color.red;
-    //                    Gizmos.DrawWireMesh(mesh, spawn.AttackPosition, Quaternion.Euler(spawn.SpawnRotation));
-    //                }
-    //                else
-    //                {
-    //                    Gizmos.color = Color.green;
-    //                    Gizmos.DrawWireSphere(spawn.SpawnPosition, 1f);
-    //                    Gizmos.color = Color.red;
-    //                    Gizmos.DrawWireSphere(spawn.AttackPosition, 1f);
-    //                }
-    //            }
-    //        }
-    //    }
-    //}
+    void OnDrawGizmos()
+    {
+        if (m_showSpawnsInEditor)
+        {
+            foreach (WaveObject enemyWave in m_enemiesWaves)
+            {
+                foreach (SpawnObject spawn in enemyWave.Spawns)
+                {
+                    Mesh mesh;
+                    if (spawn.Unit)
+                    {
+                        mesh = spawn.Unit.GetComponentsInChildren<MeshFilter>()[0].sharedMesh;
+                        Gizmos.color = Color.green;
+                        Gizmos.DrawWireMesh(mesh, spawn.SpawnPosition, Quaternion.Euler(spawn.SpawnRotation));
+                        Gizmos.color = Color.red;
+                        Gizmos.DrawWireMesh(mesh, spawn.AttackPosition, Quaternion.Euler(spawn.SpawnRotation));
+                    }
+                    else
+                    {
+                        Gizmos.color = Color.green;
+                        Gizmos.DrawWireSphere(spawn.SpawnPosition, 1f);
+                        Gizmos.color = Color.red;
+                        Gizmos.DrawWireSphere(spawn.AttackPosition, 1f);
+                    }
+                    Gizmos.color = Color.green;
+                    Gizmos.DrawLine(spawn.SpawnPosition + new Vector3(0.0f, 1.0f, 0.0f), spawn.AttackPosition + new Vector3(0.0f, 1.0f, 0.0f));
+                }
+            }
+        }
+    }
 }
