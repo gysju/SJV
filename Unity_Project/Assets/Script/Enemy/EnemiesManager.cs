@@ -17,14 +17,14 @@ public class EnemiesManager : MonoBehaviour
     //    }
 
     //    public float timeBeforeNextWave;
-    //    public bool waitPreviousWave;
+    //    public bool nextWaveWait;
     //    public List<Spawn> Spawns;
     //}
 
     //public bool m_showSpawnsInEditor;
     public Transform m_player;
 
-    public List<WaveScriptableObject> m_enemiesWaves;
+	public List<WaveObject> m_enemiesWaves;
 
     public float m_timeBeforeFirstWave = 5f;
 
@@ -51,12 +51,12 @@ public class EnemiesManager : MonoBehaviour
     protected IEnumerator ManageWaves()
     {
         int currentWaveID = 0;
-        WaveScriptableObject currentWave = m_enemiesWaves[currentWaveID];
+		WaveObject currentWave = m_enemiesWaves[currentWaveID];
 
         yield return new WaitForSeconds(m_timeBeforeFirstWave);
         while (currentWave)
         {
-            foreach (WaveScriptableObject.Spawn spawn in currentWave.Spawns)
+			foreach (SpawnObject spawn in currentWave.Spawns)
             {
                 BaseEnemy newEnemy = Instantiate(spawn.Unit, spawn.SpawnPosition, Quaternion.Euler(spawn.SpawnRotation)).GetComponent<BaseEnemy>();
                 newEnemy.ResetUnit(spawn.SpawnPosition, spawn.AttackPosition, m_player);
