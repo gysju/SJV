@@ -37,7 +37,7 @@ Shader "VertexPainter/SplatBlend_4Layer"
 		_TexScale4("Texture Scale", Float) = 1
 		_Contrast4("Contrast", Range(0,0.99)) = 0.5
 
-		_Normal("NormalIntensity", Range(1,5)) = 1
+		_NormalIntensity("NormalIntensity", Range(1,5)) = 1
 		_FlowSpeed("Flow Speed", Float) = 0
 		_FlowIntensity("Flow Intensity", Float) = 1
 		_FlowAlpha("Flow Alpha", Range(0, 1)) = 1

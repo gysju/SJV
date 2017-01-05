@@ -212,7 +212,10 @@ namespace JBooth.VertexPainterPro
             {
                for (int i = 0; i < jobs.Length; ++i)
                {
-                  EditorUtility.SetSelectedWireframeHidden(jobs[i].renderer, hideMeshWireframe);
+					if( !hideMeshWireframe )
+						EditorUtility.SetSelectedRenderState(jobs[i].renderer, EditorSelectedRenderState.Highlight);
+					else
+						EditorUtility.SetSelectedRenderState(jobs[i].renderer, EditorSelectedRenderState.Wireframe);	
                }
             }
                
