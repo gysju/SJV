@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[AddComponentMenu("MechaVR/Enemies/GroundEnemy")]
 public class GroundEnemy : BaseEnemy
 {
     protected UnityEngine.AI.NavMeshAgent m_navMeshAgent;

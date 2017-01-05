@@ -43,7 +43,7 @@ public class Weapon : MonoBehaviour
     [Range(0f, 100f)]
     public float m_optimalRange = 25f;
 
-    [Tooltip("Optimal range to use weapon.")]
+    [Tooltip("Random angle the weapon have when shooting.")]
     [Range(0f, 10f)]
     public float m_imprecision = 0f;
 
@@ -63,11 +63,7 @@ public class Weapon : MonoBehaviour
         Transform bulletHitParent = transform.FindChild("Hits");
         for (int i = 0; i < (int)((m_rpm/60) / m_bulletHit.GetComponent<ParticleSystem>().startLifetime); i++)
         {
-<<<<<<< HEAD
-            GameObject newBulletHit = (GameObject)Instantiate(m_bulletHit, bulletHitParent);
-=======
             GameObject newBulletHit = Instantiate(m_bulletHit, bulletHitParent);
->>>>>>> refs/remotes/origin/develop
             m_bulletHits.Add(newBulletHit.GetComponent<ParticleSystem>());
         }
 
@@ -112,10 +108,7 @@ public class Weapon : MonoBehaviour
         Vector3 shotDirection = (GetSpread() * m_muzzle.forward);
         if (Physics.Raycast(m_muzzle.position, shotDirection, out hit, m_optimalRange, m_mask))
         {
-<<<<<<< HEAD
             BulletHitParticle(hit);
-
-=======
             foreach (ParticleSystem ps in m_bulletHits)
             {
                 if (!ps.IsAlive(true))
@@ -132,7 +125,6 @@ public class Weapon : MonoBehaviour
                 line.SetPosition(0, m_muzzle.position);
                 line.SetPosition(1, hit.point);
             }
->>>>>>> refs/remotes/origin/develop
             Unit unitHit = hit.transform.GetComponentInParent<Unit>();
 			if (unitHit) unitHit.ReceiveDamages(gameObject, Damage, ArmorPenetration);
         }

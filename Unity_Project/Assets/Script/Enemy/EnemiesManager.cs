@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[AddComponentMenu("MechaVR/Enemies/EnemiesManager")]
 public class EnemiesManager : MonoBehaviour
 {
     //[System.Serializable]

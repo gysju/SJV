@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[AddComponentMenu("MechaVR/Enemies/AirEnemy")]
 public class AirEnemy : BaseEnemy
 {
     [Header("Mobility")]
