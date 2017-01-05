@@ -103,25 +103,8 @@ public class Player : MobileGroundUnit
 
     protected override void StartDying()
     {
-        m_destroyed = true;
-
-        GetComponent<BoxCollider>().enabled = false;
-
-        //for (int i = 0 ; i < transform.childCount ; i++)
-        //{
-        //    transform.GetChild(i).gameObject.SetActive(false);
-        //}
-
-        foreach (CombatUnit detectingUnit in m_detectingUnits)
-        {
-            detectingUnit.DetectedUnitDestroyed(this);
-        }
-
-        foreach (IA targetingUnit in m_targetingIAs)
-        {
-            targetingUnit.TargetedUnitDestroyed(this);
-        }
-
+        m_mainCamera.transform.parent = null;
+        base.StartDying();
     }
 
     #region Actions
@@ -737,8 +720,11 @@ public class Player : MobileGroundUnit
 
     protected override void Update()
     {
-        base.Update();
-        InputsUpdate();
+        if (!m_destroyed && CanvasManager.EState_Menu.EState_Menu_InGame == CanvasManager.Get.eState_Menu)
+        {
+            base.Update();
+            InputsUpdate();
+        }
     }
 #endregion
 }

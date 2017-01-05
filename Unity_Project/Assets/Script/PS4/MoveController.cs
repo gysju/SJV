@@ -8,19 +8,13 @@ using UnityEngine.PS4;
 #endif
 public class MoveController : MonoBehaviour {
 	public enum MoveButton { MoveButton_Trigger = 2, MoveButton_Move = 4, MoveButton_Start = 8, MoveButton_Triangle = 16, MoveButton_Circle = 32, MoveButton_Cross = 64, MoveButton_Square = 128, MoveButton_MaxAnalogueValue = 255, MoveButton_Count = 8}
-	
-	public Button currentUIButtonSelected;
-	
+
     private int currentButtons = 0;
 	private int prevButtons = 0;
 	
     public Vector3 lookAtHit;
 	public int MoveIndex = 0;
-	void Start () 
-	{
-	
-	}
-	
+
 	void Update () 
 	{
 		prevButtons = currentButtons;
@@ -45,7 +39,6 @@ public class MoveController : MonoBehaviour {
 
 	public bool GetButtonUp(MoveButton button)
 	{
-		//return !GetButton (button) && (prevButtons == currentButtons); 
 		bool test = ((prevButtons == (int)button) && !GetButton(button));
 		if ( test ) currentButtons = 0;
 		return test;
