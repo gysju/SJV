@@ -40,7 +40,7 @@ public class BaseUnit : MonoBehaviour
 
     [Header("Weapons")]
     [Tooltip("Unit's Weapons list.")]
-    public List<Weapon> m_weapons = new List<Weapon>();
+    public List<BaseWeapon> m_weapons = new List<BaseWeapon>();
     
     protected virtual void Start()
     {

@@ -67,7 +67,7 @@ public class GroundEnemy : BaseEnemy
     #region Attack related
     protected void Fire()
     {
-        FireWeapon(0);
+        PressWeaponTrigger(0);
         m_currentTimeToAttack = m_timeToAttack;
     }
     #endregion

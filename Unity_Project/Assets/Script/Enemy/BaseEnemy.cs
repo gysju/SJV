@@ -70,15 +70,10 @@ public class BaseEnemy : BaseUnit
     #region Attack Related
     public virtual void AimWeaponAt(Vector3 target)
     {
-        foreach (Weapon weapon in m_weapons)
+        foreach (BaseWeapon weapon in m_weapons)
         {
             weapon.transform.LookAt(target);
         }
-    }
-
-    protected void FireWeapon(int weaponID)
-    {
-        m_weapons[weaponID].FireWeapon();
     }
 
     public void PressWeaponTrigger(int weaponID)
@@ -93,7 +88,7 @@ public class BaseEnemy : BaseUnit
 
     public void CeaseFire()
     {
-        foreach (Weapon weapon in m_weapons)
+        foreach (BaseWeapon weapon in m_weapons)
         {
             weapon.TriggerReleased();
         }
