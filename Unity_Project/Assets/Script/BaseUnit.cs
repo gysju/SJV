@@ -44,6 +44,7 @@ public class BaseUnit : MonoBehaviour
     
     protected virtual void Start()
     {
+        m_transform = transform;
         m_currentHitPoints = m_startingHitPoints;
         CheckHitPoints();
     }
