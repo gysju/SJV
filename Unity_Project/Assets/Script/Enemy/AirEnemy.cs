@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[AddComponentMenu("MechaVR/Enemies/AirEnemy")]
 public class AirEnemy : BaseEnemy
 {
     [Header("Mobility")]
@@ -81,7 +82,7 @@ public class AirEnemy : BaseEnemy
     #region Attack related
     protected void Fire()
     {
-        FireWeapon(0);
+        PressWeaponTrigger(0);
         m_currentTimeToAttack = m_timeToAttack;
         AimWeaponAt(m_target.gameObject.GetComponentInChildren<Renderer>().bounds.center);
     }
