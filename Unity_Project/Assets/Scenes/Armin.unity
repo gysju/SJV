@@ -54,8 +54,8 @@ LightmapSettings:
     m_EnableRealtimeLightmaps: 0
   m_LightmapEditorSettings:
     serializedVersion: 4
-    m_Resolution: 2
-    m_BakeResolution: 6
+    m_Resolution: 1
+    m_BakeResolution: 2
     m_TextureWidth: 1024
     m_TextureHeight: 1024
     m_AO: 1
@@ -512,7 +512,7 @@ MeshRenderer:
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
+  m_ScaleInLightmap: 0.5
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -690,6 +690,10 @@ Prefab:
     - target: {fileID: 100000, guid: 34aaad3165ac7c044a7ce3346db39029, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967291
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 34aaad3165ac7c044a7ce3346db39029, type: 3}
+      propertyPath: m_ScaleInLightmap
+      value: 0.01
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 34aaad3165ac7c044a7ce3346db39029, type: 3}
@@ -1019,7 +1023,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 173e161be7d1f7a4cabf0c2d71648026, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 4294967291
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 173e161be7d1f7a4cabf0c2d71648026, type: 3}
@@ -1381,6 +1385,10 @@ Prefab:
     - target: {fileID: 100000, guid: 34aaad3165ac7c044a7ce3346db39029, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967291
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 34aaad3165ac7c044a7ce3346db39029, type: 3}
+      propertyPath: m_ScaleInLightmap
+      value: 0.01
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 34aaad3165ac7c044a7ce3346db39029, type: 3}
@@ -1906,7 +1914,7 @@ MeshRenderer:
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
+  m_ScaleInLightmap: 0.5
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -2317,7 +2325,7 @@ MeshRenderer:
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
+  m_ScaleInLightmap: 0.5
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -2746,7 +2754,7 @@ MeshRenderer:
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
+  m_ScaleInLightmap: 0.5
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -3411,11 +3419,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: e19210fd251172847adbf54685f71667, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -428
+      value: -647
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: e19210fd251172847adbf54685f71667, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2247
+      value: 2306.42
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: e19210fd251172847adbf54685f71667, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4508,6 +4516,10 @@ Prefab:
       propertyPath: m_StaticEditorFlags
       value: 4294967291
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: ba0827e2fb204ec4198a65082075ff50, type: 3}
+      propertyPath: m_ScaleInLightmap
+      value: 0.01
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ba0827e2fb204ec4198a65082075ff50, type: 3}
   m_IsPrefabParent: 0
@@ -4726,7 +4738,7 @@ MeshRenderer:
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
+  m_ScaleInLightmap: 0.5
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -4933,7 +4945,7 @@ MeshRenderer:
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
+  m_ScaleInLightmap: 0.5
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -5216,11 +5228,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 2300002, guid: cffceab149a69324a89a315e063b75f7, type: 3}
       propertyPath: m_ScaleInLightmap
-      value: 0.01
+      value: 0.0075
       objectReference: {fileID: 0}
     - target: {fileID: 2300004, guid: cffceab149a69324a89a315e063b75f7, type: 3}
       propertyPath: m_ScaleInLightmap
-      value: 0.01
+      value: 0.0075
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cffceab149a69324a89a315e063b75f7, type: 3}
@@ -5373,7 +5385,7 @@ MeshRenderer:
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
+  m_ScaleInLightmap: 0.5
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -5818,6 +5830,10 @@ Prefab:
       propertyPath: m_StaticEditorFlags
       value: 4294967291
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 34aaad3165ac7c044a7ce3346db39029, type: 3}
+      propertyPath: m_ScaleInLightmap
+      value: 0.01
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 34aaad3165ac7c044a7ce3346db39029, type: 3}
   m_IsPrefabParent: 0
@@ -6118,6 +6134,10 @@ Prefab:
       propertyPath: m_StaticEditorFlags
       value: 4294967291
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 9ce4d2d5e2b96334c97cd5235a861afb, type: 3}
+      propertyPath: m_ScaleInLightmap
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9ce4d2d5e2b96334c97cd5235a861afb, type: 3}
   m_IsPrefabParent: 0
@@ -6337,7 +6357,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 4108e405b1384d54581afd243c2a7b4e, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 4294967291
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4108e405b1384d54581afd243c2a7b4e, type: 3}
@@ -7195,7 +7215,7 @@ MeshRenderer:
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
+  m_ScaleInLightmap: 0.5
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -7632,7 +7652,7 @@ MeshRenderer:
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
+  m_ScaleInLightmap: 0.5
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -8445,6 +8465,10 @@ Prefab:
     - target: {fileID: 100000, guid: d8c34b33ac9876d4683219d5dafc2f15, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967291
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: d8c34b33ac9876d4683219d5dafc2f15, type: 3}
+      propertyPath: m_ScaleInLightmap
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d8c34b33ac9876d4683219d5dafc2f15, type: 3}
@@ -11733,7 +11757,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 173e161be7d1f7a4cabf0c2d71648026, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 4294967291
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 173e161be7d1f7a4cabf0c2d71648026, type: 3}
@@ -11775,31 +11799,31 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: ab48496ae5794764cb30767757427507, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.41
+      value: 8.265556
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ab48496ae5794764cb30767757427507, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.115
+      value: -1.7184677
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ab48496ae5794764cb30767757427507, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -17.89
+      value: -17.828274
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ab48496ae5794764cb30767757427507, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: -0.9243571
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ab48496ae5794764cb30767757427507, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.4178039
+      value: -0.14922817
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ab48496ae5794764cb30767757427507, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: -0.3507122
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ab48496ae5794764cb30767757427507, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.90853727
+      value: -0.017200278
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ab48496ae5794764cb30767757427507, type: 3}
       propertyPath: m_RootOrder
@@ -11815,11 +11839,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ab48496ae5794764cb30767757427507, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -49.392002
+      value: -220.93799
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: ab48496ae5794764cb30767757427507, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967291
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: ab48496ae5794764cb30767757427507, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -4.1790004
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: ab48496ae5794764cb30767757427507, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -196.78099
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ab48496ae5794764cb30767757427507, type: 3}
@@ -11879,7 +11911,7 @@ MeshRenderer:
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
+  m_ScaleInLightmap: 0.5
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -12277,6 +12309,10 @@ Prefab:
       propertyPath: m_StaticEditorFlags
       value: 4294967291
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 34aaad3165ac7c044a7ce3346db39029, type: 3}
+      propertyPath: m_ScaleInLightmap
+      value: 0.01
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 34aaad3165ac7c044a7ce3346db39029, type: 3}
   m_IsPrefabParent: 0
@@ -12335,7 +12371,7 @@ MeshRenderer:
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
+  m_ScaleInLightmap: 0.5
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -12570,31 +12606,31 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: 0bee65ccc2ef599409bdc885ecc304ef, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.92
+      value: 5.919998
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0bee65ccc2ef599409bdc885ecc304ef, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.377
+      value: -1.947689
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0bee65ccc2ef599409bdc885ecc304ef, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -17.84
+      value: -17.841446
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0bee65ccc2ef599409bdc885ecc304ef, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: -0.00425189
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0bee65ccc2ef599409bdc885ecc304ef, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.99999094
+      value: 0.09605312
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0bee65ccc2ef599409bdc885ecc304ef, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0.9953671
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0bee65ccc2ef599409bdc885ecc304ef, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.0042716395
+      value: -0.0004103085
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0bee65ccc2ef599409bdc885ecc304ef, type: 3}
       propertyPath: m_RootOrder
@@ -12606,7 +12642,7 @@ Prefab:
       objectReference: {fileID: 2100000, guid: 02cf05b6ff695d7458fd3f27fec4ee26, type: 2}
     - target: {fileID: 400000, guid: 0bee65ccc2ef599409bdc885ecc304ef, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -179.51001
+      value: -180.499
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0bee65ccc2ef599409bdc885ecc304ef, type: 3}
       propertyPath: m_LocalScale.x
@@ -12623,6 +12659,14 @@ Prefab:
     - target: {fileID: 100000, guid: 0bee65ccc2ef599409bdc885ecc304ef, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967291
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 0bee65ccc2ef599409bdc885ecc304ef, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -168.976
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 0bee65ccc2ef599409bdc885ecc304ef, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0.09498596
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0bee65ccc2ef599409bdc885ecc304ef, type: 3}
@@ -12819,7 +12863,7 @@ MeshRenderer:
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
+  m_ScaleInLightmap: 0.5
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -13414,7 +13458,7 @@ MeshRenderer:
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
+  m_ScaleInLightmap: 0.5
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -13495,7 +13539,7 @@ MeshRenderer:
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
+  m_ScaleInLightmap: 0.5
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -13780,7 +13824,7 @@ MeshRenderer:
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
+  m_ScaleInLightmap: 0.5
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -14105,7 +14149,7 @@ MeshRenderer:
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
+  m_ScaleInLightmap: 0.5
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -14281,7 +14325,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 5d2bb157ec8887c419cabdbe4b259710, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 4294967291
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5d2bb157ec8887c419cabdbe4b259710, type: 3}
@@ -14529,7 +14573,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 1e8b24cedf4d28841bfcc39a2e266b1b, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 4294967291
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1e8b24cedf4d28841bfcc39a2e266b1b, type: 3}
@@ -14745,7 +14789,7 @@ MeshRenderer:
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
+  m_ScaleInLightmap: 0.5
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -14932,6 +14976,10 @@ Prefab:
       propertyPath: m_StaticEditorFlags
       value: 4294967291
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: ba0827e2fb204ec4198a65082075ff50, type: 3}
+      propertyPath: m_ScaleInLightmap
+      value: 0.01
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ba0827e2fb204ec4198a65082075ff50, type: 3}
   m_IsPrefabParent: 0
@@ -14988,7 +15036,7 @@ Prefab:
       objectReference: {fileID: 2100000, guid: 6fab381b05b559d42b2c54095a18c58e, type: 2}
     - target: {fileID: 100000, guid: caee828d27648254bb58624d957c2275, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 4294967291
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: caee828d27648254bb58624d957c2275, type: 3}
       propertyPath: m_CastShadows
@@ -15379,6 +15427,10 @@ Prefab:
     - target: {fileID: 100000, guid: d8c34b33ac9876d4683219d5dafc2f15, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967291
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: d8c34b33ac9876d4683219d5dafc2f15, type: 3}
+      propertyPath: m_ScaleInLightmap
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d8c34b33ac9876d4683219d5dafc2f15, type: 3}
@@ -17029,7 +17081,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 2300002, guid: cffceab149a69324a89a315e063b75f7, type: 3}
       propertyPath: m_ScaleInLightmap
-      value: 0.01
+      value: 0.005
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cffceab149a69324a89a315e063b75f7, type: 3}
@@ -17325,7 +17377,7 @@ MeshRenderer:
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
+  m_ScaleInLightmap: 0.5
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -17452,7 +17504,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 2300002, guid: cffceab149a69324a89a315e063b75f7, type: 3}
       propertyPath: m_ScaleInLightmap
-      value: 0.01
+      value: 0.003
       objectReference: {fileID: 0}
     - target: {fileID: 2300004, guid: cffceab149a69324a89a315e063b75f7, type: 3}
       propertyPath: m_ScaleInLightmap
@@ -18236,7 +18288,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 5d2bb157ec8887c419cabdbe4b259710, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 4294967291
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5d2bb157ec8887c419cabdbe4b259710, type: 3}
@@ -18390,7 +18442,7 @@ MeshRenderer:
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
+  m_ScaleInLightmap: 0.5
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -18600,7 +18652,7 @@ Prefab:
     - target: {fileID: 2300000, guid: f9e195b9ed316e14e9b68b37d7be50e8, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: ee35fe4d3e400a3479ef5360b3dcfb5d, type: 2}
+      objectReference: {fileID: 2100000, guid: d544abdb7c0db344cbce312396eabb91, type: 2}
     - target: {fileID: 400000, guid: f9e195b9ed316e14e9b68b37d7be50e8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 32.5
@@ -18945,7 +18997,7 @@ MeshRenderer:
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
+  m_ScaleInLightmap: 0.5
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -19404,7 +19456,7 @@ MeshRenderer:
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
+  m_ScaleInLightmap: 0.5
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -20162,7 +20214,7 @@ MeshRenderer:
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
+  m_ScaleInLightmap: 0.5
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -20551,7 +20603,7 @@ MeshRenderer:
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
+  m_ScaleInLightmap: 0.5
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -20656,7 +20708,7 @@ MeshRenderer:
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
+  m_ScaleInLightmap: 0.5
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -20776,6 +20828,10 @@ Prefab:
     - target: {fileID: 100000, guid: 34aaad3165ac7c044a7ce3346db39029, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967291
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 34aaad3165ac7c044a7ce3346db39029, type: 3}
+      propertyPath: m_ScaleInLightmap
+      value: 0.01
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 34aaad3165ac7c044a7ce3346db39029, type: 3}
@@ -21080,6 +21136,10 @@ Prefab:
     - target: {fileID: 100000, guid: 9ce4d2d5e2b96334c97cd5235a861afb, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967291
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 9ce4d2d5e2b96334c97cd5235a861afb, type: 3}
+      propertyPath: m_ScaleInLightmap
+      value: 0.01
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9ce4d2d5e2b96334c97cd5235a861afb, type: 3}
@@ -21415,7 +21475,7 @@ MeshRenderer:
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
+  m_ScaleInLightmap: 0.5
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -21496,7 +21556,7 @@ MeshRenderer:
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
+  m_ScaleInLightmap: 0.5
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -22232,7 +22292,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: a4e528402c6cdf04894c1b235824bff0, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 4294967291
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a4e528402c6cdf04894c1b235824bff0, type: 3}
@@ -22381,7 +22441,7 @@ MeshRenderer:
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
+  m_ScaleInLightmap: 0.5
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -22678,7 +22738,7 @@ MeshRenderer:
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
+  m_ScaleInLightmap: 0.5
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -23159,6 +23219,10 @@ Prefab:
     - target: {fileID: 100000, guid: dca1f043d31e29f48af7ad3b7540c6e5, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967291
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: dca1f043d31e29f48af7ad3b7540c6e5, type: 3}
+      propertyPath: m_ScaleInLightmap
+      value: 0.01
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: dca1f043d31e29f48af7ad3b7540c6e5, type: 3}
