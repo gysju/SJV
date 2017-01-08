@@ -64,7 +64,7 @@ public partial class WaveManagerWindow : EditorWindow {
 			}
 			GUILayout.BeginHorizontal ();
 
-			if (GUILayout.Button(" Preview mode"))
+			//if (GUILayout.Button(" Preview mode"))
 			{
 				Preview();
 			}
