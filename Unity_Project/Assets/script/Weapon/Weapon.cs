@@ -43,7 +43,7 @@ public class Weapon : MonoBehaviour
     [Range(0f, 100f)]
     public float m_optimalRange = 25f;
 
-    [Tooltip("Optimal range to use weapon.")]
+    [Tooltip("Random angle the weapon have when shooting.")]
     [Range(0f, 10f)]
     public float m_imprecision = 0f;
 
@@ -55,8 +55,13 @@ public class Weapon : MonoBehaviour
     void Start ()
     {
         m_ammoLeftInMagazine = m_magazineSize;
+        BuildBulletHits();
+    }
+
+    protected void BuildBulletHits()
+    {
         Transform bulletHitParent = transform.FindChild("Hits");
-        for (int i = 0; i < (int)(m_rpm/10); i++)
+        for (int i = 0; i < (int)((m_rpm/60) / m_bulletHit.GetComponent<ParticleSystem>().startLifetime); i++)
         {
             GameObject newBulletHit = Instantiate(m_bulletHit, bulletHitParent);
             m_bulletHits.Add(newBulletHit.GetComponent<ParticleSystem>());
@@ -83,12 +88,27 @@ public class Weapon : MonoBehaviour
         return Quaternion.Euler(Random.Range(-m_imprecision, m_imprecision), Random.Range(-m_imprecision, m_imprecision), Random.Range(-m_imprecision, m_imprecision));
     }
 
+    protected void BulletHitParticle(RaycastHit hit)
+    {
+        foreach (ParticleSystem ps in m_bulletHits)
+        {
+            if (!ps.IsAlive(true))
+            {
+                ps.transform.position = hit.point;
+                ps.transform.LookAt(transform);
+                ps.Play(true);
+                break;
+            }
+        }
+    }
+
     public virtual void FireWeapon()
     {
         RaycastHit hit;
         Vector3 shotDirection = (GetSpread() * m_muzzle.forward);
         if (Physics.Raycast(m_muzzle.position, shotDirection, out hit, m_optimalRange, m_mask))
         {
+            BulletHitParticle(hit);
             foreach (ParticleSystem ps in m_bulletHits)
             {
                 if (!ps.IsAlive(true))
