@@ -2,30 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[AddComponentMenu("MechaVR/Enemies/EnemiesManager")]
 public class EnemiesManager : MonoBehaviour
 {
-    //[System.Serializable]
-    //public struct EnemyWave
-    //{
-    //    [System.Serializable]
-    //    public struct Spawn
-    //    {
-    //        public BaseEnemy Enemy;
-    //        public Vector3 SpawnPosition;
-    //        public Vector3 SpawnRotation;
-    //        public Vector3 AttackPosition;
-    //    }
-
-    //    public float timeBeforeNextWave;
-    //    public bool nextWaveWait;
-    //    public List<Spawn> Spawns;
-    //}
-
     public bool m_showSpawnsInEditor;
     public Transform m_player;
 
-	public List<WaveObject> m_enemiesWaves;
+    public Vector3 m_poolPosition = Vector3.zero;
+    protected List<GroundEnemy> m_groundPool = new List<GroundEnemy>();
+    protected List<AirEnemy> m_airPool = new List<AirEnemy>();
+
+    public List<WaveObject> m_enemiesWaves;
 
     public float m_timeBeforeFirstWave = 5f;
 
@@ -35,6 +21,53 @@ public class EnemiesManager : MonoBehaviour
     {
         StartCoroutine(ManageWaves());
     }
+
+    #region Pools
+    public bool IsThereUnusedGroundEnemy()
+    {
+        return (m_groundPool.Count > 0);
+    }
+
+    public bool IsThereUnusedAirEnemy()
+    {
+        return (m_airPool.Count > 0);
+    }
+
+    public GroundEnemy GetUnusedGroundEnemy(Transform parent)
+    {
+        GroundEnemy groundEnemy = m_groundPool[0];
+        m_groundPool.RemoveAt(0);
+        groundEnemy.transform.parent = parent;
+
+        return groundEnemy;
+    }
+
+    public AirEnemy GetUnusedAirEnemy(Transform parent)
+    {
+        AirEnemy airEnemy = m_airPool[0];
+        m_airPool.RemoveAt(0);
+        airEnemy.transform.parent = parent;
+
+        return airEnemy;
+    }
+
+    public void PoolUnit(BaseEnemy enemyToPool)
+    {
+        enemyToPool.transform.position = m_poolPosition;
+        if (enemyToPool is AirEnemy)
+        {
+            m_airPool.Add((AirEnemy)enemyToPool);
+        }
+        else if (enemyToPool is GroundEnemy)
+        {
+            m_groundPool.Add((GroundEnemy)enemyToPool);
+        }
+        else
+        {
+            Destroy(enemyToPool.gameObject);
+        }
+    }
+    #endregion
 
     private bool IsCurrentWaveDestroyed()
     {
@@ -61,7 +94,21 @@ public class EnemiesManager : MonoBehaviour
 
             foreach (SpawnObject spawn in currentWave.Spawns)
             {
-                BaseEnemy newEnemy = Instantiate(spawn.Unit, spawn.SpawnPosition, Quaternion.Euler(spawn.SpawnRotation), currentWaveTransform);
+                BaseEnemy newEnemy;
+
+                if (spawn.Unit is GroundEnemy)
+                {
+                    newEnemy = (IsThereUnusedGroundEnemy()) ? GetUnusedGroundEnemy(currentWaveTransform) : Instantiate(spawn.Unit, spawn.SpawnPosition, Quaternion.Euler(spawn.SpawnRotation), currentWaveTransform);
+                }
+                else if (spawn.Unit is AirEnemy)
+                {
+                    newEnemy = (IsThereUnusedAirEnemy()) ? GetUnusedAirEnemy(currentWaveTransform) : Instantiate(spawn.Unit, spawn.SpawnPosition, Quaternion.Euler(spawn.SpawnRotation), currentWaveTransform);
+                }
+                else
+                {
+                    newEnemy = Instantiate(spawn.Unit, spawn.SpawnPosition, Quaternion.Euler(spawn.SpawnRotation), currentWaveTransform);
+                }
+
                 newEnemy.ResetUnit(spawn.SpawnPosition, spawn.AttackPosition, m_player);
 
                 if (currentWave.nextWaveWait)

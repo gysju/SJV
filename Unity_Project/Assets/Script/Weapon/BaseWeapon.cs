@@ -58,6 +58,10 @@ public class BaseWeapon : MonoBehaviour
 
     void Update ()
 	{
-		
+        if (m_laser)
+        {
+            m_laser.SetPosition(0, m_muzzle.position);
+            m_laser.SetPosition(1, m_muzzle.position + m_muzzle.forward * m_maxRange);
+        }
 	}
 }

@@ -42,11 +42,16 @@ public class BaseUnit : MonoBehaviour
     [Tooltip("Unit's Weapons list.")]
     public List<BaseWeapon> m_weapons = new List<BaseWeapon>();
     
-    protected virtual void Start()
+    protected virtual void Awake()
     {
         m_transform = transform;
         m_currentHitPoints = m_startingHitPoints;
         CheckHitPoints();
+    }
+
+    protected virtual void Start()
+    {
+
     }
 
     #region HitPoints Related
@@ -75,11 +80,11 @@ public class BaseUnit : MonoBehaviour
 
     protected virtual void FinishDying()
     {
-        //m_ZAManager.PoolUnit(this);
+
     }
 
     /// <summary>Vérifie si les hit points ne sont pas inférieurs à 0 ou supérieurs au maximum.</summary>
-    private void CheckHitPoints()
+    protected void CheckHitPoints()
     {
         if (m_currentHitPoints > m_maxHitPoints) m_currentHitPoints = m_maxHitPoints;
         if (m_currentHitPoints <= 0) //Si l'intégrité de l'unité tombe à 0.

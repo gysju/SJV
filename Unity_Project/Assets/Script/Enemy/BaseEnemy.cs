@@ -2,9 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 
-[AddComponentMenu("MechaVR/Enemies/BaseEnemy")]
 public class BaseEnemy : BaseUnit
 {
+    public EnemiesManager m_manager;
 
     protected enum EnemyState
     {
@@ -26,11 +26,12 @@ public class BaseEnemy : BaseUnit
     protected Transform m_target;
 
     #region Initialization
-    protected virtual void Awake()
+    protected override void Awake()
     {
-        m_transform = transform;
+        base.Awake();
         m_model = GetComponentInChildren<MeshRenderer>();
         m_currentTimeToAttack = m_timeToAttack;
+        if(!m_manager) m_manager = FindObjectOfType<EnemiesManager>();
     }
 
     public virtual void ResetUnit(Vector3 spawn, Vector3 movementTarget, Transform target)
@@ -40,6 +41,8 @@ public class BaseEnemy : BaseUnit
         m_attackPosition = movementTarget;
 
         m_target = target;
+
+        m_currentHitPoints = m_startingHitPoints;
 
         m_destroyed = false;
 
@@ -53,10 +56,18 @@ public class BaseEnemy : BaseUnit
     #endregion
 
     #region HitPoints Related
+    /// <summary>A appeler à la mort de l'unité.</summary>
     protected override void StartDying()
     {
+        m_attackPosition = null;
+        m_target = null;
         m_enemyState = EnemyState.EnemyState_Sleep;
         base.StartDying();
+    }
+
+    protected override void FinishDying()
+    {
+        m_manager.PoolUnit(this);
     }
     #endregion
 
