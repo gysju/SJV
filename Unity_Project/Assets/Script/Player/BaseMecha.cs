@@ -8,8 +8,9 @@ public class BaseMecha : BaseUnit
 
     public MechaTorso m_torso;
 
-    protected void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         m_torso = GetComponentInChildren<MechaTorso>();
         m_leftWeapon = m_weapons[0];
         m_rightWeapon = m_weapons[1];

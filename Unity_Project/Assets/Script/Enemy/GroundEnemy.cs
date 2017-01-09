@@ -30,10 +30,17 @@ public class GroundEnemy : BaseEnemy
 
     public override void ResetUnit(Vector3 spawn, Vector3 movementTarget, Transform target)
     {
+        m_navMeshAgent.enabled = true;
         m_navMeshAgent.ResetPath();
         base.ResetUnit(spawn, movementTarget, target);
     }
     #endregion
+
+    protected override void FinishDying()
+    {
+        m_navMeshAgent.enabled = false;
+        base.FinishDying();
+    }
 
     #region Movement Related
     public override void StartMovement()

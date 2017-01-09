@@ -55,8 +55,15 @@ public class SemiAutomaticWeapon : BaseWeapon
         if (Physics.Raycast(m_muzzle.position, shotDirection, out hit, m_maxRange, m_mask))
         {
             BulletHitParticle(hit);
-            BaseUnit unitHit = hit.transform.GetComponentInParent<BaseUnit>();
-            if (unitHit) unitHit.ReceiveDamages(Damage, ArmorPenetration);
+            BaseUnit unitHit = hit.transform.GetComponent<BaseUnit>();
+            if (unitHit)
+            {
+                unitHit.ReceiveDamages(Damage, ArmorPenetration);
+                if (unitHit is AirEnemy && unitHit.IsDestroyed())
+                {
+
+                }
+            }
         }
         else
         {
@@ -72,14 +79,5 @@ public class SemiAutomaticWeapon : BaseWeapon
     public override void TriggerReleased()
     {
 
-    }
-
-    void Update ()
-	{
-        if (m_laser && CanvasManager.EState_Menu.EState_Menu_InGame == CanvasManager.Get.eState_Menu)
-        {
-            m_laser.SetPosition(0, m_muzzle.position);
-            m_laser.SetPosition(1, m_muzzle.position + m_muzzle.forward * 20);
-        }
     }
 }
