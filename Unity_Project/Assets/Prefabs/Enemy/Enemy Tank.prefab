@@ -232,7 +232,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013901832810}
-  m_Mesh: {fileID: 4300000, guid: 4165b69b078c27047816e61c75fe234c, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 6349711d94fa5414d857b208acf2e65e, type: 3}
 --- !u!54 &54934011139682560
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -353,7 +353,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0fb48c7be6ba4c42bec24e9427cf0b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_manager: {fileID: 0}
   m_maxHitPoints: 10
   m_startingHitPoints: 10
   m_currentHitPoints: 0
@@ -362,6 +361,7 @@ MonoBehaviour:
   m_armor: 0
   m_weapons:
   - {fileID: 114347519778153244}
+  m_manager: {fileID: 0}
   m_timeToAttack: 2
   m_maxSpeed: 5
   m_acceleration: 8
