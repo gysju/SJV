@@ -2149,7 +2149,6 @@ GameObject:
   - component: {fileID: 92569193693124858}
   - component: {fileID: 124308216664842744}
   - component: {fileID: 81409776056369914}
-  - component: {fileID: 114941436572497662}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -4055,7 +4054,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1214236182891614}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 89.96, y: 17.02, z: 24.61}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4615243895940516}
@@ -5686,7 +5685,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.03
-  far clip plane: 1000
+  far clip plane: 12000
   field of view: 100
   orthographic: 0
   orthographic size: 5
@@ -9540,9 +9539,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5e9437d753653848977982ec5c3c0f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  primaryController: {fileID: 0}
-  secondaryController: {fileID: 0}
-  illuminatedComponents: []
+  primaryController: {fileID: 4167838818693002}
+  secondaryController: {fileID: 4973110600994542}
+  illuminatedComponents:
+  - {fileID: 23595677959964716}
+  - {fileID: 23421740330263950}
 --- !u!114 &114271186923557378
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9593,10 +9594,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ee59b5ec3483944dae126b6ce89521b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_mecha: {fileID: 0}
-  m_torso: {fileID: 0}
+  m_mecha: {fileID: 114559335785910554}
+  m_torso: {fileID: 114857813329560898}
   m_maxHorinzontalHeadAngle: 10
   m_maxVerticalHeadAngle: 75
+  trackedDeviceMoveControllers: {fileID: 114214402283542230}
+  MinimumAngleToRotate: 15
 --- !u!114 &114382664145636892
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9790,42 +9793,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eState_Menu: 0
   trackedDeviceControllers: {fileID: 0}
---- !u!114 &114941436572497662
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1745584232356052}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fceaeb339b971b429c4cc600acabd13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tweakMode: 0
-  screenBlendMode: 1
-  hdr: 0
-  sepBlurSpread: 2.5
-  quality: 1
-  bloomIntensity: 0.5
-  bloomThreshold: 0.5
-  bloomThresholdColor: {r: 1, g: 1, b: 1, a: 1}
-  bloomBlurIterations: 2
-  hollywoodFlareBlurIterations: 2
-  flareRotation: 0
-  lensflareMode: 1
-  hollyStretchWidth: 2.5
-  lensflareIntensity: 0
-  lensflareThreshold: 0.3
-  lensFlareSaturation: 0.75
-  flareColorA: {r: 0.4, g: 0.4, b: 0.8, a: 0.75}
-  flareColorB: {r: 0.4, g: 0.8, b: 0.8, a: 0.75}
-  flareColorC: {r: 0.8, g: 0.4, b: 0.8, a: 0.75}
-  flareColorD: {r: 0.8, g: 0.4, b: 0, a: 0.75}
-  lensFlareVignetteMask: {fileID: 0}
-  lensFlareShader: {fileID: 0}
-  screenBlendShader: {fileID: 0}
-  blurAndFlaresShader: {fileID: 0}
-  brightPassFilterShader: {fileID: 0}
 --- !u!114 &114948240870790466
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -29,10 +29,10 @@ public class PlayerInputs : MonoBehaviour
 #if UNITY_PS4
     private void PSMoveStart()
     {
-        m_baseOffset = Vector3.zero;
+        //m_baseOffset = Vector3.zero;
         m_leftController = trackedDeviceMoveControllers.primaryController.GetComponent<MoveController>();
         m_rightController = trackedDeviceMoveControllers.secondaryController.GetComponent<MoveController>();
-		lastMovement = Vector3.zero;
+		//lastMovement = Vector3.zero;
     }
 #endif
 
@@ -173,7 +173,7 @@ public class PlayerInputs : MonoBehaviour
         {
             CheckPilotHead();
         }
-		PSMoveInputs();
+		//PSMoveInputs();
 #endif
 
         //ControllerInputs();
