@@ -107,7 +107,7 @@ public class ikLimb : MonoBehaviour {
 		
 		//Apply rotation for temporary game objects.
 		upperArmAxisCorrection.transform.LookAt(target,elbowTarget.position - upperArmAxisCorrection.transform.position);
-		upperArmAxisCorrection.transform.rotation =  Quaternion.Euler(upperArmAxisCorrection.transform.rotation.eulerAngles - new Vector3(ikAngle,0,0)); /// before :upperArmAxisCorrection.transform.localRotation.eulerAngles.x -= ikAngle;
+		upperArmAxisCorrection.transform.localRotation =  Quaternion.Euler(upperArmAxisCorrection.transform.localRotation.eulerAngles - new Vector3(ikAngle,0,0)); /// before :upperArmAxisCorrection.transform.localRotation.eulerAngles.x -= ikAngle;
 		
 		forearmAxisCorrection.transform.LookAt(target,elbowTarget.position - upperArmAxisCorrection.transform.position);
 		handAxisCorrection.transform.rotation = target.rotation;
