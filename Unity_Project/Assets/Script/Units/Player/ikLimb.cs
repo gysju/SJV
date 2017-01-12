@@ -20,7 +20,7 @@ public class ikLimb : MonoBehaviour {
 	private Vector3 targetRelativeStartPosition;
 	private Vector3 elbowTargetRelativeStartPosition;
 
-	public float transition = 1.0f;	
+	//public float transition = 1.0f;	
 
 	void Start () {
 		upperArmStartRotation = upperArm.rotation;
@@ -50,7 +50,6 @@ public class ikLimb : MonoBehaviour {
 
 		//var adjacent : float = (targetDistance * hypotenuse) / armLength;
 		float adjacent = (Mathf.Pow(hypotenuse,2) - Mathf.Pow(forearmLength,2) + Mathf.Pow(targetDistance,2))/(2*targetDistance);
-		Debug.Log(adjacent);
 		float ikAngle = Mathf.Acos(adjacent/hypotenuse) * Mathf.Rad2Deg;
 
 		//Store pre-ik info.
@@ -92,7 +91,7 @@ public class ikLimb : MonoBehaviour {
 		upperArmAxisCorrection.transform.LookAt(forearm.position, transform.root.up);
 		upperArmAxisCorrection.transform.parent = transform;
 		upperArm.parent = upperArmAxisCorrection.transform;
-		
+
 		forearmAxisCorrection.transform.position = forearm.position;
 		forearmAxisCorrection.transform.LookAt(hand.position, transform.root.up);
 		forearmAxisCorrection.transform.parent = upperArmAxisCorrection.transform;
@@ -101,18 +100,18 @@ public class ikLimb : MonoBehaviour {
 		handAxisCorrection.transform.position = hand.position;
 		handAxisCorrection.transform.parent = forearmAxisCorrection.transform;
 		hand.parent = handAxisCorrection.transform;
-
+		
 		//Reset targets.
 		target.position = targetPosition;
 		elbowTarget.position = elbowTargetPosition;	
-
+		
 		//Apply rotation for temporary game objects.
 		upperArmAxisCorrection.transform.LookAt(target,elbowTarget.position - upperArmAxisCorrection.transform.position);
-		upperArmAxisCorrection.transform.localRotation =  Quaternion.Euler(upperArmAxisCorrection.transform.localRotation.eulerAngles - new Vector3(ikAngle,0,0)); /// before :upperArmAxisCorrection.transform.localRotation.eulerAngles.x -= ikAngle;
-
+		upperArmAxisCorrection.transform.rotation =  Quaternion.Euler(upperArmAxisCorrection.transform.rotation.eulerAngles - new Vector3(ikAngle,0,0)); /// before :upperArmAxisCorrection.transform.localRotation.eulerAngles.x -= ikAngle;
+		
 		forearmAxisCorrection.transform.LookAt(target,elbowTarget.position - upperArmAxisCorrection.transform.position);
 		handAxisCorrection.transform.rotation = target.rotation;
-
+		
 		//Restore limbs.
 		upperArm.parent = upperArmParent;
 		forearm.parent = forearmParent;
@@ -123,17 +122,17 @@ public class ikLimb : MonoBehaviour {
 		upperArm.localPosition = upperArmLocalPosition;
 		forearm.localPosition = forearmLocalPosition;
 		hand.localPosition = handLocalPosition;
-
+		
 		//Clean up temporary game objets.
 		Destroy(upperArmAxisCorrection);
 		Destroy(forearmAxisCorrection);
 		Destroy(handAxisCorrection);
 
 		//Transition.
-		transition = Mathf.Clamp01(transition);
-		upperArm.rotation = Quaternion.Slerp(upperArmRotation, upperArm.rotation, transition);
-		forearm.rotation = Quaternion.Slerp(forearmRotation, forearm.rotation, transition);
-		hand.rotation = Quaternion.Slerp(handRotation, hand.rotation, transition);
+		//transition = Mathf.Clamp01(transition);
+		//upperArm.rotation = Quaternion.Slerp(upperArmRotation, upperArm.rotation, transition);
+		//forearm.rotation = Quaternion.Slerp(forearmRotation, forearm.rotation, transition);
+		//hand.rotation = Quaternion.Slerp(handRotation, hand.rotation, transition);
 
 		//Debug.
 		if (debug)
