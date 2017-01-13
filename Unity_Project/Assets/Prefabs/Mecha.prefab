@@ -1269,7 +1269,7 @@ GameObject:
   - component: {fileID: 4031437948700680}
   - component: {fileID: 137254655587686030}
   m_Layer: 0
-  m_Name: RightMechaArm
+  m_Name: LeftMechaArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2493,6 +2493,7 @@ GameObject:
   - component: {fileID: 92569193693124858}
   - component: {fileID: 124308216664842744}
   - component: {fileID: 81409776056369914}
+  - component: {fileID: 114700977192936542}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2517,7 +2518,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1754333088370304
 GameObject:
   m_ObjectHideFlags: 1
@@ -5275,7 +5276,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1096959007873248}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.087, z: 0.002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4874949365163328}
@@ -6491,7 +6492,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.03
-  far clip plane: 12000
+  far clip plane: 10000
   field of view: 100
   orthographic: 0
   orthographic size: 5
@@ -10222,8 +10223,6 @@ MonoBehaviour:
   m_torso: {fileID: 114857813329560898}
   m_maxHorinzontalHeadAngle: 10
   m_maxVerticalHeadAngle: 75
-  trackedDeviceMoveControllers: {fileID: 114214402283542230}
-  MinimumAngleToRotate: 15
 --- !u!114 &114380109924192352
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10313,7 +10312,7 @@ MonoBehaviour:
   m_weapons:
   - {fileID: 114380109924192352}
   - {fileID: 114187762568104732}
-  m_torso: {fileID: 0}
+  m_torso: {fileID: 114857813329560898}
 --- !u!114 &114578341812562036
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10352,6 +10351,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c46020f062ba5e24a9e6961e89bfa5b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114700977192936542
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1745584232356052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: afc3f7f4b8486584397dbdcdd6a9f695, type: 2}
 --- !u!114 &114722247505971464
 MonoBehaviour:
   m_ObjectHideFlags: 1
