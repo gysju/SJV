@@ -7,6 +7,11 @@ public class PlayerInputs : MonoBehaviour
 
     public BaseMecha m_mecha;
 
+    protected Vector3 m_leftWeaponDefaultPosition;
+    protected Vector3 m_rightWeaponDefaultPosition;
+    protected Vector3 m_baseOffset;
+    protected float m_sensitivity = 0.001f;
+
     public MechaTorso m_torso;
     protected bool m_torsoConnected;
     
@@ -24,15 +29,15 @@ public class PlayerInputs : MonoBehaviour
 
     private MoveController m_leftController;
     private MoveController m_rightController;
-#endif
-
-#if UNITY_PS4
+    
+	private Vector3 m_lastMovement;
+    
     private void PSMoveStart()
     {
-        //m_baseOffset = Vector3.zero;
+        m_baseOffset = Vector3.zero;
         m_leftController = trackedDeviceMoveControllers.primaryController.GetComponent<MoveController>();
         m_rightController = trackedDeviceMoveControllers.secondaryController.GetComponent<MoveController>();
-		//lastMovement = Vector3.zero;
+		m_lastMovement = Vector3.zero;
     }
 #endif
 
@@ -109,6 +114,71 @@ public class PlayerInputs : MonoBehaviour
         m_mainCamera.transform.rotation = horizontalRotation * currentRotation * verticalRotation;
     }
 
+#if UNITY_PS4
+    #region PSMoves
+
+    void PSMoveLeftWeaponControl()
+    {
+        m_mecha.MoveLeftWeapon(m_leftWeaponDefaultPosition + ((m_leftController.transform.position - m_baseOffset) * m_sensitivity));
+        if (m_leftController.lookAtHit != Vector3.zero)
+            m_mecha.AimLeftWeaponTo(m_leftController.lookAtHit);
+    }
+
+    void PSMoveRightWeaponControl()
+    {
+        m_mecha.MoveRightWeapon(m_rightWeaponDefaultPosition + ((m_rightController.transform.position - m_baseOffset) * m_sensitivity));
+        if (m_rightController.lookAtHit != Vector3.zero)
+            m_mecha.AimRightWeaponTo(m_rightController.lookAtHit);
+    }
+
+    void PSMoveInputs()
+    {
+		if (m_leftController.GetButtonDown(MoveController.MoveButton.MoveButton_Trigger)) m_mecha.LeftArmWeaponTriggered();
+		if (m_leftController.GetButtonUp(MoveController.MoveButton.MoveButton_Trigger)) m_mecha.LeftArmWeaponTriggerReleased();
+
+        if (m_rightController.GetButtonDown(MoveController.MoveButton.MoveButton_Trigger)) m_mecha.RightArmWeaponTriggered();
+		if (m_rightController.GetButtonUp(MoveController.MoveButton.MoveButton_Trigger)) m_mecha.RightArmWeaponTriggerReleased();
+    }
+
+    Vector3 PSMoveVirtualJoysticksConvertion(int index)
+    {
+        Vector3 movementDirection = Vector3.zero;
+
+        float x = -PS4Input.GetLastMoveAcceleration(0, index).x;
+        float y = PS4Input.GetLastMoveAcceleration(0, index).y;
+
+        const float NEUTRAL_Z = -0.3f;
+        const float NEUTRAL_X = 0f;
+
+        const float MAX_FORWARD = 0.8f;
+        const float MIN_FORWARD = 0.2f;
+        const float MAX_BACKWARD = -0.8f;
+        const float MIN_BACKWARD = -0.2f;
+        const float MAX_LEFT = -0.6f;
+        const float MIN_LEFT = -0.2f;
+        const float MAX_RIGHT = 0.6f;
+        const float MIN_RIGHT = 0.2f;
+
+        float zdir = 0;
+        if (y > NEUTRAL_Z) //avant
+            zdir = (Mathf.InverseLerp(MIN_FORWARD, MAX_FORWARD, y));
+        if (y < NEUTRAL_Z) //arrière
+            zdir = -(Mathf.InverseLerp(MIN_BACKWARD, MAX_BACKWARD, y));
+
+        float xdir = 0;
+        if (x < NEUTRAL_X) //gauche
+            xdir = -(Mathf.InverseLerp(MIN_LEFT, MAX_LEFT, x));
+        if (x > NEUTRAL_X) //droite
+            xdir = (Mathf.InverseLerp(MIN_RIGHT, MAX_RIGHT, x));
+
+        movementDirection += new Vector3(xdir, 0f, zdir);
+
+        return movementDirection;
+    }
+    #endregion
+
+#endif
+
     #region Mouse, Keyboard
     void MouseAim()
     {
@@ -130,6 +200,7 @@ public class PlayerInputs : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0)) m_mecha.LeftArmWeaponTriggered();
         if (Input.GetMouseButtonUp(0)) m_mecha.LeftArmWeaponTriggerReleased();
+
         if (Input.GetMouseButtonDown(1)) m_mecha.RightArmWeaponTriggered();
         if (Input.GetMouseButtonUp(1)) m_mecha.RightArmWeaponTriggerReleased();
     }
@@ -173,7 +244,7 @@ public class PlayerInputs : MonoBehaviour
         {
             CheckPilotHead();
         }
-		//PSMoveInputs();
+		PSMoveInputs();
 #endif
 
         //ControllerInputs();

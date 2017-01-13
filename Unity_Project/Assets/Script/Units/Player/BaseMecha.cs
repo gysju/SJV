@@ -43,6 +43,16 @@ public class BaseMecha : BaseUnit
         m_rightWeapon.TriggerReleased();
     }
 
+    public void MoveLeftWeapon(Vector3 newPosition)
+    {
+        m_leftWeapon.transform.localPosition = newPosition;
+    }
+
+    public void MoveRightWeapon(Vector3 newPosition)
+    {
+        m_rightWeapon.transform.localPosition = newPosition;
+    }
+
     public void AimLeftWeaponTo(Vector3 targetPosition)
     {
         m_leftWeapon.transform.LookAt(targetPosition);
