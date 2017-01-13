@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+#if UNITY_PS4
+using UnityEngine.PS4;
+#endif
 public class PlayerInputs : MonoBehaviour
 {
     protected Camera m_mainCamera;

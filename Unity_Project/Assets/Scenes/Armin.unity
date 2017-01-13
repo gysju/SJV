@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 291718786}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.14427665, g: 0.22040427, b: 0.24494731, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -54,11 +54,11 @@ LightmapSettings:
     m_EnableRealtimeLightmaps: 0
   m_LightmapEditorSettings:
     serializedVersion: 4
-    m_Resolution: 0.1
-    m_BakeResolution: 0.5
+    m_Resolution: 0.05
+    m_BakeResolution: 1
     m_TextureWidth: 1024
     m_TextureHeight: 1024
-    m_AO: 1
+    m_AO: 0
     m_AOMaxDistance: 1
     m_CompAOExponent: 1
     m_CompAOExponentDirect: 0
@@ -72,7 +72,8 @@ LightmapSettings:
     m_FinalGatherFiltering: 1
     m_FinalGatherRayCount: 256
     m_ReflectionCompression: 2
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000001, guid: b5b29b22cb5fe174d92156e68abbc611,
+    type: 2}
   m_RuntimeCPUUsage: 25
 --- !u!196 &4
 NavMeshSettings:
@@ -2628,7 +2629,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &262978241
 Transform:
@@ -2847,7 +2848,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!108 &291718786
 Light:
@@ -4368,7 +4369,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 66380ef164707ec4c95c3087a156ee31, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 4294967291
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 66380ef164707ec4c95c3087a156ee31, type: 3}
@@ -6276,7 +6277,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 9ce4d2d5e2b96334c97cd5235a861afb, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 4294967291
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 9ce4d2d5e2b96334c97cd5235a861afb, type: 3}
       propertyPath: m_ScaleInLightmap
@@ -16775,7 +16776,11 @@ Prefab:
     - target: {fileID: 20099733825816124, guid: 2e1e9e92345e15e4b83e63448ddbfab0,
         type: 2}
       propertyPath: far clip plane
-      value: 1000
+      value: 10000
+      objectReference: {fileID: 0}
+    - target: {fileID: 1748620859415788, guid: 2e1e9e92345e15e4b83e63448ddbfab0, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2e1e9e92345e15e4b83e63448ddbfab0, type: 2}
@@ -20188,7 +20193,7 @@ Prefab:
       objectReference: {fileID: 2100000, guid: 8d5790c3202d7674e818fc2104cada03, type: 2}
     - target: {fileID: 100000, guid: 66380ef164707ec4c95c3087a156ee31, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 4294967291
+      value: 4294967295
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 66380ef164707ec4c95c3087a156ee31, type: 3}
       propertyPath: m_ScaleInLightmap
