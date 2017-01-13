@@ -7,7 +7,7 @@ Shader "Custom/StantardShader_RGB_N_MGE" {
 		_EmissiveColor ("EmissiveColor", Color) = (1,1,1,1)
 		_Glossiness ("Smoothness", Range(0,1)) = 0.5
 		_Metallic ("Metallic", Range(0,1)) = 0.0
-		_Emission ("Emission", Range(0,10)) = 1.0
+		_Emission ("Emission", Range(0, 20)) = 1.0
 	}
 	SubShader {
 		Tags { "RenderType"="Opaque" }
