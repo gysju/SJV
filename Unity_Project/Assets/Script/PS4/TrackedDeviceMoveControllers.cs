@@ -10,6 +10,10 @@ public class TrackedDeviceMoveControllers : MonoBehaviour {
 	public Transform primaryController;
 	public Transform secondaryController;
     public Renderer[] illuminatedComponents;
+
+    public Transform targetLeft;
+    public Transform targetRight;
+
 #if UNITY_PS4
 	private int m_primaryHandle = -1;
 	private int m_secondaryHandle = -1;
@@ -17,6 +21,10 @@ public class TrackedDeviceMoveControllers : MonoBehaviour {
 	private Quaternion primaryOrientation = Quaternion.identity;
 	private Vector3 secondaryPosition = Vector3.zero;
 	private Quaternion secondaryOrientation = Quaternion.identity;
+    private Vector3 TargetLeftOriginPos;
+    private Vector3 TargetRightOriginPos;
+    private Vector3 TargetLeftCurrentPos;
+    private Vector3 TargetRightCurrentPos;
 
 	IEnumerator Start()
 	{
@@ -64,7 +72,8 @@ public class TrackedDeviceMoveControllers : MonoBehaviour {
 			if(m_primaryHandle >= 0)
 			{
 				if( Tracker.GetTrackedDevicePosition(m_primaryHandle, out primaryPosition) == PlayStationVRResult.Ok )
-					primaryController.localPosition = primaryPosition;
+                	TargetLeftCurrentPos = primaryController.localPosition = primaryPosition;
+                 
 
                 if (Tracker.GetTrackedDeviceOrientation(m_primaryHandle, out primaryOrientation) == PlayStationVRResult.Ok)
 					primaryController.localRotation = primaryOrientation;
@@ -74,7 +83,7 @@ public class TrackedDeviceMoveControllers : MonoBehaviour {
 			if(secondaryController && m_secondaryHandle >= 0)
 			{
                 if (Tracker.GetTrackedDevicePosition(m_secondaryHandle, out secondaryPosition) == PlayStationVRResult.Ok)
-					secondaryController.localPosition = secondaryPosition;
+					TargetRightCurrentPos = secondaryController.localPosition = secondaryPosition;
 
                 if (Tracker.GetTrackedDeviceOrientation(m_secondaryHandle, out secondaryOrientation) == PlayStationVRResult.Ok)
 					secondaryController.localRotation = secondaryOrientation;
@@ -130,6 +139,14 @@ public class TrackedDeviceMoveControllers : MonoBehaviour {
             Tracker.GetTrackedDeviceLedColor(m_secondaryHandle, out trackedColor);
             illuminatedComponents[1].material.color = GetUnityColor(trackedColor);
         }
+
+        // check target's origin position
+        
+        if( m_primaryHandle >= 0 && Tracker.GetTrackedDevicePosition(m_primaryHandle, out primaryPosition) == PlayStationVRResult.Ok )
+                	TargetLeftCurrentPos = primaryController.localPosition = primaryPosition;
+
+        if (secondaryController && m_secondaryHandle >= 0 && Tracker.GetTrackedDevicePosition(m_secondaryHandle, out secondaryPosition) == PlayStationVRResult.Ok)
+					TargetRightCurrentPos = secondaryController.localPosition = secondaryPosition;
     }
 
 	// Remove the registered devices from tracking and reset the transform
