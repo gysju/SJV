@@ -48,6 +48,7 @@ public class SemiAutomaticWeapon : BaseWeapon
 
     protected override void FireWeapon()
     {
+		animator.SetTrigger ("Fired");
         MuzzleFlash();
         ShotSound();
         RaycastHit hit;

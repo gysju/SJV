@@ -32,9 +32,12 @@ public class BaseWeapon : MonoBehaviour
     protected LineRenderer m_laser;
     protected Transform bulletHitParent;
     
+	protected Animator animator;
+
     protected virtual void Start()
     {
         m_laser = GetComponent<LineRenderer>();
+		animator = GetComponent<Animator> ();
 
         bulletHitParent = new GameObject("Hits").transform;
         bulletHitParent.parent = transform;
