@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: e2a15860c43370e4fad4d08b9ca56ed3
-timeCreated: 1484172710
+guid: b38fd81b1e3ca264b850b410d4ae152b
+timeCreated: 1484678211
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -17,10 +17,8 @@ ModelImporter:
     400006: FrontGun
     400008: //RootNode
     400010: Reload
-    2300000: AutoGun
-    3300000: AutoGun
     4300000: AutoGun
-    7400000: fire
+    7400000: Fire
     9500000: //RootNode
     13700000: AutoGun
   materials:
@@ -37,7 +35,7 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
-    animationCompression: 3
+    animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -45,7 +43,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: fire
+      name: Fire
       takeName: Take 001
       firstFrame: 0
       lastFrame: 5
@@ -106,7 +104,7 @@ ModelImporter:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
-  importAnimation: 0
+  importAnimation: 1
   copyAvatar: 0
   humanDescription:
     serializedVersion: 2
@@ -122,7 +120,7 @@ ModelImporter:
     rootMotionBoneName: 
     rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
-    hasExtraRoot: 1
+    hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2
