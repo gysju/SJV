@@ -17,14 +17,17 @@ public class TrackedDeviceMoveControllers : MonoBehaviour {
 #if UNITY_PS4
 	private int m_primaryHandle = -1;
 	private int m_secondaryHandle = -1;
+
 	private Vector3 primaryPosition = Vector3.zero;
 	private Quaternion primaryOrientation = Quaternion.identity;
+
 	private Vector3 secondaryPosition = Vector3.zero;
 	private Quaternion secondaryOrientation = Quaternion.identity;
-    private Vector3 TargetLeftOriginPos;
-    private Vector3 TargetRightOriginPos;
-    private Vector3 TargetLeftCurrentPos;
-    private Vector3 TargetRightCurrentPos;
+
+	private Vector3 TargetLeftOriginPos = Vector3.zero;
+	private Vector3 TargetRightOriginPos = Vector3.zero;
+	private Vector3 TargetLeftCurrentPos = Vector3.zero;
+	private Vector3 TargetRightCurrentPos = Vector3.zero;
 
 	IEnumerator Start()
 	{
@@ -77,6 +80,8 @@ public class TrackedDeviceMoveControllers : MonoBehaviour {
 
                 if (Tracker.GetTrackedDeviceOrientation(m_primaryHandle, out primaryOrientation) == PlayStationVRResult.Ok)
 					primaryController.localRotation = primaryOrientation;
+
+				targetLeft.transform.position = TargetLeftCurrentPos - TargetLeftOriginPos;
 			}
 
 			// Perform tracking for the secondary controller, if we've got a handle
@@ -87,6 +92,8 @@ public class TrackedDeviceMoveControllers : MonoBehaviour {
 
                 if (Tracker.GetTrackedDeviceOrientation(m_secondaryHandle, out secondaryOrientation) == PlayStationVRResult.Ok)
 					secondaryController.localRotation = secondaryOrientation;
+
+				targetRight.transform.position = TargetRightCurrentPos - TargetRightOriginPos;
 			}
 		}
 	}
