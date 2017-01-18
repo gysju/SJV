@@ -38,6 +38,10 @@ public class BaseUnit : MonoBehaviour
     [Range(MIN_ARMOR, MAX_ARMOR)]
     public int m_armor;
 
+    [Header("Unit's point to target")]
+    [Tooltip("Unit's point an IA will aim to.")]
+    public Transform m_targetPoint;
+
     [Header("Weapons")]
     [Tooltip("Unit's Weapons list.")]
     public List<BaseWeapon> m_weapons = new List<BaseWeapon>();
@@ -45,6 +49,7 @@ public class BaseUnit : MonoBehaviour
     protected virtual void Awake()
     {
         m_transform = transform;
+        if (!m_targetPoint) m_targetPoint = m_transform;
         m_currentHitPoints = m_startingHitPoints;
         CheckHitPoints();
     }

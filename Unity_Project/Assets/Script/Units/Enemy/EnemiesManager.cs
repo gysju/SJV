@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemiesManager : MonoBehaviour
 {
     public bool m_showSpawnsInEditor;
-    public Transform m_player;
+    public BaseMecha m_player;
 
     public Vector3 m_poolPosition = Vector3.zero;
     protected List<GroundEnemy> m_groundPool = new List<GroundEnemy>();
@@ -92,6 +92,8 @@ public class EnemiesManager : MonoBehaviour
         {
             Transform currentWaveTransform = new GameObject("Wave" + currentWaveID).transform;
 
+            bool waveSurvey = currentWave.nextWaveWait || currentWave == m_enemiesWaves[m_enemiesWaves.Count - 1];
+
             foreach (SpawnObject spawn in currentWave.Spawns)
             {
                 BaseEnemy newEnemy;
@@ -109,15 +111,15 @@ public class EnemiesManager : MonoBehaviour
                     newEnemy = Instantiate(spawn.Unit, spawn.SpawnPosition, Quaternion.Euler(spawn.SpawnRotation), currentWaveTransform);
                 }
 
-                newEnemy.ResetUnit(spawn.SpawnPosition, spawn.AttackPosition, m_player);
+                newEnemy.ResetUnit(spawn.SpawnPosition, spawn.AttackPosition, m_player.m_targetPoint);
 
-                if (currentWave.nextWaveWait)
+                if (waveSurvey)
                 {
                     m_enemiesCurrentWave.Add(newEnemy);
                 }
             }
 
-            if (currentWave.nextWaveWait)
+            if (waveSurvey)
             {
                 while (!IsCurrentWaveDestroyed())
                 {
@@ -125,9 +127,12 @@ public class EnemiesManager : MonoBehaviour
                 }
                 m_enemiesCurrentWave.Clear();
             }
+
             yield return new WaitForSeconds(currentWave.timeBeforeNextWave);
             currentWave = m_enemiesWaves[++currentWaveID];
         }
+
+
     }
 
     void Update()
