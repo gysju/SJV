@@ -1195,6 +1195,7 @@ GameObject:
   - component: {fileID: 4931183764026512}
   - component: {fileID: 114187762568104732}
   - component: {fileID: 120794042508062338}
+  - component: {fileID: 95293629510288842}
   m_Layer: 0
   m_Name: Mech_AutoGun
   m_TagString: Untagged
@@ -1353,6 +1354,7 @@ GameObject:
   - component: {fileID: 4017536782547120}
   - component: {fileID: 114380109924192352}
   - component: {fileID: 120573861555815812}
+  - component: {fileID: 95176974314460568}
   m_Layer: 0
   m_Name: Mech_AutoGun
   m_TagString: Untagged
@@ -4349,7 +4351,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 68c6a061a0a8234409b9415834c3879f, type: 2}
+  - {fileID: 2100000, guid: a6e1a3af9f14ff746bbf6dd3d7d4ad17, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5082,6 +5084,23 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!95 &95176974314460568
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1705440344610592}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: e2a15860c43370e4fad4d08b9ca56ed3, type: 3}
+  m_Controller: {fileID: 9100000, guid: 2b797424e771ad84f834f79d386e1751, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &95281057562522106
 Animator:
   serializedVersion: 3
@@ -5111,6 +5130,23 @@ Animator:
   m_Controller: {fileID: 9100000, guid: a74bf524bcef3b24f9114db476a7fe7a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 2
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!95 &95293629510288842
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1620729798310310}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: e2a15860c43370e4fad4d08b9ca56ed3, type: 3}
+  m_Controller: {fileID: 9100000, guid: 2b797424e771ad84f834f79d386e1751, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
@@ -5249,6 +5285,8 @@ MonoBehaviour:
   m_torso: {fileID: 114857813329560898}
   m_maxHorinzontalHeadAngle: 10
   m_maxVerticalHeadAngle: 75
+  trackedDeviceMoveControllers: {fileID: 114214402283542230}
+  MinimumAngleToRotate: 15
 --- !u!114 &114380109924192352
 MonoBehaviour:
   m_ObjectHideFlags: 1

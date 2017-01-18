@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4000013307054700}
   - component: {fileID: 54384043486944006}
   - component: {fileID: 114000012560693224}
+  - component: {fileID: 95554792829865890}
   m_Layer: 11
   m_Name: Enemy Drone
   m_TagString: Untagged
@@ -104,6 +105,7 @@ GameObject:
   - component: {fileID: 4005498241173004}
   - component: {fileID: 120642942315553310}
   - component: {fileID: 114093414146497850}
+  - component: {fileID: 95655197373807242}
   m_Layer: 11
   m_Name: Weapon
   m_TagString: Untagged
@@ -341,6 +343,40 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!95 &95554792829865890
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010254381250}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 5160d2cf6389a6d4dbace88bf745c501, type: 3}
+  m_Controller: {fileID: 9100000, guid: 45567a54139f04a429167233c60d3583, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!95 &95655197373807242
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1877166447768122}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114000012560693224
 MonoBehaviour:
   m_ObjectHideFlags: 1

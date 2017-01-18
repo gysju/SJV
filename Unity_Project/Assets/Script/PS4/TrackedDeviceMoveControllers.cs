@@ -14,8 +14,10 @@ public class TrackedDeviceMoveControllers : MonoBehaviour {
     public Transform targetLeft;
     public Transform targetRight;
 
+    [Range( 0.0f, 2.0f)]
+    public float IkIntensity = 1.5f;
 #if UNITY_PS4
-	private int m_primaryHandle = -1;
+    private int m_primaryHandle = -1;
 	private int m_secondaryHandle = -1;
 
 	private Vector3 primaryPosition = Vector3.zero;
@@ -24,12 +26,13 @@ public class TrackedDeviceMoveControllers : MonoBehaviour {
 	private Vector3 secondaryPosition = Vector3.zero;
 	private Quaternion secondaryOrientation = Quaternion.identity;
 
-	private Vector3 TargetLeftOriginPos = Vector3.zero;
-	private Vector3 TargetRightOriginPos = Vector3.zero;
-	private Vector3 TargetLeftCurrentPos = Vector3.zero;
-	private Vector3 TargetRightCurrentPos = Vector3.zero;
+	private Vector3 primaryPositionOriginPos = Vector3.zero;
+	private Vector3 secondaryPositionOriginPos = Vector3.zero;
 
-	IEnumerator Start()
+    private Vector3 targetLeftOriginPos;
+    private Vector3 targetRightOriginPos;
+
+    IEnumerator Start()
 	{
 		if(!primaryController || !secondaryController || !primaryController.gameObject.activeSelf || !secondaryController.gameObject.activeSelf)
 		{
@@ -55,7 +58,11 @@ public class TrackedDeviceMoveControllers : MonoBehaviour {
 		{
 			ResetControllerTracking();
 		}
-	}
+
+        targetLeftOriginPos = targetLeft.localPosition;
+        targetRightOriginPos = targetRight.localPosition;
+
+    }
 
 	void Update()
 	{
@@ -75,25 +82,25 @@ public class TrackedDeviceMoveControllers : MonoBehaviour {
 			if(m_primaryHandle >= 0)
 			{
 				if( Tracker.GetTrackedDevicePosition(m_primaryHandle, out primaryPosition) == PlayStationVRResult.Ok )
-                	TargetLeftCurrentPos = primaryController.localPosition = primaryPosition;
+                	primaryController.localPosition = primaryPosition;
                  
 
                 if (Tracker.GetTrackedDeviceOrientation(m_primaryHandle, out primaryOrientation) == PlayStationVRResult.Ok)
 					primaryController.localRotation = primaryOrientation;
 
-				targetLeft.transform.position = TargetLeftCurrentPos - TargetLeftOriginPos;
+				targetLeft.transform.localPosition = targetLeftOriginPos - (primaryPositionOriginPos - primaryController.localPosition) * IkIntensity;
 			}
 
 			// Perform tracking for the secondary controller, if we've got a handle
 			if(secondaryController && m_secondaryHandle >= 0)
 			{
                 if (Tracker.GetTrackedDevicePosition(m_secondaryHandle, out secondaryPosition) == PlayStationVRResult.Ok)
-					TargetRightCurrentPos = secondaryController.localPosition = secondaryPosition;
+					secondaryController.localPosition = secondaryPosition;
 
                 if (Tracker.GetTrackedDeviceOrientation(m_secondaryHandle, out secondaryOrientation) == PlayStationVRResult.Ok)
 					secondaryController.localRotation = secondaryOrientation;
 
-				targetRight.transform.position = TargetRightCurrentPos - TargetRightOriginPos;
+				targetRight.transform.localPosition = targetRightOriginPos - (secondaryPositionOriginPos - secondaryController.localPosition) * IkIntensity;
 			}
 		}
 	}
@@ -150,10 +157,10 @@ public class TrackedDeviceMoveControllers : MonoBehaviour {
         // check target's origin position
         
         if( m_primaryHandle >= 0 && Tracker.GetTrackedDevicePosition(m_primaryHandle, out primaryPosition) == PlayStationVRResult.Ok )
-                	TargetLeftCurrentPos = primaryController.localPosition = primaryPosition;
+            primaryPositionOriginPos = primaryController.localPosition = primaryPosition;
 
         if (secondaryController && m_secondaryHandle >= 0 && Tracker.GetTrackedDevicePosition(m_secondaryHandle, out secondaryPosition) == PlayStationVRResult.Ok)
-					TargetRightCurrentPos = secondaryController.localPosition = secondaryPosition;
+            secondaryPositionOriginPos = secondaryController.localPosition = secondaryPosition;
     }
 
 	// Remove the registered devices from tracking and reset the transform
