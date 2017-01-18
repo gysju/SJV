@@ -1,28 +1,34 @@
 fileFormatVersion: 2
-guid: b38fd81b1e3ca264b850b410d4ae152b
-timeCreated: 1484678211
+guid: 4dcf5dba4567b7b4bb854dcb88cad361
+timeCreated: 1484673670
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: AutoGun
-    100002: AutoGun_Holder
-    100004: Canon
-    100006: FrontGun
-    100008: //RootNode
-    100010: Reload
-    400000: AutoGun
-    400002: AutoGun_Holder
-    400004: Canon
-    400006: FrontGun
-    400008: //RootNode
-    400010: Reload
-    4300000: AutoGun
-    7400000: Fire
-    9500000: //RootNode
-    13700000: AutoGun
+    100000: //RootNode
+    100002: Terrain_Part_A
+    100004: Terrain_Part_B
+    100006: Terrain_Part_C
+    100008: Terrain_Part_D
+    400000: //RootNode
+    400002: Terrain_Part_A
+    400004: Terrain_Part_B
+    400006: Terrain_Part_C
+    400008: Terrain_Part_D
+    2300000: Terrain_Part_A
+    2300002: Terrain_Part_B
+    2300004: Terrain_Part_C
+    2300006: Terrain_Part_D
+    3300000: Terrain_Part_A
+    3300002: Terrain_Part_B
+    3300004: Terrain_Part_C
+    3300006: Terrain_Part_D
+    4300000: Terrain_Part_A
+    4300002: Terrain_Part_D
+    4300004: Terrain_Part_C
+    4300006: Terrain_Part_B
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
   animations:
@@ -41,47 +47,7 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations:
-    - serializedVersion: 16
-      name: Fire
-      takeName: Take 001
-      firstFrame: 0
-      lastFrame: 4
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: AutoGun
-        weight: 1
-      - path: AutoGun_Holder
-        weight: 1
-      - path: AutoGun_Holder/FrontGun
-        weight: 1
-      - path: AutoGun_Holder/FrontGun/Canon
-        weight: 1
-      - path: AutoGun_Holder/Reload
-        weight: 1
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+    clipAnimations: []
     isReadable: 1
   meshes:
     lODScreenPercentages: []
@@ -123,7 +89,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

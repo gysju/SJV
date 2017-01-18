@@ -8,6 +8,9 @@ public class BaseMecha : BaseUnit
 
     public MechaTorso m_torso;
 
+	private IEnumerator previousLeftVibrationCoroutine;
+	private IEnumerator previousRightVibrationCoroutine;
+
     protected override void Awake()
     {
         base.Awake();
@@ -26,6 +29,10 @@ public class BaseMecha : BaseUnit
     public void LeftArmWeaponTriggered()
     {
         m_leftWeapon.TriggerPressed();
+		if( previousLeftVibrationCoroutine != null )
+			StopCoroutine ( previousLeftVibrationCoroutine);
+		previousLeftVibrationCoroutine = TrackedDeviceMoveControllers.Instance.primaryMoveController.Vibration (100.0f, 100.0f, .5f);
+		StartCoroutine( previousLeftVibrationCoroutine );
     }
 
     public void LeftArmWeaponTriggerReleased()
@@ -36,6 +43,10 @@ public class BaseMecha : BaseUnit
     public void RightArmWeaponTriggered()
     {
         m_rightWeapon.TriggerPressed();
+		if( previousRightVibrationCoroutine != null )
+			StopCoroutine ( previousRightVibrationCoroutine);
+		previousRightVibrationCoroutine = TrackedDeviceMoveControllers.Instance.secondaryMoveController.Vibration (100.0f, 100.0f, .5f);
+		StartCoroutine( previousRightVibrationCoroutine );
     }
 
     public void RightArmWeaponTriggerReleased()
