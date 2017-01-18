@@ -12,10 +12,9 @@ public class EnemiesManager : MonoBehaviour
     protected List<AirEnemy> m_airPool = new List<AirEnemy>();
 
     public List<WaveObject> m_enemiesWaves;
+    protected List<EnemiesWave> m_wavesSpawned = new List<EnemiesWave>();
 
     public float m_timeBeforeFirstWave = 5f;
-
-    protected List<BaseEnemy> m_enemiesCurrentWave = new List<BaseEnemy>();
 
     void Start()
     {
@@ -69,32 +68,36 @@ public class EnemiesManager : MonoBehaviour
     }
     #endregion
 
-    private bool IsCurrentWaveDestroyed()
+    private bool IsPreviousWavesDestroyed()
     {
         bool allDestroyed = true;
 
-        foreach (BaseEnemy enemy in m_enemiesCurrentWave)
+        foreach (EnemiesWave wave in m_wavesSpawned)
         {
-            allDestroyed = enemy.IsDestroyed();
+            allDestroyed = wave.IsWaveDestroyed();
             if (!allDestroyed) break;
         }
 
         return allDestroyed;
     }
 
+
+
     protected IEnumerator ManageWaves()
     {
         int currentWaveID = 0;
-        WaveObject currentWave = m_enemiesWaves[currentWaveID];
+        WaveObject currentWaveObject = m_enemiesWaves[currentWaveID];
 
         yield return new WaitForSeconds(m_timeBeforeFirstWave);
-        while (currentWave)
+        while (currentWaveObject)
         {
             Transform currentWaveTransform = new GameObject("Wave" + currentWaveID).transform;
+            EnemiesWave currentWave = currentWaveTransform.gameObject.AddComponent<EnemiesWave>();
+            m_wavesSpawned.Add(currentWave);
 
-            bool waveSurvey = currentWave.nextWaveWait || currentWave == m_enemiesWaves[m_enemiesWaves.Count - 1];
+            bool waveSurvey = currentWaveObject.nextWaveWait || currentWaveObject == m_enemiesWaves[m_enemiesWaves.Count - 1];
 
-            foreach (SpawnObject spawn in currentWave.Spawns)
+            foreach (SpawnObject spawn in currentWaveObject.Spawns)
             {
                 BaseEnemy newEnemy;
 
@@ -111,25 +114,20 @@ public class EnemiesManager : MonoBehaviour
                     newEnemy = Instantiate(spawn.Unit, spawn.SpawnPosition, Quaternion.Euler(spawn.SpawnRotation), currentWaveTransform);
                 }
 
+                currentWave.AddEnemy(newEnemy);
                 newEnemy.ResetUnit(spawn.SpawnPosition, spawn.AttackPosition, m_player.m_targetPoint);
-
-                if (waveSurvey)
-                {
-                    m_enemiesCurrentWave.Add(newEnemy);
-                }
             }
 
             if (waveSurvey)
             {
-                while (!IsCurrentWaveDestroyed())
+                while (!IsPreviousWavesDestroyed())
                 {
                     yield return null;
                 }
-                m_enemiesCurrentWave.Clear();
             }
 
-            yield return new WaitForSeconds(currentWave.timeBeforeNextWave);
-            currentWave = m_enemiesWaves[++currentWaveID];
+            yield return new WaitForSeconds(currentWaveObject.timeBeforeNextWave);
+            currentWaveObject = m_enemiesWaves[++currentWaveID];
         }
 
 

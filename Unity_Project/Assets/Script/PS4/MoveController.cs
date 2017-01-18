@@ -63,4 +63,21 @@ public class MoveController : MonoBehaviour {
 		#endif
 		return Vector3.zero;
 	}
+
+	public IEnumerator Vibration(float littleRottor, float bigRottor, float duration)
+	{
+		float time = 0.0f;
+
+		Debug.Log ("lance la vibration");
+		#if UNITY_PS4
+		#endif
+		while ( time < duration )
+		{
+			time += Time.deltaTime;
+			yield return null;
+		}
+		Debug.Log ("fin de la vibration");
+		#if UNITY_PS4
+		#endif
+	}
 }

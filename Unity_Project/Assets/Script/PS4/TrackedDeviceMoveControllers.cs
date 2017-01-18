@@ -7,15 +7,22 @@ using UnityEngine.PS4.VR;
 #endif
 
 public class TrackedDeviceMoveControllers : MonoBehaviour {
-	public Transform primaryController;
-	public Transform secondaryController;
+	public static TrackedDeviceMoveControllers Instance;
+
+	public MoveController primaryMoveController;
+	public MoveController secondaryMoveController;
+
     public Renderer[] illuminatedComponents;
 
     public Transform targetLeft;
     public Transform targetRight;
 
-    [Range( 0.0f, 2.0f)]
+    [Range( 0.0f, 5.0f)]
     public float IkIntensity = 1.5f;
+
+	private Transform primaryController;
+	private Transform secondaryController;
+
 #if UNITY_PS4
     private int m_primaryHandle = -1;
 	private int m_secondaryHandle = -1;
@@ -34,6 +41,14 @@ public class TrackedDeviceMoveControllers : MonoBehaviour {
 
     IEnumerator Start()
 	{
+		if (Instance == null)
+			Instance = this;
+		else if (Instance != this)
+			Destroy(gameObject);
+
+		primaryController = primaryMoveController.transform;
+		secondaryController = secondaryMoveController.transform;
+
 		if(!primaryController || !secondaryController || !primaryController.gameObject.activeSelf || !secondaryController.gameObject.activeSelf)
 		{
 			Debug.LogWarning("A controller is either null or inactive!");
@@ -202,5 +217,16 @@ public class TrackedDeviceMoveControllers : MonoBehaviour {
                 return Color.black;
         }
     }
+#elif UNITY_5_4_OR_NEWER
+	void Start()
+	{
+		if (Instance == null)
+			Instance = this;
+		else if (Instance != this)
+			Destroy(gameObject);
+
+		primaryController = primaryMoveController.transform;
+		secondaryController = secondaryMoveController.transform;
+	}
 #endif
 }
