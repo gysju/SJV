@@ -8,6 +8,7 @@ Shader "Custom/StantardShader_RGB_N_MGE" {
 		_Glossiness ("Smoothness", Range(0,1)) = 0.5
 		_Metallic ("Metallic", Range(0,1)) = 0.0
 		_Emission ("Emission", Range(0, 20)) = 1.0
+		_NormalIntensity("NormalIntensity", Range(0,5)) = 1
 	}
 	SubShader {
 		Tags { "RenderType"="Opaque" }
@@ -25,9 +26,8 @@ Shader "Custom/StantardShader_RGB_N_MGE" {
 			float2 uv_RGB_Nx;
         };
 
-		half _Glossiness;
-		half _Metallic;
-		half _Emission;
+	
+		half _Glossiness, _Metallic, _Emission, _NormalIntensity;
 
 		fixed4 _EmissiveColor;
 
@@ -36,7 +36,7 @@ Shader "Custom/StantardShader_RGB_N_MGE" {
 			fixed4 RGB_Nx = tex2D (_RGB_Nx, IN.uv_RGB_Nx);
 			fixed4 MRE_Ny = tex2D (_MRE_Ny, IN.uv_RGB_Nx);
 
-            half3 N = UnpackNormal(float4(0,RGB_Nx.a, 0, MRE_Ny.a));
+            half3 N = UnpackScaleNormal(float4(0,RGB_Nx.a, 0, MRE_Ny.a), _NormalIntensity);
 
 			o.Emission = MRE_Ny.z * (_EmissiveColor * _Emission );
 			o.Alpha = 1;

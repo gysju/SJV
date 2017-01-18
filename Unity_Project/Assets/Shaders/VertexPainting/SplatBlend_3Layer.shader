@@ -132,8 +132,8 @@ Shader "VertexPainter/SplatBlend_3Layer"
 			fixed4 REH_Ny = lerp(lerp(REH_Ny1, REH_Ny2, b1), REH_Ny3, b2);
 
 			float emissiveColor = lerp(lerp(_EmissiveColor1, _EmissiveColor2, b1), _EmissiveColor3, b2);
-			o.Normal = UnpackNormal(float4(0, RGB_Nx.a, 0, REH_Ny.a)) * _NormalIntensity;
-			
+			o.Normal = UnpackScaleNormal(float4(0, RGB_Nx.a, 0, REH_Ny.a), _NormalIntensity);
+
 			o.Smoothness = 1 - REH_Ny.r;
 			o.Metallic = 0;		         
 			o.Emission = REH_Ny.g *= emissiveColor;
