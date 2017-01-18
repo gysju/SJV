@@ -1195,7 +1195,7 @@ GameObject:
   - component: {fileID: 4931183764026512}
   - component: {fileID: 114187762568104732}
   - component: {fileID: 120794042508062338}
-  - component: {fileID: 95582922780360698}
+  - component: {fileID: 95869113453086974}
   m_Layer: 0
   m_Name: Mech_AutoGun
   m_TagString: Untagged
@@ -1354,7 +1354,7 @@ GameObject:
   - component: {fileID: 4017536782547120}
   - component: {fileID: 114380109924192352}
   - component: {fileID: 120573861555815812}
-  - component: {fileID: 95756759484220272}
+  - component: {fileID: 95508941874878788}
   m_Layer: 0
   m_Name: Mech_AutoGun
   m_TagString: Untagged
@@ -5118,13 +5118,13 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!95 &95582922780360698
+--- !u!95 &95508941874878788
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1620729798310310}
+  m_GameObject: {fileID: 1705440344610592}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: e2a15860c43370e4fad4d08b9ca56ed3, type: 3}
   m_Controller: {fileID: 9100000, guid: 2b797424e771ad84f834f79d386e1751, type: 2}
@@ -5135,13 +5135,13 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!95 &95756759484220272
+--- !u!95 &95869113453086974
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1705440344610592}
+  m_GameObject: {fileID: 1620729798310310}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: e2a15860c43370e4fad4d08b9ca56ed3, type: 3}
   m_Controller: {fileID: 9100000, guid: 2b797424e771ad84f834f79d386e1751, type: 2}
@@ -5247,8 +5247,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5e9437d753653848977982ec5c3c0f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  primaryMoveController: {fileID: 114085986889803120}
-  secondaryMoveController: {fileID: 114948240870790466}
+  primaryController: {fileID: 4167838818693002}
+  secondaryController: {fileID: 4973110600994542}
   illuminatedComponents:
   - {fileID: 0}
   - {fileID: 0}
