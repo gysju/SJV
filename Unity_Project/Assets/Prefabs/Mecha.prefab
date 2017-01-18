@@ -1195,7 +1195,7 @@ GameObject:
   - component: {fileID: 4931183764026512}
   - component: {fileID: 114187762568104732}
   - component: {fileID: 120794042508062338}
-  - component: {fileID: 95293629510288842}
+  - component: {fileID: 95356528298871808}
   m_Layer: 0
   m_Name: Mech_AutoGun
   m_TagString: Untagged
@@ -1354,7 +1354,7 @@ GameObject:
   - component: {fileID: 4017536782547120}
   - component: {fileID: 114380109924192352}
   - component: {fileID: 120573861555815812}
-  - component: {fileID: 95176974314460568}
+  - component: {fileID: 95027205018706454}
   m_Layer: 0
   m_Name: Mech_AutoGun
   m_TagString: Untagged
@@ -5050,6 +5050,23 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1745584232356052}
   m_Enabled: 1
+--- !u!95 &95027205018706454
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1705440344610592}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: e2a15860c43370e4fad4d08b9ca56ed3, type: 3}
+  m_Controller: {fileID: 9100000, guid: 2b797424e771ad84f834f79d386e1751, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &95034555543131822
 Animator:
   serializedVersion: 3
@@ -5079,23 +5096,6 @@ Animator:
   m_Controller: {fileID: 9100000, guid: d066e8dcd949c3944aa607650ead446b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 2
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
---- !u!95 &95176974314460568
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1705440344610592}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: e2a15860c43370e4fad4d08b9ca56ed3, type: 3}
-  m_Controller: {fileID: 9100000, guid: 2b797424e771ad84f834f79d386e1751, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
@@ -5135,7 +5135,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!95 &95293629510288842
+--- !u!95 &95356528298871808
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
@@ -5254,6 +5254,7 @@ MonoBehaviour:
   - {fileID: 0}
   targetLeft: {fileID: 4004405391332776}
   targetRight: {fileID: 4965176089049530}
+  IkIntensity: 1.5
 --- !u!114 &114271186923557378
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5285,8 +5286,6 @@ MonoBehaviour:
   m_torso: {fileID: 114857813329560898}
   m_maxHorinzontalHeadAngle: 10
   m_maxVerticalHeadAngle: 75
-  trackedDeviceMoveControllers: {fileID: 114214402283542230}
-  MinimumAngleToRotate: 15
 --- !u!114 &114380109924192352
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5373,6 +5372,7 @@ MonoBehaviour:
   m_timeToDie: 1
   m_destructionSpawn: {fileID: 0}
   m_armor: 0
+  m_targetPoint: {fileID: 4615243895940516}
   m_weapons:
   - {fileID: 114380109924192352}
   - {fileID: 114187762568104732}
