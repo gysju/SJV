@@ -5,6 +5,7 @@ Shader "Custom/StantardShader_RGB_N_RSX" {
 		_RGB_Nx ("RGB_Nx", 2D) = "white" {}
 		[NoScaleOffset]_RSE_Ny ("RSE_Ny", 2D) = "white" {}
 		_Specular ("Specular", Range(0,1)) = 0
+		_NormalIntensity("NormalIntensity", Range(1,5)) = 1
 	}
 	SubShader {
 		Tags { "RenderType"="Opaque" }
@@ -25,7 +26,7 @@ Shader "Custom/StantardShader_RGB_N_RSX" {
             half3 binormal;
         };
 
-		half _Specular;
+		half _Specular, _NormalIntensity;
 
 		void vert( inout appdata_full v, out Input o )
         {
@@ -40,7 +41,7 @@ Shader "Custom/StantardShader_RGB_N_RSX" {
 			fixed4 RGB_Nx = tex2D (_RGB_Nx, float2(IN.normal_U.a, IN.tangent_V.a) * _RGB_Nx_ST.xy + _RGB_Nx_ST.wz);
 			fixed4 RSE_Ny = tex2D (_RSE_Ny, float2(IN.normal_U.a, IN.tangent_V.a) * _RGB_Nx_ST.xy + _RGB_Nx_ST.wz);
 
-            half3 N = UnpackNormal(float4(0,RSE_Ny.a,0,RGB_Nx.a));
+            half3 N = UnpackScaleNormal(float4(0,RSE_Ny.a,0,RGB_Nx.a), _NormalIntensity);
 
   			o.Albedo = RGB_Nx.rgb;
 			o.Normal = N;

@@ -31,86 +31,87 @@ Shader "VertexPainter/SplatBlend_2Layer"
       _DistUVScale1("Distance UV Scale", Float) = 0.5
       _DistUVScale2("Distance UV Scale", Float) = 0.5
    }
-   SubShader {
-      Tags { "RenderType"="Opaque" }
-      LOD 200
-      
-      CGPROGRAM
-      
-      #pragma surface surf Standard vertex:vert fullforwardshadows
+	SubShader 
+	{
+		Tags { "RenderType"="Opaque" }
+		LOD 200
 
-      #pragma shader_feature __ _FLOW1 _FLOW2 
-      #pragma shader_feature __ _FLOWDRIFT 
-      #pragma shader_feature __ _FLOWREFRACTION
-      #pragma shader_feature __ _DISTBLEND
-  
+		CGPROGRAM
 
-      #include "SplatBlend_Shared.cginc"
-      
-      void vert (inout appdata_full v, out Input o) 
-      {
-          SharedVert(v,o);
-      }
-      
-      void surf (Input IN, inout SurfaceOutputStandard o) 
-      {
-         COMPUTEDISTBLEND
+		#pragma surface surf Standard vertex:vert fullforwardshadows
 
-         float2 uv1 = IN.uv_RGB_Nx1 * _TexScale1;
-         float2 uv2 = IN.uv_RGB_Nx1 * _TexScale2;
+		#pragma shader_feature __ _FLOW1 _FLOW2 
+		#pragma shader_feature __ _FLOWDRIFT 
+		#pragma shader_feature __ _FLOWREFRACTION
+		#pragma shader_feature __ _DISTBLEND
 
-         INIT_FLOW
-         #if _FLOWDRIFT 
-         fixed4 RGB_Nx1 = FETCH_TEX1(_RGB_Nx1, uv1);
-         fixed4 RGB_Nx2 = FETCH_TEX2(_RGB_Nx2, uv2);
+
+		#include "SplatBlend_Shared.cginc"
+
+		void vert (inout appdata_full v, out Input o) 
+		{
+			SharedVert(v,o);
+		}
+
+		void surf (Input IN, inout SurfaceOutputStandard o) 
+		{
+			COMPUTEDISTBLEND
+
+			float2 uv1 = IN.uv_RGB_Nx1 * _TexScale1;
+			float2 uv2 = IN.uv_RGB_Nx1 * _TexScale2;
+
+			INIT_FLOW
+			#if _FLOWDRIFT 
+			fixed4 RGB_Nx1 = FETCH_TEX1(_RGB_Nx1, uv1);
+			fixed4 RGB_Nx2 = FETCH_TEX2(_RGB_Nx2, uv2);
+
+			fixed4 REH_Ny1 = FETCH_TEX1(_REH_Ny1, uv1);
+			fixed4 REH_Ny2 = FETCH_TEX2(_REH_Ny2, uv2);
+			#elif _DISTBLEND
+			fixed4 RGB_Nx1 = lerp(tex2D(_RGB_Nx1, uv1), tex2D(_RGB_Nx1, uv1*_DistUVScale1), dist);
+			fixed4 RGB_Nx2 = lerp(tex2D(_RGB_Nx2, uv2), tex2D(_RGB_Nx2, uv2*_DistUVScale2), dist);
+
+			fixed4 REH_Ny1 = lerp(tex2D(_REH_Ny1, uv1), tex2D(_REH_Ny1, uv1*_DistUVScale1), dist);
+			fixed4 REH_Ny2 = lerp(tex2D(_REH_Ny2, uv2), tex2D(_REH_Ny2, uv2*_DistUVScale2), dist);
+			#else
+			fixed4 RGB_Nx1 = tex2D(_RGB_Nx1, uv1);
+			fixed4 RGB_Nx2 = tex2D(_RGB_Nx2, uv2);
+
+			fixed4 REH_Ny1 = tex2D(_REH_Ny1, uv1);
+			fixed4 REH_Ny2 = tex2D(_REH_Ny2, uv2);
+			#endif
+
+			RGB_Nx1.rgb *= _Tint1.rgb;
+			RGB_Nx2.rgb *= _Tint2.rgb;
+			REH_Ny1.g *=_EmissiveMult1;
+			REH_Ny2.g *=_EmissiveMult2;
+			REH_Ny1.r *= _Roughness1;
+			REH_Ny2.r *= _Roughness2;
+
+			half b1 = HeightBlend(REH_Ny1.g, REH_Ny2.g, IN.color.r, _Contrast2);
+			fixed4 RGB_Nx = lerp(RGB_Nx1, RGB_Nx2, b1);
+			fixed4 REH_Ny = lerp(REH_Ny1, REH_Ny2, b1);
+			fixed emissiveColor = lerp(_EmissiveColor1, _EmissiveColor2, b1);
+			// flow refraction; use difference in depth to control refraction amount, refetch all previous color textures if not parallaxing
+			//#if _FLOW2
+			//	
+			//   b1 *= _FlowAlpha;
+			//   #if _FLOWREFRACTION
+			//      half4 rn = FETCH_TEX2 (_Normal2, uv2) - 0.5;
+			//      uv1 += rn.xy * b1 * _FlowRefraction;
+			//   #endif
+			//#endif
+			               
+			o.Normal = UnpackScaleNormal(float4(0, RGB_Nx.a, 0, REH_Ny.a), _NormalIntensity);
+
+			o.Smoothness = 1 - REH_Ny.r;
+			o.Metallic = 0;
+			o.Emission = REH_Ny.g * emissiveColor;// * lerp(_EmissiveColor1, _EmissiveColor2, b1);
+			o.Albedo = RGB_Nx.rgb;
 		 
-         fixed4 REH_Ny1 = FETCH_TEX1(_REH_Ny1, uv1);
-         fixed4 REH_Ny2 = FETCH_TEX2(_REH_Ny2, uv2);
-         #elif _DISTBLEND
-         fixed4 RGB_Nx1 = lerp(tex2D(_RGB_Nx1, uv1), tex2D(_RGB_Nx1, uv1*_DistUVScale1), dist);
-         fixed4 RGB_Nx2 = lerp(tex2D(_RGB_Nx2, uv2), tex2D(_RGB_Nx2, uv2*_DistUVScale2), dist);
-		 
-         fixed4 REH_Ny1 = lerp(tex2D(_REH_Ny1, uv1), tex2D(_REH_Ny1, uv1*_DistUVScale1), dist);
-         fixed4 REH_Ny2 = lerp(tex2D(_REH_Ny2, uv2), tex2D(_REH_Ny2, uv2*_DistUVScale2), dist);
-         #else
-         fixed4 RGB_Nx1 = tex2D(_RGB_Nx1, uv1);
-         fixed4 RGB_Nx2 = tex2D(_RGB_Nx2, uv2);
-
-         fixed4 REH_Ny1 = tex2D(_REH_Ny1, uv1);
-         fixed4 REH_Ny2 = tex2D(_REH_Ny2, uv2);
-         #endif
-
-         RGB_Nx1.rgb *= _Tint1.rgb;
-         RGB_Nx2.rgb *= _Tint2.rgb;
-         REH_Ny1.g *=_EmissiveMult1;
-         REH_Ny2.g *=_EmissiveMult2;
-		 REH_Ny1.r *= _Roughness1;
-		 REH_Ny2.r *= _Roughness2;
-
-         half b1 = HeightBlend(REH_Ny1.g, REH_Ny2.g, IN.color.r, _Contrast2);
-         fixed4 RGB_Nx = lerp(RGB_Nx1, RGB_Nx2, b1);
-         fixed4 REH_Ny = lerp(REH_Ny1, REH_Ny2, b1);
-		 fixed emissiveColor = lerp(_EmissiveColor1, _EmissiveColor2, b1);
-         // flow refraction; use difference in depth to control refraction amount, refetch all previous color textures if not parallaxing
-         //#if _FLOW2
-		 //	
-         //   b1 *= _FlowAlpha;
-         //   #if _FLOWREFRACTION
-         //      half4 rn = FETCH_TEX2 (_Normal2, uv2) - 0.5;
-         //      uv1 += rn.xy * b1 * _FlowRefraction;
-         //   #endif
-         //#endif
-                           
-         o.Normal =  UnpackNormal(float4(0, RGB_Nx.a,0, REH_Ny.a)) * _NormalIntensity;
-         
-         o.Smoothness = 1 - REH_Ny.r;
-         o.Metallic = 0;
-		 o.Emission = REH_Ny.g * emissiveColor;// * lerp(_EmissiveColor1, _EmissiveColor2, b1);
-         o.Albedo = RGB_Nx.rgb;
-         
-      }
-      ENDCG
-   } 
-   CustomEditor "SplatMapShaderGUI"
-   FallBack "Diffuse"
+		}
+		ENDCG
+	} 
+	CustomEditor "SplatMapShaderGUI"
+	FallBack "Diffuse"
 }
