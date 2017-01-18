@@ -7,16 +7,20 @@ public class IACommander : MonoBehaviour
     public Unit m_allyBaseCenter;
     public Unit m_enemyBaseCenter;
 
+    protected Player m_player;
+
     public List<Capture_point> m_capturePoints = new List<Capture_point>();
 
     public Unit.UnitFaction m_faction;
 
+    public Factory m_reactionFactory;
+
     void Start ()
     {
-	    
+        m_player = FindObjectOfType<Player>();
 	}
 
-    float PathLength(NavMeshPath path)
+    float PathLength(UnityEngine.AI.NavMeshPath path)
     {
         if (path.corners.Length < 2)
             return 0;
@@ -34,7 +38,12 @@ public class IACommander : MonoBehaviour
         return lengthSoFar;
     }
 
-    protected void CaptureClosestPoint(HoverTank unitAskingOrder)
+    protected void SearchPlayerLastPosition(IA unitAskingOrder)
+    {
+        unitAskingOrder.GiverDestroyOrder(m_player);
+    }
+
+    protected void CaptureClosestPoint(IA unitAskingOrder)
     {
         Vector3 unitPosition = unitAskingOrder.transform.position;
         float smallestLength = float.MaxValue;
@@ -43,8 +52,8 @@ public class IACommander : MonoBehaviour
         {
             if (!capturePoint.IsSameFaction(m_faction))
             {
-                NavMeshPath possiblePath = new NavMeshPath();
-                if (NavMesh.CalculatePath(unitPosition, capturePoint.transform.position, 1, possiblePath))
+                UnityEngine.AI.NavMeshPath possiblePath = new UnityEngine.AI.NavMeshPath();
+                if (UnityEngine.AI.NavMesh.CalculatePath(unitPosition, capturePoint.transform.position, 1, possiblePath))
                 {
                     float possiblePathLength = PathLength(possiblePath);
                     if (possiblePathLength < smallestLength)
@@ -63,13 +72,17 @@ public class IACommander : MonoBehaviour
             {
                 case Unit.UnitFaction.Ally:
                     if (m_enemyBaseCenter.IsDestroyed())
-                        unitAskingOrder.CancelPath();
+                        unitAskingOrder.CancelMoveOrder();
                     else
                         unitAskingOrder.GiverDestroyOrder(m_enemyBaseCenter);
                     break;
                 case Unit.UnitFaction.Neutral:
                     break;
                 case Unit.UnitFaction.Enemy:
+                    if (m_allyBaseCenter.IsDestroyed())
+                        unitAskingOrder.CancelMoveOrder();
+                    else
+                        unitAskingOrder.GiverDestroyOrder(m_allyBaseCenter);
                     break;
                 default:
                     break;
@@ -77,11 +90,18 @@ public class IACommander : MonoBehaviour
         }
     }
 
-    public void AskOrder(Unit unitAskingOrder)
+    public void AskOrder(IA unitAskingOrder)
     {
-        if (unitAskingOrder is HoverTank)
-            CaptureClosestPoint((HoverTank)unitAskingOrder);
+        if (unitAskingOrder.GetComponent<Unit>() is AirUnit)
+            SearchPlayerLastPosition(unitAskingOrder);
+        else if(unitAskingOrder.GetComponent<Unit>() is HoverTank)
+            CaptureClosestPoint(unitAskingOrder);
     }
+
+	public void ReactionDroneSquadron(Capture_point pointCaptured)
+	{
+		if(m_reactionFactory) m_reactionFactory.ProduceSquadron(pointCaptured);
+	}
 
 	void Update ()
     {

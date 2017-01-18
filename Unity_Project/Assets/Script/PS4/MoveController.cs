@@ -1,40 +1,66 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 #if UNITY_PS4
 using UnityEngine.PS4;
 #endif
 public class MoveController : MonoBehaviour {
+	public enum MoveButton { MoveButton_Trigger = 2, MoveButton_Move = 4, MoveButton_Start = 8, MoveButton_Triangle = 16, MoveButton_Circle = 32, MoveButton_Cross = 64, MoveButton_Square = 128, MoveButton_MaxAnalogueValue = 255, MoveButton_Count = 8}
 
-    public bool isMoveController = false;
-    public bool isSecondaryMoveController = false;
-
-	void Start () {
+    private int currentButtons = 0;
+	private int prevButtons = 0;
 	
+    public Vector3 lookAtHit;
+	public int MoveIndex = 0;
+
+	void Update () 
+	{
+		prevButtons = currentButtons;
 	}
-	
-	void Update () {
-	
+
+	public bool GetButton( MoveButton button )
+	{
+		#if UNITY_PS4
+		
+		for (int slot = 0; slot < 4; slot++)  
+		{
+			if (PS4Input.MoveIsConnected (slot, MoveIndex) 
+				&& (PS4Input.MoveGetButtons (slot, MoveIndex) == (int)button)) 
+			{
+				currentButtons = (int)button;
+				return true;
+			} 
+		}
+		#endif
+		return false;
 	}
 
-    public bool CheckForInput( int button)
-    {
-#if UNITY_PS4
-        if (isMoveController )
-        {
-            if (!isSecondaryMoveController && PS4Input.MoveGetButtons(0,0) == button)
-            {
-                return (PS4Input.MoveGetAnalogButton(0, 0) > 0 ? true : false);
-            }
-            else if ( PS4Input.MoveGetButtons(0,1) == button )
-            {
-                return (PS4Input.MoveGetAnalogButton(0, 1) > 0 ? true : false);
-            }
-        }
+	public bool GetButtonUp(MoveButton button)
+	{
+		bool test = ((prevButtons == (int)button) && !GetButton(button));
+		if ( test ) currentButtons = 0;
+		return test;
+	}
 
-        return false;
-#else
-		return Input.GetButton("Fire1");
-#endif
-    }
+	public bool GetButtonDown(MoveButton button)
+	{
+		if (!GetButton(button))
+			return false;
+		return ((prevButtons != (int)button) && ((currentButtons == (int)button)));
+	}
+
+	public Vector3 getMoveRotation()
+	{
+		#if UNITY_PS4
+
+		for (int slot = 0; slot < 4; slot++) 
+		{
+			if (PS4Input.MoveIsConnected (slot, MoveIndex))
+				return PS4Input.GetLastMoveAcceleration (slot, MoveIndex);
+		}
+		#endif
+		return Vector3.zero;
+	}
 }

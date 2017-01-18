@@ -48,7 +48,7 @@ public class SetupManager : MonoBehaviour
 
     public void ProgressToMainMenu()
     {
-		FindObjectOfType<SceneSwitcher>().SwitchToScene("Proto_v0.1");
+		FindObjectOfType<SceneSwitcher>().SwitchToScene(1);
     }
 
 #if UNITY_PS4
