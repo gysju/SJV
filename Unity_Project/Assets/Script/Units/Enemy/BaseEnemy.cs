@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class BaseEnemy : BaseUnit
 {
-    public EnemiesManager m_manager;
+    public EnemiesManager m_poolManager;
 
     protected enum EnemyState
     {
@@ -31,7 +31,7 @@ public class BaseEnemy : BaseUnit
         base.Awake();
         m_model = GetComponentInChildren<MeshRenderer>();
         m_currentTimeToAttack = m_timeToAttack;
-        if(!m_manager) m_manager = FindObjectOfType<EnemiesManager>();
+        if(!m_poolManager) m_poolManager = FindObjectOfType<EnemiesManager>();
     }
 
     public virtual void ResetUnit(Vector3 spawn, Vector3 movementTarget, Transform target)
@@ -67,7 +67,7 @@ public class BaseEnemy : BaseUnit
 
     protected override void FinishDying()
     {
-        m_manager.PoolUnit(this);
+        m_poolManager.PoolUnit(this);
     }
     #endregion
 
