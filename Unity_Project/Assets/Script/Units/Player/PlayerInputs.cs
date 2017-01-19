@@ -6,6 +6,7 @@ using UnityEngine.PS4;
 #endif
 public class PlayerInputs : MonoBehaviour
 {
+	public static PlayerInputs Instance;
     protected Camera m_mainCamera;
 
     public BaseMecha m_mecha;
@@ -46,6 +47,11 @@ public class PlayerInputs : MonoBehaviour
 
     void Start ()
 	{
+		if (Instance == null)
+			Instance = this;
+		else if (Instance != this)
+			Destroy(gameObject);
+		
         m_mainCamera = Camera.main;
         if (!m_mecha) m_mecha = GetComponentInParent<BaseMecha>();
         if (!m_torso) m_torso = m_mecha.m_torso;
