@@ -6,7 +6,13 @@ public class BaseMecha : BaseUnit
     protected BaseWeapon m_leftWeapon;
     protected BaseWeapon m_rightWeapon;
 
+    public GameObject m_bunker;
     public MechaTorso m_torso;
+
+	private IEnumerator previousLeftVibrationCoroutine;
+	private IEnumerator previousRightVibrationCoroutine;
+
+    protected ZAManager m_zaManager;
 
     protected override void Awake()
     {
@@ -14,6 +20,27 @@ public class BaseMecha : BaseUnit
         m_torso = GetComponentInChildren<MechaTorso>();
         m_leftWeapon = m_weapons[0];
         m_rightWeapon = m_weapons[1];
+        m_bunker.SetActive(false);
+        m_zaManager = FindObjectOfType<ZAManager>();
+    }
+
+    protected override void StartDying()
+    {
+        m_destroyed = true;
+
+        ActivateBunkerMode();
+
+        StartCoroutine(Dying());
+    }
+
+    protected override void FinishDying()
+    {
+        m_zaManager.BackToMainMenu();
+    }
+
+    public void ActivateBunkerMode()
+    {
+        m_bunker.SetActive(true);
     }
 
     public void RotateMechaHorizontaly(float horizontalAngle)
@@ -26,6 +53,10 @@ public class BaseMecha : BaseUnit
     public void LeftArmWeaponTriggered()
     {
         m_leftWeapon.TriggerPressed();
+		if( previousLeftVibrationCoroutine != null )
+			StopCoroutine ( previousLeftVibrationCoroutine);
+		previousLeftVibrationCoroutine = TrackedDeviceMoveControllers.Instance.primaryMoveController.Vibration (100, .5f);
+		StartCoroutine( previousLeftVibrationCoroutine );
     }
 
     public void LeftArmWeaponTriggerReleased()
@@ -36,6 +67,10 @@ public class BaseMecha : BaseUnit
     public void RightArmWeaponTriggered()
     {
         m_rightWeapon.TriggerPressed();
+		if( previousRightVibrationCoroutine != null )
+			StopCoroutine ( previousRightVibrationCoroutine);
+		previousRightVibrationCoroutine = TrackedDeviceMoveControllers.Instance.secondaryMoveController.Vibration (100, .5f);
+		StartCoroutine( previousRightVibrationCoroutine );
     }
 
     public void RightArmWeaponTriggerReleased()

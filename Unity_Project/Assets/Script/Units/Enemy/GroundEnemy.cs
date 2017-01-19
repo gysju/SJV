@@ -11,6 +11,8 @@ public class GroundEnemy : BaseEnemy
     public float m_acceleration = 8f;
     public float m_rotationSpeed = 50f;
 
+	private Animator animator;
+
     #region Initialization
     protected override void Awake()
     {
@@ -20,6 +22,8 @@ public class GroundEnemy : BaseEnemy
         m_navMeshAgent.speed = m_maxSpeed;
         m_navMeshAgent.acceleration = m_acceleration;
         m_navMeshAgent.angularSpeed = m_rotationSpeed;
+
+		animator = GetComponent<Animator> ();
     }
 
     protected override void Start()
@@ -42,12 +46,18 @@ public class GroundEnemy : BaseEnemy
 	{
 		m_navMeshAgent.ResetPath();
 		base.StartDying();
+
+		if ( animator != false )
+			animator.SetTrigger ("Death");
 	}
 
     protected override void FinishDying()
     {
         m_navMeshAgent.enabled = false;
         base.FinishDying();
+
+		if ( animator != false )
+			animator.SetTrigger ("Idle");
     }
 	#endregion
 
@@ -56,6 +66,9 @@ public class GroundEnemy : BaseEnemy
     {
         m_enemyState = EnemyState.EnemyState_Moving;
         m_navMeshAgent.SetDestination(m_attackPosition.Value);
+
+		if ( animator != false )
+			animator.SetTrigger ("Locomotion");
     }
 
     protected bool IsPathCompleted()
@@ -77,6 +90,8 @@ public class GroundEnemy : BaseEnemy
     {
         m_enemyState = EnemyState.EnemyState_Attacking;
         AimWeaponAt(m_target.gameObject.GetComponentInChildren<Renderer>().bounds.center);
+		if ( animator != false )
+			animator.SetTrigger ("Idle");
     }
     #endregion
 

@@ -5,20 +5,23 @@ using UnityEngine;
 public class EnemiesManager : MonoBehaviour
 {
     public bool m_showSpawnsInEditor;
-    public Transform m_player;
+    public BaseMecha m_player;
 
     public Vector3 m_poolPosition = Vector3.zero;
     protected List<GroundEnemy> m_groundPool = new List<GroundEnemy>();
     protected List<AirEnemy> m_airPool = new List<AirEnemy>();
 
     public List<WaveObject> m_enemiesWaves;
+    protected List<EnemiesWave> m_wavesSpawned = new List<EnemiesWave>();
 
     public float m_timeBeforeFirstWave = 5f;
+    public float m_timeBeforeEndZA = 5f;
 
-    protected List<BaseEnemy> m_enemiesCurrentWave = new List<BaseEnemy>();
+    protected ZAManager m_zaManager;
 
     void Start()
     {
+        m_zaManager = FindObjectOfType<ZAManager>();
         StartCoroutine(ManageWaves());
     }
 
@@ -69,30 +72,36 @@ public class EnemiesManager : MonoBehaviour
     }
     #endregion
 
-    private bool IsCurrentWaveDestroyed()
+    private bool IsPreviousWavesDestroyed()
     {
         bool allDestroyed = true;
 
-        foreach (BaseEnemy enemy in m_enemiesCurrentWave)
+        foreach (EnemiesWave wave in m_wavesSpawned)
         {
-            allDestroyed = enemy.IsDestroyed();
+            allDestroyed = wave.IsWaveDestroyed();
             if (!allDestroyed) break;
         }
 
         return allDestroyed;
     }
 
+
+
     protected IEnumerator ManageWaves()
     {
         int currentWaveID = 0;
-        WaveObject currentWave = m_enemiesWaves[currentWaveID];
 
         yield return new WaitForSeconds(m_timeBeforeFirstWave);
-        while (currentWave)
+        while (currentWaveID < m_enemiesWaves.Count)
         {
+            WaveObject currentWaveObject = m_enemiesWaves[currentWaveID];
             Transform currentWaveTransform = new GameObject("Wave" + currentWaveID).transform;
+            EnemiesWave currentWave = currentWaveTransform.gameObject.AddComponent<EnemiesWave>();
+            m_wavesSpawned.Add(currentWave);
 
-            foreach (SpawnObject spawn in currentWave.Spawns)
+            bool waveSurvey = currentWaveObject.nextWaveWait || currentWaveObject == m_enemiesWaves[m_enemiesWaves.Count - 1];
+
+            foreach (SpawnObject spawn in currentWaveObject.Spawns)
             {
                 BaseEnemy newEnemy;
 
@@ -109,25 +118,24 @@ public class EnemiesManager : MonoBehaviour
                     newEnemy = Instantiate(spawn.Unit, spawn.SpawnPosition, Quaternion.Euler(spawn.SpawnRotation), currentWaveTransform);
                 }
 
-                newEnemy.ResetUnit(spawn.SpawnPosition, spawn.AttackPosition, m_player);
-
-                if (currentWave.nextWaveWait)
-                {
-                    m_enemiesCurrentWave.Add(newEnemy);
-                }
+                currentWave.AddEnemy(newEnemy);
+                newEnemy.ResetUnit(spawn.SpawnPosition, spawn.AttackPosition, m_player.m_targetPoint);
             }
 
-            if (currentWave.nextWaveWait)
+            if (waveSurvey)
             {
-                while (!IsCurrentWaveDestroyed())
+                while (!IsPreviousWavesDestroyed())
                 {
                     yield return null;
                 }
-                m_enemiesCurrentWave.Clear();
             }
-            yield return new WaitForSeconds(currentWave.timeBeforeNextWave);
-            currentWave = m_enemiesWaves[++currentWaveID];
+
+            yield return new WaitForSeconds(currentWaveObject.timeBeforeNextWave);
+            currentWaveID++;
         }
+
+        yield return new WaitForSeconds(m_timeBeforeEndZA);
+        m_zaManager.BackToMainMenu();
     }
 
     void Update()
@@ -146,7 +154,11 @@ public class EnemiesManager : MonoBehaviour
                     Mesh mesh;
                     if (spawn.Unit)
                     {
-                        mesh = spawn.Unit.GetComponentsInChildren<MeshFilter>()[0].sharedMesh;
+						SkinnedMeshRenderer skinnedMesh= spawn.Unit.GetComponentInChildren<SkinnedMeshRenderer>();
+						if (skinnedMesh == null)
+							mesh = spawn.Unit.GetComponentInChildren<MeshFilter> ().sharedMesh;
+						else
+							mesh = skinnedMesh.sharedMesh;
                         Gizmos.color = Color.green;
                         Gizmos.DrawWireMesh(mesh, spawn.SpawnPosition, Quaternion.Euler(spawn.SpawnRotation));
                         Gizmos.color = Color.red;

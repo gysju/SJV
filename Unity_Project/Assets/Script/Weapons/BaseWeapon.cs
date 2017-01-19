@@ -29,9 +29,12 @@ public class BaseWeapon : MonoBehaviour
     public int Damage = 1;
     public int ArmorPenetration = 1;
 
-    protected LineRenderer m_laser;
+	public Animator animator;
+    
+	protected LineRenderer m_laser;
     protected Transform bulletHitParent;
     
+
     protected virtual void Start()
     {
         m_laser = GetComponent<LineRenderer>();
