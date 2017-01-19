@@ -239,6 +239,7 @@ public class PlayerInputs : MonoBehaviour
 
     void MouseKeyboardInputs()
     {
+        Cursor.lockState = CursorLockMode.Locked;
         MouseAim();
         MouseShootInputs();
         //KeyboardMovements();
