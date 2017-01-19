@@ -149,7 +149,11 @@ public class EnemiesManager : MonoBehaviour
                     Mesh mesh;
                     if (spawn.Unit)
                     {
-                        mesh = spawn.Unit.GetComponentsInChildren<MeshFilter>()[0].sharedMesh;
+						SkinnedMeshRenderer skinnedMesh= spawn.Unit.GetComponentInChildren<SkinnedMeshRenderer>();
+						if (skinnedMesh == null)
+							mesh = spawn.Unit.GetComponentInChildren<MeshFilter> ().sharedMesh;
+						else
+							mesh = skinnedMesh.sharedMesh;
                         Gizmos.color = Color.green;
                         Gizmos.DrawWireMesh(mesh, spawn.SpawnPosition, Quaternion.Euler(spawn.SpawnRotation));
                         Gizmos.color = Color.red;

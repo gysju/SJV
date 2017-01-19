@@ -12219,12 +12219,6 @@ Light:
   m_BounceIntensity: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &883201283 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114948240870790466, guid: 2e1e9e92345e15e4b83e63448ddbfab0,
-    type: 2}
-  m_PrefabInternal: {fileID: 1551757374}
-  m_Script: {fileID: 11500000, guid: 9ea57611536a55543ba98908d7b2f74a, type: 3}
 --- !u!1001 &889851183
 Prefab:
   m_ObjectHideFlags: 0
@@ -19355,18 +19349,8 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4372408282210192, guid: 2e1e9e92345e15e4b83e63448ddbfab0, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 114214402283542230, guid: 2e1e9e92345e15e4b83e63448ddbfab0,
-        type: 2}
-      propertyPath: primaryMoveController
-      value: 
-      objectReference: {fileID: 1881923446}
-    - target: {fileID: 114214402283542230, guid: 2e1e9e92345e15e4b83e63448ddbfab0,
-        type: 2}
-      propertyPath: secondaryMoveController
-      value: 
-      objectReference: {fileID: 883201283}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2e1e9e92345e15e4b83e63448ddbfab0, type: 2}
   m_IsPrefabParent: 0
@@ -22561,12 +22545,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1880648267}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1881923446 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114085986889803120, guid: 2e1e9e92345e15e4b83e63448ddbfab0,
-    type: 2}
-  m_PrefabInternal: {fileID: 1551757374}
-  m_Script: {fileID: 11500000, guid: 9ea57611536a55543ba98908d7b2f74a, type: 3}
 --- !u!1 &1883267035 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: 55b2586b89a89d64d985d9fa1336af30, type: 3}
@@ -25311,7 +25289,7 @@ Transform:
   - {fileID: 1768695064}
   - {fileID: 1843418258}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2134621727
 Prefab:
