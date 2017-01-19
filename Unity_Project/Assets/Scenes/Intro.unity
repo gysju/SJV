@@ -4215,6 +4215,7 @@ GameObject:
   - component: {fileID: 881663233}
   - component: {fileID: 881663232}
   - component: {fileID: 881663231}
+  - component: {fileID: 881663230}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -4222,6 +4223,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &881663230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 881663229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: afc3f7f4b8486584397dbdcdd6a9f695, type: 2}
 --- !u!81 &881663231
 AudioListener:
   m_ObjectHideFlags: 0
@@ -4255,8 +4268,8 @@ Camera:
   m_GameObject: {fileID: 881663229}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.5058824, g: 0.49803925, b: 0.5058824, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -6087,11 +6100,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5e9437d753653848977982ec5c3c0f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  primaryController: {fileID: 2113891432}
-  secondaryController: {fileID: 1556389518}
+  primaryMoveController: {fileID: 2113891435}
+  secondaryMoveController: {fileID: 1556389521}
   illuminatedComponents:
   - {fileID: 491997640}
   - {fileID: 332230294}
+  targetLeft: {fileID: 0}
+  targetRight: {fileID: 0}
+  IkIntensity: 1.5
 --- !u!4 &1355198083
 Transform:
   m_ObjectHideFlags: 0
