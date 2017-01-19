@@ -15,9 +15,13 @@ public class EnemiesManager : MonoBehaviour
     protected List<EnemiesWave> m_wavesSpawned = new List<EnemiesWave>();
 
     public float m_timeBeforeFirstWave = 5f;
+    public float m_timeBeforeEndZA = 5f;
+
+    protected ZAManager m_zaManager;
 
     void Start()
     {
+        m_zaManager = FindObjectOfType<ZAManager>();
         StartCoroutine(ManageWaves());
     }
 
@@ -86,11 +90,11 @@ public class EnemiesManager : MonoBehaviour
     protected IEnumerator ManageWaves()
     {
         int currentWaveID = 0;
-        WaveObject currentWaveObject = m_enemiesWaves[currentWaveID];
 
         yield return new WaitForSeconds(m_timeBeforeFirstWave);
-        while (currentWaveObject)
+        while (currentWaveID < m_enemiesWaves.Count)
         {
+            WaveObject currentWaveObject = m_enemiesWaves[currentWaveID];
             Transform currentWaveTransform = new GameObject("Wave" + currentWaveID).transform;
             EnemiesWave currentWave = currentWaveTransform.gameObject.AddComponent<EnemiesWave>();
             m_wavesSpawned.Add(currentWave);
@@ -127,10 +131,11 @@ public class EnemiesManager : MonoBehaviour
             }
 
             yield return new WaitForSeconds(currentWaveObject.timeBeforeNextWave);
-            currentWaveObject = m_enemiesWaves[++currentWaveID];
+            currentWaveID++;
         }
 
-
+        yield return new WaitForSeconds(m_timeBeforeEndZA);
+        m_zaManager.BackToMainMenu();
     }
 
     void Update()
