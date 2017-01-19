@@ -64,12 +64,17 @@ public class MoveController : MonoBehaviour {
 		return Vector3.zero;
 	}
 
-	public IEnumerator Vibration(float littleRottor, float bigRottor, float duration)
+	public IEnumerator Vibration(int rottor, float duration)
 	{
 		float time = 0.0f;
 
 		Debug.Log ("lance la vibration");
 		#if UNITY_PS4
+		for (int slot = 0; slot < 4; slot++) 
+		{
+			if (PS4Input.MoveIsConnected (slot, MoveIndex))
+				PS4Input.MoveSetVibration (slot, MoveIndex, rottor);
+		}
 		#endif
 		while ( time < duration )
 		{
@@ -78,6 +83,11 @@ public class MoveController : MonoBehaviour {
 		}
 		Debug.Log ("fin de la vibration");
 		#if UNITY_PS4
+		for (int slot = 0; slot < 4; slot++) 
+		{
+			if (PS4Input.MoveIsConnected (slot, MoveIndex))
+				PS4Input.MoveSetVibration (slot, MoveIndex, 0);
+		}
 		#endif
 	}
 }

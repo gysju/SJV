@@ -31,7 +31,7 @@ public class BaseMecha : BaseUnit
         m_leftWeapon.TriggerPressed();
 		if( previousLeftVibrationCoroutine != null )
 			StopCoroutine ( previousLeftVibrationCoroutine);
-		previousLeftVibrationCoroutine = TrackedDeviceMoveControllers.Instance.primaryMoveController.Vibration (100.0f, 100.0f, .5f);
+		previousLeftVibrationCoroutine = TrackedDeviceMoveControllers.Instance.primaryMoveController.Vibration (100, .5f);
 		StartCoroutine( previousLeftVibrationCoroutine );
     }
 
@@ -45,7 +45,7 @@ public class BaseMecha : BaseUnit
         m_rightWeapon.TriggerPressed();
 		if( previousRightVibrationCoroutine != null )
 			StopCoroutine ( previousRightVibrationCoroutine);
-		previousRightVibrationCoroutine = TrackedDeviceMoveControllers.Instance.secondaryMoveController.Vibration (100.0f, 100.0f, .5f);
+		previousRightVibrationCoroutine = TrackedDeviceMoveControllers.Instance.secondaryMoveController.Vibration (100, .5f);
 		StartCoroutine( previousRightVibrationCoroutine );
     }
 

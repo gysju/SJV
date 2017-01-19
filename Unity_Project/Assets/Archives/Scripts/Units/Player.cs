@@ -72,8 +72,8 @@ public class Player : MobileGroundUnit
     private void PSMoveStart()
     {
         m_baseOffset = Vector3.zero;
-        m_leftController = trackedDeviceMoveControllers.primaryController.GetComponent<MoveController>();
-        m_rightController = trackedDeviceMoveControllers.secondaryController.GetComponent<MoveController>();
+		m_leftController = trackedDeviceMoveControllers.primaryMoveController;
+		m_rightController = trackedDeviceMoveControllers.secondaryMoveController;
 		lastMovement = Vector3.zero;
     }
 	#endif
