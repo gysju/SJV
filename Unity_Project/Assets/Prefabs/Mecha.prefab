@@ -5236,6 +5236,7 @@ MonoBehaviour:
   m_imprecision: 0
   Damage: 1
   ArmorPenetration: 1
+  animator: {fileID: 95869113453086974}
 --- !u!114 &114214402283542230
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5247,13 +5248,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5e9437d753653848977982ec5c3c0f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  primaryController: {fileID: 4167838818693002}
-  secondaryController: {fileID: 4973110600994542}
+  primaryMoveController: {fileID: 114085986889803120}
+  secondaryMoveController: {fileID: 114948240870790466}
   illuminatedComponents:
   - {fileID: 0}
   - {fileID: 0}
-  targetLeft: {fileID: 4004405391332776}
-  targetRight: {fileID: 4965176089049530}
+  targetLeft: {fileID: 0}
+  targetRight: {fileID: 0}
   IkIntensity: 1.5
 --- !u!114 &114271186923557378
 MonoBehaviour:
@@ -5309,6 +5310,7 @@ MonoBehaviour:
   m_imprecision: 0
   Damage: 1
   ArmorPenetration: 1
+  animator: {fileID: 95508941874878788}
 --- !u!114 &114382664145636892
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5372,7 +5374,7 @@ MonoBehaviour:
   m_timeToDie: 1
   m_destructionSpawn: {fileID: 0}
   m_armor: 0
-  m_targetPoint: {fileID: 4615243895940516}
+  m_targetPoint: {fileID: 0}
   m_weapons:
   - {fileID: 114380109924192352}
   - {fileID: 114187762568104732}
