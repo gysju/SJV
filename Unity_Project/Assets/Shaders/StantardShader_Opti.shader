@@ -16,7 +16,7 @@ Shader "Custom/StantardShader_RGB_N_MGE" {
 		
 		CGPROGRAM
 		#pragma surface surf Standard fullforwardshadows
-
+		#pragma multi_compile_fog
 		#pragma target 5.0
 
 		sampler2D _RGB_Nx, _MRE_Ny;
@@ -24,12 +24,27 @@ Shader "Custom/StantardShader_RGB_N_MGE" {
 		struct Input 
 		{
 			float2 uv_RGB_Nx;
+			half fog;
         };
 
 	
 		half _Glossiness, _Metallic, _Emission, _NormalIntensity;
 
 		fixed4 _EmissiveColor;
+
+		void vert( inout appdata_full v, out Input data)
+		{
+			UNITY_INITIALIZE_OUTPUT(Input, data);
+		}
+
+		void myColor( Input IN, SurfaceOutput o, inout fixed4 color)
+		{
+			#ifdef UNITY_PASS_FORWARDD
+				UNITY_APPLY_FOG_COLOR(IN.fog, color, float4(0,0,0,0));
+			#else
+				UNITY_APPLY_FOG_COLOR(IN.fog, color, unity_FogColor);
+			#endif
+		}
 
 		void surf (Input IN, inout SurfaceOutputStandard o) 
 		{
