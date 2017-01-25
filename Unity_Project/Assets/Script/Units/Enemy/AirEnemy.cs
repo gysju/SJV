@@ -10,6 +10,7 @@ public class AirEnemy : BaseEnemy
     public float m_rotationSpeed = 1f;
 
     public LayerMask m_layerToDodge;
+	private Rigidbody rigid;
 
 	[Range(0.0f,200.0f)]
 	public float ForceIntensity = 0;
@@ -20,6 +21,7 @@ public class AirEnemy : BaseEnemy
     protected override void Awake()
     {
         base.Awake();
+		rigid = GetComponent<Rigidbody> ();
     }
 
     protected override void Start()
@@ -47,7 +49,6 @@ public class AirEnemy : BaseEnemy
 		m_target = null;
 		m_enemyState = EnemyState.EnemyState_Sleep;
 		base.StartDying();
-		Rigidbody rigid = GetComponent<Rigidbody> ();
 
 		rigid.isKinematic = false;
 		rigid.useGravity = true;
@@ -57,10 +58,16 @@ public class AirEnemy : BaseEnemy
 		rigid.AddTorque (-dir * TorqueIntensity, ForceMode.Impulse);
 	}
 
-	//protected override void FinishDying()
-	//{
-	//	m_manager.PoolUnit(this);
-	//}
+	protected override void FinishDying()
+	{
+		base.FinishDying ();
+
+		rigid.isKinematic = true;
+		rigid.useGravity = false;
+
+		rigid.angularVelocity = Vector3.zero;
+		rigid.velocity = Vector3.zero;
+	}
 	#endregion
 
     #region Movement Related
