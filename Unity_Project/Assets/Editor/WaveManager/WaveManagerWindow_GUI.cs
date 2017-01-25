@@ -65,9 +65,9 @@ public partial class WaveManagerWindow : EditorWindow {
 			GUILayout.BeginHorizontal ();
 
 			//if (GUILayout.Button(" Preview mode"))
-			{
-				Preview();
-			}
+			//{
+			//	Preview();
+			//}
 			if (wave.ObjectName != "" && GUILayout.Button(" Save wave "))
 			{
 				SaveWave();
