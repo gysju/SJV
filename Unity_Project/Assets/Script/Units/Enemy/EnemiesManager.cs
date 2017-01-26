@@ -5,6 +5,8 @@ using UnityEngine;
 public class EnemiesManager : MonoBehaviour
 {
     public bool m_showSpawnsInEditor;
+    [Range(0, 100)]
+    public int m_waveToShow;
     public BaseMecha m_player;
 
     public Vector3 m_poolPosition = Vector3.zero;
@@ -147,18 +149,50 @@ public class EnemiesManager : MonoBehaviour
     {
         if (m_showSpawnsInEditor)
         {
-            foreach (WaveObject enemyWave in m_enemiesWaves)
+            if (m_waveToShow == 0)
             {
-                foreach (SpawnObject spawn in enemyWave.Spawns)
+                foreach (WaveObject enemyWave in m_enemiesWaves)
+                {
+                    foreach (SpawnObject spawn in enemyWave.Spawns)
+                    {
+                        Mesh mesh;
+                        if (spawn.Unit)
+                        {
+                            SkinnedMeshRenderer skinnedMesh = spawn.Unit.GetComponentInChildren<SkinnedMeshRenderer>();
+                            if (skinnedMesh == null)
+                                mesh = spawn.Unit.GetComponentInChildren<MeshFilter>().sharedMesh;
+                            else
+                                mesh = skinnedMesh.sharedMesh;
+                            Gizmos.color = Color.green;
+                            Gizmos.DrawWireMesh(mesh, spawn.SpawnPosition, Quaternion.Euler(spawn.SpawnRotation));
+                            Gizmos.color = Color.red;
+                            Gizmos.DrawWireMesh(mesh, spawn.AttackPosition, Quaternion.Euler(spawn.SpawnRotation));
+                        }
+                        else
+                        {
+                            Gizmos.color = Color.green;
+                            Gizmos.DrawWireSphere(spawn.SpawnPosition, 1f);
+                            Gizmos.color = Color.red;
+                            Gizmos.DrawWireSphere(spawn.AttackPosition, 1f);
+                        }
+                        Gizmos.color = Color.green;
+                        Gizmos.DrawLine(spawn.SpawnPosition + new Vector3(0.0f, 1.0f, 0.0f), spawn.AttackPosition + new Vector3(0.0f, 1.0f, 0.0f));
+                    }
+                }
+            }
+            else
+            {
+                if (m_waveToShow < m_enemiesWaves.Count)
+                foreach (SpawnObject spawn in m_enemiesWaves[m_waveToShow].Spawns)
                 {
                     Mesh mesh;
                     if (spawn.Unit)
                     {
-						SkinnedMeshRenderer skinnedMesh= spawn.Unit.GetComponentInChildren<SkinnedMeshRenderer>();
-						if (skinnedMesh == null)
-							mesh = spawn.Unit.GetComponentInChildren<MeshFilter> ().sharedMesh;
-						else
-							mesh = skinnedMesh.sharedMesh;
+                        SkinnedMeshRenderer skinnedMesh = spawn.Unit.GetComponentInChildren<SkinnedMeshRenderer>();
+                        if (skinnedMesh == null)
+                            mesh = spawn.Unit.GetComponentInChildren<MeshFilter>().sharedMesh;
+                        else
+                            mesh = skinnedMesh.sharedMesh;
                         Gizmos.color = Color.green;
                         Gizmos.DrawWireMesh(mesh, spawn.SpawnPosition, Quaternion.Euler(spawn.SpawnRotation));
                         Gizmos.color = Color.red;
