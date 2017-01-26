@@ -35,7 +35,6 @@ public class GroundEnemy : BaseEnemy
     public override void ResetUnit(Vector3 spawn, Vector3 movementTarget, Transform target)
     {
         m_navMeshAgent.enabled = true;
-        m_navMeshAgent.ResetPath();
         base.ResetUnit(spawn, movementTarget, target);
     }
     #endregion
@@ -53,7 +52,7 @@ public class GroundEnemy : BaseEnemy
 
     protected override void FinishDying()
     {
-        m_navMeshAgent.enabled = false;
+        //m_navMeshAgent.enabled = false;
         base.FinishDying();
 
 		if ( animator != false )
@@ -64,8 +63,11 @@ public class GroundEnemy : BaseEnemy
     #region Movement Related
     public override void StartMovement()
     {
-        m_enemyState = EnemyState.EnemyState_Moving;
-        m_navMeshAgent.SetDestination(m_attackPosition.Value);
+        if (m_navMeshAgent.SetDestination(m_attackPosition.Value))
+        {
+            m_enemyState = EnemyState.EnemyState_Moving;
+        }
+        
 
 		if ( animator != false )
 			animator.SetTrigger ("Locomotion");
