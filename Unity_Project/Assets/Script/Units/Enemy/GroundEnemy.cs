@@ -34,8 +34,10 @@ public class GroundEnemy : BaseEnemy
 
     public override void ResetUnit(Vector3 spawn, Vector3 movementTarget, Transform target)
     {
-        m_navMeshAgent.enabled = true;
+        //m_navMeshAgent.enabled = true;
         base.ResetUnit(spawn, movementTarget, target);
+        if (animator != false)
+            animator.SetTrigger("Idle");
     }
     #endregion
 
