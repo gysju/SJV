@@ -27,6 +27,8 @@ public class BaseEnemy : BaseUnit
     protected Transform m_target;
 
 	public float DeathfadeSpeed = 1.0f;
+
+	public Color EmissiveColor;
 	private Material material;
 
     #region Initialization
