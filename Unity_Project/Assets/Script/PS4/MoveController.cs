@@ -68,7 +68,7 @@ public class MoveController : MonoBehaviour {
 	{
 		float time = 0.0f;
 
-		Debug.Log ("lance la vibration");
+		//Debug.Log ("lance la vibration");
 		#if UNITY_PS4
 		for (int slot = 0; slot < 4; slot++) 
 		{
@@ -81,7 +81,7 @@ public class MoveController : MonoBehaviour {
 			time += Time.deltaTime;
 			yield return null;
 		}
-		Debug.Log ("fin de la vibration");
+		//Debug.Log ("fin de la vibration");
 		#if UNITY_PS4
 		for (int slot = 0; slot < 4; slot++) 
 		{
