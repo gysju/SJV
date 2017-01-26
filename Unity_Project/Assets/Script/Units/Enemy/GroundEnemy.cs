@@ -36,8 +36,6 @@ public class GroundEnemy : BaseEnemy
     {
         //m_navMeshAgent.enabled = true;
         base.ResetUnit(spawn, movementTarget, target);
-        if (animator != false)
-            animator.SetTrigger("Idle");
     }
     #endregion
 
