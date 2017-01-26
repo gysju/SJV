@@ -16,6 +16,7 @@ public class BaseEnemy : BaseUnit
 
     protected Vector3? m_attackPosition = null;
 
+
     [Header("Attack")]
     [Tooltip("Time the unit will take to shoot.")]
     [ContextMenuItem("Test Unit", "TestUnit")]
@@ -25,12 +26,17 @@ public class BaseEnemy : BaseUnit
 
     protected Transform m_target;
 
+	public float DeathfadeSpeed = 1.0f;
+	private Material material;
+
     #region Initialization
     protected override void Awake()
     {
         base.Awake();
         m_model = GetComponentInChildren<MeshRenderer>();
         m_currentTimeToAttack = m_timeToAttack;
+		material = GetComponentInChildren<SkinnedMeshRenderer> ().material;
+
         if(!m_poolManager) m_poolManager = FindObjectOfType<EnemiesManager>();
     }
 
@@ -68,6 +74,7 @@ public class BaseEnemy : BaseUnit
     protected override void FinishDying()
     {
         m_poolManager.PoolUnit(this);
+		material.SetFloat ("_AlphaValue", 1.0f);
     }
     #endregion
 
@@ -114,5 +121,22 @@ public class BaseEnemy : BaseUnit
 
         }
     }
+
+	void StartDeathFade()
+	{
+		StartCoroutine (DeathFade ());
+	}
+
+	IEnumerator DeathFade()
+	{
+		float time = 0.0f;
+
+		while( time < DeathfadeSpeed )
+		{
+			time += Time.deltaTime;
+			material.SetFloat("_AlphaValue", Mathf.Lerp(1.0f, 0.0f, (time / DeathfadeSpeed))); 
+			yield return null; 	
+		}
+	}
     #endregion
 }

@@ -6,21 +6,15 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: tank
-  m_Shader: {fileID: 4800000, guid: 1972f6ee9d316d74b96d6eaa3c1b893b, type: 3}
-  m_ShaderKeywords: _EMISSION
-  m_LightmapFlags: 1
+  m_Name: lambert2
+  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 5
   m_CustomRenderQueue: -1
   stringTagMap: {}
   m_SavedProperties:
     serializedVersion: 2
     m_TexEnvs:
-    - first:
-        name: _AlphaClip
-      second:
-        m_Texture: {fileID: 2800000, guid: cb3dbd5aafaddc042bc2bce416c93705, type: 3}
-        m_Scale: {x: 4, y: 4}
-        m_Offset: {x: 0, y: 0}
     - first:
         name: _BumpMap
       second:
@@ -52,12 +46,6 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
-        name: _MRE_Ny
-      second:
-        m_Texture: {fileID: 2800000, guid: 70fafb6bf967f7448b2216950fd6703c, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - first:
         name: _MainTex
       second:
         m_Texture: {fileID: 0}
@@ -81,16 +69,7 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - first:
-        name: _RGB_Nx
-      second:
-        m_Texture: {fileID: 2800000, guid: 4c124a07bde72df4480afaf66448b189, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     m_Floats:
-    - first:
-        name: _AlphaValue
-      second: 1
     - first:
         name: _BumpScale
       second: 1
@@ -103,9 +82,6 @@ Material:
     - first:
         name: _DstBlend
       second: 0
-    - first:
-        name: _Emission
-      second: 5.2
     - first:
         name: _GlossMapScale
       second: 1
@@ -122,17 +98,11 @@ Material:
         name: _Mode
       second: 0
     - first:
-        name: _NormalIntensity
-      second: 1
-    - first:
         name: _OcclusionStrength
       second: 1
     - first:
         name: _Parallax
       second: 0.02
-    - first:
-        name: _Rim
-      second: 0.15
     - first:
         name: _SmoothnessTextureChannel
       second: 0
@@ -155,6 +125,3 @@ Material:
     - first:
         name: _EmissionColor
       second: {r: 0, g: 0, b: 0, a: 1}
-    - first:
-        name: _EmissiveColor
-      second: {r: 1, g: 0, b: 0.35172367, a: 1}
