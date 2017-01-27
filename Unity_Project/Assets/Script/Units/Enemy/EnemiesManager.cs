@@ -21,6 +21,8 @@ public class EnemiesManager : MonoBehaviour
 
     protected ZAManager m_zaManager;
 
+    public List<BaseEnemy> m_activeEnemies = new List<BaseEnemy>();
+
     void Start()
     {
         m_zaManager = FindObjectOfType<ZAManager>();
@@ -58,6 +60,7 @@ public class EnemiesManager : MonoBehaviour
 
     public void PoolUnit(BaseEnemy enemyToPool)
     {
+        m_activeEnemies.Remove(enemyToPool);
         enemyToPool.transform.position = m_poolPosition;
         if (enemyToPool is AirEnemy)
         {
@@ -120,6 +123,7 @@ public class EnemiesManager : MonoBehaviour
                     newEnemy = Instantiate(spawn.Unit, spawn.SpawnPosition, Quaternion.Euler(spawn.SpawnRotation), currentWaveTransform);
                 }
 
+                m_activeEnemies.Add(newEnemy);
                 currentWave.AddEnemy(newEnemy);
                 newEnemy.ResetUnit(spawn.SpawnPosition, spawn.AttackPosition, m_player.m_targetPoint);
             }
