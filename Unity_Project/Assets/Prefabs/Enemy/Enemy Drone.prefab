@@ -180,8 +180,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4669281593198502}
   - component: {fileID: 137565727386917128}
-  - component: {fileID: 64912340870336352}
-  - component: {fileID: 64712700258754016}
   m_Layer: 11
   m_Name: Drone
   m_TagString: Untagged
@@ -370,34 +368,6 @@ MeshCollider:
   m_Convex: 1
   m_InflateMesh: 0
   m_SkinWidth: 0.01
-  m_Mesh: {fileID: 0}
---- !u!64 &64712700258754016
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1940243672383048}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 1
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300002, guid: 5160d2cf6389a6d4dbace88bf745c501, type: 3}
---- !u!64 &64912340870336352
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1940243672383048}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 1
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300002, guid: 5160d2cf6389a6d4dbace88bf745c501, type: 3}
 --- !u!82 &82111103603893030
 AudioSource:
@@ -536,6 +506,7 @@ MonoBehaviour:
   m_poolManager: {fileID: 0}
   m_timeToAttack: 2
   DeathfadeSpeed: 1
+  EmissiveColor: {r: 0, g: 0, b: 0, a: 0}
   m_maxSpeed: 13
   m_acceleration: 8
   m_rotationSpeed: 1

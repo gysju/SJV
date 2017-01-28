@@ -141,7 +141,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4235101696669350}
   - component: {fileID: 137690820490688356}
-  - component: {fileID: 136001022789939270}
   m_Layer: 11
   m_Name: Tank
   m_TagString: Untagged
@@ -238,6 +237,7 @@ GameObject:
   - component: {fileID: 54182886295495424}
   - component: {fileID: 195768825987167618}
   - component: {fileID: 114645104208381496}
+  - component: {fileID: 136556351379037760}
   m_Layer: 11
   m_Name: Enemy SpiderTank
   m_TagString: Untagged
@@ -908,6 +908,8 @@ MonoBehaviour:
   - {fileID: 114864982472369878}
   m_poolManager: {fileID: 0}
   m_timeToAttack: 2
+  DeathfadeSpeed: 1
+  EmissiveColor: {r: 0, g: 0, b: 0, a: 0}
   m_maxSpeed: 10
   m_acceleration: 8
   m_rotationSpeed: 50
@@ -935,12 +937,12 @@ MonoBehaviour:
   Damage: 1
   ArmorPenetration: 1
   animator: {fileID: 95785845152853756}
---- !u!136 &136001022789939270
+--- !u!136 &136556351379037760
 CapsuleCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1506199446184726}
+  m_GameObject: {fileID: 1655661358391866}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1

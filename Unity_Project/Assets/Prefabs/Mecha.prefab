@@ -639,7 +639,7 @@ GameObject:
   - component: {fileID: 4073180948631580}
   - component: {fileID: 114131544033871110}
   - component: {fileID: 135794330899328068}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Radar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5572,9 +5572,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73fcd156920a4354385edd8b2f4ed6dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PivotModel: {fileID: 4775912780106890}
-  RadarRadius: 0
-  HUDModel: {fileID: 0}
+  PivotTransfrom: {fileID: 4775912780106890}
+  Radius: 5
 --- !u!114 &114214402283542230
 MonoBehaviour:
   m_ObjectHideFlags: 1
