@@ -35,46 +35,48 @@ public class HUD_Radar : MonoBehaviour {
 
 	void DisplayUnit()
 	{
-		
+		foreach(Info info in Infos)
+		{
+			
+		}
 	}
 
 	void OnTriggerEnter( Collider col )
 	{
 		SetInfo (col.gameObject);
-		Debug.Log ("UI Instantiate : " +col.name);
 	}
 		
 	void OnTriggerExit( Collider col )
 	{
 		RemoveInfo (col.gameObject);
-		Debug.Log ("UI destroy : " + col.name);
 	}
 
 	void SetInfo( GameObject obj )
 	{
-		Info info = new Info ();
+		BaseEnemy unit = obj.GetComponent<BaseEnemy>();
 
-		info.UI = Instantiate (UIPrefab);
-		info.Target = obj;
-
-		info.UI.transform.parent = infoParent;
-		info.UI.transform.localPosition = Vector3.zero;
-		info.UI.transform.localRotation = Quaternion.identity;
-
-		if (obj.GetComponent<GroundEnemy>() != null) 
+		if (unit != null && !unit.IsDestroyed()) 
 		{
-			info.UI.GetComponent<MeshRenderer> ().material.SetTexture ("_MainTex", (Texture)Resources.Load ("Radar/Sprite_Tank"));
+			Info info = new Info ();
+			
+			info.UI = Instantiate (UIPrefab);
+			info.Target = obj;
+			
+			info.UI.transform.parent = infoParent;
+			info.UI.transform.localPosition = Vector3.zero;
+			info.UI.transform.localRotation = Quaternion.identity;
+
+			if (unit as GroundEnemy) 
+			{
+				info.UI.GetComponent<MeshRenderer> ().material.SetTexture ("_MainTex", (Texture)Resources.Load ("Radar/Sprite_Tank"));
+			} 
+			else if (unit as AirEnemy) 
+			{
+				info.UI.GetComponent<MeshRenderer> ().material.SetTexture ("_MainTex", (Texture)Resources.Load ("Radar/Sprite_Drone"));
+			}
+
+			Infos.Add( info );
 		} 
-		else if (obj.GetComponent<AirEnemy>() != null ) 
-		{
-			info.UI.GetComponent<MeshRenderer> ().material.SetTexture ("_MainTex", (Texture)Resources.Load ("Radar/Sprite_Drone"));
-		} 
-		else 
-		{
-			info.UI.GetComponent<MeshRenderer> ().material.SetTexture ("_MainTex", (Texture)Resources.Load ("Radar/Sprite_Ennemy"));
-		}
-
-		Infos.Add( info );
 	}
 
 	void RemoveInfo(GameObject obj)
