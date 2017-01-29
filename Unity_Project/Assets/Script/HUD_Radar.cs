@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HUD_Radar : MonoBehaviour {
-
+public class HUD_Radar : MonoBehaviour 
+{
+	public static HUD_Radar Instance;
 	public Transform PivotTransfrom;
 	public float Radius = 5.0f;
 	public GameObject UIPrefab;
@@ -13,7 +14,7 @@ public class HUD_Radar : MonoBehaviour {
 
 	struct Info
 	{
-		public GameObject Target;
+		public BaseEnemy Target;
 		public GameObject UI;
 	};
 
@@ -21,9 +22,15 @@ public class HUD_Radar : MonoBehaviour {
 
 	void Start () 
 	{
-		Mecha = GetComponentInParent<BaseMecha> ().transform;	
-		GetComponent<SphereCollider>().radius = Radius;
-		infoParent = PivotTransfrom.FindChild ("InfoParent");
+		if (Instance == null) {
+			Instance = this;
+			Mecha = GetComponentInParent<BaseMecha> ().transform;	
+			infoParent = PivotTransfrom.FindChild ("InfoParent");
+		} 
+		else 
+		{
+			Destroy (gameObject);
+		}
 	}
 	
 	void Update () {
@@ -41,49 +48,34 @@ public class HUD_Radar : MonoBehaviour {
 		}
 	}
 
-	void OnTriggerEnter( Collider col )
+	public void AddInfo( BaseEnemy unit )
 	{
-		SetInfo (col.gameObject);
-	}
+		Info info = new Info ();
 		
-	void OnTriggerExit( Collider col )
-	{
-		RemoveInfo (col.gameObject);
-	}
+		info.UI = Instantiate (UIPrefab);
+		info.Target = unit;
+		
+		info.UI.transform.parent = infoParent;
+		info.UI.transform.localPosition = Vector3.zero;
+		info.UI.transform.localRotation = Quaternion.identity;
 
-	void SetInfo( GameObject obj )
-	{
-		BaseEnemy unit = obj.GetComponent<BaseEnemy>();
-
-		if (unit != null && !unit.IsDestroyed()) 
+		if (unit as GroundEnemy) 
 		{
-			Info info = new Info ();
-			
-			info.UI = Instantiate (UIPrefab);
-			info.Target = obj;
-			
-			info.UI.transform.parent = infoParent;
-			info.UI.transform.localPosition = Vector3.zero;
-			info.UI.transform.localRotation = Quaternion.identity;
-
-			if (unit as GroundEnemy) 
-			{
-				info.UI.GetComponent<MeshRenderer> ().material.SetTexture ("_MainTex", (Texture)Resources.Load ("Radar/Sprite_Tank"));
-			} 
-			else if (unit as AirEnemy) 
-			{
-				info.UI.GetComponent<MeshRenderer> ().material.SetTexture ("_MainTex", (Texture)Resources.Load ("Radar/Sprite_Drone"));
-			}
-
-			Infos.Add( info );
+			info.UI.GetComponent<MeshRenderer> ().material.SetTexture ("_MainTex", (Texture)Resources.Load ("Radar/Sprite_Tank"));
 		} 
+		else if (unit as AirEnemy) 
+		{
+			info.UI.GetComponent<MeshRenderer> ().material.SetTexture ("_MainTex", (Texture)Resources.Load ("Radar/Sprite_Drone"));
+		}
+
+		Infos.Add( info );
 	}
 
-	void RemoveInfo(GameObject obj)
+	public void RemoveInfo(BaseEnemy unit)
 	{
 		foreach(Info info in Infos)
 		{
-			if (info.Target == obj) 
+			if (info.Target == unit) 
 			{
 				Infos.Remove (info);
 				Destroy (info.UI);

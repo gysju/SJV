@@ -55,6 +55,8 @@ public class BaseEnemy : BaseUnit
         m_destroyed = false;
 
         m_enemyState = EnemyState.EnemyState_Sleep;
+
+		HUD_Radar.Instance.AddInfo (this);
     }
 
     public virtual void TestUnit()
@@ -70,6 +72,7 @@ public class BaseEnemy : BaseUnit
         m_attackPosition = null;
         m_target = null;
         m_enemyState = EnemyState.EnemyState_Sleep;
+		HUD_Radar.Instance.RemoveInfo (this);
         base.StartDying();
     }
 
