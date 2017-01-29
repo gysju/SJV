@@ -44,7 +44,8 @@ public class HUD_Radar : MonoBehaviour
 	{
 		foreach(Info info in Infos)
 		{
-			
+			Vector3 Dir = ( info.Target.transform.position - Mecha.position ) / Radius;
+			info.UI.transform.localPosition = infoParent.transform.localPosition + ( new Vector3( Dir.x, Dir.z, 0.0f) * 0.2f );
 		}
 	}
 
