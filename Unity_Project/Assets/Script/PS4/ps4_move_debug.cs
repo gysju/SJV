@@ -36,7 +36,7 @@ public class ps4_move_debug : MonoBehaviour {
 
 	void OnGUI() 
 	{
-		int numDetected = 0;
+		//int numDetected = 0;
 		//for (int slot=0;slot<4;slot++)
 		//{
 		//	for (int controller=0; controller<1; controller++)
@@ -89,8 +89,6 @@ public class ps4_move_debug : MonoBehaviour {
 	public Vector3 getMoveRotation(int index)
 	{
 		return PS4Input.GetLastMoveAcceleration (0, index);
-
-		return Vector3.zero;
 	}
 
 	float PSMoveRotation()
