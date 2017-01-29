@@ -66,6 +66,11 @@ public class BaseUnit : MonoBehaviour
         return m_destroyed;
     }
 
+    public int GetCurrentHitPoints()
+    {
+        return m_currentHitPoints;
+    }
+
     protected IEnumerator Dying()
     {
         yield return new WaitForSeconds(m_timeToDie);
