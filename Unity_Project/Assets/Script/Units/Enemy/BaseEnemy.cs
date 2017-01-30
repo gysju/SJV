@@ -57,6 +57,8 @@ public class BaseEnemy : BaseUnit
         m_enemyState = EnemyState.EnemyState_Sleep;
 
 		HUD_Radar.Instance.AddInfo (this);
+
+		StartCoroutine (SpawnFade ());
     }
 
     public virtual void TestUnit()
@@ -79,7 +81,7 @@ public class BaseEnemy : BaseUnit
     protected override void FinishDying()
     {
         m_poolManager.PoolUnit(this);
-		material.SetFloat ("_AlphaValue", 1.0f);
+		//material.SetFloat ("_AlphaValue", 1.0f);
     }
     #endregion
 
@@ -140,6 +142,18 @@ public class BaseEnemy : BaseUnit
 		{
 			time += Time.deltaTime;
 			material.SetFloat("_AlphaValue", Mathf.Lerp(1.0f, 0.0f, (time / DeathfadeSpeed))); 
+			yield return null; 	
+		}
+	}
+
+	IEnumerator SpawnFade()
+	{
+		float time = 0.0f;
+
+		while( time < DeathfadeSpeed )
+		{
+			time += Time.deltaTime;
+			material.SetFloat("_AlphaValue", Mathf.Lerp(0.0f, 1.0f, (time / DeathfadeSpeed))); 
 			yield return null; 	
 		}
 	}
