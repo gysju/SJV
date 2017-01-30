@@ -75,6 +75,7 @@ public class BaseEnemy : BaseUnit
         m_target = null;
         m_enemyState = EnemyState.EnemyState_Sleep;
 		HUD_Radar.Instance.RemoveInfo (this);
+		StartCoroutine (DeathFade());
         base.StartDying();
     }
 
@@ -134,7 +135,7 @@ public class BaseEnemy : BaseUnit
 		StartCoroutine (DeathFade ());
 	}
 
-	IEnumerator DeathFade()
+	public IEnumerator DeathFade()
 	{
 		float time = 0.0f;
 
@@ -146,7 +147,7 @@ public class BaseEnemy : BaseUnit
 		}
 	}
 
-	IEnumerator SpawnFade()
+	public IEnumerator SpawnFade()
 	{
 		float time = 0.0f;
 
