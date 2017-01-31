@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 public class PlayerHUD : MonoBehaviour
 {
+	public static PlayerHUD Instance = null;
     public BaseMecha m_mecha;
 
     public CanvasGroup m_hud;
@@ -14,7 +15,15 @@ public class PlayerHUD : MonoBehaviour
 
     void Start ()
 	{
-        if (!m_mecha) m_mecha = GetComponentInParent<BaseMecha>();
+		if (Instance == null) 
+		{
+			Instance = this;
+			if (!m_mecha) m_mecha = GetComponentInParent<BaseMecha>();
+		}
+		else if ( Instance != this)
+		{
+			
+		}
     }
 	
 	void Update ()

@@ -3,6 +3,8 @@ using System.Collections;
 
 public class BaseMecha : BaseUnit
 {
+	public static BaseMecha Instance = null;
+
     protected BaseWeapon m_leftWeapon;
     protected BaseWeapon m_rightWeapon;
 
@@ -16,12 +18,20 @@ public class BaseMecha : BaseUnit
 
     protected override void Awake()
     {
-        base.Awake();
-        m_torso = GetComponentInChildren<MechaTorso>();
-        m_leftWeapon = m_weapons[0];
-        m_rightWeapon = m_weapons[1];
-        m_bunker.SetActive(false);
-        m_zaManager = FindObjectOfType<ZAManager>();
+		if (Instance == null) 
+		{
+			Instance = this;
+			base.Awake ();
+			m_torso = GetComponentInChildren<MechaTorso> ();
+			m_leftWeapon = m_weapons [0];
+			m_rightWeapon = m_weapons [1];
+			m_bunker.SetActive (false);
+			m_zaManager = FindObjectOfType<ZAManager> ();
+		} 
+		else if ( Instance != this )
+		{
+			Destroy (gameObject);
+		}
     }
 
     protected override void StartDying()
