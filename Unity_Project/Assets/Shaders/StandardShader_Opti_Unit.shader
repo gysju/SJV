@@ -19,7 +19,7 @@ Shader "Custom/StantardShader_RGB_N_MGE_Unit" {
 		LOD 200
 		
 		CGPROGRAM
-		#pragma surface surf Standard fullforwardshadows
+		#pragma surface surf Standard fullforwardshadows addshadow
 		#pragma target 5.0
 
 		sampler2D _RGB_Nx, _MRE_Ny, _AlphaClip;
@@ -38,8 +38,7 @@ Shader "Custom/StantardShader_RGB_N_MGE_Unit" {
 		{
 			half AlphaClip = tex2D ( _AlphaClip, IN.uv_AlphaClip).a;
 
-			if( AlphaClip > _AlphaValue )
-				discard;
+			clip( _AlphaValue - AlphaClip);
 
 			fixed4 RGB_Nx = tex2D (_RGB_Nx, IN.uv_RGB_Nx);
 			fixed4 MRE_Ny = tex2D (_MRE_Ny, IN.uv_RGB_Nx);
