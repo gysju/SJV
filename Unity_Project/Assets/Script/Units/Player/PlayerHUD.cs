@@ -30,6 +30,5 @@ public class PlayerHUD : MonoBehaviour
 	{
         m_integrityGaugeRight.fillAmount = (float)m_mecha.GetCurrentHitPoints() / m_mecha.m_maxHitPoints;
         m_integrityGaugeLeft.fillAmount = (float)m_mecha.GetCurrentHitPoints() / m_mecha.m_maxHitPoints;
-
     }
 }
