@@ -41,42 +41,45 @@ public class TrackedDeviceMoveControllers : MonoBehaviour {
 
     IEnumerator Start()
 	{
-		if (Instance == null)
+		if (Instance == null) 
+		{
 			Instance = this;
-		else if (Instance != this)
+		
+			primaryController = primaryMoveController.transform;
+			secondaryController = secondaryMoveController.transform;
+
+			if (!primaryController || !secondaryController || !primaryController.gameObject.activeSelf || !secondaryController.gameObject.activeSelf) {
+				Debug.LogWarning ("A controller is either null or inactive!");
+				this.enabled = false;
+			}
+
+			// Keep waiting until we have a VR Device available
+			while (!VRDevice.isPresent)
+				yield return new WaitForSeconds (1.0f);
+
+			// Make sure the device we now have is PlayStation VR
+			#if UNITY_5_3
+			if (VRSettings.loadedDevice != VRDeviceType.PlayStationVR)
+			#elif UNITY_5_4_OR_NEWER
+			if (VRSettings.loadedDeviceName != VRDeviceNames.PlayStationVR)
+			#endif
+			{
+				Debug.LogWarning ("Tracking only works for PS4!");
+				this.enabled = false;
+			} else {
+				ResetControllerTracking ();
+			}
+
+			if (targetLeft != null && targetRight != null) 
+			{
+				targetLeftOriginPos = targetLeft.localPosition;
+				targetRightOriginPos = targetRight.localPosition;
+			}
+		} 
+		else if (Instance != this) 
+		{
 			Destroy(gameObject);
-
-		primaryController = primaryMoveController.transform;
-		secondaryController = secondaryMoveController.transform;
-
-		if(!primaryController || !secondaryController || !primaryController.gameObject.activeSelf || !secondaryController.gameObject.activeSelf)
-		{
-			Debug.LogWarning("A controller is either null or inactive!");
-			this.enabled = false;
 		}
-
-		// Keep waiting until we have a VR Device available
-		while(!VRDevice.isPresent)
-			yield return new WaitForSeconds(1.0f);
-
-		// Make sure the device we now have is PlayStation VR
-#if UNITY_5_3
-        if (VRSettings.loadedDevice != VRDeviceType.PlayStationVR)
-#elif UNITY_5_4_OR_NEWER
-        if (VRSettings.loadedDeviceName != VRDeviceNames.PlayStationVR)
-#endif
-		{
-			Debug.LogWarning("Tracking only works for PS4!");
-			this.enabled = false;
-		}
-		else
-		{
-			ResetControllerTracking();
-		}
-
-        targetLeftOriginPos = targetLeft.localPosition;
-        targetRightOriginPos = targetRight.localPosition;
-
     }
 
 	void Update()
@@ -103,7 +106,8 @@ public class TrackedDeviceMoveControllers : MonoBehaviour {
                 if (Tracker.GetTrackedDeviceOrientation(m_primaryHandle, out primaryOrientation) == PlayStationVRResult.Ok)
 					primaryController.localRotation = primaryOrientation;
 
-				targetLeft.transform.localPosition = targetLeftOriginPos - (primaryPositionOriginPos - primaryController.localPosition) * IkIntensity;
+				if(targetLeft != null)
+					targetLeft.transform.localPosition = targetLeftOriginPos - (primaryPositionOriginPos - primaryController.localPosition) * IkIntensity;
 			}
 
 			// Perform tracking for the secondary controller, if we've got a handle
@@ -115,7 +119,8 @@ public class TrackedDeviceMoveControllers : MonoBehaviour {
                 if (Tracker.GetTrackedDeviceOrientation(m_secondaryHandle, out secondaryOrientation) == PlayStationVRResult.Ok)
 					secondaryController.localRotation = secondaryOrientation;
 
-				targetRight.transform.localPosition = targetRightOriginPos - (secondaryPositionOriginPos - secondaryController.localPosition) * IkIntensity;
+				if(targetRight != null)
+					targetRight.transform.localPosition = targetRightOriginPos - (secondaryPositionOriginPos - secondaryController.localPosition) * IkIntensity;
 			}
 		}
 	}
@@ -161,12 +166,12 @@ public class TrackedDeviceMoveControllers : MonoBehaviour {
 
         PlayStationVRTrackingColor trackedColor;
         Tracker.GetTrackedDeviceLedColor(m_primaryHandle, out trackedColor);
-        illuminatedComponents[0].material.color = GetUnityColor(trackedColor);
+        //illuminatedComponents[0].material.color = GetUnityColor(trackedColor);
 
         if (secondaryController)
         {
             Tracker.GetTrackedDeviceLedColor(m_secondaryHandle, out trackedColor);
-            illuminatedComponents[1].material.color = GetUnityColor(trackedColor);
+            //illuminatedComponents[1].material.color = GetUnityColor(trackedColor);
         }
 
         // check target's origin position

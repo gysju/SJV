@@ -101,7 +101,7 @@ public class VRManager : MonoBehaviour
 
         VRSettings.enabled = false;
 		#if UNITY_PS4
-        PlayStationVR.setOutputModeHMD(false, false);
+        PlayStationVR.SetOutputModeHMD(false, 120); 
 		#endif
         Camera.main.ResetFieldOfView();
         Camera.main.ResetAspect();
