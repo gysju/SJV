@@ -6,8 +6,8 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: DRONE
-  m_Shader: {fileID: 4800000, guid: 2b638a69690fea642b287be2a1d8d3f2, type: 3}
+  m_Name: Drone
+  m_Shader: {fileID: 4800000, guid: 1972f6ee9d316d74b96d6eaa3c1b893b, type: 3}
   m_ShaderKeywords: _EMISSION
   m_LightmapFlags: 1
   m_CustomRenderQueue: -1
@@ -15,6 +15,12 @@ Material:
   m_SavedProperties:
     serializedVersion: 2
     m_TexEnvs:
+    - first:
+        name: _AlphaClip
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - first:
         name: _BumpMap
       second:
@@ -83,6 +89,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - first:
+        name: _AlphaValue
+      second: 1
+    - first:
         name: _BumpScale
       second: 1
     - first:
@@ -121,6 +130,9 @@ Material:
     - first:
         name: _Parallax
       second: 0.02
+    - first:
+        name: _Rim
+      second: 0
     - first:
         name: _SmoothnessTextureChannel
       second: 0

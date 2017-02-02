@@ -17,6 +17,8 @@ public class TrackedDeviceMoveControllers : MonoBehaviour {
     public Transform targetLeft;
     public Transform targetRight;
 
+	public float TargetBias = 2.0f;
+
     [Range( 0.0f, 5.0f)]
     public float IkIntensity = 1.5f;
 
@@ -107,7 +109,8 @@ public class TrackedDeviceMoveControllers : MonoBehaviour {
 					primaryController.localRotation = primaryOrientation;
 
 				if(targetLeft != null)
-					targetLeft.transform.localPosition = targetLeftOriginPos - (primaryPositionOriginPos - primaryController.localPosition) * IkIntensity;
+					targetLeft.transform.localPosition = targetLeftOriginPos - (primaryPositionOriginPos - primaryController.localPosition) 
+														 + new Vector3(0, TargetBias ,0) * IkIntensity;
 			}
 
 			// Perform tracking for the secondary controller, if we've got a handle
@@ -120,7 +123,8 @@ public class TrackedDeviceMoveControllers : MonoBehaviour {
 					secondaryController.localRotation = secondaryOrientation;
 
 				if(targetRight != null)
-					targetRight.transform.localPosition = targetRightOriginPos - (secondaryPositionOriginPos - secondaryController.localPosition) * IkIntensity;
+					targetRight.transform.localPosition = (targetRightOriginPos - (secondaryPositionOriginPos - secondaryController.localPosition)) 
+														+ new Vector3(0, TargetBias ,0) * IkIntensity;
 			}
 		}
 	}

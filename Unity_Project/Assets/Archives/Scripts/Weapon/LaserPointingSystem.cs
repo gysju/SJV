@@ -70,9 +70,9 @@ public class LaserPointingSystem : MonoBehaviour {
 
 	void InputUI()
 	{
-		if(buttonSelected != null && move.GetButtonDown(MoveController.MoveButton.MoveButton_Move) )
+		if(buttonSelected != null && ( move.GetButtonDown(MoveController.MoveButton.MoveButton_Move) || Input.GetButtonDown("Fire1")))
 		{
-			//buttonSelected.onClick.Invoke (); a fixer, le GetButtonDown ne fonctionne qu'une seul fois ( par manette )
+			buttonSelected.onClick.Invoke (); //a fixer, le GetButtonDown ne fonctionne qu'une seul fois ( par manette )
 		}
 	}
 
