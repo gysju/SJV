@@ -27,7 +27,9 @@ public class BaseMecha : BaseUnit
 			m_rightWeapon = m_weapons [1];
 			m_bunker.SetActive (false);
 			m_zaManager = FindObjectOfType<ZAManager> ();
-		} 
+
+            LaserOn();
+        } 
 		else if ( Instance != this )
 		{
 			Destroy (gameObject);
@@ -39,6 +41,8 @@ public class BaseMecha : BaseUnit
         m_destroyed = true;
 
         ActivateBunkerMode();
+
+        LaserOff();
 
         StartCoroutine(Dying());
     }
