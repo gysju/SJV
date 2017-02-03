@@ -109,8 +109,7 @@ public class TrackedDeviceMoveControllers : MonoBehaviour {
 					primaryController.localRotation = primaryOrientation;
 
 				if(targetLeft != null)
-					targetLeft.transform.localPosition = targetLeftOriginPos - (primaryPositionOriginPos - primaryController.localPosition) 
-														 + new Vector3(0, TargetBias ,0) * IkIntensity;
+					targetLeft.transform.localPosition = targetLeftOriginPos - (primaryPositionOriginPos - primaryController.localPosition) * IkIntensity + new Vector3(0, TargetBias ,0) ;
 			}
 
 			// Perform tracking for the secondary controller, if we've got a handle
@@ -122,9 +121,8 @@ public class TrackedDeviceMoveControllers : MonoBehaviour {
                 if (Tracker.GetTrackedDeviceOrientation(m_secondaryHandle, out secondaryOrientation) == PlayStationVRResult.Ok)
 					secondaryController.localRotation = secondaryOrientation;
 
-				if(targetRight != null)
-					targetRight.transform.localPosition = (targetRightOriginPos - (secondaryPositionOriginPos - secondaryController.localPosition)) 
-														+ new Vector3(0, TargetBias ,0) * IkIntensity;
+				if (targetRight != null) 
+					targetRight.transform.localPosition = (targetRightOriginPos - (secondaryPositionOriginPos - secondaryController.localPosition)) * IkIntensity + new Vector3(0, TargetBias ,0) ;
 			}
 		}
 	}
@@ -230,12 +228,14 @@ public class TrackedDeviceMoveControllers : MonoBehaviour {
 	void Start()
 	{
 		if (Instance == null)
+		{
+			primaryController = primaryMoveController.transform;
+			secondaryController = secondaryMoveController.transform;
 			Instance = this;
+		}
 		else if (Instance != this)
 			Destroy(gameObject);
 
-		primaryController = primaryMoveController.transform;
-		secondaryController = secondaryMoveController.transform;
 	}
 #endif
 }

@@ -21,6 +21,7 @@ public class LaserPointingSystem : MonoBehaviour {
 	private MoveController move;
 	private Button buttonSelected;
     private int count; 
+	private Transform ThisTransform;
 
 	void Start () 
 	{
@@ -28,6 +29,7 @@ public class LaserPointingSystem : MonoBehaviour {
 		lineRenderer = GetComponent<LineRenderer> ();
 		move = GetComponent<MoveController> ();
 		count = move.MoveIndex;
+		ThisTransform = transform;
     }
 
     void Update () 
@@ -36,7 +38,7 @@ public class LaserPointingSystem : MonoBehaviour {
 		InputUI(); 
 		if (count >= 1)  
 		{
-			if (Physics.Raycast (transform.position, transform.forward, out hit, 1000.0f, mask))  
+			if (Physics.Raycast (ThisTransform.position, ThisTransform.forward, out hit, 1000.0f, mask))  
 			{
 				lineRenderer.SetPosition (1, Vector3.forward * hit.distance);
 				detectionType (hit);
@@ -59,7 +61,7 @@ public class LaserPointingSystem : MonoBehaviour {
 				}
 				#if UNITY_PS4
 				if (move != null)
-					move.lookAtHit = transform.position + transform.forward * 1000.0f;
+					move.lookAtHit = ThisTransform.position + ThisTransform.forward * 1000.0f;
 				#endif
 			}
 			count = 0;
