@@ -72,7 +72,7 @@ LightmapSettings:
     m_FinalGatherFiltering: 1
     m_FinalGatherRayCount: 256
     m_ReflectionCompression: 2
-  m_LightingDataAsset: {fileID: 112000001, guid: a4a71a93dbdbadf4e8ddd9d3b59dc106,
+  m_LightingDataAsset: {fileID: 112000003, guid: a4a71a93dbdbadf4e8ddd9d3b59dc106,
     type: 2}
   m_RuntimeCPUUsage: 25
 --- !u!196 &4
@@ -1146,30 +1146,6 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 27b20c4028def304f8b6827952ccb5e1, type: 3}
   m_PrefabInternal: {fileID: 104147981}
---- !u!1 &104147983 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 100000, guid: 27b20c4028def304f8b6827952ccb5e1, type: 3}
-  m_PrefabInternal: {fileID: 104147981}
---- !u!114 &104147984
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 104147983}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c60d9a9f76553414abe0e31a5ecdd839, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _colors: []
-  _uv0: []
-  _uv1: []
-  _uv2: []
-  _uv3: []
-  _positions: []
-  _normals: []
-  _tangents: []
-  originalMaterial: []
 --- !u!1001 &105226071
 Prefab:
   m_ObjectHideFlags: 0
@@ -6773,7 +6749,7 @@ Prefab:
       objectReference: {fileID: 2100000, guid: c1dcc5ea71b8abb4c92f021b77c325ab, type: 2}
     - target: {fileID: 100000, guid: 21b26671b69a39e46985d469308ee309, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 4294967295
+      value: 4294967291
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 21b26671b69a39e46985d469308ee309, type: 3}
       propertyPath: m_SelectedEditorRenderState
