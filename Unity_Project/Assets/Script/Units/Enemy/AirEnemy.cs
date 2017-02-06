@@ -10,11 +10,18 @@ public class AirEnemy : BaseEnemy
     public float m_rotationSpeed = 1f;
 
     public LayerMask m_layerToDodge;
+	private Rigidbody rigid;
+
+	[Range(0.0f,200.0f)]
+	public float ForceIntensity = 0;
+	[Range(0.0f,200.0f)]
+	public float TorqueIntensity = 0;
 
     #region Initialization
     protected override void Awake()
     {
         base.Awake();
+		rigid = GetComponent<Rigidbody> ();
     }
 
     protected override void Start()
@@ -27,11 +34,6 @@ public class AirEnemy : BaseEnemy
     {
         base.ResetUnit(spawn, movementTarget, target);
     }
-
-    public override void TestUnit()
-    {
-        ResetUnit(new Vector3(5f, 2f, 120f), new Vector3(5f, 10f, 25f), FindObjectOfType<Player>().transform);
-    }
     #endregion
 
 	#region HitPoints Related
@@ -42,12 +44,25 @@ public class AirEnemy : BaseEnemy
 		m_target = null;
 		m_enemyState = EnemyState.EnemyState_Sleep;
 		base.StartDying();
+
+		rigid.isKinematic = false;
+		rigid.useGravity = true;
+
+		Vector3 dir = ( PlayerInputs.Instance.transform.position - transform.position).normalized;
+		rigid.AddForce (-dir * ForceIntensity, ForceMode.Impulse);
+		rigid.AddTorque (-dir * TorqueIntensity, ForceMode.Impulse);
 	}
 
-	//protected override void FinishDying()
-	//{
-	//	m_manager.PoolUnit(this);
-	//}
+	protected override void FinishDying()
+	{
+		base.FinishDying ();
+
+		rigid.isKinematic = true;
+		rigid.useGravity = false;
+
+		rigid.angularVelocity = Vector3.zero;
+		rigid.velocity = Vector3.zero;
+	}
 	#endregion
 
     #region Movement Related
@@ -91,7 +106,8 @@ public class AirEnemy : BaseEnemy
     protected void MovementOver()
     {
         m_enemyState = EnemyState.EnemyState_Attacking;
-        AimWeaponAt(m_target.gameObject.GetComponentInChildren<Renderer>().bounds.center);
+        LaserOn();
+        AimWeaponAt(m_target.position);
     }
     #endregion
 

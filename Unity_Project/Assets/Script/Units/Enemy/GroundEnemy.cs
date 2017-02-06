@@ -11,6 +11,8 @@ public class GroundEnemy : BaseEnemy
     public float m_acceleration = 8f;
     public float m_rotationSpeed = 50f;
 
+	private Animator animator;
+
     #region Initialization
     protected override void Awake()
     {
@@ -20,6 +22,8 @@ public class GroundEnemy : BaseEnemy
         m_navMeshAgent.speed = m_maxSpeed;
         m_navMeshAgent.acceleration = m_acceleration;
         m_navMeshAgent.angularSpeed = m_rotationSpeed;
+
+		animator = GetComponent<Animator> ();
     }
 
     protected override void Start()
@@ -30,8 +34,7 @@ public class GroundEnemy : BaseEnemy
 
     public override void ResetUnit(Vector3 spawn, Vector3 movementTarget, Transform target)
     {
-        m_navMeshAgent.enabled = true;
-        m_navMeshAgent.ResetPath();
+        //m_navMeshAgent.enabled = true;
         base.ResetUnit(spawn, movementTarget, target);
     }
     #endregion
@@ -42,20 +45,32 @@ public class GroundEnemy : BaseEnemy
 	{
 		m_navMeshAgent.ResetPath();
 		base.StartDying();
+
+		if ( animator != false )
+			animator.SetTrigger ("Death");
 	}
 
     protected override void FinishDying()
     {
-        m_navMeshAgent.enabled = false;
+        //m_navMeshAgent.enabled = false;
         base.FinishDying();
+
+		if ( animator != false )
+			animator.SetTrigger ("Idle");
     }
 	#endregion
 
     #region Movement Related
     public override void StartMovement()
     {
-        m_enemyState = EnemyState.EnemyState_Moving;
-        m_navMeshAgent.SetDestination(m_attackPosition.Value);
+        if (m_navMeshAgent.SetDestination(m_attackPosition.Value))
+        {
+            m_enemyState = EnemyState.EnemyState_Moving;
+        }
+        
+
+		if ( animator != false )
+			animator.SetTrigger ("Locomotion");
     }
 
     protected bool IsPathCompleted()
@@ -76,7 +91,10 @@ public class GroundEnemy : BaseEnemy
     protected void MovementOver()
     {
         m_enemyState = EnemyState.EnemyState_Attacking;
-        AimWeaponAt(m_target.gameObject.GetComponentInChildren<Renderer>().bounds.center);
+        AimWeaponAt(m_target.position);
+        LaserOn();
+		if ( animator != false )
+			animator.SetTrigger ("Idle");
     }
     #endregion
 
@@ -110,6 +128,7 @@ public class GroundEnemy : BaseEnemy
                     break;
                 case EnemyState.EnemyState_Attacking:
                     m_currentTimeToAttack -= Time.deltaTime;
+                    AimWeaponAt(m_target.position);
                     if (m_currentTimeToAttack <= 0)
                     {
                         Fire();
@@ -120,5 +139,6 @@ public class GroundEnemy : BaseEnemy
             }
         }
     }
+
     #endregion
 }

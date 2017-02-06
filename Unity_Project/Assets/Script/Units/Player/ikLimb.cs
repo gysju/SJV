@@ -20,9 +20,14 @@ public class ikLimb : MonoBehaviour {
 	private Vector3 targetRelativeStartPosition;
 	private Vector3 elbowTargetRelativeStartPosition;
 
+
+	private Transform ThisTransform;
+	private Vector3 LastestTargetPosition;
+
 	//public float transition = 1.0f;	
 
 	void Start () {
+		ThisTransform = transform;
 		upperArmStartRotation = upperArm.rotation;
 		forearmStartRotation = forearm.rotation;
 		handStartRotation = hand.rotation;
@@ -31,7 +36,7 @@ public class ikLimb : MonoBehaviour {
 	}
 	
 	void LateUpdate () {
-		if (!IsEnabled){
+		if (!IsEnabled || LastestTargetPosition == target.transform.position){
 			return;
 		}
 		CalculateIK();
@@ -80,37 +85,37 @@ public class ikLimb : MonoBehaviour {
 		hand.rotation = handStartRotation;
 
 		//Work with temporaty game objects and align & parent them to the arm.
-		transform.position = upperArm.position;
-		transform.LookAt(targetPosition, elbowTargetPosition - transform.position);
+		ThisTransform.position = upperArm.position;
+		ThisTransform.LookAt(targetPosition, elbowTargetPosition - ThisTransform.position);
 		
-		GameObject upperArmAxisCorrection = new GameObject("upperArmAxisCorrection");
-		GameObject forearmAxisCorrection = new GameObject("forearmAxisCorrection");
-		GameObject handAxisCorrection = new GameObject("handAxisCorrection");
+		Transform upperArmAxisCorrection = new GameObject("upperArmAxisCorrection").transform;
+		Transform forearmAxisCorrection = new GameObject("forearmAxisCorrection").transform;
+		Transform handAxisCorrection = new GameObject("handAxisCorrection").transform;
 		
-		upperArmAxisCorrection.transform.position = upperArm.position;
-		upperArmAxisCorrection.transform.LookAt(forearm.position, transform.root.up);
-		upperArmAxisCorrection.transform.parent = transform;
-		upperArm.parent = upperArmAxisCorrection.transform;
+		upperArmAxisCorrection.position = upperArm.position;
+		upperArmAxisCorrection.LookAt(forearm.position, ThisTransform.root.up);
+		upperArmAxisCorrection.parent = ThisTransform;
+		upperArm.parent = upperArmAxisCorrection;
 
-		forearmAxisCorrection.transform.position = forearm.position;
-		forearmAxisCorrection.transform.LookAt(hand.position, transform.root.up);
-		forearmAxisCorrection.transform.parent = upperArmAxisCorrection.transform;
-		forearm.parent = forearmAxisCorrection.transform;
+		forearmAxisCorrection.position = forearm.position;
+		forearmAxisCorrection.LookAt(hand.position, ThisTransform.root.up);
+		forearmAxisCorrection.parent = upperArmAxisCorrection;
+		forearm.parent = forearmAxisCorrection;
 		
-		handAxisCorrection.transform.position = hand.position;
-		handAxisCorrection.transform.parent = forearmAxisCorrection.transform;
-		hand.parent = handAxisCorrection.transform;
+		handAxisCorrection.position = hand.position;
+		handAxisCorrection.parent = forearmAxisCorrection;
+		hand.parent = handAxisCorrection;
 		
 		//Reset targets.
 		target.position = targetPosition;
 		elbowTarget.position = elbowTargetPosition;	
 		
 		//Apply rotation for temporary game objects.
-		upperArmAxisCorrection.transform.LookAt(target,elbowTarget.position - upperArmAxisCorrection.transform.position);
-		upperArmAxisCorrection.transform.localRotation =  Quaternion.Euler(upperArmAxisCorrection.transform.localRotation.eulerAngles - new Vector3(ikAngle,0,0)); /// before :upperArmAxisCorrection.transform.localRotation.eulerAngles.x -= ikAngle;
+		upperArmAxisCorrection.LookAt(target,elbowTarget.position - upperArmAxisCorrection.position);
+		upperArmAxisCorrection.localRotation =  Quaternion.Euler(upperArmAxisCorrection.localRotation.eulerAngles - new Vector3(ikAngle,0,0)); /// before :upperArmAxisCorrection.transform.localRotation.eulerAngles.x -= ikAngle;
 		
-		forearmAxisCorrection.transform.LookAt(target,elbowTarget.position - upperArmAxisCorrection.transform.position);
-		handAxisCorrection.transform.rotation = target.rotation;
+		forearmAxisCorrection.LookAt(target,elbowTarget.position - upperArmAxisCorrection.position);
+		handAxisCorrection.rotation = target.rotation;
 		
 		//Restore limbs.
 		upperArm.parent = upperArmParent;
@@ -124,10 +129,11 @@ public class ikLimb : MonoBehaviour {
 		hand.localPosition = handLocalPosition;
 		
 		//Clean up temporary game objets.
-		Destroy(upperArmAxisCorrection);
-		Destroy(forearmAxisCorrection);
-		Destroy(handAxisCorrection);
+		Destroy(upperArmAxisCorrection.gameObject);
+		Destroy(forearmAxisCorrection.gameObject);
+		Destroy(handAxisCorrection.gameObject);
 
+		LastestTargetPosition = target.transform.position;
 		//Transition.
 		//transition = Mathf.Clamp01(transition);
 		//upperArm.rotation = Quaternion.Slerp(upperArmRotation, upperArm.rotation, transition);

@@ -29,9 +29,13 @@ public class BaseWeapon : MonoBehaviour
     public int Damage = 1;
     public int ArmorPenetration = 1;
 
-    protected LineRenderer m_laser;
+	public Animator animator;
+
+    public bool m_showLaser = false;
+	protected LineRenderer m_laser;
     protected Transform bulletHitParent;
     
+
     protected virtual void Start()
     {
         m_laser = GetComponent<LineRenderer>();
@@ -60,8 +64,16 @@ public class BaseWeapon : MonoBehaviour
 	{
         if (m_laser)
         {
-            m_laser.SetPosition(0, m_muzzle.position);
-            m_laser.SetPosition(1, m_muzzle.position + m_muzzle.forward * m_maxRange);
+            if(m_showLaser)
+            {
+                m_laser.SetPosition(0, m_muzzle.position);
+                m_laser.SetPosition(1, m_muzzle.position + m_muzzle.forward * m_maxRange);
+            }
+            else
+            {
+                m_laser.SetPosition(0, m_muzzle.position);
+                m_laser.SetPosition(1, m_muzzle.position);
+            }
         }
 	}
 }

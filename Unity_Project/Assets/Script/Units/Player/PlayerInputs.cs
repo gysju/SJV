@@ -6,6 +6,7 @@ using UnityEngine.PS4;
 #endif
 public class PlayerInputs : MonoBehaviour
 {
+	public static PlayerInputs Instance = null;
     protected Camera m_mainCamera;
 
     public BaseMecha m_mecha;
@@ -38,21 +39,28 @@ public class PlayerInputs : MonoBehaviour
     private void PSMoveStart()
     {
         m_baseOffset = Vector3.zero;
-        m_leftController = trackedDeviceMoveControllers.primaryController.GetComponent<MoveController>();
-        m_rightController = trackedDeviceMoveControllers.secondaryController.GetComponent<MoveController>();
+		m_leftController = trackedDeviceMoveControllers.primaryMoveController;
+		m_rightController = trackedDeviceMoveControllers.secondaryMoveController;
 		m_lastMovement = Vector3.zero;
     }
 #endif
 
     void Start ()
 	{
-        m_mainCamera = Camera.main;
-        if (!m_mecha) m_mecha = GetComponentInParent<BaseMecha>();
-        if (!m_torso) m_torso = m_mecha.m_torso;
-        m_torsoConnected = m_torso;
-#if UNITY_PS4
-        PSMoveStart();
-#endif
+		if (Instance == null) 
+		{
+			Instance = this;
+
+			m_mainCamera = Camera.main;
+			if (!m_mecha) m_mecha = GetComponentInParent<BaseMecha>();
+			if (!m_torso) m_torso = m_mecha.m_torso;
+			m_torsoConnected = m_torso;
+			#if UNITY_PS4
+			PSMoveStart();
+			#endif
+		}
+		else if (Instance != this)
+			Destroy(gameObject);
     }
 
     protected void CheckPilotHead()
@@ -136,7 +144,9 @@ public class PlayerInputs : MonoBehaviour
 
     void PSMoveInputs()
     {
-		if (m_leftController.GetButtonDown(MoveController.MoveButton.MoveButton_Trigger)) m_mecha.LeftArmWeaponTriggered();
+        PSMoveLeftWeaponControl();
+        PSMoveRightWeaponControl();
+        if (m_leftController.GetButtonDown(MoveController.MoveButton.MoveButton_Trigger)) m_mecha.LeftArmWeaponTriggered();
 		if (m_leftController.GetButtonUp(MoveController.MoveButton.MoveButton_Trigger)) m_mecha.LeftArmWeaponTriggerReleased();
 
         if (m_rightController.GetButtonDown(MoveController.MoveButton.MoveButton_Trigger)) m_mecha.RightArmWeaponTriggered();
@@ -231,6 +241,7 @@ public class PlayerInputs : MonoBehaviour
 
     void MouseKeyboardInputs()
     {
+        Cursor.lockState = CursorLockMode.Locked;
         MouseAim();
         MouseShootInputs();
         //KeyboardMovements();

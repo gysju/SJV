@@ -1,0 +1,199 @@
+fileFormatVersion: 2
+guid: a42ede442fd20ce44ad44f281be3b061
+timeCreated: 1484829764
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Back_L_Foot
+    100002: Back_L_Hips
+    100004: Back_L_Leg
+    100006: Back_L_Wheel
+    100008: Back_R_Foot
+    100010: Back_R_Hips
+    100012: Back_R_Leg
+    100014: Back_R_Wheel
+    100016: Center
+    100018: Cockpit
+    100020: Front_L_Foot
+    100022: Front_L_Hips
+    100024: Front_L_Leg
+    100026: Front_L_Wheel
+    100028: Front_R_Foot
+    100030: Front_R_Hips
+    100032: Front_R_Leg
+    100034: Front_R_Wheel
+    100036: Root
+    100038: Tank
+    100040: //RootNode
+    100042: X_axis_Turret
+    100044: Y_axis_Turret
+    400000: Back_L_Foot
+    400002: Back_L_Hips
+    400004: Back_L_Leg
+    400006: Back_L_Wheel
+    400008: Back_R_Foot
+    400010: Back_R_Hips
+    400012: Back_R_Leg
+    400014: Back_R_Wheel
+    400016: Center
+    400018: Cockpit
+    400020: Front_L_Foot
+    400022: Front_L_Hips
+    400024: Front_L_Leg
+    400026: Front_L_Wheel
+    400028: Front_R_Foot
+    400030: Front_R_Hips
+    400032: Front_R_Leg
+    400034: Front_R_Wheel
+    400036: Root
+    400038: Tank
+    400040: //RootNode
+    400042: X_axis_Turret
+    400044: Y_axis_Turret
+    4300000: Tank
+    7400000: Idle
+    9500000: //RootNode
+    13700000: Tank
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Idle
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 27
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Root
+        weight: 1
+      - path: Root/Center
+        weight: 1
+      - path: Root/Center/Back_L_Hips
+        weight: 1
+      - path: Root/Center/Back_L_Hips/Back_L_Leg
+        weight: 1
+      - path: Root/Center/Back_L_Hips/Back_L_Leg/Back_L_Foot
+        weight: 1
+      - path: Root/Center/Back_L_Hips/Back_L_Leg/Back_L_Foot/Back_L_Wheel
+        weight: 1
+      - path: Root/Center/Back_R_Hips
+        weight: 1
+      - path: Root/Center/Back_R_Hips/Back_R_Leg
+        weight: 1
+      - path: Root/Center/Back_R_Hips/Back_R_Leg/Back_R_Foot
+        weight: 1
+      - path: Root/Center/Back_R_Hips/Back_R_Leg/Back_R_Foot/Back_R_Wheel
+        weight: 1
+      - path: Root/Center/Cockpit
+        weight: 1
+      - path: Root/Center/Cockpit/Y_axis_Turret
+        weight: 1
+      - path: Root/Center/Cockpit/Y_axis_Turret/X_axis_Turret
+        weight: 1
+      - path: Root/Center/Front_L_Hips
+        weight: 1
+      - path: Root/Center/Front_L_Hips/Front_L_Leg
+        weight: 1
+      - path: Root/Center/Front_L_Hips/Front_L_Leg/Front_L_Foot
+        weight: 1
+      - path: Root/Center/Front_L_Hips/Front_L_Leg/Front_L_Foot/Front_L_Wheel
+        weight: 1
+      - path: Root/Center/Front_R_Hips
+        weight: 1
+      - path: Root/Center/Front_R_Hips/Front_R_Leg
+        weight: 1
+      - path: Root/Center/Front_R_Hips/Front_R_Leg/Front_R_Foot
+        weight: 1
+      - path: Root/Center/Front_R_Hips/Front_R_Leg/Front_R_Foot/Front_R_Wheel
+        weight: 1
+      - path: Tank
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

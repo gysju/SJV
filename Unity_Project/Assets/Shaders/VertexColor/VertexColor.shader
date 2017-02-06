@@ -78,15 +78,11 @@
 			o.Albedo = (RGB_Nx_One.rgb + RGB_Nx_Two + RGB_Nx_Three);
 
 			// normal 
-			half3 N_One = UnpackNormal(float4(0,RGB_Nx_One.a, 0, MRE_Ny_One.a));
-			half3 N_Two = UnpackNormal(float4(0,RGB_Nx_Two.a, 0, MRE_Ny_Two.a));
-			half3 N_Three = UnpackNormal(float4(0,RGB_Nx_Three.a, 0, MRE_Ny_Three.a));
+			float normX = ( RGB_Nx_One.a * IN.color.r ) + ( RGB_Nx_Two.a * IN.color.g ) + ( RGB_Nx_Three.a * IN.color.b )  ;
+			float normY = ( MRE_Ny_One.a * IN.color.r ) + ( MRE_Ny_Two.a * IN.color.g ) + ( MRE_Ny_Three.a * IN.color.b )  ;
+			float normIntensity = ( _NormalIntensityOne * IN.color.r ) + ( _NormalIntensityTwo * IN.color.g ) + ( _NormalIntensityThree * IN.color.b )  ;
 
-			N_One *= IN.color.r * _NormalIntensityOne;
-			N_Two *= IN.color.g * _NormalIntensityTwo;
-			N_Three *= IN.color.b * _NormalIntensityThree;
-
-			o.Normal = normalize(N_One + N_Two + N_Three);
+			o.Normal = UnpackScaleNormal(float4(0,normX, 0, normY), normIntensity);
 
 			// Metalness
 			MRE_Ny_One.r *= IN.color.r * _MetallicOne;

@@ -38,6 +38,10 @@ public class BaseUnit : MonoBehaviour
     [Range(MIN_ARMOR, MAX_ARMOR)]
     public int m_armor;
 
+    [Header("Unit's point to target")]
+    [Tooltip("Unit's point an IA will aim to.")]
+    public Transform m_targetPoint;
+
     [Header("Weapons")]
     [Tooltip("Unit's Weapons list.")]
     public List<BaseWeapon> m_weapons = new List<BaseWeapon>();
@@ -45,6 +49,7 @@ public class BaseUnit : MonoBehaviour
     protected virtual void Awake()
     {
         m_transform = transform;
+        if (!m_targetPoint) m_targetPoint = m_transform;
         m_currentHitPoints = m_startingHitPoints;
         CheckHitPoints();
     }
@@ -59,6 +64,11 @@ public class BaseUnit : MonoBehaviour
     public bool IsDestroyed()
     {
         return m_destroyed;
+    }
+
+    public int GetCurrentHitPoints()
+    {
+        return m_currentHitPoints;
     }
 
     protected IEnumerator Dying()
@@ -123,6 +133,22 @@ public class BaseUnit : MonoBehaviour
         else return false;
     }
     #endregion
+
+    public virtual void LaserOn()
+    {
+        foreach (BaseWeapon weapon in m_weapons)
+        {
+            weapon.m_showLaser = true;
+        }
+    }
+
+    public virtual void LaserOff()
+    {
+        foreach (BaseWeapon weapon in m_weapons)
+        {
+            weapon.m_showLaser = false;
+        }
+    }
 
     void Update ()
 	{

@@ -33,7 +33,7 @@
 			{
 				v2f o;
 				o.vertex = mul(UNITY_MATRIX_MVP, v.vertex);
-            o.color = v.color;
+            	o.color = v.color;
 				return o;
 			}
 			

@@ -7,44 +7,82 @@ using UnityEngine.PS4.VR;
 #endif
 
 public class TrackedDeviceMoveControllers : MonoBehaviour {
-	public Transform primaryController;
-	public Transform secondaryController;
+	public static TrackedDeviceMoveControllers Instance;
+
+	public MoveController primaryMoveController;
+	public MoveController secondaryMoveController;
+
     public Renderer[] illuminatedComponents;
+
+    public Transform targetLeft;
+    public Transform targetRight;
+
+	public Vector3 TargetBias;
+
+    [Range( 0.0f, 5.0f)]
+    public float IkIntensity = 1.5f;
+
+	private Transform primaryController;
+	private Transform secondaryController;
+
 #if UNITY_PS4
-	private int m_primaryHandle = -1;
+    private int m_primaryHandle = -1;
 	private int m_secondaryHandle = -1;
+
 	private Vector3 primaryPosition = Vector3.zero;
 	private Quaternion primaryOrientation = Quaternion.identity;
+
 	private Vector3 secondaryPosition = Vector3.zero;
 	private Quaternion secondaryOrientation = Quaternion.identity;
 
-	IEnumerator Start()
+	private Vector3 primaryPositionOriginPos = Vector3.zero;
+	private Vector3 secondaryPositionOriginPos = Vector3.zero;
+
+    private Vector3 targetLeftOriginPos;
+    private Vector3 targetRightOriginPos;
+
+    IEnumerator Start()
 	{
-		if(!primaryController || !secondaryController || !primaryController.gameObject.activeSelf || !secondaryController.gameObject.activeSelf)
+		if (Instance == null) 
 		{
-			Debug.LogWarning("A controller is either null or inactive!");
-			this.enabled = false;
-		}
+			Instance = this;
+		
+			primaryController = primaryMoveController.transform;
+			secondaryController = secondaryMoveController.transform;
 
-		// Keep waiting until we have a VR Device available
-		while(!VRDevice.isPresent)
-			yield return new WaitForSeconds(1.0f);
+			if (!primaryController || !secondaryController || !primaryController.gameObject.activeSelf || !secondaryController.gameObject.activeSelf) {
+				Debug.LogWarning ("A controller is either null or inactive!");
+				this.enabled = false;
+			}
 
-		// Make sure the device we now have is PlayStation VR
-#if UNITY_5_3
-        if (VRSettings.loadedDevice != VRDeviceType.PlayStationVR)
-#elif UNITY_5_4_OR_NEWER
-        if (VRSettings.loadedDeviceName != VRDeviceNames.PlayStationVR)
-#endif
+			// Keep waiting until we have a VR Device available
+			while (!VRDevice.isPresent)
+				yield return new WaitForSeconds (1.0f);
+
+			// Make sure the device we now have is PlayStation VR
+			#if UNITY_5_3
+			if (VRSettings.loadedDevice != VRDeviceType.PlayStationVR)
+			#elif UNITY_5_4_OR_NEWER
+			if (VRSettings.loadedDeviceName != VRDeviceNames.PlayStationVR)
+			#endif
+			{
+				Debug.LogWarning ("Tracking only works for PS4!");
+				this.enabled = false;
+			} else {
+				ResetControllerTracking ();
+			}
+
+			if (targetLeft != null && targetRight != null) 
+			{
+				targetLeftOriginPos = targetLeft.localPosition;
+				targetRightOriginPos = targetRight.localPosition;
+			}
+		} 
+		else if (Instance != this) 
 		{
-			Debug.LogWarning("Tracking only works for PS4!");
-			this.enabled = false;
+			Destroy(gameObject);
 		}
-		else
-		{
-			ResetControllerTracking();
-		}
-	}
+    }
 
 	void Update()
 	{
@@ -64,10 +102,14 @@ public class TrackedDeviceMoveControllers : MonoBehaviour {
 			if(m_primaryHandle >= 0)
 			{
 				if( Tracker.GetTrackedDevicePosition(m_primaryHandle, out primaryPosition) == PlayStationVRResult.Ok )
-					primaryController.localPosition = primaryPosition;
+                	primaryController.localPosition = primaryPosition;
+                 
 
                 if (Tracker.GetTrackedDeviceOrientation(m_primaryHandle, out primaryOrientation) == PlayStationVRResult.Ok)
 					primaryController.localRotation = primaryOrientation;
+
+				if(targetLeft != null)
+					targetLeft.transform.localPosition = targetLeftOriginPos - (primaryPositionOriginPos - primaryController.localPosition) * IkIntensity + TargetBias;
 			}
 
 			// Perform tracking for the secondary controller, if we've got a handle
@@ -78,6 +120,9 @@ public class TrackedDeviceMoveControllers : MonoBehaviour {
 
                 if (Tracker.GetTrackedDeviceOrientation(m_secondaryHandle, out secondaryOrientation) == PlayStationVRResult.Ok)
 					secondaryController.localRotation = secondaryOrientation;
+
+				if (targetRight != null) 
+					targetRight.transform.localPosition = (targetRightOriginPos - (secondaryPositionOriginPos - secondaryController.localPosition)) * IkIntensity + TargetBias;
 			}
 		}
 	}
@@ -123,13 +168,21 @@ public class TrackedDeviceMoveControllers : MonoBehaviour {
 
         PlayStationVRTrackingColor trackedColor;
         Tracker.GetTrackedDeviceLedColor(m_primaryHandle, out trackedColor);
-        illuminatedComponents[0].material.color = GetUnityColor(trackedColor);
+        //illuminatedComponents[0].material.color = GetUnityColor(trackedColor);
 
         if (secondaryController)
         {
             Tracker.GetTrackedDeviceLedColor(m_secondaryHandle, out trackedColor);
-            illuminatedComponents[1].material.color = GetUnityColor(trackedColor);
+            //illuminatedComponents[1].material.color = GetUnityColor(trackedColor);
         }
+
+        // check target's origin position
+        
+        if( m_primaryHandle >= 0 && Tracker.GetTrackedDevicePosition(m_primaryHandle, out primaryPosition) == PlayStationVRResult.Ok )
+            primaryPositionOriginPos = primaryController.localPosition = primaryPosition;
+
+        if (secondaryController && m_secondaryHandle >= 0 && Tracker.GetTrackedDevicePosition(m_secondaryHandle, out secondaryPosition) == PlayStationVRResult.Ok)
+            secondaryPositionOriginPos = secondaryController.localPosition = secondaryPosition;
     }
 
 	// Remove the registered devices from tracking and reset the transform
@@ -171,5 +224,18 @@ public class TrackedDeviceMoveControllers : MonoBehaviour {
                 return Color.black;
         }
     }
+#elif UNITY_5_4_OR_NEWER
+	void Start()
+	{
+		if (Instance == null)
+		{
+			primaryController = primaryMoveController.transform;
+			secondaryController = secondaryMoveController.transform;
+			Instance = this;
+		}
+		else if (Instance != this)
+			Destroy(gameObject);
+
+	}
 #endif
 }
