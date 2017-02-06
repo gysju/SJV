@@ -186,8 +186,8 @@ public class EnemiesManager : MonoBehaviour
             }
             else
             {
-                if (m_waveToShow < m_enemiesWaves.Count)
-                foreach (SpawnObject spawn in m_enemiesWaves[m_waveToShow].Spawns)
+                if (m_waveToShow <= m_enemiesWaves.Count)
+                foreach (SpawnObject spawn in m_enemiesWaves[m_waveToShow - 1].Spawns)
                 {
                     Mesh mesh;
                     if (spawn.Unit)
