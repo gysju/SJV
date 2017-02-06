@@ -990,7 +990,7 @@ GameObject:
   - component: {fileID: 114752853078164610}
   - component: {fileID: 114686419782857426}
   m_Layer: 12
-  m_Name: Image
+  m_Name: EnemyHUDLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1391,7 +1391,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1856631619897172
 GameObject:
   m_ObjectHideFlags: 1
@@ -4254,7 +4254,7 @@ MonoBehaviour:
   - {fileID: 0}
   targetLeft: {fileID: 4657350458177580}
   targetRight: {fileID: 4880806072056616}
-  TargetBias: 1
+  TargetBias: {x: 0, y: 0, z: 0}
   IkIntensity: 1
 --- !u!114 &114252165880481978
 MonoBehaviour:
@@ -4290,6 +4290,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 3584
   OtherLaser: {fileID: 114385721013008422}
+  enemyHUD: {fileID: 0}
 --- !u!114 &114309889164340198
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4305,8 +4306,6 @@ MonoBehaviour:
   m_torso: {fileID: 114857813329560898}
   m_maxHorinzontalHeadAngle: 10
   m_maxVerticalHeadAngle: 75
-  trackedDeviceMoveControllers: {fileID: 114214402283542230}
-  MinimumAngleToRotate: 15
 --- !u!114 &114382664145636892
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4339,6 +4338,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 3584
   OtherLaser: {fileID: 114271186923557378}
+  enemyHUD: {fileID: 114686419782857426}
 --- !u!114 &114450674352891792
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4468,7 +4468,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiPlane: {fileID: 224833456007022926}
-  test: {fileID: 0}
 --- !u!114 &114695984342795636
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4586,6 +4585,7 @@ MonoBehaviour:
   Damage: 1
   ArmorPenetration: 1
   animator: {fileID: 95428034692983874}
+  m_showLaser: 0
 --- !u!114 &114773170378738556
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4657,6 +4657,7 @@ MonoBehaviour:
   Damage: 1
   ArmorPenetration: 1
   animator: {fileID: 95376148510901328}
+  m_showLaser: 0
 --- !u!114 &114905708658305850
 MonoBehaviour:
   m_ObjectHideFlags: 1
