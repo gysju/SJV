@@ -34,11 +34,6 @@ public class AirEnemy : BaseEnemy
     {
         base.ResetUnit(spawn, movementTarget, target);
     }
-
-    public override void TestUnit()
-    {
-        ResetUnit(new Vector3(5f, 2f, 120f), new Vector3(5f, 10f, 25f), FindObjectOfType<Player>().transform);
-    }
     #endregion
 
 	#region HitPoints Related
@@ -111,7 +106,8 @@ public class AirEnemy : BaseEnemy
     protected void MovementOver()
     {
         m_enemyState = EnemyState.EnemyState_Attacking;
-        AimWeaponAt(m_target.gameObject.GetComponentInChildren<Renderer>().bounds.center);
+        LaserOn();
+        AimWeaponAt(m_target.position);
     }
     #endregion
 

@@ -19,7 +19,6 @@ public class BaseEnemy : BaseUnit
 
     [Header("Attack")]
     [Tooltip("Time the unit will take to shoot.")]
-    [ContextMenuItem("Test Unit", "TestUnit")]
     [Range(1f, 5f)]
     public float m_timeToAttack = 2f;
     protected float m_currentTimeToAttack;
@@ -57,11 +56,10 @@ public class BaseEnemy : BaseUnit
         m_enemyState = EnemyState.EnemyState_Sleep;
 
 		HUD_Radar.Instance.AddInfo (this);
-    }
 
-    public virtual void TestUnit()
-    {
-        ResetUnit(new Vector3(15f,0f, 120f), new Vector3(5f, 0f, 50f), FindObjectOfType<Player>().transform);
+        LaserOff();
+
+        StartCoroutine (SpawnFade ());
     }
     #endregion
 
@@ -73,13 +71,15 @@ public class BaseEnemy : BaseUnit
         m_target = null;
         m_enemyState = EnemyState.EnemyState_Sleep;
 		HUD_Radar.Instance.RemoveInfo (this);
+        LaserOff();
+		StartCoroutine (DeathFade());
         base.StartDying();
     }
 
     protected override void FinishDying()
     {
         m_poolManager.PoolUnit(this);
-		material.SetFloat ("_AlphaValue", 1.0f);
+		//material.SetFloat ("_AlphaValue", 1.0f);
     }
     #endregion
 
@@ -132,7 +132,7 @@ public class BaseEnemy : BaseUnit
 		StartCoroutine (DeathFade ());
 	}
 
-	IEnumerator DeathFade()
+	public IEnumerator DeathFade()
 	{
 		float time = 0.0f;
 
@@ -140,6 +140,18 @@ public class BaseEnemy : BaseUnit
 		{
 			time += Time.deltaTime;
 			material.SetFloat("_AlphaValue", Mathf.Lerp(1.0f, 0.0f, (time / DeathfadeSpeed))); 
+			yield return null; 	
+		}
+	}
+
+	public IEnumerator SpawnFade()
+	{
+		float time = 0.0f;
+
+		while( time < DeathfadeSpeed )
+		{
+			time += Time.deltaTime;
+			material.SetFloat("_AlphaValue", Mathf.Lerp(0.0f, 1.0f, (time / DeathfadeSpeed))); 
 			yield return null; 	
 		}
 	}

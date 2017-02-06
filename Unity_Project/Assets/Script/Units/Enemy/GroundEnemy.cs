@@ -91,7 +91,8 @@ public class GroundEnemy : BaseEnemy
     protected void MovementOver()
     {
         m_enemyState = EnemyState.EnemyState_Attacking;
-        AimWeaponAt(m_target.gameObject.GetComponentInChildren<Renderer>().bounds.center);
+        AimWeaponAt(m_target.position);
+        LaserOn();
 		if ( animator != false )
 			animator.SetTrigger ("Idle");
     }
@@ -127,6 +128,7 @@ public class GroundEnemy : BaseEnemy
                     break;
                 case EnemyState.EnemyState_Attacking:
                     m_currentTimeToAttack -= Time.deltaTime;
+                    AimWeaponAt(m_target.position);
                     if (m_currentTimeToAttack <= 0)
                     {
                         Fire();
