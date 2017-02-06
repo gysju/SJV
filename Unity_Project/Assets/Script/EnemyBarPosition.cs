@@ -5,7 +5,7 @@ using System.Collections;
 public class EnemyBarPosition : MonoBehaviour
 {
     public RectTransform uiPlane;
-    public Transform test;
+    public Vector3? enemyPosition = null;
     private RectTransform rt;
     private Image im;
 
@@ -17,15 +17,19 @@ public class EnemyBarPosition : MonoBehaviour
 
     void Update ()
 	{
-        
-        Vector2 pos = RectTransformUtility.WorldToScreenPoint(Camera.main, test.position);
-        Vector2 newPos;
-        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(uiPlane, pos, Camera.main, out newPos) && Vector3.Dot(Camera.main.transform.forward, (test.position - Camera.main.transform.forward)) > 0)
+        if (enemyPosition.HasValue)
         {
-            im.CrossFadeAlpha(1f, 0f, false);
-            rt.anchoredPosition = newPos;
+            Vector2 pos = RectTransformUtility.WorldToScreenPoint(Camera.main, enemyPosition.Value);
+            Vector2 newPos;
+            if (RectTransformUtility.ScreenPointToLocalPointInRectangle(uiPlane, pos, Camera.main, out newPos) && Vector3.Dot(Camera.main.transform.forward, (enemyPosition.Value - Camera.main.transform.forward)) > 0)
+            {
+                im.CrossFadeAlpha(1f, 0f, false);
+                rt.anchoredPosition = newPos;
+            }
+            else
+            {
+                im.CrossFadeAlpha(0f, 0f, false);
+            }
         }
-        else
-            im.CrossFadeAlpha(0f, 0f, false);
     }
 }

@@ -12,6 +12,7 @@ public class LaserPointingSystem : MonoBehaviour {
 	private LayerMask mask;
 
 	public LaserPointingSystem OtherLaser;
+    public EnemyBarPosition enemyHUD;
 
 	private LineRenderer lineRenderer;
 	private RaycastHit hit;
@@ -38,19 +39,27 @@ public class LaserPointingSystem : MonoBehaviour {
 		InputUI(); 
 		if (count >= 1)  
 		{
-			if (Physics.Raycast (ThisTransform.position, ThisTransform.forward, out hit, 1000.0f, mask))  
+			if (Physics.Raycast (ThisTransform.position, ThisTransform.forward, out hit, 250.0f, mask))  
 			{
 				lineRenderer.SetPosition (1, Vector3.forward * hit.distance);
 				detectionType (hit);
 
-				#if UNITY_PS4
+#if UNITY_PS4
 				if (move != null)
 				{
 					move.lookAtHit = hit.point;
+                    if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Unit"))
+                    {
+                        enemyHUD.enemyPosition = hit.point;
+                    }
+                    else
+                    {
+                        enemyHUD = null;
+                    }
 				}
-				#endif
-			} 
-			else 
+#endif
+            }
+            else 
 			{
 				lineRenderer.SetPosition (1, Vector3.forward * MinimalDistance);
 				buttonSelected = null;
