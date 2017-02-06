@@ -4272,6 +4272,8 @@ MonoBehaviour:
   m_torso: {fileID: 114857813329560898}
   m_maxHorinzontalHeadAngle: 10
   m_maxVerticalHeadAngle: 75
+  trackedDeviceMoveControllers: {fileID: 114214402283542230}
+  MinimumAngleToRotate: 15
 --- !u!114 &114382664145636892
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4571,7 +4573,7 @@ MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1099836437830004}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cb72a94f424ed824aad14682cd21cf27, type: 3}
@@ -4589,7 +4591,7 @@ MonoBehaviour:
   m_imprecision: 0
   Damage: 1
   ArmorPenetration: 1
-  animator: {fileID: 95428034692983874}
+  animator: {fileID: 0}
   m_showLaser: 0
 --- !u!114 &114773170378738556
 MonoBehaviour:
@@ -4638,14 +4640,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eState_Menu: 0
   trackedDeviceControllers: {fileID: 0}
-<<<<<<< HEAD
-=======
 --- !u!114 &114893201521165206
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1242971924985836}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cb72a94f424ed824aad14682cd21cf27, type: 3}
@@ -4654,18 +4654,17 @@ MonoBehaviour:
   m_mask:
     serializedVersion: 2
     m_Bits: 3584
-  m_muzzle: {fileID: 4609231100027324}
-  m_muzzleFlash: {fileID: 198348092280060016}
+  m_muzzle: {fileID: 0}
+  m_muzzleFlash: {fileID: 0}
   m_bulletHit: {fileID: 1000012052525916, guid: 68061645ae90cc14c8dd597ae2e0f1ad,
     type: 2}
-  m_shotSound: {fileID: 82110387083930924}
+  m_shotSound: {fileID: 0}
   m_maxRange: 100
   m_imprecision: 0
   Damage: 1
   ArmorPenetration: 1
-  animator: {fileID: 95376148510901328}
+  animator: {fileID: 0}
   m_showLaser: 0
->>>>>>> 56f5961274455e7c845df0422077e1acfada636f
 --- !u!114 &114905708658305850
 MonoBehaviour:
   m_ObjectHideFlags: 1
