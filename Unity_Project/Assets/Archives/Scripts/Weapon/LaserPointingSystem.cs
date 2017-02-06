@@ -48,19 +48,21 @@ public class LaserPointingSystem : MonoBehaviour {
 				if (move != null)
 				{
 					move.lookAtHit = hit.point;
+					//Debug.Log(hit.transform.gameObject.layer);
                     if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Unit"))
-                    {
+					{
                         enemyHUD.enemyPosition = hit.point;
                     }
                     else
                     {
-                        enemyHUD = null;
+						enemyHUD.enemyPosition = null;
                     }
 				}
 #endif
             }
             else 
 			{
+				enemyHUD.enemyPosition = null;
 				lineRenderer.SetPosition (1, Vector3.forward * MinimalDistance);
 				buttonSelected = null;
 

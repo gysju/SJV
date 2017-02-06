@@ -31,5 +31,9 @@ public class EnemyBarPosition : MonoBehaviour
                 im.CrossFadeAlpha(0f, 0f, false);
             }
         }
+		else
+		{
+			im.CrossFadeAlpha(0f, 0f, false);
+		}
     }
 }
