@@ -1,30 +1,29 @@
 fileFormatVersion: 2
-guid: e2a15860c43370e4fad4d08b9ca56ed3
-timeCreated: 1484172710
-licenseType: Free
+guid: 039b97c7bc48e63469bd7160b9db5d23
+timeCreated: 1486387955
+licenseType: Pro
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: AutoGun
-    100002: AutoGun_Holder
-    100004: Canon
+    100000: AutoGun_Holder
+    100002: Canon
+    100004: Core
     100006: FrontGun
     100008: //RootNode
-    100010: Reload
-    400000: AutoGun
-    400002: AutoGun_Holder
-    400004: Canon
+    100010: RearGun
+    100012: Reload
+    400000: AutoGun_Holder
+    400002: Canon
+    400004: Core
     400006: FrontGun
     400008: //RootNode
-    400010: Reload
-    2300000: AutoGun
-    3300000: AutoGun
-    4300000: AutoGun
-    7400000: fire
+    400010: RearGun
+    400012: Reload
+    4300000: RearGun
     9500000: //RootNode
-    13700000: AutoGun
+    13700000: RearGun
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
   animations:
@@ -37,53 +36,13 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
-    animationCompression: 3
+    animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations:
-    - serializedVersion: 16
-      name: fire
-      takeName: Take 001
-      firstFrame: 0
-      lastFrame: 5
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: AutoGun
-        weight: 1
-      - path: AutoGun_Holder
-        weight: 1
-      - path: AutoGun_Holder/FrontGun
-        weight: 1
-      - path: AutoGun_Holder/FrontGun/Canon
-        weight: 1
-      - path: AutoGun_Holder/Reload
-        weight: 1
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+    clipAnimations: []
     isReadable: 1
   meshes:
     lODScreenPercentages: []
@@ -106,7 +65,7 @@ ModelImporter:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
-  importAnimation: 0
+  importAnimation: 1
   copyAvatar: 0
   humanDescription:
     serializedVersion: 2
@@ -122,7 +81,7 @@ ModelImporter:
     rootMotionBoneName: 
     rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
-    hasExtraRoot: 1
+    hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2
