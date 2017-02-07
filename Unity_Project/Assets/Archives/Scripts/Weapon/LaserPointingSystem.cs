@@ -13,6 +13,8 @@ public class LaserPointingSystem : MonoBehaviour {
 
 	public LaserPointingSystem OtherLaser;
     public EnemyBarPosition enemyHUD;
+    [HideInInspector]
+    public GameObject currentPointedObject = null;
 
 	private LineRenderer lineRenderer;
 	private RaycastHit hit;
@@ -48,22 +50,26 @@ public class LaserPointingSystem : MonoBehaviour {
 				if (move != null)
 				{
 					move.lookAtHit = hit.point;
-					//Debug.Log(hit.transform.gameObject.layer);
-                    if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Unit"))
+                    GameObject hitGameObject = hit.transform.gameObject;
+                    bool unitLayer = (hitGameObject.layer == LayerMask.NameToLayer("Unit"));
+                    if (hitGameObject != currentPointedObject && hitGameObject != OtherLaser.currentPointedObject && unitLayer)
 					{
-                        enemyHUD.enemyPosition = hit.point;
+                        currentPointedObject = hitGameObject;
+                        enemyHUD.SetEnemy(currentPointedObject);
                     }
-                    else
+                    else if (!unitLayer)
                     {
-						enemyHUD.enemyPosition = null;
+                        currentPointedObject = null;
+						enemyHUD.EraseEnemy();
                     }
 				}
 #endif
             }
-            else 
-			{
-				enemyHUD.enemyPosition = null;
-				lineRenderer.SetPosition (1, Vector3.forward * MinimalDistance);
+            else
+            {
+                currentPointedObject = null;
+                enemyHUD.EraseEnemy();
+                lineRenderer.SetPosition (1, Vector3.forward * MinimalDistance);
 				buttonSelected = null;
 
 				if (eventSystem != null && OtherLaser != null && OtherLaser.buttonSelected == null) 
