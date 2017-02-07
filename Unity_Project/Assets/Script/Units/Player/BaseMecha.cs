@@ -4,6 +4,7 @@ using System.Collections;
 public class BaseMecha : BaseUnit
 {
 	public static BaseMecha Instance = null;
+	public float VibrationSpeed = 0.3f;
 
     protected BaseWeapon m_leftWeapon;
     protected BaseWeapon m_rightWeapon;
@@ -69,7 +70,7 @@ public class BaseMecha : BaseUnit
         m_leftWeapon.TriggerPressed();
 		if( previousLeftVibrationCoroutine != null )
 			StopCoroutine ( previousLeftVibrationCoroutine);
-		previousLeftVibrationCoroutine = TrackedDeviceMoveControllers.Instance.primaryMoveController.Vibration (100, .5f);
+		previousLeftVibrationCoroutine = TrackedDeviceMoveControllers.Instance.primaryMoveController.Vibration (100, VibrationSpeed);
 		StartCoroutine( previousLeftVibrationCoroutine );
     }
 
@@ -83,7 +84,7 @@ public class BaseMecha : BaseUnit
         m_rightWeapon.TriggerPressed();
 		if( previousRightVibrationCoroutine != null )
 			StopCoroutine ( previousRightVibrationCoroutine);
-		previousRightVibrationCoroutine = TrackedDeviceMoveControllers.Instance.secondaryMoveController.Vibration (100, .5f);
+		previousRightVibrationCoroutine = TrackedDeviceMoveControllers.Instance.secondaryMoveController.Vibration (100, VibrationSpeed);
 		StartCoroutine( previousRightVibrationCoroutine );
     }
 
