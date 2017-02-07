@@ -32,11 +32,11 @@ public class EnemyBarPosition : MonoBehaviour
         {
             Vector2 pos = RectTransformUtility.WorldToScreenPoint(Camera.main, enemy.transform.position);
             Vector2 newPos;
-            if (RectTransformUtility.ScreenPointToLocalPointInRectangle(uiPlane, pos, Camera.main, out newPos) && Vector3.Dot(Camera.main.transform.forward, (enemy.transform.position - Camera.main.transform.forward)) > 0)
+            if (enemy.GetCurrentHitPoints() > 0 && RectTransformUtility.ScreenPointToLocalPointInRectangle(uiPlane, pos, Camera.main, out newPos) && Vector3.Dot(Camera.main.transform.forward, (enemy.transform.position - Camera.main.transform.forward)) > 0)
             {
                 im.CrossFadeAlpha(1f, 0f, false);
                 gauge.CrossFadeAlpha(1f, 0f, false);
-                gauge.fillAmount = enemy.GetCurrentHitPoints() / enemy.m_maxHitPoints / 1f;
+                gauge.fillAmount = enemy.GetCurrentHitPoints() * 1f / enemy.m_maxHitPoints;
                 rt.anchoredPosition = newPos;
             }
             else
