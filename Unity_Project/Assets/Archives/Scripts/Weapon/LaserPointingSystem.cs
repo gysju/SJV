@@ -68,7 +68,8 @@ public class LaserPointingSystem : MonoBehaviour {
             else
             {
                 currentPointedObject = null;
-                enemyHUD.EraseEnemy();
+				if ( enemyHUD != null)
+                	enemyHUD.EraseEnemy();
                 lineRenderer.SetPosition (1, Vector3.forward * MinimalDistance);
 				buttonSelected = null;
 
