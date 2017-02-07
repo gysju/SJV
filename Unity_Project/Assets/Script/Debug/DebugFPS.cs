@@ -6,26 +6,17 @@ using UnityEngine.UI;
 public class DebugFPS : MonoBehaviour {
 
 	private Text text;
-	private int value = 0;
-	private float time = 0;
+	private float deltaTime = 0;
 
 	void Start () {
 		text = GetComponent<Text> ();	
 	}
 	
-	void Update () {
+	void Update()
+	{
+		deltaTime += (Time.deltaTime - deltaTime) * 0.1f;
+		float fps = 1.0f / deltaTime;
 
-		if (time >= 1.0f) 
-		{
-			text.text = "fps : " + value;
-			time = 0.0f;
-			value = 0;
-		} 
-		else 
-		{
-			time += Time.deltaTime;
-			value += 1;
-		}
-
+		text.text = "fps : " + string.Format("{0:0.00}",fps); 
 	}
 }
