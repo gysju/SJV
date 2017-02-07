@@ -122,7 +122,10 @@ public class TrackedDeviceMoveControllers : MonoBehaviour {
 					secondaryController.localRotation = secondaryOrientation;
 
 				if (targetRight != null) 
-					targetRight.transform.localPosition = (targetRightOriginPos - (secondaryPositionOriginPos - secondaryController.localPosition)) * IkIntensity + TargetBias;
+				{
+					Vector3 dir = (secondaryPositionOriginPos - secondaryController.localPosition);
+					targetRight.transform.localPosition = (targetRightOriginPos - new Vector3(-dir.x, dir.y, dir.z)) * IkIntensity + TargetBias;
+				}
 			}
 		}
 	}
