@@ -2074,7 +2074,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1214236182891614}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalPosition: {x: 89.96, y: 20, z: 25.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4615243895940516}
@@ -4236,6 +4236,7 @@ MonoBehaviour:
   m_triggerType: 1
   m_maxBurstTime: 5
   m_rpm: 600
+  m_muzzleMaterial: {fileID: 0}
 --- !u!114 &114073977857048936
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4431,6 +4432,8 @@ MonoBehaviour:
   m_torso: {fileID: 114857813329560898}
   m_maxHorinzontalHeadAngle: 10
   m_maxVerticalHeadAngle: 75
+  trackedDeviceMoveControllers: {fileID: 114214402283542230}
+  MinimumAngleToRotate: 15
 --- !u!114 &114364286396532166
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4638,6 +4641,7 @@ MonoBehaviour:
   m_triggerType: 1
   m_maxBurstTime: 5
   m_rpm: 600
+  m_muzzleMaterial: {fileID: 0}
 --- !u!114 &114686419782857426
 MonoBehaviour:
   m_ObjectHideFlags: 1
