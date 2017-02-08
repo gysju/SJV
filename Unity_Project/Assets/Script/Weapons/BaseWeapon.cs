@@ -73,12 +73,12 @@ public class BaseWeapon : MonoBehaviour
         }
     }
 
-    protected virtual void FireWeapon(MoveController moveController)
+    protected virtual void FireWeapon(MoveController moveController = null)
     {
 
     }
     
-    public virtual void TriggerPressed(MoveController moveController)
+    public virtual void TriggerPressed(MoveController moveController = null)
     {
 
     }

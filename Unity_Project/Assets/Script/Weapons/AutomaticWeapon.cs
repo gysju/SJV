@@ -46,7 +46,7 @@ public class AutomaticWeapon : SemiAutomaticWeapon
         m_isFiring = false;
     }
 
-    public override void TriggerPressed(MoveController moveController)
+    public override void TriggerPressed(MoveController moveController = null)
     {
         switch (m_triggerType)
         {

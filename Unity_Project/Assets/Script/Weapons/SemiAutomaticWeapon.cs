@@ -21,7 +21,7 @@ public class SemiAutomaticWeapon : BaseWeapon
         if (m_shotSound) m_shotSound.Play();
     }
 
-    protected override void FireWeapon(MoveController moveController)
+    protected override void FireWeapon(MoveController moveController = null)
     {
 		if ( animator != null)
 			animator.SetTrigger ("Fired");
@@ -29,11 +29,12 @@ public class SemiAutomaticWeapon : BaseWeapon
         MuzzleFlash();
         ShotSound();
 
+#if UNITY_PS4
         if (moveController)
         {
             moveController.StartVibration(m_vibrationPower, m_vibrationDuration);
         }
-
+#endif
         RaycastHit hit;
         Vector3 shotDirection = (GetSpread() * m_muzzle.forward);
         if (Physics.Raycast(m_muzzle.position, shotDirection, out hit, m_maxRange, m_mask))
@@ -55,7 +56,7 @@ public class SemiAutomaticWeapon : BaseWeapon
         }
     }
 
-    public override void TriggerPressed(MoveController moveController)
+    public override void TriggerPressed(MoveController moveController = null)
     {
         FireWeapon(moveController);
     }
