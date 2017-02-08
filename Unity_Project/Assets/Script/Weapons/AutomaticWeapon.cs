@@ -30,6 +30,7 @@ public class AutomaticWeapon : SemiAutomaticWeapon
     {
         base.Start();
         m_currentBurstTime = m_maxBurstTime;
+		m_muzzleMaterial = GetComponentInChildren<SkinnedMeshRenderer> ().materials [1];
         m_defaultMuzzleColor = m_muzzleMaterial.color;
     }
 
