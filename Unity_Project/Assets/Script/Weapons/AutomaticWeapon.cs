@@ -21,7 +21,7 @@ public class AutomaticWeapon : SemiAutomaticWeapon
     [Range(1, 600)]
     public float m_rpm;
     private bool m_overHeated = false;
-    public Material m_muzzleMaterial;
+    protected Material m_muzzleMaterial;
     protected Color m_defaultMuzzleColor;
 
     private Coroutine m_firingWeapon = null;
@@ -39,8 +39,8 @@ public class AutomaticWeapon : SemiAutomaticWeapon
         m_isFiring = true;
         while (m_currentBurstTime > 0)
         {
-            FireWeapon(moveController);
             yield return new WaitForSeconds(60f / m_rpm);
+            FireWeapon(moveController);
         }
         m_overHeated = true;
         m_isFiring = false;
