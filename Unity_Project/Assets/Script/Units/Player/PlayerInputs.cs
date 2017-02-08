@@ -33,6 +33,8 @@ public class PlayerInputs : MonoBehaviour
 
     private MoveController m_leftController;
     private MoveController m_rightController;
+
+    
     
 	private Vector3 m_lastMovement;
     

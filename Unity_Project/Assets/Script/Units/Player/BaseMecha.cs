@@ -11,9 +11,6 @@ public class BaseMecha : BaseUnit
     public GameObject m_bunker;
     public MechaTorso m_torso;
 
-	private IEnumerator previousLeftVibrationCoroutine;
-	private IEnumerator previousRightVibrationCoroutine;
-
     protected ZAManager m_zaManager;
 
     protected override void Awake()
@@ -66,11 +63,7 @@ public class BaseMecha : BaseUnit
 
     public void LeftArmWeaponTriggered()
     {
-        m_leftWeapon.TriggerPressed();
-		if( previousLeftVibrationCoroutine != null )
-			StopCoroutine ( previousLeftVibrationCoroutine);
-		previousLeftVibrationCoroutine = TrackedDeviceMoveControllers.Instance.primaryMoveController.Vibration (100, .5f);
-		StartCoroutine( previousLeftVibrationCoroutine );
+        m_leftWeapon.TriggerPressed(TrackedDeviceMoveControllers.Instance.primaryMoveController);
     }
 
     public void LeftArmWeaponTriggerReleased()
@@ -80,11 +73,7 @@ public class BaseMecha : BaseUnit
 
     public void RightArmWeaponTriggered()
     {
-        m_rightWeapon.TriggerPressed();
-		if( previousRightVibrationCoroutine != null )
-			StopCoroutine ( previousRightVibrationCoroutine);
-		previousRightVibrationCoroutine = TrackedDeviceMoveControllers.Instance.secondaryMoveController.Vibration (100, .5f);
-		StartCoroutine( previousRightVibrationCoroutine );
+        m_rightWeapon.TriggerPressed(TrackedDeviceMoveControllers.Instance.secondaryMoveController);
     }
 
     public void RightArmWeaponTriggerReleased()
