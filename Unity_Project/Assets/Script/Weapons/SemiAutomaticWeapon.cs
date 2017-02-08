@@ -21,31 +21,6 @@ public class SemiAutomaticWeapon : BaseWeapon
         if (m_shotSound) m_shotSound.Play();
     }
 
-    protected void BulletHitParticle(RaycastHit hit)
-    {
-        if (m_bulletHit)
-        {
-            bool bulletHitAvailable = false;
-            foreach (ParticleSystem ps in m_bulletHits)
-            {
-                if (!ps.IsAlive(true))
-                {
-                    bulletHitAvailable = true;
-                    ps.transform.position = hit.point;
-                    ps.transform.LookAt(transform);
-                    ps.Play(true);
-                    break;
-                }
-            }
-
-            if (!bulletHitAvailable)
-            {
-                GameObject newBulletHit = Instantiate(m_bulletHit, bulletHitParent);
-                m_bulletHits.Add(newBulletHit.GetComponent<ParticleSystem>());
-            }
-        }
-    }
-
     protected override void FireWeapon()
     {
 		if ( animator != null)

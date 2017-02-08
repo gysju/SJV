@@ -459,8 +459,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4289698732156030}
   - component: {fileID: 95174519735781238}
-  - component: {fileID: 114556341661251198}
   - component: {fileID: 120088557511208012}
+  - component: {fileID: 114683643693230192}
   m_Layer: 0
   m_Name: Mech_AutoGun (1)
   m_TagString: Untagged
@@ -875,8 +875,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4397615704242570}
   - component: {fileID: 95833256192588624}
-  - component: {fileID: 114456441162570668}
   - component: {fileID: 120291460655756920}
+  - component: {fileID: 114071044766833950}
   m_Layer: 0
   m_Name: Mech_AutoGun (1)
   m_TagString: Untagged
@@ -2074,7 +2074,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1214236182891614}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 89.96, y: 20, z: 25.25}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4615243895940516}
@@ -4208,6 +4208,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4a4fef07387bfe49a41ff785e8db20f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114071044766833950
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1521197781103830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd43b840e4c5511488659dd6924a13f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_mask:
+    serializedVersion: 2
+    m_Bits: 3584
+  m_muzzle: {fileID: 4207796886841644}
+  m_muzzleFlash: {fileID: 198805148991521118}
+  m_bulletHit: {fileID: 1000012052525916, guid: 68061645ae90cc14c8dd597ae2e0f1ad,
+    type: 2}
+  m_shotSound: {fileID: 82666701164565390}
+  m_maxRange: 100
+  m_imprecision: 2
+  Damage: 1
+  ArmorPenetration: 1
+  animator: {fileID: 95833256192588624}
+  m_showLaser: 0
+  m_triggerType: 1
+  m_maxBurstTime: 5
+  m_rpm: 600
 --- !u!114 &114073977857048936
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4403,8 +4431,6 @@ MonoBehaviour:
   m_torso: {fileID: 114857813329560898}
   m_maxHorinzontalHeadAngle: 10
   m_maxVerticalHeadAngle: 75
-  trackedDeviceMoveControllers: {fileID: 114214402283542230}
-  MinimumAngleToRotate: 15
 --- !u!114 &114364286396532166
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4481,56 +4507,6 @@ MonoBehaviour:
   m_hud: {fileID: 225259500152994356}
   m_integrityGaugeRight: {fileID: 114695984342795636}
   m_integrityGaugeLeft: {fileID: 114707623947990960}
---- !u!114 &114456441162570668
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1521197781103830}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb72a94f424ed824aad14682cd21cf27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_mask:
-    serializedVersion: 2
-    m_Bits: 3584
-  m_muzzle: {fileID: 4207796886841644}
-  m_muzzleFlash: {fileID: 198805148991521118}
-  m_bulletHit: {fileID: 1000012052525916, guid: 68061645ae90cc14c8dd597ae2e0f1ad,
-    type: 2}
-  m_shotSound: {fileID: 82666701164565390}
-  m_maxRange: 100
-  m_imprecision: 0
-  Damage: 1
-  ArmorPenetration: 1
-  animator: {fileID: 95833256192588624}
-  m_showLaser: 0
---- !u!114 &114556341661251198
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1265697956603332}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb72a94f424ed824aad14682cd21cf27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_mask:
-    serializedVersion: 2
-    m_Bits: 3584
-  m_muzzle: {fileID: 4465702573956122}
-  m_muzzleFlash: {fileID: 198367424515255330}
-  m_bulletHit: {fileID: 1000012052525916, guid: 68061645ae90cc14c8dd597ae2e0f1ad,
-    type: 2}
-  m_shotSound: {fileID: 82376148523157972}
-  m_maxRange: 100
-  m_imprecision: 0
-  Damage: 1
-  ArmorPenetration: 1
-  animator: {fileID: 95174519735781238}
-  m_showLaser: 0
 --- !u!114 &114556425654478264
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4577,8 +4553,8 @@ MonoBehaviour:
   m_armor: 0
   m_targetPoint: {fileID: 0}
   m_weapons:
-  - {fileID: 114456441162570668}
-  - {fileID: 114556341661251198}
+  - {fileID: 114071044766833950}
+  - {fileID: 114683643693230192}
   VibrationSpeed: 0.3
   m_bunker: {fileID: 1773136719752806}
   m_torso: {fileID: 114857813329560898}
@@ -4634,6 +4610,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2691c22c02e273c4ba9e55b10ee250af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114683643693230192
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1265697956603332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd43b840e4c5511488659dd6924a13f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_mask:
+    serializedVersion: 2
+    m_Bits: 3584
+  m_muzzle: {fileID: 4465702573956122}
+  m_muzzleFlash: {fileID: 198367424515255330}
+  m_bulletHit: {fileID: 1000012052525916, guid: 68061645ae90cc14c8dd597ae2e0f1ad,
+    type: 2}
+  m_shotSound: {fileID: 82376148523157972}
+  m_maxRange: 100
+  m_imprecision: 2
+  Damage: 1
+  ArmorPenetration: 1
+  animator: {fileID: 95174519735781238}
+  m_showLaser: 0
+  m_triggerType: 1
+  m_maxBurstTime: 5
+  m_rpm: 600
 --- !u!114 &114686419782857426
 MonoBehaviour:
   m_ObjectHideFlags: 1
