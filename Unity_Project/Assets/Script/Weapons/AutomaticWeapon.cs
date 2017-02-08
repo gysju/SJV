@@ -34,29 +34,29 @@ public class AutomaticWeapon : SemiAutomaticWeapon
         m_defaultMuzzleColor = m_muzzleMaterial.color;
     }
 
-    IEnumerator FiringWeapon()
+    IEnumerator FiringWeapon(MoveController moveController)
     {
         m_isFiring = true;
         while (m_currentBurstTime > 0)
         {
-            FireWeapon();
+            FireWeapon(moveController);
             yield return new WaitForSeconds(60f / m_rpm);
         }
         m_overHeated = true;
         m_isFiring = false;
     }
 
-    public override void TriggerPressed()
+    public override void TriggerPressed(MoveController moveController)
     {
         switch (m_triggerType)
         {
             case WeaponTriggerType.SemiAutomatic:
-                base.TriggerPressed();
+                base.TriggerPressed(moveController);
                 break;
             case WeaponTriggerType.Automatic:
                 if (!m_overHeated)
                 {
-                    m_firingWeapon = StartCoroutine(FiringWeapon());
+                    m_firingWeapon = StartCoroutine(FiringWeapon(moveController));
                 }
                 break;
             default:

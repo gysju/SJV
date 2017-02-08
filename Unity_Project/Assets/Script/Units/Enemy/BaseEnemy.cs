@@ -101,7 +101,7 @@ public class BaseEnemy : BaseUnit
 
     public void PressWeaponTrigger(int weaponID)
     {
-        m_weapons[weaponID].TriggerPressed();
+        m_weapons[weaponID].TriggerPressed(null);
     }
 
     public void ReleaseWeaponTrigger(int weaponID)

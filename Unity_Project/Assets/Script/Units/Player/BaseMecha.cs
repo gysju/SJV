@@ -4,16 +4,12 @@ using System.Collections;
 public class BaseMecha : BaseUnit
 {
 	public static BaseMecha Instance = null;
-	public float VibrationSpeed = 0.3f;
 
     protected BaseWeapon m_leftWeapon;
     protected BaseWeapon m_rightWeapon;
 
     public GameObject m_bunker;
     public MechaTorso m_torso;
-
-	private IEnumerator previousLeftVibrationCoroutine;
-	private IEnumerator previousRightVibrationCoroutine;
 
     protected ZAManager m_zaManager;
 
@@ -67,11 +63,7 @@ public class BaseMecha : BaseUnit
 
     public void LeftArmWeaponTriggered()
     {
-        m_leftWeapon.TriggerPressed();
-		if( previousLeftVibrationCoroutine != null )
-			StopCoroutine ( previousLeftVibrationCoroutine);
-		previousLeftVibrationCoroutine = TrackedDeviceMoveControllers.Instance.primaryMoveController.Vibration (100, VibrationSpeed);
-		StartCoroutine( previousLeftVibrationCoroutine );
+        m_leftWeapon.TriggerPressed(TrackedDeviceMoveControllers.Instance.primaryMoveController);
     }
 
     public void LeftArmWeaponTriggerReleased()
@@ -81,11 +73,7 @@ public class BaseMecha : BaseUnit
 
     public void RightArmWeaponTriggered()
     {
-        m_rightWeapon.TriggerPressed();
-		if( previousRightVibrationCoroutine != null )
-			StopCoroutine ( previousRightVibrationCoroutine);
-		previousRightVibrationCoroutine = TrackedDeviceMoveControllers.Instance.secondaryMoveController.Vibration (100, VibrationSpeed);
-		StartCoroutine( previousRightVibrationCoroutine );
+        m_rightWeapon.TriggerPressed(TrackedDeviceMoveControllers.Instance.secondaryMoveController);
     }
 
     public void RightArmWeaponTriggerReleased()

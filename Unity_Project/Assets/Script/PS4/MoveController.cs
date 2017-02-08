@@ -15,6 +15,10 @@ public class MoveController : MonoBehaviour {
     public Vector3 lookAtHit;
 	public int MoveIndex = 0;
 
+    protected Coroutine currentVibration = null;
+    protected int currentVibrationPower = 0;
+    protected float currentVibrationDuration = 0f;
+
 	void Update () 
 	{
 		prevButtons = currentButtons;
@@ -64,30 +68,70 @@ public class MoveController : MonoBehaviour {
 		return Vector3.zero;
 	}
 
-	public IEnumerator Vibration(int rottor, float duration)
-	{
-		float time = 0.0f;
+#if UNITY_PS4
+    IEnumerator Vibration(int power, float duration)
+    {
+        currentVibrationDuration = duration;
 
-		//Debug.Log ("lance la vibration");
-		#if UNITY_PS4
-		for (int slot = 0; slot < 4; slot++) 
-		{
-			if (PS4Input.MoveIsConnected (slot, MoveIndex))
-				PS4Input.MoveSetVibration (slot, MoveIndex, rottor);
-		}
-		#endif
-		while ( time < duration )
-		{
-			time += Time.deltaTime;
-			yield return null;
-		}
-		//Debug.Log ("fin de la vibration");
-		#if UNITY_PS4
-		for (int slot = 0; slot < 4; slot++) 
-		{
-			if (PS4Input.MoveIsConnected (slot, MoveIndex))
-				PS4Input.MoveSetVibration (slot, MoveIndex, 0);
-		}
-		#endif
-	}
+        while (currentVibrationDuration > 0f)
+        {
+            currentVibrationPower = (int)Mathf.Lerp(0, 100, currentVibrationDuration / duration);
+            for (int slot = 0; slot < 4; slot++)
+            {
+                if (PS4Input.MoveIsConnected(slot, MoveIndex))
+                {
+                    PS4Input.MoveSetVibration(slot, MoveIndex, currentVibrationPower);
+                }
+            }
+            currentVibrationDuration -= Time.deltaTime;
+            yield return null;
+        }
+
+        for (int slot = 0; slot < 4; slot++)
+        {
+            if (PS4Input.MoveIsConnected(slot, MoveIndex))
+            {
+                PS4Input.MoveSetVibration(slot, MoveIndex, 0);
+            }
+        }
+        currentVibrationDuration = 0f;
+        currentVibrationPower = 0;
+    }
+
+    IEnumerator ConstantVibration(int power, float duration)
+    {
+        currentVibrationDuration = duration;
+        currentVibrationPower = power;
+        
+        for (int slot = 0; slot < 4; slot++)
+        {
+            if (PS4Input.MoveIsConnected(slot, MoveIndex))
+            {
+                PS4Input.MoveSetVibration(slot, MoveIndex, currentVibrationPower);
+            }
+        }
+
+        yield return new WaitForSeconds(duration);
+
+        for (int slot = 0; slot < 4; slot++)
+        {
+            if (PS4Input.MoveIsConnected(slot, MoveIndex))
+            {
+                PS4Input.MoveSetVibration(slot, MoveIndex, 0);
+            }
+        }
+
+        currentVibrationDuration = 0f;
+        currentVibrationPower = 0;
+    }
+
+    public void StartVibration(int power, float duration)
+    {
+        if(currentVibrationDuration < duration || currentVibrationPower < power)
+        {
+            StopCoroutine(currentVibration);
+            currentVibration = StartCoroutine(Vibration(power, duration));
+        }
+    }
+#endif
 }

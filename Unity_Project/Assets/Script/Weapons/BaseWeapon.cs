@@ -18,6 +18,9 @@ public class BaseWeapon : MonoBehaviour
     [Tooltip("Sound effect when firing.")]
     public AudioSource m_shotSound;
 
+    public float m_vibrationDuration;
+    public int m_vibrationPower;
+
     [Tooltip("Max range of the weapon.")]
     [Range(1f, 100f)]
     public float m_maxRange = 25f;
@@ -70,12 +73,12 @@ public class BaseWeapon : MonoBehaviour
         }
     }
 
-    protected virtual void FireWeapon()
+    protected virtual void FireWeapon(MoveController moveController)
     {
 
     }
     
-    public virtual void TriggerPressed()
+    public virtual void TriggerPressed(MoveController moveController)
     {
 
     }
