@@ -21,6 +21,8 @@ public class AutomaticWeapon : SemiAutomaticWeapon
     [Range(1, 600)]
     public float m_rpm;
     private bool m_overHeated = false;
+    public Material m_muzzleMaterial;
+    protected Color m_defaultMuzzleColor;
 
     private Coroutine m_firingWeapon = null;
 
@@ -28,6 +30,7 @@ public class AutomaticWeapon : SemiAutomaticWeapon
     {
         base.Start();
         m_currentBurstTime = m_maxBurstTime;
+        m_defaultMuzzleColor = m_muzzleMaterial.color;
     }
 
     IEnumerator FiringWeapon()
@@ -35,8 +38,8 @@ public class AutomaticWeapon : SemiAutomaticWeapon
         m_isFiring = true;
         while (m_currentBurstTime > 0)
         {
-            yield return new WaitForSeconds(60f / m_rpm);
             FireWeapon();
+            yield return new WaitForSeconds(60f / m_rpm);
         }
         m_overHeated = true;
         m_isFiring = false;
@@ -95,9 +98,15 @@ public class AutomaticWeapon : SemiAutomaticWeapon
                         m_overHeated = false;
                     }
                 }
+                m_muzzleMaterial.color = Color.Lerp(m_defaultMuzzleColor * Color.red, m_defaultMuzzleColor, m_currentBurstTime / m_maxBurstTime);
                 break;
             default:
                 break;
         }
+    }
+
+    void OnApplicationQuit()
+    {
+        m_muzzleMaterial.color = m_defaultMuzzleColor;
     }
 }
