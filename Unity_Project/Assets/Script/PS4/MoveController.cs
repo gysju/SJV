@@ -129,7 +129,7 @@ public class MoveController : MonoBehaviour {
     {
         if(currentVibrationDuration < duration || currentVibrationPower < power)
         {
-            StopCoroutine(currentVibration);
+            if(currentVibration!= null) StopCoroutine(currentVibration);
             currentVibration = StartCoroutine(Vibration(power, duration));
         }
     }

@@ -40,6 +40,7 @@ public class PlayerInputs : MonoBehaviour
     
     private void PSMoveStart()
     {
+        trackedDeviceMoveControllers = GetComponentInChildren<TrackedDeviceMoveControllers>();
         m_baseOffset = Vector3.zero;
 		m_leftController = trackedDeviceMoveControllers.primaryMoveController;
 		m_rightController = trackedDeviceMoveControllers.secondaryMoveController;
