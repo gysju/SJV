@@ -28,7 +28,8 @@ public class SemiAutomaticWeapon : BaseWeapon
 		
         MuzzleFlash();
         ShotSound();
-        m_shellParticles.Emit(1);
+        if (m_shellParticles)
+            m_shellParticles.Emit(1);
 
 #if UNITY_PS4
         if (moveController)
