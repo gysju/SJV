@@ -14,6 +14,8 @@ public class BaseWeapon : MonoBehaviour
     public ParticleSystem m_muzzleFlash;
     public GameObject m_bulletHit;
     protected List<ParticleSystem> m_bulletHits = new List<ParticleSystem>();
+    
+    public ParticleSystem m_shellParticles;
 
     [Tooltip("Sound effect when firing.")]
     public AudioSource m_shotSound;
