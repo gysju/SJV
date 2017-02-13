@@ -134,6 +134,22 @@ public class BaseUnit : MonoBehaviour
     }
     #endregion
 
+    public virtual void LaserOn()
+    {
+        foreach (BaseWeapon weapon in m_weapons)
+        {
+            weapon.m_showLaser = true;
+        }
+    }
+
+    public virtual void LaserOff()
+    {
+        foreach (BaseWeapon weapon in m_weapons)
+        {
+            weapon.m_showLaser = false;
+        }
+    }
+
     void Update ()
 	{
 		

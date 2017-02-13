@@ -19,7 +19,6 @@ public class BaseEnemy : BaseUnit
 
     [Header("Attack")]
     [Tooltip("Time the unit will take to shoot.")]
-    [ContextMenuItem("Test Unit", "TestUnit")]
     [Range(1f, 5f)]
     public float m_timeToAttack = 2f;
     protected float m_currentTimeToAttack;
@@ -58,12 +57,9 @@ public class BaseEnemy : BaseUnit
 
 		HUD_Radar.Instance.AddInfo (this);
 
-		StartCoroutine (SpawnFade ());
-    }
+        LaserOff();
 
-    public virtual void TestUnit()
-    {
-        ResetUnit(new Vector3(15f,0f, 120f), new Vector3(5f, 0f, 50f), FindObjectOfType<Player>().transform);
+        StartCoroutine (SpawnFade ());
     }
     #endregion
 
@@ -75,6 +71,7 @@ public class BaseEnemy : BaseUnit
         m_target = null;
         m_enemyState = EnemyState.EnemyState_Sleep;
 		HUD_Radar.Instance.RemoveInfo (this);
+        LaserOff();
 		StartCoroutine (DeathFade());
         base.StartDying();
     }
@@ -104,7 +101,7 @@ public class BaseEnemy : BaseUnit
 
     public void PressWeaponTrigger(int weaponID)
     {
-        m_weapons[weaponID].TriggerPressed();
+        m_weapons[weaponID].TriggerPressed(null);
     }
 
     public void ReleaseWeaponTrigger(int weaponID)
