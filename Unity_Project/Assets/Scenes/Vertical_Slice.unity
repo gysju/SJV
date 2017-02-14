@@ -2252,7 +2252,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 2d3b0aa23f58db74580be4081981c536, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 4294967295
+      value: 4294967291
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 2d3b0aa23f58db74580be4081981c536, type: 3}
       propertyPath: m_ScaleInLightmap
@@ -18773,6 +18773,27 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: fff963c525be1f94a9471d2d8d7e9c8e, type: 3}
   m_PrefabInternal: {fileID: 1473763330}
+--- !u!1 &1474025352 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100000, guid: 2d3b0aa23f58db74580be4081981c536, type: 3}
+  m_PrefabInternal: {fileID: 181414603}
+--- !u!95 &1474025355
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1474025352}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 18de5e427ba5af8459daf063aad337eb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1001 &1487347200
 Prefab:
   m_ObjectHideFlags: 0
