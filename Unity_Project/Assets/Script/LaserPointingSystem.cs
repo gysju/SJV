@@ -109,6 +109,9 @@ public class LaserPointingSystem : MonoBehaviour {
 
 	void CheckMask()
 	{
+        if (CanvasManager.Get == null)
+            return;
+
 		if (CanvasManager.EState_Menu.EState_Menu_InGame == CanvasManager.Get.eState_Menu)
 			mask = (1 << LayerMask.NameToLayer ("Ground") | 1 << LayerMask.NameToLayer ("Unit") | 1 << LayerMask.NameToLayer ("Environment"));
 		else
