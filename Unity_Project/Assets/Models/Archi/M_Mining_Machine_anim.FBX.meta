@@ -1,31 +1,28 @@
 fileFormatVersion: 2
-guid: dca1f043d31e29f48af7ad3b7540c6e5
-timeCreated: 1483644419
+guid: 34f8c49340629e944bee741d60a567aa
+timeCreated: 1487066544
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: back_arm
-    100004: base
-    100006: front_arm
+    100000: back_arm
+    100002: base
+    100004: front_arm
+    100006: //RootNode
     100008: Mining_Machine
     100010: saw
-    400000: //RootNode
-    400002: back_arm
-    400004: base
-    400006: front_arm
+    400000: back_arm
+    400002: base
+    400004: front_arm
+    400006: //RootNode
     400008: Mining_Machine
     400010: saw
-    2300000: //RootNode
-    2300002: Mining_Machine
-    3300000: //RootNode
-    3300002: Mining_Machine
     4300000: Mining_Machine
+    7400000: anim
     9500000: //RootNode
     13700000: Mining_Machine
   materials:
-    importMaterials: 0
+    importMaterials: 1
     materialName: 0
     materialSearch: 1
   animations:
@@ -38,13 +35,53 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
-    animationCompression: 3
+    animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: anim
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 3
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: base
+        weight: 1
+      - path: base/back_arm
+        weight: 1
+      - path: base/front_arm
+        weight: 1
+      - path: base/front_arm/saw
+        weight: 1
+      - path: Mining_Machine
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
@@ -53,7 +90,7 @@ ModelImporter:
     addColliders: 0
     importBlendShapes: 1
     swapUVChannels: 0
-    generateSecondaryUV: 1
+    generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0
@@ -83,7 +120,7 @@ ModelImporter:
     rootMotionBoneName: 
     rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
-    hasExtraRoot: 1
+    hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2
