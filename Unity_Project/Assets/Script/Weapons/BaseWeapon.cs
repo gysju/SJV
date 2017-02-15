@@ -14,9 +14,14 @@ public class BaseWeapon : MonoBehaviour
     public ParticleSystem m_muzzleFlash;
     public GameObject m_bulletHit;
     protected List<ParticleSystem> m_bulletHits = new List<ParticleSystem>();
+    
+    public ParticleSystem m_shellParticles;
 
     [Tooltip("Sound effect when firing.")]
     public AudioSource m_shotSound;
+
+    public float m_vibrationDuration;
+    public int m_vibrationPower;
 
     [Tooltip("Max range of the weapon.")]
     [Range(1f, 100f)]
@@ -45,12 +50,37 @@ public class BaseWeapon : MonoBehaviour
         if (!m_shotSound) m_shotSound = GetComponent<AudioSource>();
     }
 
-    protected virtual void FireWeapon()
+    protected virtual void BulletHitParticle(RaycastHit hit)
+    {
+        if (m_bulletHit)
+        {
+            bool bulletHitAvailable = false;
+            foreach (ParticleSystem ps in m_bulletHits)
+            {
+                if (!ps.IsAlive(true))
+                {
+                    bulletHitAvailable = true;
+                    ps.transform.position = hit.point;
+                    ps.transform.LookAt(transform);
+                    ps.Play(true);
+                    break;
+                }
+            }
+
+            if (!bulletHitAvailable)
+            {
+                GameObject newBulletHit = Instantiate(m_bulletHit, bulletHitParent);
+                m_bulletHits.Add(newBulletHit.GetComponent<ParticleSystem>());
+            }
+        }
+    }
+
+    protected virtual void FireWeapon(MoveController moveController = null)
     {
 
     }
     
-    public virtual void TriggerPressed()
+    public virtual void TriggerPressed(MoveController moveController = null)
     {
 
     }

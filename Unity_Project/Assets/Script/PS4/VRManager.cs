@@ -63,7 +63,7 @@ public class VRManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Post reprojection is not yet fully supported in non-Forward Rendering Paths.");
+            //Debug.LogError("Post reprojection is not yet fully supported in non-Forward Rendering Paths.");
         }
 #endif
 
