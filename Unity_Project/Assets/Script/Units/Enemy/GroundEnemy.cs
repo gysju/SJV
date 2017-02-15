@@ -11,7 +11,7 @@ public class GroundEnemy : BaseEnemy
     public float m_acceleration = 8f;
     public float m_rotationSpeed = 50f;
 
-	private Animator animator;
+	protected Animator animator;
 
     #region Initialization
     protected override void Awake()
@@ -28,7 +28,6 @@ public class GroundEnemy : BaseEnemy
 
     protected override void Start()
     {
-        base.Start();
         if(m_attackPosition.HasValue) m_navMeshAgent.SetDestination(m_attackPosition.Value);
     }
 
