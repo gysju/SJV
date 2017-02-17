@@ -12,8 +12,8 @@ public class BaseWeapon : MonoBehaviour
 
     [Tooltip("Graphical effect when firing.")]
     public ParticleSystem m_muzzleFlash;
-    public GameObject m_bulletHit;
-    protected List<ParticleSystem> m_bulletHits = new List<ParticleSystem>();
+    public Hit m_bulletHit;
+    protected List<Hit> m_bulletHits = new List<Hit>();
     
     public ParticleSystem m_shellParticles;
 
@@ -37,16 +37,11 @@ public class BaseWeapon : MonoBehaviour
 	public Animator animator;
 
     public bool m_showLaser = false;
-	protected LineRenderer m_laser;
-    protected Transform bulletHitParent;
-    
+	protected LineRenderer m_laser;    
 
     protected virtual void Start()
     {
         m_laser = GetComponent<LineRenderer>();
-
-        bulletHitParent = new GameObject("Hits").transform;
-        bulletHitParent.parent = transform;
         if (!m_shotSound) m_shotSound = GetComponent<AudioSource>();
     }
 
@@ -55,22 +50,29 @@ public class BaseWeapon : MonoBehaviour
         if (m_bulletHit)
         {
             bool bulletHitAvailable = false;
-            foreach (ParticleSystem ps in m_bulletHits)
+            foreach (Hit bulletHit in m_bulletHits)
             {
-                if (!ps.IsAlive(true))
+                if (bulletHit.Available)
                 {
                     bulletHitAvailable = true;
-                    ps.transform.position = hit.point;
-                    ps.transform.LookAt(transform);
-                    ps.Play(true);
+                    bulletHit.Available = false;
+                    bulletHit.transform.position = hit.point;
+                    bulletHit.transform.LookAt(transform);
+                    bulletHit.transform.rotation = Quaternion.FromToRotation(bulletHit.transform.up, hit.normal) * bulletHit.transform.rotation;
+                    bulletHit.particle.Play(true);
                     break;
                 }
             }
 
             if (!bulletHitAvailable)
             {
-                GameObject newBulletHit = Instantiate(m_bulletHit, bulletHitParent);
-                m_bulletHits.Add(newBulletHit.GetComponent<ParticleSystem>());
+                Hit newBulletHit = Instantiate(m_bulletHit, hit.transform.parent);
+                m_bulletHits.Add(newBulletHit.GetComponent<Hit>());
+
+                newBulletHit.transform.position = hit.point;
+                newBulletHit.transform.LookAt(transform);
+                newBulletHit.transform.rotation = Quaternion.FromToRotation(newBulletHit.transform.up, hit.normal) * newBulletHit.transform.rotation;
+                newBulletHit.particle.Play(true);
             }
         }
     }
