@@ -72,7 +72,7 @@ LightmapSettings:
     m_FinalGatherFiltering: 1
     m_FinalGatherRayCount: 256
     m_ReflectionCompression: 2
-  m_LightingDataAsset: {fileID: 112000003, guid: b928fc7dc6b61d04caecb366791ea964,
+  m_LightingDataAsset: {fileID: 112000001, guid: b928fc7dc6b61d04caecb366791ea964,
     type: 2}
   m_RuntimeCPUUsage: 25
 --- !u!196 &4
@@ -660,6 +660,10 @@ Prefab:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 13700000, guid: dca1f043d31e29f48af7ad3b7540c6e5, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8d5790c3202d7674e818fc2104cada03, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: dca1f043d31e29f48af7ad3b7540c6e5, type: 3}
   m_IsPrefabParent: 0
@@ -9538,7 +9542,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 768246728}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 169.23, y: 22.15, z: 166.25}
+  m_LocalPosition: {x: 169.23, y: 22.68, z: 166.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 262978241}
@@ -25296,7 +25300,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1869910859}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 149.74, y: 18.28, z: 148.1}
+  m_LocalPosition: {x: 149.74, y: 19.16, z: 148.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 262978241}
