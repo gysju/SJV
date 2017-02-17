@@ -95,7 +95,8 @@ public class BaseEnemy : BaseUnit
     {
         foreach (BaseWeapon weapon in m_weapons)
         {
-            weapon.transform.LookAt(target);
+            weapon.transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(weapon.transform.forward, (target - weapon.transform.position).normalized, 1f * Time.deltaTime, 0f));
+            //weapon.transform.LookAt(target);
         }
     }
 

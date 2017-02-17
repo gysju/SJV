@@ -66,6 +66,50 @@ public class AirEnemy : BaseEnemy
 	#endregion
 
     #region Movement Related
+
+    protected void MovementUpdate(Vector3 movementTarget)
+    {
+        Vector3 movementDirection = (movementTarget - m_transform.position).normalized;
+        m_transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(m_transform.forward, movementDirection, m_rotationSpeed * Time.deltaTime, 0f));
+        RaycastHit hit;
+        Physics.SphereCast(m_transform.position, 3f, movementDirection, out hit, m_maxSpeed/2f, m_layerToDodge);
+        if (hit.transform)
+        {
+            movementDirection = Vector3.up;
+        }
+        else
+        {
+            if (m_transform.position.y > movementTarget.y)
+            {
+                Physics.SphereCast(m_transform.position, 3f, -m_transform.up, out hit, m_maxSpeed / 2f, m_layerToDodge);
+                if (!hit.transform)
+                    movementDirection += Vector3.down /2f;
+            }
+            
+        }
+        m_transform.position += m_transform.forward * m_maxSpeed * Time.deltaTime;
+        if (IsPathCompleted(movementTarget)) MovementOver();
+    }
+
+    protected bool IsPathCompleted(Vector3 movementTarget)
+    {
+        return (Vector3.Distance(m_transform.position, movementTarget) < 1f);
+    }
+
+    protected void MovementOver()
+    {
+        m_enemyState = EnemyState.EnemyState_Attacking;
+        LaserOn();
+    }
+    #endregion
+
+    #region Attack related
+    protected void Fire()
+    {
+        PressWeaponTrigger(0);
+        m_currentTimeToAttack = m_timeToAttack;
+    }
+
     protected void TurnTowardTarget(Vector3 targetPosition)
     {
         Vector3 movementDirection = (targetPosition - m_transform.position).normalized;
@@ -75,48 +119,9 @@ public class AirEnemy : BaseEnemy
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * m_rotationSpeed);
     }
 
-    protected void MovementUpdate()
+    protected void AttackMovement()
     {
-        Vector3 movementDirection = (m_attackPosition.Value - m_transform.position).normalized;
-        RaycastHit hit;
-        Physics.SphereCast(m_transform.position, 3f, movementDirection, out hit, m_maxSpeed/2f, m_layerToDodge);
-        if (hit.transform)
-        {
-            movementDirection = Vector3.up;
-        }
-        else
-        {
-            if (m_transform.position.y > m_attackPosition.Value.y)
-            {
-                Physics.SphereCast(m_transform.position, 3f, -m_transform.up, out hit, m_maxSpeed / 2f, m_layerToDodge);
-                if (!hit.transform)
-                    movementDirection += Vector3.down /2f;
-            }
-            
-        }
-        m_transform.position += movementDirection * m_maxSpeed * Time.deltaTime;
-        if (IsPathCompleted()) MovementOver();
-    }
-
-    protected bool IsPathCompleted()
-    {
-        return (Vector3.Distance(m_transform.position, m_attackPosition.Value) < 1f);
-    }
-
-    protected void MovementOver()
-    {
-        m_enemyState = EnemyState.EnemyState_Attacking;
-        LaserOn();
-        AimWeaponAt(m_target.position);
-    }
-    #endregion
-
-    #region Attack related
-    protected void Fire()
-    {
-        PressWeaponTrigger(0);
-        m_currentTimeToAttack = m_timeToAttack;
-        AimWeaponAt(m_target.gameObject.GetComponentInChildren<Renderer>().bounds.center);
+        m_transform.position += m_transform.right * (m_maxSpeed/3f) * Time.deltaTime;
     }
     #endregion
 
@@ -135,11 +140,12 @@ public class AirEnemy : BaseEnemy
                     }
                     break;
                 case EnemyState.EnemyState_Moving:
-                    TurnTowardTarget(m_attackPosition.Value);
-                    MovementUpdate();
+                    MovementUpdate(m_attackPosition.Value);
                     break;
                 case EnemyState.EnemyState_Attacking:
-                    //TurnTowardTarget(m_target.position);
+                    AimWeaponAt(m_target.position);
+                    AttackMovement();
+                    TurnTowardTarget(m_target.position);
                     m_currentTimeToAttack -= Time.deltaTime;
                     if (m_currentTimeToAttack <= 0)
                     {
