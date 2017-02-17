@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Mat_Concrete
+  m_Name: Mat_Cliff
   m_Shader: {fileID: 4800000, guid: 1ae3ac17bb9d1f347aa455270e213990, type: 3}
   m_ShaderKeywords: _EMISSION
   m_LightmapFlags: 1
@@ -48,25 +48,25 @@ Material:
     - first:
         name: _MRE_Ny
       second:
-        m_Texture: {fileID: 2800000, guid: 5e39a5c83bf4720489a0c4d28a3317da, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8e51ad50ec14a4549b822b1a4e0da106, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
         name: _MRE_Ny_One
       second:
-        m_Texture: {fileID: 2800000, guid: 5e39a5c83bf4720489a0c4d28a3317da, type: 3}
+        m_Texture: {fileID: 2800000, guid: ef2d5423dd7317640bb1a63838ad9a64, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
         name: _MRE_Ny_Three
       second:
-        m_Texture: {fileID: 2800000, guid: f82471117470c294d8eae18a2ddfc990, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8e51ad50ec14a4549b822b1a4e0da106, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
         name: _MRE_Ny_Two
       second:
-        m_Texture: {fileID: 2800000, guid: 947ca50f67700fd4e9c57dee16840cc0, type: 3}
+        m_Texture: {fileID: 2800000, guid: 4a49ac36b90924445a11dcf1fd19be21, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
@@ -96,26 +96,26 @@ Material:
     - first:
         name: _RGB_Nx
       second:
-        m_Texture: {fileID: 2800000, guid: 8447c559ac234dd4cb4d0c76b78a4dd6, type: 3}
-        m_Scale: {x: 10, y: 10}
+        m_Texture: {fileID: 2800000, guid: 6b2fbb8bd5248d14882937e1f9f62d32, type: 3}
+        m_Scale: {x: 8, y: 8}
         m_Offset: {x: 0, y: 0}
     - first:
         name: _RGB_Nx_One
       second:
-        m_Texture: {fileID: 2800000, guid: 8447c559ac234dd4cb4d0c76b78a4dd6, type: 3}
-        m_Scale: {x: 10, y: 10}
+        m_Texture: {fileID: 2800000, guid: b432d5f39d238f641816378f4d349722, type: 3}
+        m_Scale: {x: 8, y: 8}
         m_Offset: {x: 0, y: 0}
     - first:
         name: _RGB_Nx_Three
       second:
-        m_Texture: {fileID: 2800000, guid: 10211478b4410e3449e81c2c075869ce, type: 3}
+        m_Texture: {fileID: 2800000, guid: 6b2fbb8bd5248d14882937e1f9f62d32, type: 3}
         m_Scale: {x: 6, y: 6}
         m_Offset: {x: 0, y: 0}
     - first:
         name: _RGB_Nx_Two
       second:
-        m_Texture: {fileID: 2800000, guid: 0fe600b475d29e249af8826ab8f8423e, type: 3}
-        m_Scale: {x: 40, y: 40}
+        m_Texture: {fileID: 2800000, guid: af78bfdab271fa34a842eaceaa21d025, type: 3}
+        m_Scale: {x: 6, y: 6}
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - first:
@@ -159,7 +159,7 @@ Material:
       second: 0
     - first:
         name: _MetallicThree
-      second: 1
+      second: 0
     - first:
         name: _MetallicTwo
       second: 0
@@ -167,17 +167,14 @@ Material:
         name: _Mode
       second: 0
     - first:
-        name: _NormalIntensity
-      second: 2
-    - first:
         name: _NormalIntensityOne
-      second: 2
+      second: 1
     - first:
         name: _NormalIntensityThree
-      second: 1.5
+      second: 1
     - first:
         name: _NormalIntensityTwo
-      second: 1.5
+      second: 1
     - first:
         name: _OcclusionStrength
       second: 1
@@ -211,28 +208,28 @@ Material:
     m_Colors:
     - first:
         name: _Color
-      second: {r: 1, g: 1, b: 1, a: 1}
+      second: {r: 0.5882353, g: 0.5882353, b: 0.5882353, a: 1}
     - first:
         name: _ColorOne
-      second: {r: 0.88235295, g: 0.88235295, b: 0.88235295, a: 1}
+      second: {r: 1, g: 1, b: 1, a: 1}
     - first:
         name: _ColorThree
-      second: {r: 0.86764705, g: 0.86764705, b: 0.86764705, a: 1}
+      second: {r: 1, g: 1, b: 1, a: 1}
     - first:
         name: _ColorTwo
-      second: {r: 0.8455882, g: 0.8455882, b: 0.8455882, a: 1}
+      second: {r: 1, g: 1, b: 1, a: 1}
     - first:
         name: _EmissionColor
       second: {r: 0, g: 0, b: 0, a: 1}
     - first:
         name: _EmissiveColor
-      second: {r: 0, g: 0, b: 0, a: 1}
+      second: {r: 1, g: 0.39310342, b: 0, a: 1}
     - first:
         name: _EmissiveColorOne
-      second: {r: 1, g: 1, b: 1, a: 1}
+      second: {r: 0, g: 0, b: 0, a: 1}
     - first:
         name: _EmissiveColorThree
-      second: {r: 1, g: 1, b: 1, a: 1}
+      second: {r: 0, g: 0, b: 0, a: 1}
     - first:
         name: _EmissiveColorTwo
-      second: {r: 1, g: 1, b: 1, a: 1}
+      second: {r: 0, g: 0, b: 0, a: 1}
