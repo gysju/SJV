@@ -12,6 +12,7 @@ public class EnemiesManager : MonoBehaviour
     public Vector3 m_poolPosition = Vector3.zero;
     protected List<GroundEnemy> m_groundPool = new List<GroundEnemy>();
     protected List<AirEnemy> m_airPool = new List<AirEnemy>();
+    protected List<MobileMineEnemy> m_minePool = new List<MobileMineEnemy>();
 
     public List<WaveObject> m_enemiesWaves;
     protected List<EnemiesWave> m_wavesSpawned = new List<EnemiesWave>();
@@ -40,6 +41,11 @@ public class EnemiesManager : MonoBehaviour
         return (m_airPool.Count > 0);
     }
 
+    public bool IsThereUnusedMobileMineEnemy()
+    {
+        return (m_minePool.Count > 0);
+    }
+
     public GroundEnemy GetUnusedGroundEnemy(Transform parent)
     {
         GroundEnemy groundEnemy = m_groundPool[0];
@@ -58,6 +64,15 @@ public class EnemiesManager : MonoBehaviour
         return airEnemy;
     }
 
+    public MobileMineEnemy GetUnusedMobileMine(Transform parent)
+    {
+        MobileMineEnemy mobileMineEnemy = m_minePool[0];
+        m_minePool.RemoveAt(0);
+        mobileMineEnemy.transform.parent = parent;
+
+        return mobileMineEnemy;
+    }
+
     public void PoolUnit(BaseEnemy enemyToPool)
     {
         m_activeEnemies.Remove(enemyToPool);
@@ -65,6 +80,10 @@ public class EnemiesManager : MonoBehaviour
         if (enemyToPool is AirEnemy)
         {
             m_airPool.Add((AirEnemy)enemyToPool);
+        }
+        else if (enemyToPool is MobileMineEnemy)
+        {
+            m_minePool.Add((MobileMineEnemy)enemyToPool);
         }
         else if (enemyToPool is GroundEnemy)
         {
@@ -110,7 +129,11 @@ public class EnemiesManager : MonoBehaviour
             {
                 BaseEnemy newEnemy;
 
-                if (spawn.Unit is GroundEnemy)
+                if (spawn.Unit is MobileMineEnemy)
+                {
+                    newEnemy = (IsThereUnusedMobileMineEnemy()) ? GetUnusedMobileMine(currentWaveTransform) : Instantiate(spawn.Unit, spawn.SpawnPosition, Quaternion.Euler(spawn.SpawnRotation), currentWaveTransform);
+                }
+                else if (spawn.Unit is GroundEnemy)
                 {
                     newEnemy = (IsThereUnusedGroundEnemy()) ? GetUnusedGroundEnemy(currentWaveTransform) : Instantiate(spawn.Unit, spawn.SpawnPosition, Quaternion.Euler(spawn.SpawnRotation), currentWaveTransform);
                 }

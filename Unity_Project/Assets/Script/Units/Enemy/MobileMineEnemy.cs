@@ -1,0 +1,58 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class MobileMineEnemy : GroundEnemy
+{
+    [Header("Explosive")]
+    public float m_explosionRange = 2f;
+    public int m_damages = 2;
+
+    #region Initialization
+    protected override void Start()
+    {
+        m_target = FindObjectOfType<BaseMecha>().transform;
+    }
+    #endregion
+
+    #region Attack related
+    protected bool TargetInRange()
+    {
+        return (Vector3.Distance(m_transform.position, m_target.position) < m_explosionRange);
+    }
+
+    protected void Explode(BaseUnit target)
+    {
+        target.ReceiveDamages(m_damages, 1);
+        StartDying();
+    }
+    #endregion
+
+    #region Updates
+    protected override void Update()
+    {
+        if (!m_destroyed)
+        {
+            switch (m_enemyState)
+            {
+                case EnemyState.EnemyState_Sleep:
+                    if (m_target)
+                    {
+                        MoveTo(m_target.position);
+                    }
+                    break;
+                case EnemyState.EnemyState_Moving:
+                    if (TargetInRange())
+                    {
+                        Explode(m_target.GetComponent<BaseUnit>());
+                    }
+                    break;
+                case EnemyState.EnemyState_Attacking:
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+    #endregion
+}
