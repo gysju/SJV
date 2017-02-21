@@ -144,7 +144,7 @@ public class AirEnemy : BaseEnemy
                     break;
                 case EnemyState.EnemyState_Attacking:
                     AimWeaponAt(m_target.position);
-                    AttackMovement();
+                    //AttackMovement();
                     TurnTowardTarget(m_target.position);
                     m_currentTimeToAttack -= Time.deltaTime;
                     if (m_currentTimeToAttack <= 0)
