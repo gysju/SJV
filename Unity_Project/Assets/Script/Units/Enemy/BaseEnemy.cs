@@ -34,7 +34,6 @@ public class BaseEnemy : BaseUnit
     protected override void Awake()
     {
         base.Awake();
-        m_model = GetComponentInChildren<MeshRenderer>();
         m_currentTimeToAttack = m_timeToAttack;
 		material = GetComponentInChildren<SkinnedMeshRenderer> ().material;
 
@@ -59,6 +58,8 @@ public class BaseEnemy : BaseUnit
 
         LaserOff();
 
+        if (m_animator) m_animator.SetTrigger("Idle");
+
         StartCoroutine (SpawnFade ());
     }
     #endregion
@@ -79,7 +80,6 @@ public class BaseEnemy : BaseUnit
     protected override void FinishDying()
     {
         m_poolManager.PoolUnit(this);
-		//material.SetFloat ("_AlphaValue", 1.0f);
     }
     #endregion
 
@@ -87,6 +87,8 @@ public class BaseEnemy : BaseUnit
     public virtual void StartMovement()
     {
         m_enemyState = EnemyState.EnemyState_Moving;
+
+        if (m_animator) m_animator.SetTrigger("Locomotion");
     }
     #endregion
 
@@ -95,7 +97,8 @@ public class BaseEnemy : BaseUnit
     {
         foreach (BaseWeapon weapon in m_weapons)
         {
-            weapon.transform.LookAt(target);
+            weapon.transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(weapon.transform.forward, (target - weapon.transform.position).normalized, 1f * Time.deltaTime, 0f));
+            //weapon.transform.LookAt(target);
         }
     }
 

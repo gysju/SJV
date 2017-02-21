@@ -911,7 +911,7 @@ MonoBehaviour:
   m_timeToAttack: 2
   DeathfadeSpeed: 1
   EmissiveColor: {r: 0, g: 0, b: 0, a: 0}
-  m_maxSpeed: 10
+  m_maxSpeed: 2
   m_acceleration: 8
   m_rotationSpeed: 50
 --- !u!114 &114864982472369878
@@ -930,9 +930,11 @@ MonoBehaviour:
     m_Bits: 5632
   m_muzzle: {fileID: 4908804250889286}
   m_muzzleFlash: {fileID: 198775128789367194}
-  m_bulletHit: {fileID: 1000012052525916, guid: 68061645ae90cc14c8dd597ae2e0f1ad,
-    type: 2}
+  m_bulletHit: {fileID: 0}
+  m_shellParticles: {fileID: 0}
   m_shotSound: {fileID: 82273359138432844}
+  m_vibrationDuration: 0
+  m_vibrationPower: 0
   m_maxRange: 50
   m_imprecision: 0
   Damage: 1

@@ -12,6 +12,7 @@ public class BaseUnit : MonoBehaviour
 
     protected Transform m_transform;
     protected Renderer m_model;
+    protected Animator m_animator;
 
     protected bool m_destroyed = false;
 
@@ -50,6 +51,8 @@ public class BaseUnit : MonoBehaviour
     {
         m_transform = transform;
         if (!m_targetPoint) m_targetPoint = m_transform;
+        m_model = GetComponentInChildren<MeshRenderer>();
+        m_animator = GetComponent<Animator>();
         m_currentHitPoints = m_startingHitPoints;
         CheckHitPoints();
     }
@@ -82,7 +85,7 @@ public class BaseUnit : MonoBehaviour
     protected virtual void StartDying()
     {
         m_destroyed = true;
-
+        if (m_animator) m_animator.SetTrigger("Death");
         StartCoroutine(Dying());
     }
 
