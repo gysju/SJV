@@ -15,7 +15,7 @@ struct Input
 };
 
 // macro for one layer of texture data      
-#define LAYER(__N) sampler2D _RGB_Nx##__N;sampler2D _REH_Ny##__N;fixed4 _Tint##__N;fixed4 _EmissiveColor##__N; half _Glossiness##__N; half _Roughness##__N; half _TexScale##__N; half _Contrast##__N; half _EmissiveMult##__N; fixed4 _SpecColor##__N; sampler2D _SpecGlossMap##__N; float _DistUVScale##__N;
+#define LAYER(__N) sampler2D _RGB_Nx##__N;sampler2D _REH_Ny##__N;fixed4 _Tint##__N;fixed4 _EmissiveColor##__N; half _Glossiness##__N; half _Roughness##__N; half _TexScale##__N; half _Contrast##__N; fixed4 _SpecColor##__N; sampler2D _SpecGlossMap##__N; float _DistUVScale##__N;
 
 LAYER(1)
 LAYER(2)

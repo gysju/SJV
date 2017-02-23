@@ -6,16 +6,14 @@ Shader "VertexPainter/SplatBlend_4Layer"
 		[NoScaleOffset]_REH_Ny1("Roughness + Emissive + Height + Ny", 2D) = "white" {}
 		_Tint1("Tint", Color) = (1, 1, 1, 1)
 		_Roughness1("Smoothness", Range(0,1)) = 0.5
-		_EmissiveMult1("Emissive Multiplier", Float) = 1
-		_EmissiveColor1("EmissiveColor", Color) = (1, 1, 1, 1)
+		[HDR]_EmissiveColor1("EmissiveColor", Color) = (1, 1, 1, 1)
 		_TexScale1("Texture Scale", Float) = 1
 
 		_RGB_Nx2("Albedo + Nx", 2D) = "white" {}
 		[NoScaleOffset]_REH_Ny2("Roughness + Emissive + Height + Ny", 2D) = "white" {}
 		_Tint2("Tint", Color) = (1, 1, 1, 1)
 		_Roughness2("Smoothness", Range(0,1)) = 0.5
-		_EmissiveMult2("Emissive Multiplier", Float) = 1
-		_EmissiveColor2("EmissiveColor", Color) = (1, 1, 1, 1)
+		[HDR]_EmissiveColor2("EmissiveColor", Color) = (1, 1, 1, 1)
 		_TexScale2("Texture Scale", Float) = 1
 		_Contrast2("Contrast", Range(0,0.99)) = 0.5
 
@@ -23,8 +21,7 @@ Shader "VertexPainter/SplatBlend_4Layer"
 		[NoScaleOffset]_REH_Ny3("Roughness + Emissive + Height + Ny", 2D) = "white" {}
 		_Tint3("Tint", Color) = (1, 1, 1, 1)
 		_Roughness3("Smoothness", Range(0,1)) = 0.5
-		_EmissiveMult3("Emissive Multiplier", Float) = 1
-		_EmissiveColor3("EmissiveColor", Color) = (1, 1, 1, 1)
+		[HDR]_EmissiveColor3("EmissiveColor", Color) = (1, 1, 1, 1)
 		_TexScale3("Texture Scale", Float) = 1
 		_Contrast3("Contrast", Range(0,0.99)) = 0.5
 
@@ -32,8 +29,7 @@ Shader "VertexPainter/SplatBlend_4Layer"
 		[NoScaleOffset]_REH_Ny4("Roughness + Emissive + Height + Ny", 2D) = "white" {}
 		_Tint4("Tint", Color) = (1, 1, 1, 1)
 		_Roughness4("Smoothness", Range(0,1)) = 0.5
-		_EmissiveMult4("Emissive Multiplier", Float) = 1
-		_EmissiveColor4("EmissiveColor", Color) = (1, 1, 1, 1)
+		[HDR]_EmissiveColor4("EmissiveColor", Color) = (1, 1, 1, 1)
 		_TexScale4("Texture Scale", Float) = 1
 		_Contrast4("Contrast", Range(0,0.99)) = 0.5
 
@@ -151,11 +147,6 @@ Shader "VertexPainter/SplatBlend_4Layer"
 			RGB_Nx2.rgb *= _Tint2.rgb;
 			RGB_Nx3.rgb *= _Tint3.rgb;
 			RGB_Nx4.rgb *= _Tint4.rgb;
-
-			REH_Ny1.g *= _EmissiveMult1;
-			REH_Ny2.g *= _EmissiveMult2;
-			REH_Ny3.g *= _EmissiveMult3;
-			REH_Ny4.g *= _EmissiveMult4;
 
 			REH_Ny1.r *= _Roughness1;
 			REH_Ny2.r *= _Roughness2;
