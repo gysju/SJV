@@ -13,14 +13,20 @@ public class AutomaticWeapon : SemiAutomaticWeapon
 
     public WeaponTriggerType m_triggerType = WeaponTriggerType.Automatic;
 
-    public float m_maxBurstTime;
-    protected float m_currentBurstTime;
+    public bool m_canOverHeat = true;
+    [Range(1f, 50f)]
+    public float m_maxHeat;
+    protected float m_currentHeat = 0f;
+    [Range(0f, 50f)]
+    public float m_heatByShot = 0f;
+    [Range(0.5f, 3f)]
+    public float m_timeToCooldown = 0.5f;
+    private bool m_overHeated = false;
 
     private bool m_isFiring = false;
 
     [Range(1, 600)]
     public float m_rpm;
-    private bool m_overHeated = false;
     protected Material m_muzzleMaterial;
     protected Color m_defaultMuzzleColor;
 
@@ -29,18 +35,18 @@ public class AutomaticWeapon : SemiAutomaticWeapon
     protected override void Start()
     {
         base.Start();
-        m_currentBurstTime = m_maxBurstTime;
-		m_muzzleMaterial = GetComponentInChildren<SkinnedMeshRenderer> ().materials [1];
+		m_muzzleMaterial = GetComponentInChildren<SkinnedMeshRenderer>().materials[1];
         m_defaultMuzzleColor = m_muzzleMaterial.color;
     }
 
     IEnumerator FiringWeapon(MoveController moveController)
     {
         m_isFiring = true;
-        while (m_currentBurstTime > 0)
+        while (m_currentHeat <= m_maxHeat)
         {
-            yield return new WaitForSeconds(60f / m_rpm);
             FireWeapon(moveController);
+            m_currentHeat += m_heatByShot;
+            yield return new WaitForSeconds(60f / m_rpm);
         }
         m_overHeated = true;
         m_isFiring = false;
@@ -87,19 +93,15 @@ public class AutomaticWeapon : SemiAutomaticWeapon
             case WeaponTriggerType.SemiAutomatic:
                 break;
             case WeaponTriggerType.Automatic:
-                if (m_isFiring)
+                if (!m_isFiring)
                 {
-                    m_currentBurstTime -= Time.deltaTime;
-                }
-                else
-                {
-                    m_currentBurstTime = Mathf.Min(m_currentBurstTime + Time.deltaTime * 2f, m_maxBurstTime);
-                    if (m_currentBurstTime == m_maxBurstTime)
+                    m_currentHeat = Mathf.Max(m_currentHeat - Time.deltaTime * m_timeToCooldown, 0f);
+                    if (m_currentHeat == 0f)
                     {
                         m_overHeated = false;
                     }
                 }
-                m_muzzleMaterial.color = Color.Lerp(m_defaultMuzzleColor * Color.red, m_defaultMuzzleColor, m_currentBurstTime / m_maxBurstTime);
+                m_muzzleMaterial.color = Color.Lerp(m_defaultMuzzleColor, m_defaultMuzzleColor * Color.red, m_currentHeat / m_maxHeat);
                 break;
             default:
                 break;
