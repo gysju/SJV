@@ -12,7 +12,7 @@ public class Hit : MonoBehaviour
 
 	void Awake ()
     {
-        particle = GetComponent<ParticleSystem>();
+		particle = GetComponentInChildren<ParticleSystem>();
     }
 
     void Update ()
