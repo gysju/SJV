@@ -17756,6 +17756,18 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: cce990e80c1fffb4c8648f60d1ae4783, type: 2}
+    - target: {fileID: 114071044766833950, guid: 2e1e9e92345e15e4b83e63448ddbfab0,
+        type: 2}
+      propertyPath: m_bulletHit
+      value: 
+      objectReference: {fileID: 114958035879787162, guid: 68061645ae90cc14c8dd597ae2e0f1ad,
+        type: 2}
+    - target: {fileID: 114683643693230192, guid: 2e1e9e92345e15e4b83e63448ddbfab0,
+        type: 2}
+      propertyPath: m_bulletHit
+      value: 
+      objectReference: {fileID: 114958035879787162, guid: 68061645ae90cc14c8dd597ae2e0f1ad,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2e1e9e92345e15e4b83e63448ddbfab0, type: 2}
   m_IsPrefabParent: 0
@@ -17905,6 +17917,53 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5d2bb157ec8887c419cabdbe4b259710, type: 3}
   m_IsPrefabParent: 0
+--- !u!1 &1189483356
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1189483357}
+  - component: {fileID: 1189483358}
+  m_Layer: 0
+  m_Name: '[HitManager]'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1189483357
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1189483356}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 89.88607, y: 19.20386, z: 34.310207}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1189483358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1189483356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3713da0ed72f9d468c2d1abee21ccd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DroneHit: {fileID: 114958035879787162, guid: 68061645ae90cc14c8dd597ae2e0f1ad, type: 2}
+  DroneHits: []
+  GroundHit: {fileID: 114958035879787162, guid: 68061645ae90cc14c8dd597ae2e0f1ad,
+    type: 2}
+  GroundHits: []
+  TankHit: {fileID: 114958035879787162, guid: 68061645ae90cc14c8dd597ae2e0f1ad, type: 2}
+  TankHits: []
 --- !u!1001 &1192572131
 Prefab:
   m_ObjectHideFlags: 0

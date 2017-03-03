@@ -12,8 +12,6 @@ public class BaseWeapon : MonoBehaviour
 
     [Tooltip("Graphical effect when firing.")]
     public ParticleSystem m_muzzleFlash;
-    public Hit m_bulletHit;
-    protected List<Hit> m_bulletHits = new List<Hit>();
     
     public ParticleSystem m_shellParticles;
 
@@ -47,34 +45,54 @@ public class BaseWeapon : MonoBehaviour
 
     protected virtual void BulletHitParticle(RaycastHit hit)
     {
-        if (m_bulletHit)
-        {
-            bool bulletHitAvailable = false;
-            foreach (Hit bulletHit in m_bulletHits)
-            {
-                if (bulletHit.Available)
-                {
-                    bulletHitAvailable = true;
-                    bulletHit.Available = false;
-                    bulletHit.transform.position = hit.point;
-                    bulletHit.transform.LookAt(transform);
-                    bulletHit.transform.rotation = Quaternion.FromToRotation(bulletHit.transform.up, hit.normal) * bulletHit.transform.rotation;
-                    bulletHit.particle.Play(true);
-                    break;
-                }
-            }
+		Hit bullet = null;
+		Transform HitTransform = hit.transform;
+		if (HitTransform.GetComponent<GroundEnemy>() != null)
+		{
+			bullet = HitManager.Instance.TankHits.Find( x => x.Available == true);
+			if(bullet != null)
+			{
+				bullet.reset ();
+			}
+			else
+			{
+				bullet = Instantiate(HitManager.Instance.TankHit, HitTransform.parent);
+				HitManager.Instance.TankHits.Add(bullet);
+			}
+		}
+		else if (HitTransform.GetComponent<AirEnemy>() != null)
+		{
+			bullet = HitManager.Instance.DroneHits.Find( x => x.Available == true);
+			if(bullet != null)
+			{
+				bullet.reset ();
+			}
+			else
+			{
+				bullet = Instantiate(HitManager.Instance.DroneHit, HitTransform.parent);
+				HitManager.Instance.DroneHits.Add(bullet);
+			}
+		}
+		else 
+		{
+			bullet = HitManager.Instance.GroundHits.Find( x => x.Available == true);
+			if(bullet != null)
+			{
+				bullet.reset ();
+			}
+			else
+			{
+				bullet = Instantiate(HitManager.Instance.GroundHit, HitTransform.parent);
+				HitManager.Instance.GroundHits.Add(bullet);
+			}
+		}
 
-            if (!bulletHitAvailable)
-            {
-                Hit newBulletHit = Instantiate(m_bulletHit, hit.transform.parent);
-                m_bulletHits.Add(newBulletHit.GetComponent<Hit>());
+		Transform bulletTransform = bullet.transform;
 
-                newBulletHit.transform.position = hit.point;
-                newBulletHit.transform.LookAt(transform);
-                newBulletHit.transform.rotation = Quaternion.FromToRotation(newBulletHit.transform.up, hit.normal) * newBulletHit.transform.rotation;
-                newBulletHit.particle.Play(true);
-            }
-        }
+		bulletTransform.position = hit.point;
+		bulletTransform.LookAt(transform);
+		bulletTransform.rotation = Quaternion.FromToRotation(bulletTransform.up, hit.normal) * bulletTransform.rotation;
+		bulletTransform.parent = HitTransform;
     }
 
     protected virtual void FireWeapon(MoveController moveController = null)

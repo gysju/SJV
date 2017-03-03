@@ -23,4 +23,12 @@ public class Hit : MonoBehaviour
             Available = true;
         }
 	}
+
+	public void reset()
+	{
+		currentTime = 0;
+		Available = false;
+		if ( particle != null )
+			particle.Play ();
+	}
 }
