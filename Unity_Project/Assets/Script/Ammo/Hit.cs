@@ -7,12 +7,13 @@ public class Hit : MonoBehaviour
     public bool Available = false;
     public float lifeTime = 5.0f;
     public ParticleSystem particle;
-
+	public GameObject Decal;
     private float currentTime = 0.0f;
 
 	void Awake ()
     {
 		particle = GetComponentInChildren<ParticleSystem>();
+		Decal = transform.FindChild ("Decal").gameObject;
     }
 
     void Update ()
