@@ -16,7 +16,8 @@ public class Hit : MonoBehaviour
     {
 		particle = GetComponentInChildren<ParticleSystem>();
 		Decal = transform.FindChild ("Decal").gameObject;
-		//Decal.GetComponentInChildren<Material> ().SetTexture ("_MainColor", textures[Random.Range(0, textures.Count)]);
+		if ( Decal != null)
+			Decal.GetComponentInChildren<MeshRenderer> ().material.SetTexture ("_MainTex", textures[Random.Range(0, textures.Count)]);
     }
 
     void Update ()

@@ -47,8 +47,12 @@ public class BaseWeapon : MonoBehaviour
     {
 		Hit bullet = null;
 		Transform HitTransform = hit.transform;
+
 		if (HitTransform.GetComponent<GroundEnemy>() != null)
 		{
+			if (HitManager.Instance.TankHit == null)
+				return;
+			
 			bullet = HitManager.Instance.TankHits.Find( x => x.Available == true);
 			if(bullet != null)
 			{
@@ -62,6 +66,9 @@ public class BaseWeapon : MonoBehaviour
 		}
 		else if (HitTransform.GetComponent<AirEnemy>() != null)
 		{
+			if (HitManager.Instance.DroneHit == null)
+				return;
+
 			bullet = HitManager.Instance.DroneHits.Find( x => x.Available == true);
 			if(bullet != null)
 			{
@@ -73,8 +80,27 @@ public class BaseWeapon : MonoBehaviour
 				HitManager.Instance.DroneHits.Add(bullet);
 			}
 		}
+		else if (HitTransform.GetComponent<BaseMecha>() != null)
+		{
+			if (HitManager.Instance.PlayerHit == null)
+				return;
+			
+			bullet = HitManager.Instance.PlayerHits.Find( x => x.Available == true);
+			if(bullet != null)
+			{
+				bullet.reset ();
+			}
+			else
+			{
+				bullet = Instantiate(HitManager.Instance.PlayerHit, HitTransform.parent);
+				HitManager.Instance.PlayerHits.Add(bullet);
+			}
+		}
 		else 
 		{
+			if (HitManager.Instance.GroundHit == null)
+				return;
+			
 			bullet = HitManager.Instance.GroundHits.Find( x => x.Available == true);
 			if(bullet != null)
 			{
