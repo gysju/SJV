@@ -10,10 +10,13 @@ public class Hit : MonoBehaviour
 	public GameObject Decal;
     private float currentTime = 0.0f;
 
+	public List<Texture> textures = new List<Texture>();
+
 	void Awake ()
     {
 		particle = GetComponentInChildren<ParticleSystem>();
 		Decal = transform.FindChild ("Decal").gameObject;
+		//Decal.GetComponentInChildren<Material> ().SetTexture ("_MainColor", textures[Random.Range(0, textures.Count)]);
     }
 
     void Update ()
