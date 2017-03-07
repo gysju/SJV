@@ -12573,7 +12573,7 @@ GameObject:
   m_Component:
   - component: {fileID: 674854043}
   m_Layer: 0
-  m_Name: Spawn
+  m_Name: Center
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12586,7 +12586,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 674854042}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1688, y: 643, z: 2099}
+  m_LocalPosition: {x: 97.4, y: 16.7, z: 90.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1059606387}
@@ -17725,7 +17725,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1059606387}
   - component: {fileID: 1059606388}
-  - component: {fileID: 1059606389}
   - component: {fileID: 1059606390}
   m_Layer: 0
   m_Name: '[AsteriodsManager]'
@@ -17760,27 +17759,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Asteroide: {fileID: 1517583240256360, guid: 112863447868b2c43b12bd930beb09f5, type: 2}
-  MaxNumberOfAsteriods: 25
-  Force: 150
-  Torque: 30.5
-  MaxRangeSpawnY: 321
-  MaxRangeSpawnZ: 272
-  RandomScaleIntensity: {x: 0.5, y: 2}
-  TimeBetweenAsteriods: 1
-  TimeRandom: 0.5
-  TimeRandomItensity: 0
---- !u!65 &1059606389
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1059606386}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 50, y: 2000, z: 2000}
-  m_Center: {x: -1000, y: 650, z: 2100}
+  RandomScale: {x: 0.5, y: 3}
+  MaxNumberOfAsteriods: 200
+  Torque: {x: 1, y: 5}
+  Radius: {x: 2300, y: 2750}
+  FirstJointSpeedRotation: 1.42
+  SecondeJointSpeedRotation: 6.87
+  ThirdJointSpeedRotation: 4.2
 --- !u!54 &1059606390
 Rigidbody:
   m_ObjectHideFlags: 0
