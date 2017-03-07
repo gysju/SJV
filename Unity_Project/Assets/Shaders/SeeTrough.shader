@@ -1,4 +1,6 @@
-﻿Shader "Custom/SeeTrough"
+﻿// Upgrade NOTE: replaced '_World2Object' with 'unity_WorldToObject'
+
+Shader "Custom/SeeTrough"
 {
 	Properties
 	{
@@ -46,7 +48,7 @@
 				v2f o;
 				UNITY_SETUP_INSTANCE_ID(v);
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
-				o.viewDir = WorldSpaceViewDir(v.vertex);
+				o.viewDir = mul(unity_WorldToObject, WorldSpaceViewDir(v.vertex));
 				o.vertex = UnityObjectToClipPos(v.vertex);
 				o.texcoord = TRANSFORM_TEX(v.texcoord, _MainTex);
 				return o;
@@ -63,7 +65,7 @@
 				clip(col.a - _Cutoff);
 				return float4(zlv, zlv, zlv, 1.0f);
 			}
-		ENDCG
+			ENDCG
 		}
 	}
 }
