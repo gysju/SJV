@@ -15,12 +15,12 @@
 
 		Pass
 		{
-		CGPROGRAM
-#pragma vertex vert
-#pragma fragment frag
-#pragma target 5.0
+			CGPROGRAM
+			#pragma vertex vert
+			#pragma fragment frag
+			#pragma target 5.0
 
-#include "UnityCG.cginc"
+			#include "UnityCG.cginc"
 
 			struct appdata_t 
 			{
@@ -33,6 +33,7 @@
 			{
 				float4 vertex : SV_POSITION;
 				float2 texcoord : TEXCOORD0;
+				float3 viewDir	: TEXCOORD1;
 				UNITY_VERTEX_OUTPUT_STEREO
 			};
 
@@ -45,6 +46,7 @@
 				v2f o;
 				UNITY_SETUP_INSTANCE_ID(v);
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
+				o.viewDir = WorldSpaceViewDir(v.vertex);
 				o.vertex = UnityObjectToClipPos(v.vertex);
 				o.texcoord = TRANSFORM_TEX(v.texcoord, _MainTex);
 				return o;
@@ -53,11 +55,13 @@
 			fixed4 frag(v2f i) : SV_Target
 			{
 				fixed4 col = tex2D(_MainTex, i.texcoord);
-				float3 vertexView = normalize(WorldSpaceViewDir(i.vertex));
+				float3 vertexView = normalize(i.viewDir);
 				float3 viewDir = UNITY_MATRIX_IT_MV[2].xyz;
-				clip(1 - dot(vertexView, viewDir));
+
+				float zlv = 1 - dot(vertexView, viewDir);
+				//clip(1 - dot(vertexView, viewDir));
 				clip(col.a - _Cutoff);
-				return col;
+				return float4(zlv, zlv, zlv, 1.0f);
 			}
 		ENDCG
 		}
