@@ -61,9 +61,9 @@ Shader "Custom/SeeTrough"
 				float3 viewDir = UNITY_MATRIX_IT_MV[2].xyz;
 
 				float zlv = 1 - dot(vertexView, viewDir);
-				//clip(1 - dot(vertexView, viewDir));
+				clip(1 - dot(vertexView, viewDir));
 				clip(col.a - _Cutoff);
-				return float4(zlv, zlv, zlv, 1.0f);
+				return col;
 			}
 			ENDCG
 		}
