@@ -8,14 +8,14 @@ public class EnemyBarPosition : MonoBehaviour
     private BaseEnemy enemy = null;
     private RectTransform rt;
     private CanvasGroup canvasGroup;
-    private Image im;
+    //private Image im;
     public Image gauge;
 
     void Start()
     {
         canvasGroup = GetComponent<CanvasGroup>();
         rt = GetComponent<RectTransform>();
-        im = GetComponent<Image>();
+        //im = GetComponent<Image>();
     }
 
     public void SetEnemy(GameObject newEnemy)

@@ -35,7 +35,7 @@ Shader "Custom/SeeTrough"
 			{
 				float4 vertex : SV_POSITION;
 				float2 texcoord : TEXCOORD0;
-				float3 viewDir	: TEXCOORD1;
+				float4 viewDir	: TEXCOORD1;
 				UNITY_VERTEX_OUTPUT_STEREO
 			};
 
@@ -48,7 +48,7 @@ Shader "Custom/SeeTrough"
 				v2f o;
 				UNITY_SETUP_INSTANCE_ID(v);
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
-				o.viewDir = mul(unity_WorldToObject, WorldSpaceViewDir(v.vertex));
+				o.viewDir = mul(unity_WorldToObject, float4(WorldSpaceViewDir(v.vertex), 0.0f));
 				o.vertex = UnityObjectToClipPos(v.vertex);
 				o.texcoord = TRANSFORM_TEX(v.texcoord, _MainTex);
 				return o;
@@ -57,7 +57,7 @@ Shader "Custom/SeeTrough"
 			fixed4 frag(v2f i) : SV_Target
 			{
 				fixed4 col = tex2D(_MainTex, i.texcoord);
-				float3 vertexView = normalize(i.viewDir);
+				float3 vertexView = normalize(i.viewDir.xyz);
 				float3 viewDir = UNITY_MATRIX_IT_MV[2].xyz;
 
 				float zlv = 1 - dot(vertexView, viewDir);

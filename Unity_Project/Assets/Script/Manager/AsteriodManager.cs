@@ -28,8 +28,6 @@ public class AsteriodManager : MonoBehaviour
 
 	private List<GameObject> Asteriods = new List<GameObject>();
 
-	private Transform Center;
-	private float time = 0;
 	private GameObject Instance;
 
 	GameObject FirstJoint;
@@ -37,9 +35,7 @@ public class AsteriodManager : MonoBehaviour
 	GameObject ThirdJoint;
 
 	void Start () 
-	{
-		Center = transform.FindChild("Center");
-		 
+	{		 
 		Instance = new GameObject();
 		Instance.transform.name = "Instance";
 		Instance.transform.parent = transform;
@@ -86,7 +82,6 @@ public class AsteriodManager : MonoBehaviour
 	void RandomPosition( GameObject obj)
 	{
 		Vector3 RandomDir = Random.onUnitSphere;
-		Debug.Log (RandomDir);
 		obj.transform.position = new Vector3 (	RandomDir.x * Random.Range (Radius.x, Radius.y), 
 												(Mathf.Abs( RandomDir.y )) * Random.Range (Radius.x, Radius.y), 
 												RandomDir.z * Random.Range (Radius.x, Radius.y));
