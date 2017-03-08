@@ -19,11 +19,11 @@ public class AsteriodManager : MonoBehaviour
 	public Vector2 Radius = new Vector2 ();
 
 	[Header("Rotation")]
-	[Range(0.0f, 10.0f)]
+	[Range(0.0f, 3.0f)]
 	public float FirstJointSpeedRotation = 5.0f;
-	[Range(0.0f, 10.0f)]
+	[Range(0.0f, 3.0f)]
 	public float SecondeJointSpeedRotation = 5.0f;
-	[Range(0.0f, 10.0f)]
+	[Range(0.0f, 3.0f)]
 	public float ThirdJointSpeedRotation = 5.0f;
 
 	private List<GameObject> Asteriods = new List<GameObject>();
