@@ -6,14 +6,22 @@ public class AirEnemy : BaseEnemy
 {
     [Header("Mobility")]
     public float m_maxSpeed = 2f;
+    protected float m_currentSpeed = 0f;
     public float m_acceleration = 8f;
     public float m_rotationSpeed = 1f;
+
+    protected Vector3 m_movement;
+    protected Vector3 test;
+
+    public float m_minimumDistance = 4f;
 
     public LayerMask m_layerToDodge;
 	private Rigidbody rigid;
 
+    [HideInInspector]
 	[Range(0.0f,200.0f)]
 	public float ForceIntensity = 0;
+    [HideInInspector]
 	[Range(0.0f,200.0f)]
 	public float TorqueIntensity = 0;
 
@@ -27,6 +35,7 @@ public class AirEnemy : BaseEnemy
     protected override void Start()
     {
         base.Start();
+        test = m_attackPosition.Value;
         if (m_attackPosition.HasValue) StartMovement();
     }
 
@@ -66,8 +75,7 @@ public class AirEnemy : BaseEnemy
 	#endregion
 
     #region Movement Related
-
-    protected void MovementUpdate(Vector3 movementTarget)
+    protected void LongDistanceMovementUpdate(Vector3 movementTarget)
     {
         Vector3 movementDirection = (movementTarget - m_transform.position).normalized;
         m_transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(m_transform.forward, movementDirection, m_rotationSpeed * Time.deltaTime, 0f));
@@ -87,8 +95,50 @@ public class AirEnemy : BaseEnemy
             }
             
         }
-        m_transform.position += m_transform.forward * m_maxSpeed * Time.deltaTime;
+        m_movement += movementDirection * m_acceleration * Time.deltaTime;
+        m_movement = Vector3.ClampMagnitude(m_movement, m_maxSpeed * Time.deltaTime);
+        m_transform.position += m_movement;
         if (IsPathCompleted(movementTarget)) MovementOver();
+    }
+
+    protected void CloseDistanceMovementUpdate(Vector3 movementTarget)
+    {
+        Vector3 movementDirection = (movementTarget - m_transform.position).normalized;
+        m_movement = Vector3.RotateTowards(m_movement, movementDirection, m_rotationSpeed * Time.deltaTime, 0f);
+
+        if (Vector3.Dot(m_movement, movementDirection) >= 0f)
+        {
+            m_movement += movementDirection * m_acceleration * Time.deltaTime;
+            m_movement = Vector3.ClampMagnitude(m_movement, m_maxSpeed * Time.deltaTime);
+        }
+        else
+        {
+            Brake();
+        }
+
+        RaycastHit hit;
+        Physics.SphereCast(m_transform.position, 3f, m_movement, out hit, m_minimumDistance, m_layerToDodge);
+        if (hit.transform)
+        {
+            m_attackPosition = (test) + Random.insideUnitSphere * 5f;
+        }
+        else
+        {
+            //if (m_transform.position.y > movementTarget.y)
+            //{
+            //    Physics.SphereCast(m_transform.position, 3f, -m_transform.up, out hit, m_minimumDistance, m_layerToDodge);
+            //    if (!hit.transform)
+            //        movementDirection += Vector3.down / 2f;
+            //}
+
+        }
+        m_transform.position += m_movement;
+        if (IsPathCompleted(movementTarget)) m_attackPosition = (test) + Random.insideUnitSphere * 5f;
+    }
+
+    protected void Brake()
+    {
+        m_movement = Vector3.SmoothDamp(m_movement, Vector3.zero, ref m_movement, 0.05f);
     }
 
     protected bool IsPathCompleted(Vector3 movementTarget)
@@ -99,7 +149,7 @@ public class AirEnemy : BaseEnemy
     protected void MovementOver()
     {
         m_enemyState = EnemyState.EnemyState_Attacking;
-        LaserOn();
+        //LaserOn();
     }
     #endregion
 
@@ -112,16 +162,12 @@ public class AirEnemy : BaseEnemy
 
     protected void TurnTowardTarget(Vector3 targetPosition)
     {
-        Vector3 movementDirection = (targetPosition - m_transform.position).normalized;
-        Vector3 rotationVector = movementDirection;
-        rotationVector.y = 0;
-        Quaternion rotation = Quaternion.LookRotation(movementDirection);
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * m_rotationSpeed);
-    }
-
-    protected void AttackMovementUpdate()
-    {
-
+        Vector3 movementDirection = ((targetPosition) - m_transform.position).normalized;
+        //Vector3 rotationVector = movementDirection;
+        //rotationVector.y = 0;
+        //Quaternion rotation = Quaternion.LookRotation(movementDirection);
+        //transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * m_rotationSpeed);
+        transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(m_transform.forward, movementDirection, m_rotationSpeed * Time.deltaTime, 0f));
     }
     #endregion
 
@@ -140,18 +186,16 @@ public class AirEnemy : BaseEnemy
                     }
                     break;
                 case EnemyState.EnemyState_Moving:
-                    MovementUpdate(m_attackPosition.Value);
+                    LongDistanceMovementUpdate(m_attackPosition.Value);
                     break;
                 case EnemyState.EnemyState_Attacking:
                     TurnTowardTarget(m_target.position);
-                    AttackMovementUpdate();
+                    CloseDistanceMovementUpdate(m_attackPosition.Value);
                     AimWeaponAt(m_target.position + Random.insideUnitSphere * 2);
                     m_currentTimeToAttack -= Time.deltaTime;
                     if (m_currentTimeToAttack <= 0)
                     {
                         Fire();
-                        //m_enemyState = EnemyState.EnemyState_Moving;
-                        //m_attackPosition = (m_transform.position + Vector3.up) + Random.insideUnitSphere;
                     }
                     break;
                 default:

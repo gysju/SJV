@@ -508,8 +508,9 @@ MonoBehaviour:
   DeathfadeSpeed: 1
   EmissiveColor: {r: 0, g: 0, b: 0, a: 0}
   m_maxSpeed: 23
-  m_acceleration: 8
+  m_acceleration: 0.5
   m_rotationSpeed: 1
+  m_minimumDistance: 4
   m_layerToDodge:
     serializedVersion: 2
     m_Bits: 7680
@@ -531,7 +532,6 @@ MonoBehaviour:
     m_Bits: 5632
   m_muzzle: {fileID: 4973847733580798}
   m_muzzleFlash: {fileID: 198799847368667708}
-  m_bulletHit: {fileID: 0}
   m_shellParticles: {fileID: 0}
   m_shotSound: {fileID: 82111103603893030}
   m_vibrationDuration: 0
