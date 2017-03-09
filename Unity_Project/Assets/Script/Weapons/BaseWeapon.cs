@@ -115,8 +115,8 @@ public class BaseWeapon : MonoBehaviour
 
 		bulletTransform.position = hit.point;
 		bulletTransform.LookAt(transform);
-		if ( bullet.Decal != null )
-			bullet.Decal.transform.rotation = Quaternion.FromToRotation(bulletTransform.up, hit.normal) * bullet.Decal.transform.rotation;
+		if (bullet.Decal != null)
+			bullet.Decal.transform.rotation = Quaternion.FromToRotation (Vector3.up, hit.normal);
 		bulletTransform.parent = HitTransform;
     }
 
