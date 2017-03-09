@@ -35,11 +35,9 @@ public class BaseWeapon : MonoBehaviour
 	public Animator animator;
 
     public bool m_showLaser = false;
-	protected LineRenderer m_laser;    
 
     protected virtual void Start()
     {
-        m_laser = GetComponent<LineRenderer>();
         if (!m_shotSound) m_shotSound = GetComponent<AudioSource>();
     }
 
@@ -117,8 +115,8 @@ public class BaseWeapon : MonoBehaviour
 
 		bulletTransform.position = hit.point;
 		bulletTransform.LookAt(transform);
-		if ( bullet.Decal != null )
-			bullet.Decal.transform.rotation = Quaternion.FromToRotation(bulletTransform.up, hit.normal) * bullet.Decal.transform.rotation;
+		if (bullet.Decal != null)
+			bullet.Decal.transform.rotation = Quaternion.FromToRotation (Vector3.up, hit.normal);
 		bulletTransform.parent = HitTransform;
     }
 
@@ -139,18 +137,6 @@ public class BaseWeapon : MonoBehaviour
 
     void Update ()
 	{
-        if (m_laser)
-        {
-            if(m_showLaser)
-            {
-                m_laser.SetPosition(0, m_muzzle.position);
-                m_laser.SetPosition(1, m_muzzle.position + m_muzzle.forward * m_maxRange);
-            }
-            else
-            {
-                m_laser.SetPosition(0, m_muzzle.position);
-                m_laser.SetPosition(1, m_muzzle.position);
-            }
-        }
+        
 	}
 }
