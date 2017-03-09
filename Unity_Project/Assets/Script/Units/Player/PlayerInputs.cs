@@ -18,12 +18,12 @@ public class PlayerInputs : MonoBehaviour
 
     public MechaTorso m_torso;
     protected bool m_torsoConnected;
-    
+
     public float m_maxHorinzontalHeadAngle = 10f;
     public float m_maxVerticalHeadAngle = 75f;
 
-    //public MechaLegs m_legs;
-    //protected bool m_legsConnected;
+    public MechaLegs m_legs;
+    protected bool m_legsConnected;
 
 #if UNITY_PS4
     [Header("PSMove Related")]
@@ -34,17 +34,12 @@ public class PlayerInputs : MonoBehaviour
     private MoveController m_leftController;
     private MoveController m_rightController;
 
-    
-    
-	private Vector3 m_lastMovement;
-    
     private void PSMoveStart()
     {
         trackedDeviceMoveControllers = GetComponentInChildren<TrackedDeviceMoveControllers>();
         m_baseOffset = Vector3.zero;
 		m_leftController = trackedDeviceMoveControllers.primaryMoveController;
 		m_rightController = trackedDeviceMoveControllers.secondaryMoveController;
-		m_lastMovement = Vector3.zero;
     }
 #endif
 
@@ -58,6 +53,8 @@ public class PlayerInputs : MonoBehaviour
 			if (!m_mecha) m_mecha = GetComponentInParent<BaseMecha>();
 			if (!m_torso) m_torso = m_mecha.m_torso;
 			m_torsoConnected = m_torso;
+            if (!m_legs) m_legs = m_mecha.m_legs;
+            m_legsConnected = m_legs;
 			#if UNITY_PS4
 			PSMoveStart();
 			#endif

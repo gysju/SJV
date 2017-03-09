@@ -10,6 +10,7 @@ public class BaseMecha : BaseUnit
 
     public GameObject m_bunker;
     public MechaTorso m_torso;
+    public MechaLegs m_legs;
 
     protected ZAManager m_zaManager;
 

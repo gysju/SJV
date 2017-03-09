@@ -51,8 +51,8 @@ public class WaveManager : MonoBehaviour {
 			MaxDroneByCurrentCall = Mathf.FloorToInt( Waves[CurrentWaveIndex].DroneByTime.Evaluate(value) );
 			secondeTimer = 0.0f;
 
-			BattleManager.Instance.setcurrentNbrTankSinceLastWave ( 0 );
-			BattleManager.Instance.setcurrentNbrDroneSinceLastWave ( 0 );
+			//BattleManager.Instance.setcurrentNbrTankSinceLastWave ( 0 );
+			//BattleManager.Instance.setcurrentNbrDroneSinceLastWave ( 0 );
 		}
 	}
 

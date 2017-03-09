@@ -107,7 +107,7 @@ public class BallisticAmmo : Ammo
 
     void OnCollisionEnter(Collision collision)
     {
-        Unit unit = collision.gameObject.GetComponentInParent<Unit>();
+        BaseUnit unit = collision.gameObject.GetComponentInParent<BaseUnit>();
         PhysicMaterial physicMaterial = collision.collider.material;
 
         bool couldRicochet = (physicMaterial.name == "Metal (Instance)");
@@ -116,7 +116,7 @@ public class BallisticAmmo : Ammo
 
         if (unit)
         {
-			if (unit.ReceiveDamages(gameObject, m_directDamages, m_armorPenetration))
+			if (unit.ReceiveDamages(m_directDamages, m_armorPenetration))
             {
                 CheckExplosion();
             }

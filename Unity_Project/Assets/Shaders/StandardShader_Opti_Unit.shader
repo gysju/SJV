@@ -4,10 +4,9 @@ Shader "Custom/StantardShader_RGB_N_MGE_Unit" {
 	Properties {
 		_RGB_Nx ("RGB_Nx", 2D) = "white" {}
 		[NoScaleOffset]_MRE_Ny ("MRE_Ny", 2D) = "white" {}
-		_EmissiveColor ("EmissiveColor", Color) = (1,1,1,1)
+		[HDR]_EmissiveColor ("EmissiveColor", Color) = (1,1,1,1)
 		_Glossiness ("Smoothness", Range(0,1)) = 0.5
 		_Metallic ("Metallic", Range(0,1)) = 0.0
-		_Emission ("Emission", Range(0, 20)) = 1.0
 		_NormalIntensity("NormalIntensity", Range(0,5)) = 1
 
 		_AlphaClip ("AlphaClip", 2D) = "white" {}
@@ -30,7 +29,7 @@ Shader "Custom/StantardShader_RGB_N_MGE_Unit" {
 			float2 uv_AlphaClip;
         };
 	
-		half _Glossiness, _Metallic, _Emission, _NormalIntensity, _AlphaValue, _Rim;
+		half _Glossiness, _Metallic, _NormalIntensity, _AlphaValue, _Rim;
 
 		fixed4 _EmissiveColor;
 
@@ -47,11 +46,11 @@ Shader "Custom/StantardShader_RGB_N_MGE_Unit" {
 
 			if( AlphaClip > _AlphaValue - _Rim )
 			{
-				o.Emission = _EmissiveColor * _Emission ;
+				o.Emission = _EmissiveColor;
 			}
 			else
 			{
-				o.Emission = MRE_Ny.z * (_EmissiveColor * _Emission );
+				o.Emission = MRE_Ny.z * _EmissiveColor;
 			}
 
 			o.Alpha = 1;

@@ -5,7 +5,7 @@ public class MechaTorso : MonoBehaviour
 {
 	public static MechaTorso Instance = null;
 
-    public Transform m_torsoTransform;
+    protected Transform m_torsoTransform;
     public float m_torsoRotationSpeed = 0.5f;
 
     void Start()

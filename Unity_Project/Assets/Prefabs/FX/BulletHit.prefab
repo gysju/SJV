@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4000013151076874}
   - component: {fileID: 198000013963693356}
   - component: {fileID: 199000012199989850}
+  - component: {fileID: 114958035879787162}
   m_Layer: 0
   m_Name: BulletHit
   m_TagString: Untagged
@@ -37,7 +38,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4077673168087632}
   - component: {fileID: 33532826929141560}
-  - component: {fileID: 64446567101369248}
   - component: {fileID: 23263726254247754}
   m_Layer: 0
   m_Name: Decal
@@ -111,20 +111,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1017842011204010}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!64 &64446567101369248
-MeshCollider:
+--- !u!114 &114958035879787162
+MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1017842011204010}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_GameObject: {fileID: 1000012052525916}
   m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_InflateMesh: 0
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c310b1fdc47e2384288f71142efe9179, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Available: 0
+  lifeTime: 5
+  particle: {fileID: 0}
 --- !u!198 &198000013963693356
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -180,7 +180,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: 1297671824
+  randomSeed: 1308959550
   InitialModule:
     serializedVersion: 3
     enabled: 1

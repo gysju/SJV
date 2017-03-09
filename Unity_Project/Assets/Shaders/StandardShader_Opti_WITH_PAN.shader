@@ -4,10 +4,9 @@ Shader "Custom/StantardShader_RGB_N_MGE_WITH_PAN" {
 	Properties {
 		_RGB_Nx ("RGB_Nx", 2D) = "white" {}
 		[NoScaleOffset]_MRE_Ny ("MRE_Ny", 2D) = "white" {}
-		_EmissiveColor ("EmissiveColor", Color) = (1,1,1,1)
+		[HDR]_EmissiveColor ("EmissiveColor", Color) = (1,1,1,1)
 		_Glossiness ("Smoothness", Range(0,1)) = 0.5
 		_Metallic ("Metallic", Range(0,1)) = 0.0
-		_Emission ("Emission", Range(0, 20)) = 1.0
 		_NormalIntensity("NormalIntensity", Range(0,5)) = 1
 
 		_UVSpeed ("UV Speed", Range(0,2)) = 1
@@ -30,7 +29,7 @@ Shader "Custom/StantardShader_RGB_N_MGE_WITH_PAN" {
 			half fog;
         };
 	
-		half _Glossiness, _Metallic, _Emission, _NormalIntensity, _UVSpeed, _UV_Direction;
+		half _Glossiness, _Metallic, _NormalIntensity, _UVSpeed, _UV_Direction;
 
 		fixed4 _EmissiveColor;
 
@@ -56,7 +55,7 @@ Shader "Custom/StantardShader_RGB_N_MGE_WITH_PAN" {
 
             half3 N = UnpackScaleNormal(float4(0,RGB_Nx.a, 0, MRE_Ny.a), _NormalIntensity);
 
-			o.Emission = MRE_Ny.z * (_EmissiveColor * _Emission );
+			o.Emission = MRE_Ny.z * _EmissiveColor;
 			o.Alpha = 1;
   			
 			o.Albedo = RGB_Nx.rgb;

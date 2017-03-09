@@ -9,8 +9,7 @@
 		_MetallicOne ("Metallic", Range(0,1)) = 0.0
 
 		[Space(10)]
-		_EmissiveColorOne ("Emissive color", Color) = (1,1,1,1)
-		_EmissiveIntensityOne ("Emissive Intensity", Range(0,10)) = 0.0
+		[HDR]_EmissiveColorOne ("Emissive color", Color) = (1,1,1,1)
 
 		[Header(Tex 2 (G))]
 		_ColorTwo ("Color", Color) = (1,1,1,1)
@@ -21,8 +20,7 @@
 		_MetallicTwo ("Metallic", Range(0,1)) = 0.0
 
 		[Space(10)]
-		_EmissiveColorTwo ("Emissive color", Color) = (1,1,1,1)
-		_EmissiveIntensityTwo ("Emissive Intensity", Range(0,10)) = 0.0
+		[HDR]_EmissiveColorTwo ("Emissive color", Color) = (1,1,1,1)
 
 		[Header(Tex 3 (B))]
 		_ColorThree ("Color", Color) = (1,1,1,1)
@@ -33,8 +31,7 @@
 		_MetallicThree ("Metallic", Range(0,1)) = 0.0
 
 		[Space(10)]
-		_EmissiveColorThree ("Emissive color", Color) = (1,1,1,1)
-		_EmissiveIntensityThree ("Emissive Intensity", Range(0,10)) = 0.0
+		[HDR]_EmissiveColorThree ("Emissive color", Color) = (1,1,1,1)
 	}
 	SubShader {
 		Tags { "RenderType"="Opaque" }
@@ -59,7 +56,6 @@
 		half _NormalIntensityOne, _NormalIntensityTwo, _NormalIntensityThree;
 		half _RoughnessOne, _RoughnessTwo, _RoughnessThree;
 		half _MetallicOne, _MetallicTwo, _MetallicThree;
-		half _EmissiveIntensityOne, _EmissiveIntensityTwo, _EmissiveIntensityThree;
 
 		void surf (Input IN, inout SurfaceOutputStandard o) {
 			fixed4 RGB_Nx_One = tex2D (_RGB_Nx_One, IN.uv_RGB_Nx_One);
@@ -100,9 +96,9 @@
 			o.Smoothness = 1 - ( MRE_Ny_One.g + MRE_Ny_Two.g + MRE_Ny_Three.g);
 
 			// Emissive
-			half3 EmissiveOne = MRE_Ny_One.b * _EmissiveColorOne * _EmissiveIntensityOne * IN.color.r;
-			half3 EmissiveTwo = MRE_Ny_Two.b * _EmissiveColorTwo * _EmissiveIntensityTwo * IN.color.g;
-			half3 EmissiveThree = MRE_Ny_Three.b * _EmissiveColorThree * _EmissiveIntensityThree * IN.color.b;
+			half3 EmissiveOne = MRE_Ny_One.b * _EmissiveColorOne * IN.color.r;
+			half3 EmissiveTwo = MRE_Ny_Two.b * _EmissiveColorTwo * IN.color.g;
+			half3 EmissiveThree = MRE_Ny_Three.b * _EmissiveColorThree * IN.color.b;
 
 			o.Emission = EmissiveOne + EmissiveTwo + EmissiveThree;
 			o.Alpha = 1;

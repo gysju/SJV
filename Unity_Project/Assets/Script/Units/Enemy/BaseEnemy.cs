@@ -58,8 +58,10 @@ public class BaseEnemy : BaseUnit
 
         LaserOff();
 
-        if (m_animator) m_animator.SetTrigger("Idle");
-
+		//if (m_animator != null) 
+		//{
+		//	m_animator.SetTrigger ("Idle");
+		//}
         StartCoroutine (SpawnFade ());
     }
     #endregion
