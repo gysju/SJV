@@ -20335,24 +20335,7 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 120544885849537454, guid: 2e1e9e92345e15e4b83e63448ddbfab0,
-        type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: cce990e80c1fffb4c8648f60d1ae4783, type: 2}
-    - target: {fileID: 120017111716825626, guid: 2e1e9e92345e15e4b83e63448ddbfab0,
-        type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: cce990e80c1fffb4c8648f60d1ae4783, type: 2}
-    - target: {fileID: 114559335785910554, guid: 2e1e9e92345e15e4b83e63448ddbfab0,
-        type: 2}
-      propertyPath: m_targetPoint
-      value: 
-      objectReference: {fileID: 1736650788}
-    m_RemovedComponents:
-    - {fileID: 120291460655756920, guid: 2e1e9e92345e15e4b83e63448ddbfab0, type: 2}
-    - {fileID: 120088557511208012, guid: 2e1e9e92345e15e4b83e63448ddbfab0, type: 2}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2e1e9e92345e15e4b83e63448ddbfab0, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1180346427
@@ -23832,11 +23815,6 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: cbdba3a4398437e4088d55c1af6da40b, type: 3}
   m_PrefabInternal: {fileID: 1381838918}
---- !u!4 &1384260852 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4996339457067266, guid: 2e1e9e92345e15e4b83e63448ddbfab0,
-    type: 2}
-  m_PrefabInternal: {fileID: 1179318102}
 --- !u!1 &1386416970
 GameObject:
   m_ObjectHideFlags: 0
@@ -29588,11 +29566,6 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: f46b3083f0e93af45936772469efe72b, type: 3}
   m_PrefabInternal: {fileID: 1734732753}
---- !u!4 &1736650788 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4758725512740060, guid: 2e1e9e92345e15e4b83e63448ddbfab0,
-    type: 2}
-  m_PrefabInternal: {fileID: 1179318102}
 --- !u!4 &1736965108 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: d37825279a285094c8d6204d8f78af9b, type: 3}
@@ -32342,7 +32315,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   upperArm: {fileID: 1215343230}
   forearm: {fileID: 1026315274}
-  hand: {fileID: 1384260852}
+  hand: {fileID: 1973551229}
   target: {fileID: 1004573447}
   elbowTarget: {fileID: 2030648709}
   IsEnabled: 1
@@ -32913,6 +32886,11 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 8f4eff7a90175464d9a0b6626b65c9bf, type: 3}
   m_PrefabInternal: {fileID: 1970204702}
+--- !u!4 &1973551229 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4397615704242570, guid: 2e1e9e92345e15e4b83e63448ddbfab0,
+    type: 2}
+  m_PrefabInternal: {fileID: 1179318102}
 --- !u!1001 &1977344666
 Prefab:
   m_ObjectHideFlags: 0
