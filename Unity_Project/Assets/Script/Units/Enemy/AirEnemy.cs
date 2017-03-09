@@ -119,9 +119,9 @@ public class AirEnemy : BaseEnemy
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * m_rotationSpeed);
     }
 
-    protected void AttackMovement()
+    protected void AttackMovementUpdate()
     {
-        m_transform.position += m_transform.right * (m_maxSpeed/3f) * Time.deltaTime;
+
     }
     #endregion
 
@@ -143,13 +143,15 @@ public class AirEnemy : BaseEnemy
                     MovementUpdate(m_attackPosition.Value);
                     break;
                 case EnemyState.EnemyState_Attacking:
-                    AimWeaponAt(m_target.position);
-                    //AttackMovement();
                     TurnTowardTarget(m_target.position);
+                    AttackMovementUpdate();
+                    AimWeaponAt(m_target.position + Random.insideUnitSphere * 2);
                     m_currentTimeToAttack -= Time.deltaTime;
                     if (m_currentTimeToAttack <= 0)
                     {
                         Fire();
+                        //m_enemyState = EnemyState.EnemyState_Moving;
+                        //m_attackPosition = (m_transform.position + Vector3.up) + Random.insideUnitSphere;
                     }
                     break;
                 default:
