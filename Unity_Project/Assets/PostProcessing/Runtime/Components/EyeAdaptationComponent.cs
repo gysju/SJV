@@ -40,6 +40,11 @@ namespace UnityEngine.PostProcessing
             }
         }
 
+        public void ResetHistory()
+        {
+            m_FirstFrame = true;
+        }
+
         public override void OnEnable()
         {
             m_FirstFrame = true;
@@ -143,10 +148,6 @@ namespace UnityEngine.PostProcessing
                 m_AutoExposurePingPing = ++pp % 2;
                 m_CurrentAutoExposure = dst;
             }
-
-            // Uber setup
-            uberMaterial.EnableKeyword("EYE_ADAPTATION");
-            uberMaterial.SetTexture(Uniforms._AutoExposure, m_CurrentAutoExposure);
 
             // Generate debug histogram
             if (context.profile.debugViews.IsModeActive(BuiltinDebugViewsModel.Mode.EyeAdaptation))
