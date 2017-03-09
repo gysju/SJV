@@ -485,6 +485,7 @@ GameObject:
   - component: {fileID: 4502572224520990}
   - component: {fileID: 33189993997686766}
   - component: {fileID: 23289389494668768}
+  - component: {fileID: 114009392506987958}
   m_Layer: 0
   m_Name: CockpitOverlay_v2
   m_TagString: Untagged
@@ -969,7 +970,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1388857948519280
 GameObject:
   m_ObjectHideFlags: 1
@@ -4390,8 +4391,8 @@ MeshRenderer:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1177543950267504}
   m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -5547,6 +5548,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114009392506987958
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1177543950267504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 544bb4bf7cce8d84b960383cc310da18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114024768181442768
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6253,8 +6265,6 @@ MonoBehaviour:
   m_maxHorinzontalHeadAngle: 10
   m_maxVerticalHeadAngle: 75
   m_legs: {fileID: 0}
-  trackedDeviceMoveControllers: {fileID: 0}
-  MinimumAngleToRotate: 15
 --- !u!114 &114318321263737924
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7358,7 +7368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  profile: {fileID: 11400000, guid: afc3f7f4b8486584397dbdcdd6a9f695, type: 2}
+  profile: {fileID: 11400000, guid: 61523fac1f97a8e4d891bf27969e45f7, type: 2}
 --- !u!114 &114707623947990960
 MonoBehaviour:
   m_ObjectHideFlags: 1

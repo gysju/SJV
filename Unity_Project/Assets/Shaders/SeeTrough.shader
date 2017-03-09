@@ -6,6 +6,7 @@ Shader "Custom/SeeTrough"
 	{
 		_MainTex("Base (RGB) Trans (A)", 2D) = "white" {}
 		_Cutoff("Alpha cutoff", Range(0,1)) = 0.5
+		_CamDir("Cam dir", Vector) = (0,0,1,0)
 	}
 		
 	SubShader
@@ -41,8 +42,9 @@ Shader "Custom/SeeTrough"
 
 			sampler2D _MainTex;
 			float4 _MainTex_ST;
+			float3 _CamDir;
 			fixed _Cutoff;
-
+			 
 			v2f vert(appdata_t v)
 			{
 				v2f o;
@@ -61,7 +63,7 @@ Shader "Custom/SeeTrough"
 				float3 viewDir = UNITY_MATRIX_IT_MV[2].xyz;
 
 				float zlv = 1 - dot(vertexView, viewDir);
-				clip(1 - dot(vertexView, viewDir));
+				clip(1 - dot(vertexView, _CamDir.xyz));
 				clip(col.a - _Cutoff);
 				return col;
 			}
