@@ -39,6 +39,7 @@ public class AsteriodManager : MonoBehaviour
 		Instance = new GameObject();
 		Instance.transform.name = "Instance";
 		Instance.transform.parent = transform;
+		Instance.transform.localPosition = Vector3.zero;
 
 		FirstJoint = new GameObject ();
 		SecondeJoint = new GameObject ();
@@ -47,6 +48,10 @@ public class AsteriodManager : MonoBehaviour
 		FirstJoint.transform.parent = Instance.transform;
 		SecondeJoint.transform.parent = Instance.transform;
 		ThirdJoint.transform.parent = Instance.transform;
+
+		FirstJoint.transform.localPosition = Vector3.zero;
+		SecondeJoint.transform.localPosition = Vector3.zero;
+		ThirdJoint.transform.localPosition = Vector3.zero;
 
 		FirstJoint.name = "FirstJoin";
 		SecondeJoint.name = "SecondeJoin";
@@ -72,7 +77,7 @@ public class AsteriodManager : MonoBehaviour
 
 	void SpawnAsteroide()
 	{
-		GameObject ast = Instantiate(Asteroide, Vector3.zero, Quaternion.identity, Instance.transform.GetChild(Random.Range(0,3)));
+		GameObject ast = Instantiate(Asteroide, transform.position, Quaternion.identity, Instance.transform.GetChild(Random.Range(0,3)));
 		RandomPosition(ast);
 
 		ast.transform.localScale *= Random.Range (RandomScale.x, RandomScale.y);
@@ -82,7 +87,7 @@ public class AsteriodManager : MonoBehaviour
 	void RandomPosition( GameObject obj)
 	{
 		Vector3 RandomDir = Random.onUnitSphere;
-		obj.transform.position = new Vector3 (	RandomDir.x * Random.Range (Radius.x, Radius.y), 
+		obj.transform.localPosition = new Vector3 (	RandomDir.x * Random.Range (Radius.x, Radius.y), 
 												(Mathf.Abs( RandomDir.y )) * Random.Range (Radius.x, Radius.y), 
 												RandomDir.z * Random.Range (Radius.x, Radius.y));
 
