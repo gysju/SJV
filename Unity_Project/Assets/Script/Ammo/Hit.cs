@@ -15,7 +15,9 @@ public class Hit : MonoBehaviour
 	void Awake ()
     {
 		particle = GetComponentInChildren<ParticleSystem>();
-		Decal = transform.FindChild ("Decal").gameObject;
+		Transform dec = transform.FindChild ("Decal");
+		if ( dec != null )
+			Decal = dec.gameObject;
 		if ( Decal != null)
 			Decal.GetComponentInChildren<MeshRenderer> ().material.SetTexture ("_MainTex", textures[Random.Range(0, textures.Count)]);
     }
