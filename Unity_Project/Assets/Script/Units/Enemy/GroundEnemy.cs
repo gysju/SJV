@@ -39,8 +39,8 @@ public class GroundEnemy : BaseEnemy
 	/// <summary>A appeler à la mort de l'unité.</summary>
 	protected override void StartDying()
 	{
-		m_navMeshAgent.ResetPath();
-		base.StartDying();
+        CompleteStop();
+        base.StartDying();
 	}
 
     protected override void FinishDying()
@@ -79,6 +79,12 @@ public class GroundEnemy : BaseEnemy
         AimWeaponAt(m_target.position);
         LaserOn();
 		if (m_animator) m_animator.SetTrigger("Idle");
+    }
+
+    protected void CompleteStop()
+    {
+        m_navMeshAgent.ResetPath();
+        m_navMeshAgent.velocity = Vector3.zero;
     }
     #endregion
 

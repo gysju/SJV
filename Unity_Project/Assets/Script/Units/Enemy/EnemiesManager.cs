@@ -49,27 +49,27 @@ public class EnemiesManager : MonoBehaviour
     public GroundEnemy GetUnusedGroundEnemy(Transform parent)
     {
         GroundEnemy groundEnemy = m_groundPool[0];
+        groundEnemy.gameObject.SetActive(true);
         m_groundPool.RemoveAt(0);
         groundEnemy.transform.parent = parent;
-
         return groundEnemy;
     }
 
     public AirEnemy GetUnusedAirEnemy(Transform parent)
     {
         AirEnemy airEnemy = m_airPool[0];
+        airEnemy.gameObject.SetActive(true);
         m_airPool.RemoveAt(0);
         airEnemy.transform.parent = parent;
-
         return airEnemy;
     }
 
     public MobileMineEnemy GetUnusedMobileMine(Transform parent)
     {
         MobileMineEnemy mobileMineEnemy = m_minePool[0];
+        mobileMineEnemy.gameObject.SetActive(true);
         m_minePool.RemoveAt(0);
         mobileMineEnemy.transform.parent = parent;
-
         return mobileMineEnemy;
     }
 
@@ -80,14 +80,17 @@ public class EnemiesManager : MonoBehaviour
         if (enemyToPool is AirEnemy)
         {
             m_airPool.Add((AirEnemy)enemyToPool);
+            enemyToPool.gameObject.SetActive(false);
         }
         else if (enemyToPool is MobileMineEnemy)
         {
             m_minePool.Add((MobileMineEnemy)enemyToPool);
+            enemyToPool.gameObject.SetActive(false);
         }
         else if (enemyToPool is GroundEnemy)
         {
             m_groundPool.Add((GroundEnemy)enemyToPool);
+            enemyToPool.gameObject.SetActive(false);
         }
         else
         {

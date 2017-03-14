@@ -91,7 +91,7 @@ public class BaseUnit : MonoBehaviour
 
     protected virtual void FinishDying()
     {
-
+        m_destroyed = true;
     }
 
     /// <summary>Vérifie si les hit points ne sont pas inférieurs à 0 ou supérieurs au maximum.</summary>

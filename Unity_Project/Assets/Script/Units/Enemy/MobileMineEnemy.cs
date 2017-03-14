@@ -24,7 +24,8 @@ public class MobileMineEnemy : GroundEnemy
     protected void Explode(BaseUnit target)
     {
         target.ReceiveDamages(m_damages, 1);
-        StartDying();
+        CompleteStop();
+        FinishDying();
     }
     #endregion
 
