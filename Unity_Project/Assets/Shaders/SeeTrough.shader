@@ -6,7 +6,12 @@ Shader "Custom/SeeTrough"
 	{
 		_MainTex("Base (RGB) Trans (A)", 2D) = "white" {}
 		_Cutoff("Alpha cutoff", Range(0,1)) = 0.5
-		_CamDir("Cam dir", Vector) = (0,0,1,0)
+
+		[Header(Hit)]
+		[HDR]_HitColor("HitColor", Color) = (1,1,1,1)
+		_HitOutlineSize("HitOutlineSize", Range(0,0.1)) = 0.1
+		_RadiusMax("RadiusMax", Range(0,1)) = 0.5
+		_HitSpeed("HitSpeed", Range(0,1)) = 0.5
 	}
 		
 	SubShader
@@ -37,34 +42,44 @@ Shader "Custom/SeeTrough"
 				float4 vertex : SV_POSITION;
 				float2 texcoord : TEXCOORD0;
 				float4 viewDir	: TEXCOORD1;
+				float3 worldPos : TEXCOORD2;
+
 				UNITY_VERTEX_OUTPUT_STEREO
 			};
 
 			sampler2D _MainTex;
 			float4 _MainTex_ST;
-			float3 _CamDir;
-			fixed _Cutoff;
+			float3 _HitPos, _HitColor;
+			fixed _Cutoff, _HitOutlineSize, _RadiusMax, _HitSpeed, _CurrentHitTime;
 			 
 			v2f vert(appdata_t v)
 			{
 				v2f o;
 				UNITY_SETUP_INSTANCE_ID(v);
 				UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
-				o.viewDir = mul(unity_WorldToObject, float4(WorldSpaceViewDir(v.vertex), 0.0f));
+				o.viewDir = mul(unity_WorldToObject, float4( WorldSpaceViewDir(v.vertex), 0.0f));
 				o.vertex = UnityObjectToClipPos(v.vertex);
 				o.texcoord = TRANSFORM_TEX(v.texcoord, _MainTex);
+				o.worldPos = mul (unity_ObjectToWorld, v.vertex).xyz;
 				return o;
 			}
 
 			fixed4 frag(v2f i) : SV_Target
 			{
+				float len = length(_HitPos.xyz - i.worldPos);
+
 				fixed4 col = tex2D(_MainTex, i.texcoord);
 				float3 vertexView = normalize(i.viewDir.xyz);
 				float3 viewDir = UNITY_MATRIX_IT_MV[2].xyz;
 
+				float outline = step( len, _RadiusMax + _HitOutlineSize);
+				float inside = step( _RadiusMax, len);
+
+				col.xyz += _HitColor * outline * inside;
+
 				float zlv = 1 - dot(vertexView, viewDir);
-				clip(1 - dot(vertexView, _CamDir.xyz));
-				clip(col.a - _Cutoff);
+				clip(zlv + outline * inside);
+				clip(col.a - _Cutoff + outline * inside);
 				return col;
 			}
 			ENDCG
