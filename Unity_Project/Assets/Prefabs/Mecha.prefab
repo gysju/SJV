@@ -969,7 +969,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1388857948519280
 GameObject:
   m_ObjectHideFlags: 1
@@ -1901,6 +1901,7 @@ GameObject:
   - component: {fileID: 124308216664842744}
   - component: {fileID: 81409776056369914}
   - component: {fileID: 114700977192936542}
+  - component: {fileID: 114809719723215182}
   m_Layer: 12
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -7022,6 +7023,7 @@ MonoBehaviour:
   m_bunker: {fileID: 1773136719752806}
   m_torso: {fileID: 114857813329560898}
   m_legs: {fileID: 0}
+  meshRendererSeeTrough: {fileID: 23289389494668768}
 --- !u!114 &114578341812562036
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7621,6 +7623,19 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &114809719723215182
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1745584232356052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2802ae99f83ee784e94ee7a434c02ec4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ChromaticAberationDuration: 0.25
+  ChromaticAberationIntensity: 4
 --- !u!114 &114857813329560898
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8281,7 +8296,7 @@ CapsuleCollider:
   m_Radius: 1.8
   m_Height: 6
   m_Direction: 1
-  m_Center: {x: 0, y: 3, z: 0}
+  m_Center: {x: 0, y: 2.64, z: -0.8}
 --- !u!137 &137254655587686030
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

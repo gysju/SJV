@@ -127,6 +127,8 @@ public class BaseMecha : BaseUnit
 		SeeTroughMaterial.SetVector ("_HitPos", new Vector4 (hitPos.x, hitPos.y, hitPos.z, 1.0f));
 		SeeTroughMaterialChild.SetVector ("_HitPos", new Vector4 (hitPos.x, hitPos.y, hitPos.z, 1.0f));
 
+		StartCoroutine( CameraManager.Instance.ChromaticAberationShake() );
+
 		if (HitCoroutine != null)
 			StopCoroutine (HitCoroutine);
 		HitCoroutine = StartCoroutine (LaunchHitTime());
