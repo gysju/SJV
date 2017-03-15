@@ -66,18 +66,21 @@ Shader "Custom/SeeTrough"
 
 			fixed4 frag(v2f i) : SV_Target
 			{
-				float len = length(_HitPos.xyz - i.worldPos);
 
-				fixed4 col = tex2D(_MainTex, i.texcoord);
+				float len = length(_HitPos.xyz - i.worldPos);
 				float3 vertexView = normalize(i.viewDir.xyz);
 				float3 viewDir = UNITY_MATRIX_IT_MV[2].xyz;
 
 				float outline = step( len, _RadiusMax + _HitOutlineSize);
 				float inside = step( _RadiusMax, len);
 
-				col.xyz += _HitColor * outline * inside;
+				float3 hit = _HitColor * outline * inside;
+				fixed4 col = tex2D(_MainTex, i.texcoord);
+				col.xyz -= outline * inside;
+				col.xyz = saturate(col.xyz) + hit;
 
 				float zlv = 1 - dot(vertexView, viewDir);
+
 				clip(zlv + outline * inside);
 				clip(col.a - _Cutoff + outline * inside);
 				return col;
