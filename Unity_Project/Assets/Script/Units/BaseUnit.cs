@@ -118,7 +118,7 @@ public class BaseUnit : MonoBehaviour
     /// <summary>A utiliser pour infliger des dégâts à l'unité.</summary>
     /// <param name ="damages">Montant des dégâts reçus.</param>
     /// <param name ="armorPenetration">Nombre de points d'armure ignorés.</param>
-    public bool ReceiveDamages(int damages, int armorPenetration = 0)
+    public virtual bool ReceiveDamages(int damages, int armorPenetration = 0)
     {
         if (!m_destroyed)
         {

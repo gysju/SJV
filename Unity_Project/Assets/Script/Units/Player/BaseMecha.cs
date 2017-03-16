@@ -119,15 +119,19 @@ public class BaseMecha : BaseUnit
         m_rightWeapon.transform.LookAt(targetPosition);
     }
 
-	public void HitEffect( Vector3 hitPos)
+    public override bool ReceiveDamages(int damages, int armorPenetration = 0)
+    {
+        StartCoroutine(CameraManager.Instance.ChromaticAberationShake());
+        return base.ReceiveDamages(damages, armorPenetration);
+    }
+
+    public void HitEffect( Vector3 hitPos)
 	{
 		if (SeeTroughMaterial == null)
 			return;
 		
 		SeeTroughMaterial.SetVector ("_HitPos", new Vector4 (hitPos.x, hitPos.y, hitPos.z, 1.0f));
 		SeeTroughMaterialChild.SetVector ("_HitPos", new Vector4 (hitPos.x, hitPos.y, hitPos.z, 1.0f));
-
-		StartCoroutine( CameraManager.Instance.ChromaticAberationShake() );
 
 		if (HitCoroutine != null)
 			StopCoroutine (HitCoroutine);
