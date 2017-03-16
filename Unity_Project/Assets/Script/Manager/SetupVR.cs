@@ -62,7 +62,7 @@ public class SetupVR : MonoBehaviour
             else if (Input.GetButtonDown("Fire1"))
             {
                 VRManager.instance.SetupHMDDevice();
-                text.text = "Installez-vous confortablement pour jouer et laissez appuyer le bouton Start";
+                text.text = "Installez-vous confortablement pour jouer et laissez appuyé le bouton Start";
             }
         }
     }
