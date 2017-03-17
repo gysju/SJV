@@ -141,7 +141,7 @@ public class BaseMecha : BaseUnit
 	IEnumerator LaunchHitTime()
 	{
 		float time = 0;
-		Debug.Log (radiusMax);
+		//Debug.Log (radiusMax);
 		while( time <  speedHit)
 		{
 			time += Time.deltaTime;
@@ -150,8 +150,7 @@ public class BaseMecha : BaseUnit
 
 			SeeTroughMaterial.SetFloat ("_RadiusMax", Mathf.Lerp(0, radiusMax, norm));
 			SeeTroughMaterialChild.SetFloat ("_RadiusMax", Mathf.Lerp(0, radiusMax, norm));
-			Debug.Log (Mathf.Lerp (0, radiusMax, norm));
-			yield return null;
+            yield return null;
 		}
 
 		SeeTroughMaterial.SetFloat ("_RadiusMax", 0.0f);
