@@ -157,4 +157,14 @@ public class BaseMecha : BaseUnit
 		SeeTroughMaterial.SetFloat ("_RadiusMax", 0.0f);
 		SeeTroughMaterialChild.SetFloat ("_RadiusMax", 0.0f);
 	}
+
+    public float GetLeftWeaponHeat()
+    {
+        return m_leftWeapon.GetHeat();
+    }
+
+    public float GetRightWeaponHeat()
+    {
+        return m_rightWeapon.GetHeat();
+    }
 }

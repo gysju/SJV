@@ -13,6 +13,9 @@ public class PlayerHUD : MonoBehaviour
     public Image m_integrityGaugeRight;
     public Image m_integrityGaugeLeft;
 
+    public Image m_heatGaugeRight;
+    public Image m_heatGaugeLeft;
+
     void Start ()
 	{
 		if (Instance == null) 
@@ -30,5 +33,8 @@ public class PlayerHUD : MonoBehaviour
 	{
         m_integrityGaugeRight.fillAmount = (float)m_mecha.GetCurrentHitPoints() / m_mecha.m_maxHitPoints;
         m_integrityGaugeLeft.fillAmount = (float)m_mecha.GetCurrentHitPoints() / m_mecha.m_maxHitPoints;
+
+        m_heatGaugeRight.fillAmount = m_mecha.GetRightWeaponHeat();
+        m_heatGaugeLeft.fillAmount = m_mecha.GetLeftWeaponHeat();
     }
 }
