@@ -36,7 +36,7 @@ public class AutomaticWeapon : SemiAutomaticWeapon
     {
         base.Start();
 		m_muzzleMaterial = GetComponentInChildren<SkinnedMeshRenderer>().materials[1];
-        m_defaultMuzzleColor = m_muzzleMaterial.color;
+		m_defaultMuzzleColor = m_muzzleMaterial.GetColor("_OverHeatColor");
     }
 
     IEnumerator FiringWeapon(MoveController moveController)

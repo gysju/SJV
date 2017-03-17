@@ -13,13 +13,13 @@ public class CameraManager : MonoBehaviour {
 	public float ChromaticAberationDuration = 1.0f;
 	public float ChromaticAberationIntensity = 1.0f;
 
-    private Transform ThisTransform;
+    //private Transform ThisTransform;
 
     void Start () {
 		if (Instance == null) 
 		{
 			Instance = this;
-			ThisTransform = transform;
+			//ThisTransform = transform;
 			UnityEngine.PostProcessing.PostProcessingBehaviour behavior = GetComponent<UnityEngine.PostProcessing.PostProcessingBehaviour> ();
 			if (behavior != null)
 				postProcessProfile = behavior.profile;
