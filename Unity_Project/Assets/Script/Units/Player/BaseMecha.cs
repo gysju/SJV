@@ -8,7 +8,8 @@ public class BaseMecha : BaseUnit
     protected BaseWeapon m_leftWeapon;
     protected BaseWeapon m_rightWeapon;
 
-    public GameObject m_bunker;
+    public CockpitBunker m_bunker;
+
     public MechaTorso m_torso;
     public MechaLegs m_legs;
 
@@ -22,16 +23,16 @@ public class BaseMecha : BaseUnit
 	private float radiusMax = 1.0f;
 
 	private Coroutine HitCoroutine = null;
+
     protected override void Awake()
     {
 		if (Instance == null) 
 		{
 			Instance = this;
 			base.Awake ();
-			m_torso = GetComponentInChildren<MechaTorso> ();
+            m_torso = GetComponentInChildren<MechaTorso> ();
 			m_leftWeapon = m_weapons [0];
 			m_rightWeapon = m_weapons [1];
-			m_bunker.SetActive (false);
 			m_zaManager = FindObjectOfType<ZAManager> ();
 
 			if (meshRendererSeeTrough != null) 
@@ -55,7 +56,7 @@ public class BaseMecha : BaseUnit
     {
         m_destroyed = true;
 
-        ActivateBunkerMode();
+        m_bunker.ActivateBunkerMode();
 
         LaserOff();
 
@@ -65,11 +66,6 @@ public class BaseMecha : BaseUnit
     protected override void FinishDying()
     {
         m_zaManager.BackToMainMenu();
-    }
-
-    public void ActivateBunkerMode()
-    {
-        m_bunker.SetActive(true);
     }
 
     public void RotateMechaHorizontaly(float horizontalAngle)
