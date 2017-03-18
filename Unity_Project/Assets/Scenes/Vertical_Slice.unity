@@ -20389,21 +20389,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 224303840042287728, guid: 2e1e9e92345e15e4b83e63448ddbfab0,
-        type: 2}
-      propertyPath: m_LocalScale.y
-      value: 0.54
-      objectReference: {fileID: 0}
-    - target: {fileID: 224303840042287728, guid: 2e1e9e92345e15e4b83e63448ddbfab0,
-        type: 2}
-      propertyPath: m_LocalScale.x
-      value: 0.54
-      objectReference: {fileID: 0}
-    - target: {fileID: 114911349503773926, guid: 2e1e9e92345e15e4b83e63448ddbfab0,
-        type: 2}
-      propertyPath: m_PreserveAspect
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2e1e9e92345e15e4b83e63448ddbfab0, type: 2}
   m_IsPrefabParent: 0
@@ -24914,10 +24899,15 @@ MonoBehaviour:
   m_player: {fileID: 738627358}
   m_poolPosition: {x: 0, y: -50, z: 0}
   m_enemiesWaves:
+  - {fileID: 11400000, guid: 05bc26de82fc52b4da20c33b1740a46a, type: 2}
   - {fileID: 11400000, guid: 92f35ac6aa067414e931edaabbfea0cb, type: 2}
-  - {fileID: 11400000, guid: 1c44c1bdc4c2fba42b42e4453197e903, type: 2}
+  - {fileID: 11400000, guid: bb9f457fb6a785a4fbc5e8c25adc7a2b, type: 2}
+  - {fileID: 11400000, guid: 1467e1f7869d4d24fb7f366cae7755dc, type: 2}
+  - {fileID: 11400000, guid: b22c41ea54dcbc04da122462af57f4b3, type: 2}
   - {fileID: 11400000, guid: 65eb2a41dbd03d747804f016e900fa87, type: 2}
-  m_timeBeforeFirstWave: 5
+  - {fileID: 11400000, guid: 41b7ab5a5036c8f4a9d957ab52e5c97a, type: 2}
+  - {fileID: 11400000, guid: 1c44c1bdc4c2fba42b42e4453197e903, type: 2}
+  m_timeBeforeFirstWave: 3
   m_timeBeforeEndZA: 5
   m_activeEnemies: []
 --- !u!114 &1457809898
