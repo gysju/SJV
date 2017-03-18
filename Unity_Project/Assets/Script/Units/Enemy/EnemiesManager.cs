@@ -27,6 +27,7 @@ public class EnemiesManager : MonoBehaviour
     void Start()
     {
         m_zaManager = FindObjectOfType<ZAManager>();
+        m_player = FindObjectOfType<BaseMecha>();
         StartCoroutine(ManageWaves());
     }
 

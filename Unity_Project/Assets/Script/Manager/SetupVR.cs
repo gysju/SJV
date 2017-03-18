@@ -10,7 +10,7 @@ using UnityEngine.PS4;
 public class SetupVR : MonoBehaviour
 {
     bool setup = false;
-    public Text text;
+    public PlayerInterface m_interface;
     void Start()
     {
 #if UNITY_PS4
@@ -19,17 +19,19 @@ public class SetupVR : MonoBehaviour
 
         if (VRSettings.enabled == false)
         {
-
+            m_interface.SetupBoard();
         }
         else
         {
             VRManager.instance.BeginVRSetup();
+            m_interface.ResetCamBoard();
         }
     }
 
     public void ContinueToMainMenu()
     {
        SceneManager.LoadSceneAsync(1);
+       m_interface.MainMenu();
     }
 
 #if UNITY_PS4
@@ -54,7 +56,8 @@ public class SetupVR : MonoBehaviour
             else if (Input.GetButtonDown("Fire1"))
             {
                 VRManager.instance.SetupHMDDevice();
-                text.text = "Installez-vous confortablement pour jouer et laissez le bouton Start appuyé";
+                m_interface.ResetCamBoard();
+                ContinueToMainMenu();
             }
         }
     }

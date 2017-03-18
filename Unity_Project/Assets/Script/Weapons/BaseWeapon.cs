@@ -93,7 +93,7 @@ public class BaseWeapon : MonoBehaviour
 				bullet = Instantiate(HitManager.Instance.PlayerHit, HitTransform.parent);
 				HitManager.Instance.PlayerHits.Add(bullet);
 			}
-			BaseMecha.Instance.HitEffect(hit.point);
+			BaseMecha._instance.HitEffect(hit.point);
 		}
 		else 
 		{

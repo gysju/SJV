@@ -17,7 +17,6 @@ public class PlayerInputs : MonoBehaviour
     protected float m_sensitivity = 0.001f;
 
     public MechaTorso m_torso;
-    protected bool m_torsoConnected;
 
     public float m_maxHorinzontalHeadAngle = 10f;
     public float m_maxVerticalHeadAngle = 75f;
@@ -52,7 +51,7 @@ public class PlayerInputs : MonoBehaviour
 			m_mainCamera = Camera.main;
 			if (!m_mecha) m_mecha = GetComponentInParent<BaseMecha>();
 			if (!m_torso) m_torso = m_mecha.m_torso;
-			m_torsoConnected = m_torso;
+            m_torso.m_torsoConnected = m_torso;
             if (!m_legs) m_legs = m_mecha.m_legs;
             m_legsConnected = m_legs;
 			#if UNITY_PS4
@@ -86,7 +85,7 @@ public class PlayerInputs : MonoBehaviour
         float finalHorizontalAngle = horizontalAngle;
         float toTransforToTorso = 0f;
 
-        if (m_torsoConnected)
+        if (m_torso.m_torsoConnected)
         {
             if (horizontalAnglePrevision > m_maxHorinzontalHeadAngle)
             {
@@ -144,13 +143,16 @@ public class PlayerInputs : MonoBehaviour
 
     void PSMoveInputs()
     {
-        PSMoveLeftWeaponControl();
-        PSMoveRightWeaponControl();
-        if (m_leftController.GetButtonDown(MoveController.MoveButton.MoveButton_Trigger)) m_mecha.LeftArmWeaponTriggered();
-		if (m_leftController.GetButtonUp(MoveController.MoveButton.MoveButton_Trigger)) m_mecha.LeftArmWeaponTriggerReleased();
+        if (m_torso.m_weaponsConnected)
+        {
+            PSMoveLeftWeaponControl();
+            PSMoveRightWeaponControl();
+            if (m_leftController.GetButtonDown(MoveController.MoveButton.MoveButton_Trigger)) m_mecha.LeftArmWeaponTriggered();
+		    if (m_leftController.GetButtonUp(MoveController.MoveButton.MoveButton_Trigger)) m_mecha.LeftArmWeaponTriggerReleased();
 
-        if (m_rightController.GetButtonDown(MoveController.MoveButton.MoveButton_Trigger)) m_mecha.RightArmWeaponTriggered();
-		if (m_rightController.GetButtonUp(MoveController.MoveButton.MoveButton_Trigger)) m_mecha.RightArmWeaponTriggerReleased();
+            if (m_rightController.GetButtonDown(MoveController.MoveButton.MoveButton_Trigger)) m_mecha.RightArmWeaponTriggered();
+		    if (m_rightController.GetButtonUp(MoveController.MoveButton.MoveButton_Trigger)) m_mecha.RightArmWeaponTriggerReleased();
+        }
     }
 
     Vector3 PSMoveVirtualJoysticksConvertion(int index)
@@ -203,6 +205,7 @@ public class PlayerInputs : MonoBehaviour
         //    AimRightWeaponTo(aimTarget.point);
         //}
         //else
+        if (m_torso.m_weaponsConnected)
         {
             m_mecha.AimLeftWeaponTo(m_mainCamera.transform.position + m_mainCamera.transform.forward * 100);
             m_mecha.AimRightWeaponTo(m_mainCamera.transform.position + m_mainCamera.transform.forward * 100);
@@ -211,11 +214,14 @@ public class PlayerInputs : MonoBehaviour
 
     void MouseShootInputs()
     {
-        if (Input.GetMouseButtonDown(0)) m_mecha.LeftArmWeaponTriggered();
-        if (Input.GetMouseButtonUp(0)) m_mecha.LeftArmWeaponTriggerReleased();
+        if (m_torso.m_weaponsConnected)
+        {
+            if (Input.GetMouseButtonDown(0)) m_mecha.LeftArmWeaponTriggered();
+            if (Input.GetMouseButtonUp(0)) m_mecha.LeftArmWeaponTriggerReleased();
 
-        if (Input.GetMouseButtonDown(1)) m_mecha.RightArmWeaponTriggered();
-        if (Input.GetMouseButtonUp(1)) m_mecha.RightArmWeaponTriggerReleased();
+            if (Input.GetMouseButtonDown(1)) m_mecha.RightArmWeaponTriggered();
+            if (Input.GetMouseButtonUp(1)) m_mecha.RightArmWeaponTriggerReleased();
+        }
     }
 
     //void KeyboardMovements()
@@ -254,7 +260,7 @@ public class PlayerInputs : MonoBehaviour
 #if UNITY_STANDALONE
         MouseKeyboardInputs();
 #elif UNITY_PS4
-        if(m_torsoConnected)
+        if(m_mecha.m_torso.m_torsoConnected)
         {
             CheckPilotHead();
         }

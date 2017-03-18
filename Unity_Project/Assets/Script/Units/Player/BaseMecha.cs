@@ -3,7 +3,7 @@ using System.Collections;
 
 public class BaseMecha : BaseUnit
 {
-	public static BaseMecha Instance = null;
+	public static BaseMecha _instance = null;
 
     protected BaseWeapon m_leftWeapon;
     protected BaseWeapon m_rightWeapon;
@@ -24,12 +24,27 @@ public class BaseMecha : BaseUnit
 
 	private Coroutine HitCoroutine = null;
 
+    public static BaseMecha instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindObjectOfType<BaseMecha>();
+                DontDestroyOnLoad(_instance.gameObject);
+            }
+
+            return _instance;
+        }
+    }
+
     protected override void Awake()
     {
-		if (Instance == null) 
+        if (_instance == null) 
 		{
-			Instance = this;
-			base.Awake ();
+			_instance = this;
+            DontDestroyOnLoad(this);
+            base.Awake ();
             m_torso = GetComponentInChildren<MechaTorso> ();
 			m_leftWeapon = m_weapons [0];
 			m_rightWeapon = m_weapons [1];
@@ -46,7 +61,7 @@ public class BaseMecha : BaseUnit
 			
             LaserOn();
         } 
-		else if ( Instance != this )
+		else if ( _instance != this )
 		{
 			Destroy (gameObject);
 		}
@@ -66,6 +81,11 @@ public class BaseMecha : BaseUnit
     protected override void FinishDying()
     {
         m_zaManager.BackToMainMenu();
+    }
+
+    public void BackToBase()
+    {
+        m_currentHitPoints = m_maxHitPoints;
     }
 
     public void RotateMechaHorizontaly(float horizontalAngle)
@@ -137,7 +157,6 @@ public class BaseMecha : BaseUnit
 	IEnumerator LaunchHitTime()
 	{
 		float time = 0;
-		//Debug.Log (radiusMax);
 		while( time <  speedHit)
 		{
 			time += Time.deltaTime;
