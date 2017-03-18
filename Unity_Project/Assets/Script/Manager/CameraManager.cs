@@ -23,8 +23,10 @@ public class CameraManager : MonoBehaviour {
 			UnityEngine.PostProcessing.PostProcessingBehaviour behavior = GetComponent<UnityEngine.PostProcessing.PostProcessingBehaviour> ();
 			if (behavior != null)
 				postProcessProfile = behavior.profile;
-			
+
 			ChromSettings = postProcessProfile.chromaticAberration.settings;
+			ChromSettings.intensity = 0.0f; 
+			postProcessProfile.chromaticAberration.settings = ChromSettings ;
 		} 
 		else 
 		{
