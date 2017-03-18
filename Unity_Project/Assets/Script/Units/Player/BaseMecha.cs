@@ -119,15 +119,19 @@ public class BaseMecha : BaseUnit
         m_rightWeapon.transform.LookAt(targetPosition);
     }
 
-	public void HitEffect( Vector3 hitPos)
+    public override bool ReceiveDamages(int damages, int armorPenetration = 0)
+    {
+        StartCoroutine(CameraManager.Instance.ChromaticAberationShake());
+        return base.ReceiveDamages(damages, armorPenetration);
+    }
+
+    public void HitEffect( Vector3 hitPos)
 	{
 		if (SeeTroughMaterial == null)
 			return;
 		
 		SeeTroughMaterial.SetVector ("_HitPos", new Vector4 (hitPos.x, hitPos.y, hitPos.z, 1.0f));
 		SeeTroughMaterialChild.SetVector ("_HitPos", new Vector4 (hitPos.x, hitPos.y, hitPos.z, 1.0f));
-
-		StartCoroutine( CameraManager.Instance.ChromaticAberationShake() );
 
 		if (HitCoroutine != null)
 			StopCoroutine (HitCoroutine);
@@ -137,7 +141,7 @@ public class BaseMecha : BaseUnit
 	IEnumerator LaunchHitTime()
 	{
 		float time = 0;
-		Debug.Log (radiusMax);
+		//Debug.Log (radiusMax);
 		while( time <  speedHit)
 		{
 			time += Time.deltaTime;
@@ -146,11 +150,20 @@ public class BaseMecha : BaseUnit
 
 			SeeTroughMaterial.SetFloat ("_RadiusMax", Mathf.Lerp(0, radiusMax, norm));
 			SeeTroughMaterialChild.SetFloat ("_RadiusMax", Mathf.Lerp(0, radiusMax, norm));
-			Debug.Log (Mathf.Lerp (0, radiusMax, norm));
-			yield return null;
+            yield return null;
 		}
 
 		SeeTroughMaterial.SetFloat ("_RadiusMax", 0.0f);
 		SeeTroughMaterialChild.SetFloat ("_RadiusMax", 0.0f);
 	}
+
+    public float GetLeftWeaponHeat()
+    {
+        return m_leftWeapon.GetHeat();
+    }
+
+    public float GetRightWeaponHeat()
+    {
+        return m_rightWeapon.GetHeat();
+    }
 }

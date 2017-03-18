@@ -86,9 +86,9 @@ Shader "Custom/SeeTrough"
 
 				col.xyz -= outline * inside;
 				col.xyz = saturate(col.xyz) + hit;
-				col.xyz = _EffectColor * zoneEffect * timeEffect;
+				col.xyz += _EffectColor * zoneEffect * timeEffect;
 
-				float zlv = 1 - dot(vertexView, viewDir);
+				//float zlv = 1 - dot(vertexView, viewDir);
 
 				//clip(zlv + outline * inside);
 				clip(col.a - _Cutoff + outline * inside);

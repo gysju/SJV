@@ -136,6 +136,11 @@ public class BaseWeapon : MonoBehaviour
 
     }
 
+    public virtual float GetHeat()
+    {
+        return 0f;
+    }
+
     void Update ()
 	{
         

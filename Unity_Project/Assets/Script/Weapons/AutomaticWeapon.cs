@@ -27,16 +27,16 @@ public class AutomaticWeapon : SemiAutomaticWeapon
 
     [Range(1, 600)]
     public float m_rpm;
-    protected Material m_muzzleMaterial;
-    protected Color m_defaultMuzzleColor;
+    //protected Material m_muzzleMaterial;
+    //protected Color m_defaultMuzzleColor;
 
     private Coroutine m_firingWeapon = null;
 
     protected override void Start()
     {
         base.Start();
-		m_muzzleMaterial = GetComponentInChildren<SkinnedMeshRenderer>().materials[1];
-        m_defaultMuzzleColor = m_muzzleMaterial.color;
+		//m_muzzleMaterial = GetComponentInChildren<SkinnedMeshRenderer>().materials[1];
+  //      m_defaultMuzzleColor = m_muzzleMaterial.color;
     }
 
     IEnumerator FiringWeapon(MoveController moveController)
@@ -101,15 +101,20 @@ public class AutomaticWeapon : SemiAutomaticWeapon
                         m_overHeated = false;
                     }
                 }
-                m_muzzleMaterial.color = Color.Lerp(m_defaultMuzzleColor, m_defaultMuzzleColor * Color.red, m_currentHeat / m_maxHeat);
+                //m_muzzleMaterial.color = Color.Lerp(m_defaultMuzzleColor, m_defaultMuzzleColor * Color.red, m_currentHeat / m_maxHeat);
                 break;
             default:
                 break;
         }
     }
 
+    public override float GetHeat()
+    {
+        return (m_currentHeat / m_maxHeat);
+    }
+
     void OnApplicationQuit()
     {
-        m_muzzleMaterial.color = m_defaultMuzzleColor;
+        //m_muzzleMaterial.color = m_defaultMuzzleColor;
     }
 }
