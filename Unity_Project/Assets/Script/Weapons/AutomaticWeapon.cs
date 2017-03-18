@@ -14,10 +14,9 @@ public class AutomaticWeapon : SemiAutomaticWeapon
     public WeaponTriggerType m_triggerType = WeaponTriggerType.Automatic;
 
     public bool m_canOverHeat = true;
-    [Range(1f, 50f)]
-    public float m_maxHeat;
+    const float m_maxHeat = 1f;
     protected float m_currentHeat = 0f;
-    [Range(0f, 50f)]
+    [Range(0f, 1f)]
     public float m_heatByShot = 0f;
     [Range(0.5f, 3f)]
     public float m_timeToCooldown = 0.5f;
@@ -36,7 +35,6 @@ public class AutomaticWeapon : SemiAutomaticWeapon
     {
         base.Start();
 		m_muzzleMaterial = GetComponentInChildren<SkinnedMeshRenderer>().materials[1];
-  //      m_defaultMuzzleColor = m_muzzleMaterial.color;
     }
 
     IEnumerator FiringWeapon(MoveController moveController)
@@ -86,34 +84,28 @@ public class AutomaticWeapon : SemiAutomaticWeapon
         }
     }
 
+    public override float GetHeat()
+    {
+        return m_currentHeat;
+    }
+
     protected void Update()
     {
         switch (m_triggerType)
         {
             case WeaponTriggerType.SemiAutomatic:
                 break;
-		case WeaponTriggerType.Automatic:
-			if (!m_isFiring) {
-				m_currentHeat = Mathf.Max (m_currentHeat - Time.deltaTime * m_timeToCooldown, 0f);
-				if (m_currentHeat == 0f) {
-					m_overHeated = false;
-				}
-			}
-			m_muzzleMaterial.SetFloat ("_OverHeatRange", m_currentHeat / m_maxHeat);
-				//m_muzzleMaterial.color = Color.Lerp(m_defaultMuzzleColor, m_defaultMuzzleColor * Color.red, m_currentHeat / m_maxHeat);
+		    case WeaponTriggerType.Automatic:
+			    if (!m_isFiring) {
+			    	m_currentHeat = Mathf.Max (m_currentHeat - Time.deltaTime * m_timeToCooldown, 0f);
+			    	if (m_currentHeat == 0f) {
+			    		m_overHeated = false;
+			    	}
+			    }
+			    m_muzzleMaterial.SetFloat ("_OverHeatRange", m_currentHeat);
                 break;
             default:
                 break;
         }
-    }
-
-    public override float GetHeat()
-    {
-        return (m_currentHeat / m_maxHeat);
-    }
-
-    void OnApplicationQuit()
-    {
-        //m_muzzleMaterial.color = m_defaultMuzzleColor;
     }
 }
