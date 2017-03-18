@@ -27,6 +27,8 @@ public class AutomaticWeapon : SemiAutomaticWeapon
     [Range(1, 600)]
     public float m_rpm;
     protected Material m_muzzleMaterial;
+	protected Material m_muzzleSecondeMaterial;
+
     //protected Color m_defaultMuzzleColor;
 
     private Coroutine m_firingWeapon = null;
@@ -34,7 +36,13 @@ public class AutomaticWeapon : SemiAutomaticWeapon
     protected override void Start()
     {
         base.Start();
+<<<<<<< HEAD
 		m_muzzleMaterial = GetComponentInChildren<SkinnedMeshRenderer>().materials[1];
+=======
+		m_muzzleMaterial = GetComponentInChildren<SkinnedMeshRenderer>().materials[0];
+		m_muzzleSecondeMaterial = GetComponentInChildren<SkinnedMeshRenderer>().materials[1];
+  //      m_defaultMuzzleColor = m_muzzleMaterial.color;
+>>>>>>> origin/develop
     }
 
     IEnumerator FiringWeapon(MoveController moveController)
@@ -95,6 +103,7 @@ public class AutomaticWeapon : SemiAutomaticWeapon
         {
             case WeaponTriggerType.SemiAutomatic:
                 break;
+<<<<<<< HEAD
 		    case WeaponTriggerType.Automatic:
 			    if (!m_isFiring) {
 			    	m_currentHeat = Mathf.Max (m_currentHeat - Time.deltaTime * m_timeToCooldown, 0f);
@@ -103,6 +112,19 @@ public class AutomaticWeapon : SemiAutomaticWeapon
 			    	}
 			    }
 			    m_muzzleMaterial.SetFloat ("_OverHeatRange", m_currentHeat);
+=======
+		case WeaponTriggerType.Automatic:
+			if (!m_isFiring) {
+				m_currentHeat = Mathf.Max (m_currentHeat - Time.deltaTime * m_timeToCooldown, 0f);
+				if (m_currentHeat == 0f) {
+					m_overHeated = false;
+				}
+			}
+			m_muzzleMaterial.SetFloat ("_OverHeatRange", m_currentHeat / m_maxHeat);
+			m_muzzleSecondeMaterial.SetFloat ("_OverHeatRange", m_currentHeat / m_maxHeat);
+
+				//m_muzzleMaterial.color = Color.Lerp(m_defaultMuzzleColor, m_defaultMuzzleColor * Color.red, m_currentHeat / m_maxHeat);
+>>>>>>> origin/develop
                 break;
             default:
                 break;
