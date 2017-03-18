@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Weapons
-  m_Shader: {fileID: 4800000, guid: 2b638a69690fea642b287be2a1d8d3f2, type: 3}
+  m_Shader: {fileID: 4800000, guid: 001d7de5c7f40be42b482f7d7c53a43e, type: 3}
   m_ShaderKeywords: _EMISSION
   m_LightmapFlags: 1
   m_CustomRenderQueue: -1
@@ -55,6 +55,12 @@ Material:
         name: _MainTex
       second:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _Mask
+      second:
+        m_Texture: {fileID: 2800000, guid: 17f5dffc49b8b4545a1524c10d002c0e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
@@ -119,6 +125,9 @@ Material:
         name: _OcclusionStrength
       second: 1
     - first:
+        name: _OverHeatRange
+      second: 0
+    - first:
         name: _Parallax
       second: 0.02
     - first:
@@ -138,6 +147,9 @@ Material:
       second: 1
     m_Colors:
     - first:
+        name: OverHeatColor
+      second: {r: 1, g: 1, b: 1, a: 1}
+    - first:
         name: _Color
       second: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - first:
@@ -146,3 +158,6 @@ Material:
     - first:
         name: _EmissiveColor
       second: {r: 0, g: 0.67499995, b: 2.5, a: 1}
+    - first:
+        name: _OverHeatColor
+      second: {r: 1, g: 0, b: 0, a: 1}
