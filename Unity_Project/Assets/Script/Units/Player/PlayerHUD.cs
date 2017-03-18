@@ -16,6 +16,8 @@ public class PlayerHUD : MonoBehaviour
     public Image m_heatGaugeRight;
     public Image m_heatGaugeLeft;
 
+    private AsyncOperation m_levelLoading = null;
+
     void Start ()
 	{
 		if (Instance == null) 
@@ -36,5 +38,14 @@ public class PlayerHUD : MonoBehaviour
 
         m_heatGaugeRight.fillAmount = m_mecha.GetRightWeaponHeat();
         m_heatGaugeLeft.fillAmount = m_mecha.GetLeftWeaponHeat();
+
+        if (m_levelLoading != null)
+        {
+            if (m_levelLoading.isDone)
+            {
+                m_mecha.m_bunker.DeactivateBunkerMode();
+                m_levelLoading = null;
+            }
+        }
     }
 }

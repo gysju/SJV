@@ -10,8 +10,6 @@ using UnityEngine.PS4;
 public class SetupVR : MonoBehaviour
 {
     bool setup = false;
-    [Range(0f, 5f)]
-    public float m_timeToMainMenu = 5f;
     public Text text;
     void Start()
     {
@@ -28,12 +26,6 @@ public class SetupVR : MonoBehaviour
             VRManager.instance.BeginVRSetup();
         }
     }
-    
-    IEnumerator Setup()
-    {
-        yield return new WaitForSeconds(m_timeToMainMenu);
-        ContinueToMainMenu();
-    }
 
     public void ContinueToMainMenu()
     {
@@ -46,7 +38,7 @@ public class SetupVR : MonoBehaviour
         if (eventType == Utility.sceSystemServiceEventType.RESET_VR_POSITION && setup == true)
         {
             ContinueToMainMenu();
-            //StartCoroutine(Setup());
+            Utility.onSystemServiceEvent -= OnSystemServiceEvent;
         }
     }
 #endif
@@ -62,7 +54,7 @@ public class SetupVR : MonoBehaviour
             else if (Input.GetButtonDown("Fire1"))
             {
                 VRManager.instance.SetupHMDDevice();
-                text.text = "Installez-vous confortablement pour jouer et laissez appuyé le bouton Start";
+                text.text = "Installez-vous confortablement pour jouer et laissez le bouton Start appuyé";
             }
         }
     }
