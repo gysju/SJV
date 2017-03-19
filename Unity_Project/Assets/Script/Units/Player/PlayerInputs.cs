@@ -11,6 +11,8 @@ public class PlayerInputs : MonoBehaviour
 
     public BaseMecha m_mecha;
 
+    public bool m_inGame = false;
+
     protected Vector3 m_leftWeaponDefaultPosition;
     protected Vector3 m_rightWeaponDefaultPosition;
     protected Vector3 m_baseOffset;
@@ -247,10 +249,18 @@ public class PlayerInputs : MonoBehaviour
 
     void MouseKeyboardInputs()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        MouseAim();
-        MouseShootInputs();
-        //KeyboardMovements();
+        if (m_inGame)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            MouseAim();
+            MouseShootInputs();
+            //KeyboardMovements();
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
+
     }
 
     #endregion

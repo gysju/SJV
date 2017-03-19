@@ -8,6 +8,7 @@ public class PlayerInterface : MonoBehaviour
 {
 	public static PlayerInterface Instance = null;
     public BaseMecha m_mecha;
+    public PlayerInputs m_inputs;
 
     public CanvasGroup m_uiWorldSpace;
     public CanvasGroup m_hudWorldSpace;
@@ -85,6 +86,7 @@ public class PlayerInterface : MonoBehaviour
     protected void ReadyToAction()
     {
         ShowBoard(m_helmetHUD);
+        m_inputs.m_inGame = true;
     }
 
     #region Setup Scene

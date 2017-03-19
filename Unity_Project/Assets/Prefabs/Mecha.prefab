@@ -6640,12 +6640,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_mecha: {fileID: 114559335785910554}
+  m_inGame: 0
   m_torso: {fileID: 114857813329560898}
   m_maxHorinzontalHeadAngle: 10
   m_maxVerticalHeadAngle: 75
   m_legs: {fileID: 0}
-  trackedDeviceMoveControllers: {fileID: 0}
-  MinimumAngleToRotate: 15
 --- !u!114 &114318321263737924
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6956,6 +6955,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_mecha: {fileID: 114559335785910554}
+  m_inputs: {fileID: 114309889164340198}
   m_uiWorldSpace: {fileID: 225102836493133764}
   m_hudWorldSpace: {fileID: 225259500152994356}
   m_uiScreenSpace: {fileID: 225243690319673554}
