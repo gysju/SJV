@@ -162,4 +162,9 @@ public class BaseMecha : BaseUnit
     {
         return m_rightWeapon.GetHeat();
     }
+
+    public void Teleport()
+    {
+        Debug.Log("teleport player");
+    }
 }

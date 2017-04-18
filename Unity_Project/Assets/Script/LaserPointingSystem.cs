@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.AI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -39,6 +40,7 @@ public class LaserPointingSystem : MonoBehaviour {
 	{
 		CheckMask ();
 		InputUI(); 
+
 		if (count >= 1)  
 		{
 			if (Physics.Raycast (ThisTransform.position, ThisTransform.forward, out hit, 250.0f, mask))  
@@ -46,6 +48,25 @@ public class LaserPointingSystem : MonoBehaviour {
 				lineRenderer.SetPosition (1, Vector3.forward * hit.distance);
 				detectionType (hit);
 
+                if (Input.GetKey(KeyCode.Keypad0))
+                {
+                    if ( true )
+                    {
+                        lineRenderer.startColor = Color.green;
+                        lineRenderer.endColor = Color.green;
+                    }
+                    else
+                    {
+                        lineRenderer.startColor = Color.red;
+                        lineRenderer.endColor = Color.red;
+                    }
+                }
+                else if (Input.GetKeyUp(KeyCode.Keypad0))//&& zone is safe and correct)
+                {
+                    BaseMecha.Instance.Teleport();
+                    lineRenderer.startColor = Color.white;
+                    lineRenderer.endColor = Color.white;
+                }
 #if UNITY_PS4
 				if (move != null)
 				{
