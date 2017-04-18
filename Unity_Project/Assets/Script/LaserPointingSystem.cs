@@ -53,7 +53,7 @@ public class LaserPointingSystem : MonoBehaviour {
 
                 if (Input.GetKey(KeyCode.Keypad0))
                 {
-                    if ( NavMesh.SamplePosition(hit.point, out hitTeleport, 5.0f, NavMesh.AllAreas))
+                    if ( NavMesh.SamplePosition(hit.point, out hitTeleport, 1.0f, NavMesh.GetAreaFromName("Walkable")))
                     {
                         positionIsCorrect = true;
                         lineRenderer.startColor = Color.green;
@@ -66,9 +66,10 @@ public class LaserPointingSystem : MonoBehaviour {
                         lineRenderer.endColor = Color.red;
                     }
                 }
-                else if (positionIsCorrect && Input.GetKeyUp(KeyCode.Keypad0))
+                else if (Input.GetKeyUp(KeyCode.Keypad0))
                 {
-                    BaseMecha.Instance.Teleport(hitTeleport.position);
+                    if (positionIsCorrect)
+                        BaseMecha.Instance.Teleport(hitTeleport.position);
                     lineRenderer.startColor = Color.white;
                     lineRenderer.endColor = Color.white;
                 }
