@@ -3,32 +3,62 @@ using System.Collections;
 
 public class BaseMecha : BaseUnit
 {
+	public static BaseMecha Instance = null;
+
     protected BaseWeapon m_leftWeapon;
     protected BaseWeapon m_rightWeapon;
 
-    public GameObject m_bunker;
-    public MechaTorso m_torso;
+    public CockpitBunker m_bunker;
 
-	private IEnumerator previousLeftVibrationCoroutine;
-	private IEnumerator previousRightVibrationCoroutine;
+    public MechaTorso m_torso;
+    public MechaLegs m_legs;
 
     protected ZAManager m_zaManager;
 
+	public MeshRenderer meshRendererSeeTrough;
+	private Material SeeTroughMaterial;
+	private Material SeeTroughMaterialChild;
+
+	private float speedHit = 1.0f;
+	private float radiusMax = 1.0f;
+
+	private Coroutine HitCoroutine = null;
+
     protected override void Awake()
     {
-        base.Awake();
-        m_torso = GetComponentInChildren<MechaTorso>();
-        m_leftWeapon = m_weapons[0];
-        m_rightWeapon = m_weapons[1];
-        m_bunker.SetActive(false);
-        m_zaManager = FindObjectOfType<ZAManager>();
+		if (Instance == null) 
+		{
+			Instance = this;
+			base.Awake ();
+            m_torso = GetComponentInChildren<MechaTorso> ();
+			m_leftWeapon = m_weapons [0];
+			m_rightWeapon = m_weapons [1];
+			m_zaManager = FindObjectOfType<ZAManager> ();
+
+			if (meshRendererSeeTrough != null) 
+			{
+				SeeTroughMaterial = meshRendererSeeTrough.material;
+				SeeTroughMaterialChild = meshRendererSeeTrough.GetComponentInChildren<MeshRenderer> ().material;
+
+				speedHit = SeeTroughMaterial.GetFloat ("_HitSpeed");
+				radiusMax = SeeTroughMaterial.GetFloat ("_RadiusMax");
+			}
+			
+            LaserOn();
+        } 
+		else if ( Instance != this )
+		{
+			Destroy (gameObject);
+		}
     }
 
     protected override void StartDying()
     {
         m_destroyed = true;
 
-        ActivateBunkerMode();
+//        m_bunker.ActivateBunkerMode();
+
+        LaserOff();
 
         StartCoroutine(Dying());
     }
@@ -36,11 +66,6 @@ public class BaseMecha : BaseUnit
     protected override void FinishDying()
     {
         m_zaManager.BackToMainMenu();
-    }
-
-    public void ActivateBunkerMode()
-    {
-        m_bunker.SetActive(true);
     }
 
     public void RotateMechaHorizontaly(float horizontalAngle)
@@ -52,11 +77,7 @@ public class BaseMecha : BaseUnit
 
     public void LeftArmWeaponTriggered()
     {
-        m_leftWeapon.TriggerPressed();
-		if( previousLeftVibrationCoroutine != null )
-			StopCoroutine ( previousLeftVibrationCoroutine);
-		previousLeftVibrationCoroutine = TrackedDeviceMoveControllers.Instance.primaryMoveController.Vibration (100, .5f);
-		StartCoroutine( previousLeftVibrationCoroutine );
+        m_leftWeapon.TriggerPressed(TrackedDeviceMoveControllers.Instance.primaryMoveController);
     }
 
     public void LeftArmWeaponTriggerReleased()
@@ -66,11 +87,7 @@ public class BaseMecha : BaseUnit
 
     public void RightArmWeaponTriggered()
     {
-        m_rightWeapon.TriggerPressed();
-		if( previousRightVibrationCoroutine != null )
-			StopCoroutine ( previousRightVibrationCoroutine);
-		previousRightVibrationCoroutine = TrackedDeviceMoveControllers.Instance.secondaryMoveController.Vibration (100, .5f);
-		StartCoroutine( previousRightVibrationCoroutine );
+        m_rightWeapon.TriggerPressed(TrackedDeviceMoveControllers.Instance.secondaryMoveController);
     }
 
     public void RightArmWeaponTriggerReleased()
@@ -96,5 +113,53 @@ public class BaseMecha : BaseUnit
     public void AimRightWeaponTo(Vector3 targetPosition)
     {
         m_rightWeapon.transform.LookAt(targetPosition);
+    }
+
+    public override bool ReceiveDamages(int damages, int armorPenetration = 0)
+    {
+        StartCoroutine(CameraManager.Instance.ChromaticAberationShake());
+        return base.ReceiveDamages(damages, armorPenetration);
+    }
+
+    public void HitEffect( Vector3 hitPos)
+	{
+		if (SeeTroughMaterial == null)
+			return;
+		
+		SeeTroughMaterial.SetVector ("_HitPos", new Vector4 (hitPos.x, hitPos.y, hitPos.z, 1.0f));
+		SeeTroughMaterialChild.SetVector ("_HitPos", new Vector4 (hitPos.x, hitPos.y, hitPos.z, 1.0f));
+
+		if (HitCoroutine != null)
+			StopCoroutine (HitCoroutine);
+		HitCoroutine = StartCoroutine (LaunchHitTime());
+	}
+
+	IEnumerator LaunchHitTime()
+	{
+		float time = 0;
+		//Debug.Log (radiusMax);
+		while( time <  speedHit)
+		{
+			time += Time.deltaTime;
+
+			float norm = time / speedHit;
+
+			SeeTroughMaterial.SetFloat ("_RadiusMax", Mathf.Lerp(0, radiusMax, norm));
+			SeeTroughMaterialChild.SetFloat ("_RadiusMax", Mathf.Lerp(0, radiusMax, norm));
+            yield return null;
+		}
+
+		SeeTroughMaterial.SetFloat ("_RadiusMax", 0.0f);
+		SeeTroughMaterialChild.SetFloat ("_RadiusMax", 0.0f);
+	}
+
+    public float GetLeftWeaponHeat()
+    {
+        return m_leftWeapon.GetHeat();
+    }
+
+    public float GetRightWeaponHeat()
+    {
+        return m_rightWeapon.GetHeat();
     }
 }

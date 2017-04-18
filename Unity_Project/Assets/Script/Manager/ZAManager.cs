@@ -6,6 +6,6 @@ public class ZAManager : MonoBehaviour
 {
     public void BackToMainMenu()
     {
-        SceneManager.LoadScene("Intro");
+        SceneManager.LoadSceneAsync(1);
     }
 }

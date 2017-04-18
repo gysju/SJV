@@ -6,8 +6,7 @@ Shader "VertexPainter/SplatBlend_2Layer"
 
       _Tint1 ("Tint", Color) = (1, 1, 1, 1)
       _Roughness1 ("Roughness", Range(0,1)) = 0.5
-      _EmissiveMult1("Emissive Multiplier", Float) = 1
-      _EmissiveColor1 ("EmissiveColor", Color) = (1, 1, 1, 1)
+      [HDR]_EmissiveColor1 ("EmissiveColor", Color) = (1, 1, 1, 1)
       _TexScale1 ("Texture Scale", Float) = 1
       
       _RGB_Nx2 ("Albedo + Nx", 2D) = "white" {}
@@ -15,8 +14,7 @@ Shader "VertexPainter/SplatBlend_2Layer"
 
       _Tint2 ("Tint", Color) = (1, 1, 1, 1)
 	  _Roughness2("Roughness", Range(0,1)) = 0.5
-      _EmissiveMult2("Emissive Multiplier", Float) = 1
-      _EmissiveColor2 ("EmissiveColor", Color) = (1, 1, 1, 1)
+      [HDR]_EmissiveColor2 ("EmissiveColor", Color) = (1, 1, 1, 1)
       _TexScale2 ("Texture Scale", Float) = 1
       _Contrast2("Contrast", Range(0,0.99)) = 0.5
       
@@ -83,8 +81,7 @@ Shader "VertexPainter/SplatBlend_2Layer"
 
 			RGB_Nx1.rgb *= _Tint1.rgb;
 			RGB_Nx2.rgb *= _Tint2.rgb;
-			REH_Ny1.g *=_EmissiveMult1;
-			REH_Ny2.g *=_EmissiveMult2;
+
 			REH_Ny1.r *= _Roughness1;
 			REH_Ny2.r *= _Roughness2;
 

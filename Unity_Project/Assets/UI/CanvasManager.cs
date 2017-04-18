@@ -8,7 +8,7 @@ public class CanvasManager : MonoBehaviour {
 
     public static CanvasManager Get { get; private set; }
 
-    public enum EState_Menu { EState_Menu_Main, EState_Menu_Pause, EState_Menu_Defeat, EState_Menu_InGame, EState_Menu_Victory };
+    public enum EState_Menu { EState_Menu_Setup, EState_Menu_Main, EState_Menu_Pause, EState_Menu_Defeat, EState_Menu_InGame, EState_Menu_Victory };
     public EState_Menu eState_Menu = EState_Menu.EState_Menu_Main;
 
     private Animator animator;

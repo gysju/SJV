@@ -3,12 +3,22 @@ using System.Collections;
 
 public class MechaTorso : MonoBehaviour
 {
-    public Transform m_torsoTransform;
+	public static MechaTorso Instance = null;
+
+    protected Transform m_torsoTransform;
     public float m_torsoRotationSpeed = 0.5f;
 
     void Start()
     {
-        m_torsoTransform = transform;
+		if( Instance == null )
+		{
+			Instance = this;
+			m_torsoTransform = transform;
+		}
+		else if (Instance != this)
+		{
+			Destroy(gameObject);
+		}
     }
     
     protected void RotateTorsoHorizontaly(float horizontalAngle)

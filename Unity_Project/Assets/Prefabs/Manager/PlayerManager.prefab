@@ -28,19 +28,102 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1324078523113832
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4749160156813736}
+  - component: {fileID: 114048487909979418}
+  - component: {fileID: 114373252034146706}
+  m_Layer: 0
+  m_Name: EnemiesManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1380217991699104
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4465587059196390}
+  - component: {fileID: 114175085110653198}
+  m_Layer: 0
+  m_Name: ZAManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &4304021746343000
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1071376757400762}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 196.53479, y: 137.13454, z: -6.5351562}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4465587059196390}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4465587059196390
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1380217991699104}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -128.37766, y: -123.23777, z: 9.489943}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4749160156813736}
+  m_Father: {fileID: 4304021746343000}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4749160156813736
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1324078523113832}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 39.037407, y: -32.072342, z: 69.91382}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4465587059196390}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114048487909979418
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1324078523113832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30785946615217243a9083cff63e3503, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114175085110653198
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1380217991699104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac3223987f518284c8d71e49deb06a8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114355028830637524
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -58,7 +141,31 @@ MonoBehaviour:
   target: {fileID: 0}
   elbowTarget: {fileID: 0}
   IsEnabled: 1
-  debug: 1
+  debug: 0
+--- !u!114 &114373252034146706
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1324078523113832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36155fbbbf24b964794fc554bc1ff296, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_showSpawnsInEditor: 1
+  m_waveToShow: 5
+  m_player: {fileID: 0}
+  m_poolPosition: {x: 0, y: -50, z: 0}
+  m_enemiesWaves:
+  - {fileID: 11400000, guid: 92f35ac6aa067414e931edaabbfea0cb, type: 2}
+  - {fileID: 11400000, guid: 05bc26de82fc52b4da20c33b1740a46a, type: 2}
+  - {fileID: 11400000, guid: 65eb2a41dbd03d747804f016e900fa87, type: 2}
+  - {fileID: 11400000, guid: 41b7ab5a5036c8f4a9d957ab52e5c97a, type: 2}
+  - {fileID: 11400000, guid: bb9f457fb6a785a4fbc5e8c25adc7a2b, type: 2}
+  m_timeBeforeFirstWave: 5
+  m_timeBeforeEndZA: 5
+  m_activeEnemies: []
 --- !u!114 &114484633204396326
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -76,4 +183,4 @@ MonoBehaviour:
   target: {fileID: 0}
   elbowTarget: {fileID: 0}
   IsEnabled: 1
-  debug: 1
+  debug: 0

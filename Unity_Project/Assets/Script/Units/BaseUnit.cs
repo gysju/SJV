@@ -12,6 +12,7 @@ public class BaseUnit : MonoBehaviour
 
     protected Transform m_transform;
     protected Renderer m_model;
+    protected Animator m_animator;
 
     protected bool m_destroyed = false;
 
@@ -50,6 +51,8 @@ public class BaseUnit : MonoBehaviour
     {
         m_transform = transform;
         if (!m_targetPoint) m_targetPoint = m_transform;
+        m_model = GetComponentInChildren<MeshRenderer>();
+        m_animator = GetComponent<Animator>();
         m_currentHitPoints = m_startingHitPoints;
         CheckHitPoints();
     }
@@ -66,6 +69,11 @@ public class BaseUnit : MonoBehaviour
         return m_destroyed;
     }
 
+    public int GetCurrentHitPoints()
+    {
+        return m_currentHitPoints;
+    }
+
     protected IEnumerator Dying()
     {
         yield return new WaitForSeconds(m_timeToDie);
@@ -77,13 +85,13 @@ public class BaseUnit : MonoBehaviour
     protected virtual void StartDying()
     {
         m_destroyed = true;
-
+        if (m_animator) m_animator.SetTrigger("Death");
         StartCoroutine(Dying());
     }
 
     protected virtual void FinishDying()
     {
-
+        m_destroyed = true;
     }
 
     /// <summary>Vérifie si les hit points ne sont pas inférieurs à 0 ou supérieurs au maximum.</summary>
@@ -110,7 +118,7 @@ public class BaseUnit : MonoBehaviour
     /// <summary>A utiliser pour infliger des dégâts à l'unité.</summary>
     /// <param name ="damages">Montant des dégâts reçus.</param>
     /// <param name ="armorPenetration">Nombre de points d'armure ignorés.</param>
-    public bool ReceiveDamages(int damages, int armorPenetration = 0)
+    public virtual bool ReceiveDamages(int damages, int armorPenetration = 0)
     {
         if (!m_destroyed)
         {
@@ -128,6 +136,22 @@ public class BaseUnit : MonoBehaviour
         else return false;
     }
     #endregion
+
+    public virtual void LaserOn()
+    {
+        foreach (BaseWeapon weapon in m_weapons)
+        {
+            weapon.m_showLaser = true;
+        }
+    }
+
+    public virtual void LaserOff()
+    {
+        foreach (BaseWeapon weapon in m_weapons)
+        {
+            weapon.m_showLaser = false;
+        }
+    }
 
     void Update ()
 	{

@@ -1,42 +1,39 @@
 ﻿using UnityEngine;
+using UnityEngine.AI;
 using System.Collections;
 
+[RequireComponent(typeof (NavMeshAgent))]
 [AddComponentMenu("MechaVR/Enemies/GroundEnemy")]
 public class GroundEnemy : BaseEnemy
 {
-    protected UnityEngine.AI.NavMeshAgent m_navMeshAgent;
+    protected NavMeshAgent m_navMeshAgent;
 
     [Header("Mobility")]
     public float m_maxSpeed = 2f;
     public float m_acceleration = 8f;
     public float m_rotationSpeed = 50f;
 
-	private Animator animator;
-
     #region Initialization
     protected override void Awake()
     {
         base.Awake();
-        m_navMeshAgent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+        m_navMeshAgent = GetComponent<NavMeshAgent>();
         m_navMeshAgent.stoppingDistance = 0.5f;
         m_navMeshAgent.speed = m_maxSpeed;
         m_navMeshAgent.acceleration = m_acceleration;
         m_navMeshAgent.angularSpeed = m_rotationSpeed;
-
-		animator = GetComponent<Animator> ();
     }
 
     protected override void Start()
     {
-        base.Start();
         if(m_attackPosition.HasValue) m_navMeshAgent.SetDestination(m_attackPosition.Value);
     }
 
     public override void ResetUnit(Vector3 spawn, Vector3 movementTarget, Transform target)
     {
-        m_navMeshAgent.enabled = true;
-        m_navMeshAgent.ResetPath();
         base.ResetUnit(spawn, movementTarget, target);
+		m_navMeshAgent.enabled = true;
+		if(m_attackPosition.HasValue) m_navMeshAgent.SetDestination(m_attackPosition.Value);
     }
     #endregion
 
@@ -44,31 +41,24 @@ public class GroundEnemy : BaseEnemy
 	/// <summary>A appeler à la mort de l'unité.</summary>
 	protected override void StartDying()
 	{
-		m_navMeshAgent.ResetPath();
-		base.StartDying();
-
-		if ( animator != false )
-			animator.SetTrigger ("Death");
+		CompleteStop();
+		m_navMeshAgent.enabled = false;
+        base.StartDying();
 	}
 
     protected override void FinishDying()
     {
-        m_navMeshAgent.enabled = false;
         base.FinishDying();
-
-		if ( animator != false )
-			animator.SetTrigger ("Idle");
     }
 	#endregion
 
     #region Movement Related
-    public override void StartMovement()
+    public virtual void MoveTo(Vector3 target)
     {
-        m_enemyState = EnemyState.EnemyState_Moving;
-        m_navMeshAgent.SetDestination(m_attackPosition.Value);
-
-		if ( animator != false )
-			animator.SetTrigger ("Locomotion");
+        if (m_navMeshAgent.SetDestination(target))
+        {
+            StartMovement();
+        }
     }
 
     protected bool IsPathCompleted()
@@ -89,9 +79,15 @@ public class GroundEnemy : BaseEnemy
     protected void MovementOver()
     {
         m_enemyState = EnemyState.EnemyState_Attacking;
-        AimWeaponAt(m_target.gameObject.GetComponentInChildren<Renderer>().bounds.center);
-		if ( animator != false )
-			animator.SetTrigger ("Idle");
+        AimWeaponAt(m_target.position);
+        LaserOn();
+		if (m_animator) m_animator.SetTrigger("Idle");
+    }
+
+    protected void CompleteStop()
+    {
+        m_navMeshAgent.ResetPath();
+        m_navMeshAgent.velocity = Vector3.zero;
     }
     #endregion
 
@@ -114,7 +110,7 @@ public class GroundEnemy : BaseEnemy
                 case EnemyState.EnemyState_Sleep:
                     if (m_attackPosition.HasValue)
                     {
-                        StartMovement();
+                        MoveTo(m_attackPosition.Value);
                     }
                     break;
                 case EnemyState.EnemyState_Moving:
@@ -125,6 +121,7 @@ public class GroundEnemy : BaseEnemy
                     break;
                 case EnemyState.EnemyState_Attacking:
                     m_currentTimeToAttack -= Time.deltaTime;
+                    AimWeaponAt(m_target.position);
                     if (m_currentTimeToAttack <= 0)
                     {
                         Fire();
@@ -135,5 +132,6 @@ public class GroundEnemy : BaseEnemy
             }
         }
     }
+
     #endregion
 }

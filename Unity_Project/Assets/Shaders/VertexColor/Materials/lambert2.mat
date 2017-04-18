@@ -7,9 +7,9 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: lambert2
-  m_Shader: {fileID: 4800000, guid: 7b2852392be424b1c8dfe8bcb8ca9a05, type: 3}
-  m_ShaderKeywords: _LAYERS2
-  m_LightmapFlags: 1
+  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 5
   m_CustomRenderQueue: -1
   stringTagMap: {}
   m_SavedProperties:
@@ -46,30 +46,6 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
-        name: _Emissive2
-      second:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - first:
-        name: _MRE_Ny_One
-      second:
-        m_Texture: {fileID: 2800000, guid: b88d53b6226efd34591615f03ded55a3, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - first:
-        name: _MRE_Ny_Three
-      second:
-        m_Texture: {fileID: 2800000, guid: 0f4ecfd715cbc8b41b163ffd70d85140, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - first:
-        name: _MRE_Ny_Two
-      second:
-        m_Texture: {fileID: 2800000, guid: dc82018df784fe147b5a57193f902492, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - first:
         name: _MainTex
       second:
         m_Texture: {fileID: 0}
@@ -93,70 +69,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - first:
-        name: _REH_Ny1
-      second:
-        m_Texture: {fileID: 2800000, guid: d7641c283f1aa0649afb6545a2d629d3, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - first:
-        name: _REH_Ny2
-      second:
-        m_Texture: {fileID: 2800000, guid: dc82018df784fe147b5a57193f902492, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - first:
-        name: _REH_Ny3
-      second:
-        m_Texture: {fileID: 2800000, guid: b9b683597b757f04fb74647759ae9db6, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - first:
-        name: _RGB_Nx1
-      second:
-        m_Texture: {fileID: 2800000, guid: d7641c283f1aa0649afb6545a2d629d3, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - first:
-        name: _RGB_Nx2
-      second:
-        m_Texture: {fileID: 2800000, guid: 192f78e24b79da944a6bed84462d8964, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - first:
-        name: _RGB_Nx3
-      second:
-        m_Texture: {fileID: 2800000, guid: 30418ca5a6553db4cabf3bb27fb1befe, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - first:
-        name: _RGB_Nx_One
-      second:
-        m_Texture: {fileID: 2800000, guid: d7641c283f1aa0649afb6545a2d629d3, type: 3}
-        m_Scale: {x: 10, y: 10}
-        m_Offset: {x: 0, y: 0}
-    - first:
-        name: _RGB_Nx_Three
-      second:
-        m_Texture: {fileID: 2800000, guid: b6039c82e7c47f0499bb929bc2db9bd6, type: 3}
-        m_Scale: {x: 10, y: 10}
-        m_Offset: {x: 0, y: 0}
-    - first:
-        name: _RGB_Nx_Two
-      second:
-        m_Texture: {fileID: 2800000, guid: 192f78e24b79da944a6bed84462d8964, type: 3}
-        m_Scale: {x: 10, y: 10}
-        m_Offset: {x: 0, y: 0}
     m_Floats:
     - first:
         name: _BumpScale
       second: 1
-    - first:
-        name: _Contrast2
-      second: 0.066
-    - first:
-        name: _Contrast3
-      second: 0.5
     - first:
         name: _Cutoff
       second: 0.5
@@ -164,52 +80,7 @@ Material:
         name: _DetailNormalMapScale
       second: 1
     - first:
-        name: _DistBlendMax
-      second: 100
-    - first:
-        name: _DistBlendMin
-      second: 0
-    - first:
-        name: _DistUVScale1
-      second: 0.5
-    - first:
-        name: _DistUVScale2
-      second: 0.5
-    - first:
-        name: _DistUVScale3
-      second: 0.5
-    - first:
         name: _DstBlend
-      second: 0
-    - first:
-        name: _EmissiveIntensityOne
-      second: 0
-    - first:
-        name: _EmissiveIntensityThree
-      second: 0
-    - first:
-        name: _EmissiveIntensityTwo
-      second: 0
-    - first:
-        name: _EmissiveMult1
-      second: 1
-    - first:
-        name: _EmissiveMult2
-      second: 1
-    - first:
-        name: _EmissiveMult3
-      second: 1
-    - first:
-        name: _FlowAlpha
-      second: 1
-    - first:
-        name: _FlowIntensity
-      second: 1
-    - first:
-        name: _FlowRefraction
-      second: 0.04
-    - first:
-        name: _FlowSpeed
       second: 0
     - first:
         name: _GlossMapScale
@@ -224,56 +95,14 @@ Material:
         name: _Metallic
       second: 0
     - first:
-        name: _MetallicOne
-      second: 0
-    - first:
-        name: _MetallicThree
-      second: 0
-    - first:
-        name: _MetallicTwo
-      second: 0
-    - first:
         name: _Mode
       second: 0
-    - first:
-        name: _Normal
-      second: 1
-    - first:
-        name: _NormalIntensity
-      second: 1
-    - first:
-        name: _NormalIntensityOne
-      second: 1
-    - first:
-        name: _NormalIntensityThree
-      second: 1
-    - first:
-        name: _NormalIntensityTwo
-      second: 0.85
     - first:
         name: _OcclusionStrength
       second: 1
     - first:
         name: _Parallax
       second: 0.02
-    - first:
-        name: _Roughness1
-      second: 0.5
-    - first:
-        name: _Roughness2
-      second: 0.5
-    - first:
-        name: _Roughness3
-      second: 0.5
-    - first:
-        name: _RoughnessOne
-      second: 0.5
-    - first:
-        name: _RoughnessThree
-      second: 0.5
-    - first:
-        name: _RoughnessTwo
-      second: 0.5
     - first:
         name: _SmoothnessTextureChannel
       second: 0
@@ -282,15 +111,6 @@ Material:
       second: 1
     - first:
         name: _SrcBlend
-      second: 1
-    - first:
-        name: _TexScale1
-      second: 10
-    - first:
-        name: _TexScale2
-      second: 4.54
-    - first:
-        name: _TexScale3
       second: 1
     - first:
         name: _UVSec
@@ -303,41 +123,5 @@ Material:
         name: _Color
       second: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - first:
-        name: _ColorOne
-      second: {r: 1, g: 1, b: 1, a: 1}
-    - first:
-        name: _ColorThree
-      second: {r: 1, g: 1, b: 1, a: 1}
-    - first:
-        name: _ColorTwo
-      second: {r: 1, g: 1, b: 1, a: 1}
-    - first:
         name: _EmissionColor
       second: {r: 0, g: 0, b: 0, a: 1}
-    - first:
-        name: _EmissiveColor1
-      second: {r: 1, g: 1, b: 1, a: 1}
-    - first:
-        name: _EmissiveColor2
-      second: {r: 1, g: 1, b: 1, a: 1}
-    - first:
-        name: _EmissiveColor3
-      second: {r: 1, g: 1, b: 1, a: 1}
-    - first:
-        name: _EmissiveColorOne
-      second: {r: 1, g: 1, b: 1, a: 1}
-    - first:
-        name: _EmissiveColorThree
-      second: {r: 1, g: 1, b: 1, a: 1}
-    - first:
-        name: _EmissiveColorTwo
-      second: {r: 1, g: 1, b: 1, a: 1}
-    - first:
-        name: _Tint1
-      second: {r: 1, g: 1, b: 1, a: 1}
-    - first:
-        name: _Tint2
-      second: {r: 1, g: 1, b: 1, a: 1}
-    - first:
-        name: _Tint3
-      second: {r: 1, g: 1, b: 1, a: 1}

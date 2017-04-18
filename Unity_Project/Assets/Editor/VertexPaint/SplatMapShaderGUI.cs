@@ -15,7 +15,6 @@ public class SplatMapShaderGUI : ShaderGUI
 		var RHE_Ny = FindProperty ("_REH_Ny" + i, props);
 		var tint = FindProperty("_Tint" + i, props);
         var smoothness = FindProperty("_Roughness" + i, props);
-		var emissionMult = FindProperty("_EmissiveMult" + i, props);
 		var emissionColor = FindProperty("_EmissiveColor" + i, props);
 		var texScale = FindProperty("_TexScale" + i, props);
 		var distUVScale = FindProperty("_DistUVScale" + i, props, false);
@@ -26,7 +25,6 @@ public class SplatMapShaderGUI : ShaderGUI
 
         editor.ShaderProperty(smoothness, "Roughness");
 
-		editor.ShaderProperty(emissionMult, "Emissive Multiplier");
 		editor.ShaderProperty(emissionColor, "Emissive Color");
 
 		editor.ShaderProperty(texScale, "Texture Scale");

@@ -5,11 +5,14 @@ using UnityEngine;
 public class EnemiesManager : MonoBehaviour
 {
     public bool m_showSpawnsInEditor;
+    [Range(0, 100)]
+    public int m_waveToShow;
     public BaseMecha m_player;
 
     public Vector3 m_poolPosition = Vector3.zero;
     protected List<GroundEnemy> m_groundPool = new List<GroundEnemy>();
     protected List<AirEnemy> m_airPool = new List<AirEnemy>();
+    protected List<MobileMineEnemy> m_minePool = new List<MobileMineEnemy>();
 
     public List<WaveObject> m_enemiesWaves;
     protected List<EnemiesWave> m_wavesSpawned = new List<EnemiesWave>();
@@ -18,6 +21,8 @@ public class EnemiesManager : MonoBehaviour
     public float m_timeBeforeEndZA = 5f;
 
     protected ZAManager m_zaManager;
+
+    public List<BaseEnemy> m_activeEnemies = new List<BaseEnemy>();
 
     void Start()
     {
@@ -36,12 +41,16 @@ public class EnemiesManager : MonoBehaviour
         return (m_airPool.Count > 0);
     }
 
+    public bool IsThereUnusedMobileMineEnemy()
+    {
+        return (m_minePool.Count > 0);
+    }
+
     public GroundEnemy GetUnusedGroundEnemy(Transform parent)
     {
         GroundEnemy groundEnemy = m_groundPool[0];
         m_groundPool.RemoveAt(0);
         groundEnemy.transform.parent = parent;
-
         return groundEnemy;
     }
 
@@ -50,16 +59,28 @@ public class EnemiesManager : MonoBehaviour
         AirEnemy airEnemy = m_airPool[0];
         m_airPool.RemoveAt(0);
         airEnemy.transform.parent = parent;
-
         return airEnemy;
+    }
+
+    public MobileMineEnemy GetUnusedMobileMine(Transform parent)
+    {
+        MobileMineEnemy mobileMineEnemy = m_minePool[0];
+        m_minePool.RemoveAt(0);
+        mobileMineEnemy.transform.parent = parent;
+        return mobileMineEnemy;
     }
 
     public void PoolUnit(BaseEnemy enemyToPool)
     {
+        m_activeEnemies.Remove(enemyToPool);
         enemyToPool.transform.position = m_poolPosition;
         if (enemyToPool is AirEnemy)
         {
             m_airPool.Add((AirEnemy)enemyToPool);
+        }
+        else if (enemyToPool is MobileMineEnemy)
+        {
+            m_minePool.Add((MobileMineEnemy)enemyToPool);
         }
         else if (enemyToPool is GroundEnemy)
         {
@@ -105,7 +126,11 @@ public class EnemiesManager : MonoBehaviour
             {
                 BaseEnemy newEnemy;
 
-                if (spawn.Unit is GroundEnemy)
+                if (spawn.Unit is MobileMineEnemy)
+                {
+                    newEnemy = (IsThereUnusedMobileMineEnemy()) ? GetUnusedMobileMine(currentWaveTransform) : Instantiate(spawn.Unit, spawn.SpawnPosition, Quaternion.Euler(spawn.SpawnRotation), currentWaveTransform);
+                }
+                else if (spawn.Unit is GroundEnemy)
                 {
                     newEnemy = (IsThereUnusedGroundEnemy()) ? GetUnusedGroundEnemy(currentWaveTransform) : Instantiate(spawn.Unit, spawn.SpawnPosition, Quaternion.Euler(spawn.SpawnRotation), currentWaveTransform);
                 }
@@ -118,6 +143,7 @@ public class EnemiesManager : MonoBehaviour
                     newEnemy = Instantiate(spawn.Unit, spawn.SpawnPosition, Quaternion.Euler(spawn.SpawnRotation), currentWaveTransform);
                 }
 
+                m_activeEnemies.Add(newEnemy);
                 currentWave.AddEnemy(newEnemy);
                 newEnemy.ResetUnit(spawn.SpawnPosition, spawn.AttackPosition, m_player.m_targetPoint);
             }
@@ -147,18 +173,50 @@ public class EnemiesManager : MonoBehaviour
     {
         if (m_showSpawnsInEditor)
         {
-            foreach (WaveObject enemyWave in m_enemiesWaves)
+            if (m_waveToShow == 0)
             {
-                foreach (SpawnObject spawn in enemyWave.Spawns)
+                foreach (WaveObject enemyWave in m_enemiesWaves)
+                {
+                    foreach (SpawnObject spawn in enemyWave.Spawns)
+                    {
+                        Mesh mesh;
+                        if (spawn.Unit)
+                        {
+                            SkinnedMeshRenderer skinnedMesh = spawn.Unit.GetComponentInChildren<SkinnedMeshRenderer>();
+                            if (skinnedMesh == null)
+                                mesh = spawn.Unit.GetComponentInChildren<MeshFilter>().sharedMesh;
+                            else
+                                mesh = skinnedMesh.sharedMesh;
+                            Gizmos.color = Color.green;
+                            Gizmos.DrawWireMesh(mesh, spawn.SpawnPosition, Quaternion.Euler(spawn.SpawnRotation));
+                            Gizmos.color = Color.red;
+                            Gizmos.DrawWireMesh(mesh, spawn.AttackPosition, Quaternion.Euler(spawn.SpawnRotation));
+                        }
+                        else
+                        {
+                            Gizmos.color = Color.green;
+                            Gizmos.DrawWireSphere(spawn.SpawnPosition, 1f);
+                            Gizmos.color = Color.red;
+                            Gizmos.DrawWireSphere(spawn.AttackPosition, 1f);
+                        }
+                        Gizmos.color = Color.green;
+                        Gizmos.DrawLine(spawn.SpawnPosition + new Vector3(0.0f, 1.0f, 0.0f), spawn.AttackPosition + new Vector3(0.0f, 1.0f, 0.0f));
+                    }
+                }
+            }
+            else
+            {
+                if (m_waveToShow <= m_enemiesWaves.Count)
+                foreach (SpawnObject spawn in m_enemiesWaves[m_waveToShow - 1].Spawns)
                 {
                     Mesh mesh;
                     if (spawn.Unit)
                     {
-						SkinnedMeshRenderer skinnedMesh= spawn.Unit.GetComponentInChildren<SkinnedMeshRenderer>();
-						if (skinnedMesh == null)
-							mesh = spawn.Unit.GetComponentInChildren<MeshFilter> ().sharedMesh;
-						else
-							mesh = skinnedMesh.sharedMesh;
+                        SkinnedMeshRenderer skinnedMesh = spawn.Unit.GetComponentInChildren<SkinnedMeshRenderer>();
+                        if (skinnedMesh == null)
+                            mesh = spawn.Unit.GetComponentInChildren<MeshFilter>().sharedMesh;
+                        else
+                            mesh = skinnedMesh.sharedMesh;
                         Gizmos.color = Color.green;
                         Gizmos.DrawWireMesh(mesh, spawn.SpawnPosition, Quaternion.Euler(spawn.SpawnRotation));
                         Gizmos.color = Color.red;
