@@ -27,7 +27,10 @@ public class LaserPointingSystem : MonoBehaviour {
     private int count; 
 	private Transform ThisTransform;
 
-	void Start () 
+    private bool positionIsCorrect = false;
+    private NavMeshHit hitTeleport;
+
+    void Start () 
 	{
 		eventSystem =  GameObject.Find("EventSystem").GetComponent<EventSystem>();
 		lineRenderer = GetComponent<LineRenderer> ();
@@ -50,20 +53,22 @@ public class LaserPointingSystem : MonoBehaviour {
 
                 if (Input.GetKey(KeyCode.Keypad0))
                 {
-                    if ( true )
+                    if ( NavMesh.SamplePosition(hit.point, out hitTeleport, 5.0f, NavMesh.AllAreas))
                     {
+                        positionIsCorrect = true;
                         lineRenderer.startColor = Color.green;
                         lineRenderer.endColor = Color.green;
                     }
                     else
                     {
+                        positionIsCorrect = false;
                         lineRenderer.startColor = Color.red;
                         lineRenderer.endColor = Color.red;
                     }
                 }
-                else if (Input.GetKeyUp(KeyCode.Keypad0))//&& zone is safe and correct)
+                else if (positionIsCorrect && Input.GetKeyUp(KeyCode.Keypad0))
                 {
-                    BaseMecha.Instance.Teleport();
+                    BaseMecha.Instance.Teleport(hitTeleport.position);
                     lineRenderer.startColor = Color.white;
                     lineRenderer.endColor = Color.white;
                 }
