@@ -8,12 +8,12 @@ public class ZAManager : MonoBehaviour
     public Vector3 m_playerStartPosition;
     public Vector3 m_playerStartRotation;
 
-    void Awake()
+    void Start()
     {
         m_player = FindObjectOfType<BaseMecha>();
         m_player.transform.position = m_playerStartPosition;
         m_player.transform.rotation = Quaternion.Euler(m_playerStartRotation);
-
+        m_player.m_bunker.DeactivateBunkerMode();
     }
 
     public void BackToMainMenu()
