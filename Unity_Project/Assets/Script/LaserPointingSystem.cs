@@ -51,10 +51,10 @@ public class LaserPointingSystem : MonoBehaviour {
 				lineRenderer.SetPosition (1, Vector3.forward * hit.distance);
 				detectionType (hit);
 
-                checkTeleport();
 #if UNITY_PS4
 				if (move != null)
 				{
+                    checkTeleport();
 					move.lookAtHit = hit.point;
                     GameObject hitGameObject = hit.transform.gameObject;
                     bool unitLayer = (hitGameObject.layer == LayerMask.NameToLayer("Unit"));
@@ -85,6 +85,20 @@ public class LaserPointingSystem : MonoBehaviour {
                 }
                 else
                 {
+                    #if UNITY_PS4
+                    if (move != null)
+                    {
+					    move.lookAtHit = ThisTransform.position + ThisTransform.forward * 1000.0f;
+                        if (Input.GetKeyUp(KeyCode.Keypad0) || move.GetButtonUp(MoveController.MoveButton.MoveButton_Move))
+                        {
+                            setLineColor(Color.white);
+                        }
+                        if (Input.GetKeyDown(KeyCode.Keypad0) || move.GetButtonDown(MoveController.MoveButton.MoveButton_Move))
+                        {
+                            setLineColor(Color.red);
+                        }
+                    }
+                    #else
                     if (Input.GetKeyUp(KeyCode.Keypad0))
                     {
                         setLineColor( Color.white );
@@ -93,12 +107,14 @@ public class LaserPointingSystem : MonoBehaviour {
                     {
                         setLineColor( Color.red );
                     }
+
+                    #endif
                 }
 
-				#if UNITY_PS4
+                #if UNITY_PS4
 				if (move != null)
 					move.lookAtHit = ThisTransform.position + ThisTransform.forward * 1000.0f;
-				#endif
+                #endif
 			}
 			//count = 0;
 		//}
@@ -138,7 +154,7 @@ public class LaserPointingSystem : MonoBehaviour {
 
     void checkTeleport()
     {
-        if (Input.GetKey(KeyCode.Keypad0))
+        if (Input.GetKey(KeyCode.Keypad0) || move.GetButton(MoveController.MoveButton.MoveButton_Move))
         {
             if (NavMesh.SamplePosition(hit.point, out hitTeleport, 2.0f, 1 << NavMesh.GetAreaFromName("Walkable")))
             {
@@ -151,7 +167,7 @@ public class LaserPointingSystem : MonoBehaviour {
                 setLineColor( Color.red );
             }
         }
-        if (Input.GetKeyUp(KeyCode.Keypad0))
+        if (Input.GetKeyUp(KeyCode.Keypad0) || move.GetButtonUp(MoveController.MoveButton.MoveButton_Move))
         {
             if (positionIsCorrect)
                 BaseMecha.Instance.Move(hitTeleport.position);
