@@ -173,6 +173,11 @@ public class BaseMecha : BaseUnit
         return m_rightWeapon.GetHeat();
     }
 
+    public void SwitchMoveSystem()
+    {
+        moveSystem = (MoveSystem)(((int)moveSystem + 1) % (int)MoveSystem.moveSystem_count);
+    }
+
     public void Move( Vector3 pos )
     {
         switch ( moveSystem )

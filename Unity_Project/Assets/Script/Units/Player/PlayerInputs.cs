@@ -151,6 +151,11 @@ public class PlayerInputs : MonoBehaviour
 
         if (m_rightController.GetButtonDown(MoveController.MoveButton.MoveButton_Trigger)) m_mecha.RightArmWeaponTriggered();
 		if (m_rightController.GetButtonUp(MoveController.MoveButton.MoveButton_Trigger)) m_mecha.RightArmWeaponTriggerReleased();
+
+        // Switch Move System when you presse circle button
+
+        if (m_leftController.GetButtonDown(MoveController.MoveButton.MoveButton_Circle)) m_mecha.SwitchMoveSystem();
+        if (m_rightController.GetButtonDown(MoveController.MoveButton.MoveButton_Circle)) m_mecha.SwitchMoveSystem();
     }
 
     Vector3 PSMoveVirtualJoysticksConvertion(int index)
