@@ -26,6 +26,7 @@ public class MobileMineEnemy : GroundEnemy
         target.ReceiveDamages(m_damages, 1);
         CompleteStop();
         m_destroyed = true;
+        HUD_Radar.Instance.RemoveInfo(this);
         FinishDying();
     }
     #endregion

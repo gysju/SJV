@@ -37,6 +37,7 @@ public class PlayerInterface : MonoBehaviour
     public GameObject m_fps;
     public bool m_showFPS;
 
+    private AsyncOperation m_levelUnloading = null;
     private AsyncOperation m_levelLoading = null;
 
     void Start ()
@@ -76,6 +77,11 @@ public class PlayerInterface : MonoBehaviour
         HideBoard(menuToHide);
         menuToHide.blocksRaycasts = false;
         menuToHide.interactable = false;
+    }
+
+    protected void UnloadLevel()
+    {
+        m_levelUnloading = SceneManager.LoadSceneAsync(1);
     }
 
     protected void LoadLevel(int sceneID)
@@ -135,6 +141,14 @@ public class PlayerInterface : MonoBehaviour
     }
     #endregion
 
+    #region InGame
+    public void BackToMainMenu()
+    {
+        HideBoard(m_helmetHUD);
+        UnloadLevel();
+    }
+    #endregion
+
     void Update ()
 	{
         m_integrityGaugeRight.fillAmount = (float)m_mecha.GetCurrentHitPoints() / m_mecha.m_maxHitPoints;
@@ -150,6 +164,15 @@ public class PlayerInterface : MonoBehaviour
                 m_mecha.m_bunker.DeactivateBunkerMode();
                 ReadyToAction();
                 m_levelLoading = null;
+            }
+        }
+
+        if (m_levelUnloading != null)
+        {
+            if (m_levelUnloading.isDone)
+            {
+                MainMenu();
+                m_levelUnloading = null;
             }
         }
     }

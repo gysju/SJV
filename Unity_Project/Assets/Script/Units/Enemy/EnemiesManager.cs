@@ -161,6 +161,7 @@ public class EnemiesManager : MonoBehaviour
             currentWaveID++;
         }
 
+        m_zaManager.MissionAccomplished();
         yield return new WaitForSeconds(m_timeBeforeEndZA);
         m_zaManager.BackToMainMenu();
     }

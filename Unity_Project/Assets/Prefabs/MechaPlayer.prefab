@@ -1468,7 +1468,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1584436476706930
 GameObject:
   m_ObjectHideFlags: 1
@@ -4124,7 +4124,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294950623
+    m_Bits: 4294950655
   m_RenderingPath: 1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -4142,7 +4142,7 @@ Camera:
   m_GameObject: {fileID: 1583318869257168}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 3
+  m_ClearFlags: 4
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
@@ -6156,7 +6156,7 @@ MonoBehaviour:
   MinimalDistance: 50
   mask:
     serializedVersion: 2
-    m_Bits: 3584
+    m_Bits: 3616
   OtherLaser: {fileID: 114684301717258418}
   enemyHUD: {fileID: 114708704226598972}
   currentPointedObject: {fileID: 0}
@@ -6508,7 +6508,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 392bce8df34e53b4ab17d8f96ad0b999, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_torsoConnected: 0
   m_torsoRotationSpeed: 0.5
   m_weaponsConnected: 0
 --- !u!114 &114288793525961338
@@ -6558,11 +6557,11 @@ MonoBehaviour:
   m_mecha: {fileID: 114953707263810038}
   m_inGame: 0
   m_torso: {fileID: 114282173216230950}
+  m_torsoConnected: 0
   m_maxHorinzontalHeadAngle: 10
   m_maxVerticalHeadAngle: 75
   m_legs: {fileID: 0}
-  trackedDeviceMoveControllers: {fileID: 0}
-  MinimumAngleToRotate: 15
+  m_legsConnected: 0
 --- !u!114 &114306827299811948
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7687,7 +7686,7 @@ MonoBehaviour:
   MinimalDistance: 50
   mask:
     serializedVersion: 2
-    m_Bits: 3584
+    m_Bits: 3616
   OtherLaser: {fileID: 114119095498150152}
   enemyHUD: {fileID: 114553269687880228}
   currentPointedObject: {fileID: 0}
@@ -8195,6 +8194,8 @@ MonoBehaviour:
   m_weapons:
   - {fileID: 114976528093234210}
   - {fileID: 114396837610510036}
+  m_inputs: {fileID: 114303306377100590}
+  m_interface: {fileID: 114173203132878334}
   m_bunker: {fileID: 114979027035239070}
   m_torso: {fileID: 114282173216230950}
   m_legs: {fileID: 0}
@@ -24994,14 +24995,14 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 2
   m_RenderMode: 2
-  m_Camera: {fileID: 20222789917961496}
+  m_Camera: {fileID: 20063474813675026}
   m_PlaneDistance: 0.6
   m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: -1857699517
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!223 &223404840786474738
@@ -25032,14 +25033,14 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 2
   m_RenderMode: 1
-  m_Camera: {fileID: 20222789917961496}
-  m_PlaneDistance: 0.5
+  m_Camera: {fileID: 20063474813675026}
+  m_PlaneDistance: 0.2
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: -1857699517
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!224 &224006407715736618
@@ -25395,7 +25396,7 @@ RectTransform:
   m_GameObject: {fileID: 1527904241714506}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224055467191781212}
   m_Father: {fileID: 224151037537490618}
@@ -25403,7 +25404,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.0036783218}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224335870707304438
@@ -25851,8 +25852,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1240302546296850}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1}
-  m_LocalScale: {x: 0.00317801, y: 0.00317801, z: 0.00317801}
+  m_LocalPosition: {x: 0, y: 0, z: 0.5}
+  m_LocalScale: {x: 0.0022353737, y: 0.0022353737, z: 0.0022353737}
   m_Children:
   - {fileID: 224577490342259846}
   - {fileID: 224882141034116228}
@@ -25862,7 +25863,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 800, y: 450}
+  m_SizeDelta: {x: 799.70105, y: 639.7608}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224725148467265450
 RectTransform:

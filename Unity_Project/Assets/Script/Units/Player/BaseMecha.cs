@@ -5,6 +5,9 @@ public class BaseMecha : BaseUnit
 {
 	public static BaseMecha _instance = null;
 
+    public PlayerInputs m_inputs;
+    public PlayerInterface m_interface;
+
     protected BaseWeapon m_leftWeapon;
     protected BaseWeapon m_rightWeapon;
 
@@ -45,6 +48,8 @@ public class BaseMecha : BaseUnit
 			_instance = this;
             DontDestroyOnLoad(this);
             base.Awake ();
+            m_inputs = GetComponentInChildren<PlayerInputs>();
+            m_interface = GetComponentInChildren<PlayerInterface>();
             m_torso = GetComponentInChildren<MechaTorso> ();
 			m_leftWeapon = m_weapons [0];
 			m_rightWeapon = m_weapons [1];

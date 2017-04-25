@@ -6,10 +6,8 @@ public class MechaTorso : MonoBehaviour
 	public static MechaTorso Instance = null;
 
     protected Transform m_torsoTransform;
-    public bool m_torsoConnected;
     public float m_torsoRotationSpeed = 0.5f;
 
-    public bool m_weaponsConnected;
 
     void Start()
     {
