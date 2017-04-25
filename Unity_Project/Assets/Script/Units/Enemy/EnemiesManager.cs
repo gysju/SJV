@@ -24,7 +24,7 @@ public class EnemiesManager : MonoBehaviour
 
     public List<BaseEnemy> m_activeEnemies = new List<BaseEnemy>();
 
-    void Start()
+    public void StartWaves()
     {
         m_zaManager = FindObjectOfType<ZAManager>();
         m_player = FindObjectOfType<BaseMecha>();
