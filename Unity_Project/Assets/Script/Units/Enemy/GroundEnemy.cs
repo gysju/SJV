@@ -32,6 +32,8 @@ public class GroundEnemy : BaseEnemy
     public override void ResetUnit(Vector3 spawn, Vector3 movementTarget, Transform target)
     {
         base.ResetUnit(spawn, movementTarget, target);
+		m_navMeshAgent.enabled = true;
+		if(m_attackPosition.HasValue) m_navMeshAgent.SetDestination(m_attackPosition.Value);
     }
     #endregion
 
@@ -39,7 +41,8 @@ public class GroundEnemy : BaseEnemy
 	/// <summary>A appeler à la mort de l'unité.</summary>
 	protected override void StartDying()
 	{
-        CompleteStop();
+		CompleteStop();
+		m_navMeshAgent.enabled = false;
         base.StartDying();
 	}
 

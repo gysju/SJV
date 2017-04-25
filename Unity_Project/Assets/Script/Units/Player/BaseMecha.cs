@@ -71,7 +71,7 @@ public class BaseMecha : BaseUnit
     {
         m_destroyed = true;
 
-        m_bunker.ActivateBunkerMode();
+//        m_bunker.ActivateBunkerMode();
 
         LaserOff();
 

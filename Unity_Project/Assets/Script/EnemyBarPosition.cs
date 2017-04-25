@@ -41,6 +41,7 @@ public class EnemyBarPosition : MonoBehaviour
                 //gauge.CrossFadeAlpha(1f, 0f, false);
                 gauge.fillAmount = enemy.GetCurrentHitPoints() * 1f / enemy.m_maxHitPoints;
                 rt.anchoredPosition = newPos;
+				rt.LookAt (Camera.main.transform.position);
             }
             else
             {
