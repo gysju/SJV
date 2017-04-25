@@ -26,14 +26,6 @@ public class BaseMecha : BaseUnit
 
 	private Coroutine HitCoroutine = null;
 
-    [Header("Movement")]
-
-    [Range(0.1f, 1.0f)]
-    public float DashSpeed = 0.5f;
-
-    public enum MoveSystem { moveSystem_teleport = 0, moveSystem_dash, moveSystem_count };
-    public MoveSystem moveSystem = MoveSystem.moveSystem_teleport;
-
     protected override void Awake()
     {
 		if (Instance == null) 
@@ -171,47 +163,5 @@ public class BaseMecha : BaseUnit
     public float GetRightWeaponHeat()
     {
         return m_rightWeapon.GetHeat();
-    }
-
-    public void SwitchMoveSystem()
-    {
-        moveSystem = (MoveSystem)(((int)moveSystem + 1) % (int)MoveSystem.moveSystem_count);
-    }
-
-    public void Move( Vector3 pos )
-    {
-        switch ( moveSystem )
-        {
-            case MoveSystem.moveSystem_teleport:
-                Teleport(pos);
-                break;
-            case MoveSystem.moveSystem_dash:
-                InitDash(pos);
-                break;
-            default:
-                break;
-        }
-    }
-
-    private void Teleport( Vector3 pos )
-    {
-        transform.position = pos;
-    }
-
-    private void InitDash( Vector3 pos )
-    {
-        StartCoroutine(Dash(pos));
-    }
-
-    IEnumerator Dash( Vector3 pos )
-    {
-        Vector3 initialPos = transform.position;
-        float time = 0.0f;
-        while (time < DashSpeed)
-        {
-            transform.position = Vector3.Lerp(initialPos, pos, time / DashSpeed);
-            time += Time.deltaTime;
-            yield return null;
-        }
     }
 }

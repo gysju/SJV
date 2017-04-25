@@ -1909,6 +1909,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1724160809762176
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4598114151984806}
+  - component: {fileID: 114561346829332340}
+  m_Layer: 12
+  m_Name: Legs
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1726639435247334
 GameObject:
   m_ObjectHideFlags: 1
@@ -2915,7 +2931,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1758470119150600}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.4, y: -0.3, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4463772281844720}
@@ -3208,6 +3224,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4615243895940516}
+  - {fileID: 4598114151984806}
   - {fileID: 4833158498124258}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -3586,6 +3603,19 @@ Transform:
   m_Father: {fileID: 4615243895940516}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4598114151984806
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1724160809762176}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4372408282210192}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4615243895940516
 Transform:
   m_ObjectHideFlags: 1
@@ -3861,7 +3891,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4372408282210192}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4842612956866140
 Transform:
@@ -4046,7 +4076,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1495251028134340}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.4, y: -0.3, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4223660213743216}
@@ -5899,7 +5929,7 @@ MonoBehaviour:
   m_showLaser: 0
   m_triggerType: 1
   m_canOverHeat: 1
-  m_heatByShot: 0.03
+  m_heatByShot: 0.08
   m_timeToCooldown: 1
   m_rpm: 300
 --- !u!114 &114073977857048936
@@ -6491,8 +6521,8 @@ MonoBehaviour:
   m_maxHorinzontalHeadAngle: 10
   m_maxVerticalHeadAngle: 75
   m_legs: {fileID: 0}
-  trackedDeviceMoveControllers: {fileID: 0}
-  MinimumAngleToRotate: 15
+  m_leftRay: {fileID: 114385721013008422}
+  m_rightRay: {fileID: 114271186923557378}
 --- !u!114 &114318321263737924
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7255,8 +7285,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36400de6dd3898b47bf8674f2d1b8af2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_maxHitPoints: 74
-  m_startingHitPoints: 75
+  m_transform: {fileID: 0}
+  m_maxHitPoints: 20
+  m_startingHitPoints: 20
   m_currentHitPoints: 0
   m_timeToDie: 1
   m_destructionSpawn: {fileID: 0}
@@ -7267,8 +7298,22 @@ MonoBehaviour:
   - {fileID: 114683643693230192}
   m_bunker: {fileID: 0}
   m_torso: {fileID: 114857813329560898}
-  m_legs: {fileID: 0}
+  m_legs: {fileID: 114561346829332340}
   meshRendererSeeTrough: {fileID: 23289389494668768}
+--- !u!114 &114561346829332340
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1724160809762176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9d7be8536a968c4e97249f44c356230, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_speed: 0
+  DashSpeed: 0.5
+  moveSystem: 0
 --- !u!114 &114578341812562036
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7523,7 +7568,7 @@ MonoBehaviour:
   m_showLaser: 0
   m_triggerType: 1
   m_canOverHeat: 1
-  m_heatByShot: 0.03
+  m_heatByShot: 0.08
   m_timeToCooldown: 1
   m_rpm: 300
 --- !u!114 &114686419782857426
@@ -8353,7 +8398,7 @@ LineRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 964b52b01b3f1e745820ef9e63c5f2e4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8457,7 +8502,7 @@ LineRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 964b52b01b3f1e745820ef9e63c5f2e4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

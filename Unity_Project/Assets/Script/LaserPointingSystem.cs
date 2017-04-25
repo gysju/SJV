@@ -18,7 +18,9 @@ public class LaserPointingSystem : MonoBehaviour {
     public GameObject currentPointedObject = null;
 
 	private LineRenderer lineRenderer;
-	private RaycastHit hit;
+    [HideInInspector]
+    public bool raycastHit;
+	public RaycastHit hit;
 
 	private EventSystem eventSystem;
 
@@ -28,7 +30,7 @@ public class LaserPointingSystem : MonoBehaviour {
 	private Transform ThisTransform;
 
     private bool positionIsCorrect = false;
-    private NavMeshHit hitTeleport;
+    //private NavMeshHit hitTeleport;
 
     void Start () 
 	{
@@ -42,20 +44,22 @@ public class LaserPointingSystem : MonoBehaviour {
     void Update () 
 	{
 		CheckMask ();
-		InputUI(); 
+		InputUI();
 
-		//if (count >= 1)  
-		//{
-			if (Physics.Raycast (ThisTransform.position, ThisTransform.forward, out hit, 250.0f, mask))  
-			{
+        //if (count >= 1)  
+        //{
+        raycastHit = Physics.Raycast(ThisTransform.position, ThisTransform.forward, out hit, 250.0f, mask);
+            if (raycastHit)
+            {
 				lineRenderer.SetPosition (1, Vector3.forward * hit.distance);
 				detectionType (hit);
 
 #if UNITY_PS4
 				if (move != null)
 				{
-                    checkTeleport();
-					move.lookAtHit = hit.point;
+                    //checkTeleport();
+                        
+                    move.lookAtHit = hit.point;
                     GameObject hitGameObject = hit.transform.gameObject;
                     bool unitLayer = (hitGameObject.layer == LayerMask.NameToLayer("Unit"));
                     if (hitGameObject != currentPointedObject && hitGameObject != OtherLaser.currentPointedObject && unitLayer)
@@ -70,14 +74,15 @@ public class LaserPointingSystem : MonoBehaviour {
                     }
 				}
 #endif
-        }
+            }
             else
             {
                 currentPointedObject = null;
+				buttonSelected = null;
 				if ( enemyHUD != null)
                 	enemyHUD.EraseEnemy();
+
                 lineRenderer.SetPosition (1, Vector3.forward * MinimalDistance);
-				buttonSelected = null;
 
                 if (eventSystem != null && eventSystem.currentSelectedGameObject != null && OtherLaser != null && OtherLaser.buttonSelected == null)
                 {
@@ -152,30 +157,30 @@ public class LaserPointingSystem : MonoBehaviour {
 			mask = 1 << LayerMask.NameToLayer ("UI");
 	}
 
-    void checkTeleport()
-    {
-        if (Input.GetKey(KeyCode.Keypad0) || move.GetButton(MoveController.MoveButton.MoveButton_Move))
-        {
-            if (NavMesh.SamplePosition(hit.point, out hitTeleport, 2.0f, 1 << NavMesh.GetAreaFromName("Walkable")))
-            {
-                positionIsCorrect = true;
-                setLineColor( Color.green );
-            }
-            else
-            {
-                positionIsCorrect = false;
-                setLineColor( Color.red );
-            }
-        }
-        if (Input.GetKeyUp(KeyCode.Keypad0) || move.GetButtonUp(MoveController.MoveButton.MoveButton_Move))
-        {
-            if (positionIsCorrect)
-                BaseMecha.Instance.Move(hitTeleport.position);
-            setLineColor (Color.white);
-        }
-    }
+    //public void checkTeleport()
+    //{
+    //    if (Input.GetKey(KeyCode.Keypad0) || move.GetButton(MoveController.MoveButton.MoveButton_Move))
+    //    {
+    //        if (NavMesh.SamplePosition(hit.point, out hitTeleport, 2.0f, 1 << NavMesh.GetAreaFromName("Walkable")))
+    //        {
+    //            positionIsCorrect = true;
+    //            setLineColor( Color.green );
+    //        }
+    //        else
+    //        {
+    //            positionIsCorrect = false;
+    //            setLineColor( Color.red );
+    //        }
+    //    }
+    //    if (Input.GetKeyUp(KeyCode.Keypad0) || move.GetButtonUp(MoveController.MoveButton.MoveButton_Move))
+    //    {
+    //        if (positionIsCorrect)
+    //            BaseMecha.Instance.m_legs.Move(hitTeleport.position);
+    //        setLineColor (Color.white);
+    //    }
+    //}
 
-    void setLineColor( Color col)
+    public void setLineColor( Color col)
     {
         lineRenderer.startColor = col;
         lineRenderer.endColor = col;

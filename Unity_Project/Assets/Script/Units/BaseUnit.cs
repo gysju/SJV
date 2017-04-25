@@ -10,7 +10,8 @@ public class BaseUnit : MonoBehaviour
     const int MIN_ARMOR = 0;
     const int MAX_ARMOR = 100;
 
-    protected Transform m_transform;
+    [HideInInspector]
+    public Transform m_transform;
     protected Renderer m_model;
     protected Animator m_animator;
 
