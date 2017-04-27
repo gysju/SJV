@@ -130,8 +130,13 @@ public class BaseUnit : MonoBehaviour
 
             CheckHitPoints();
 
-            if (actualDamages > 0) return true;
-            else return false;
+            if (m_animator != null)
+                m_animator.SetTrigger("Touched");
+
+            if (actualDamages > 0)
+                return true;
+            else 
+                return false;
         }
         else return false;
     }
