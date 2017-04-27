@@ -2,9 +2,12 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class IKLimb : MonoBehaviour {
-	public Transform upperArm, forearm, hand, Thistransform;
+public class ikLimb : MonoBehaviour {
+    public Transform upperArm, forearm, hand;
 	public Transform target, elbowTarget;
+    
+    [HideInInspector]
+    public Transform Thistransform;
 	
 	public bool IsEnabled, debug;
 			
@@ -146,9 +149,8 @@ public class IKLimb : MonoBehaviour {
 		
 		//Apply rotation for temporary game objects.
 		upperArmAxisCorrection.transform.LookAt(target,elbowTarget.position - upperArmAxisCorrection.transform.position);
-		
-		upperArmAxisCorrection.transform.localRotation = //.x -= ikAngle;
-			Quaternion.Euler(upperArmAxisCorrection.transform.localRotation.eulerAngles - new Vector3(ikAngle, 0, 0));
+
+		upperArmAxisCorrection.transform.localRotation = Quaternion.Euler(upperArmAxisCorrection.transform.localRotation.eulerAngles - new Vector3(ikAngle, 0, 0));
 		
 		forearmAxisCorrection.transform.LookAt(target,elbowTarget.position - upperArmAxisCorrection.transform.position);
 		handAxisCorrection.transform.rotation = target.rotation;
