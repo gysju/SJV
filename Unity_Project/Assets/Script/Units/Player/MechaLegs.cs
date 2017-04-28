@@ -69,21 +69,6 @@ public class MechaLegs : MonoBehaviour
         }
     }
 
-    //public void Move(Vector3 pos)
-    //{
-    //    switch (moveSystem)
-    //    {
-    //        case MoveSystem.moveSystem_teleport:
-    //            Teleport(pos);
-    //            break;
-    //        case MoveSystem.moveSystem_dash:
-    //            InitDash(pos);
-    //            break;
-    //        default:
-    //            break;
-    //    }
-    //}
-
     private void Teleport(Vector3 pos)
     {
         m_baseMecha.m_transform.position = pos;

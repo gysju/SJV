@@ -28,6 +28,8 @@ public class PlayerInputs : MonoBehaviour
     public LaserPointingSystem m_leftRay;
     public LaserPointingSystem m_rightRay;
 
+    public GameObject teleportIndication;
+
     private bool m_leftMovePriority = false;
     private bool m_rightMovePriority = false;
 
@@ -152,10 +154,15 @@ public class PlayerInputs : MonoBehaviour
         if (m_rightRay.raycastHit && m_legs.CheckDestination(m_rightRay.hit))
         {
             m_rightRay.setLineColor(Color.green);
+            //display effect at the destination
+            teleportIndication.SetActive(true);
+            teleportIndication.transform.position = m_rightRay.hit.point;
         }
         else
         {
             m_rightRay.setLineColor(Color.red);
+            //Hide effect
+            teleportIndication.SetActive(false);
         }
     }
 
@@ -166,6 +173,7 @@ public class PlayerInputs : MonoBehaviour
         m_legs.ConfirmTeleport();
         m_leftRay.setLineColor(Color.white);
         m_rightRay.setLineColor(Color.white);
+        teleportIndication.SetActive(false);
     }
 
 #if UNITY_PS4
