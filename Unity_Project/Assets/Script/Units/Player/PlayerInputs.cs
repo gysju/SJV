@@ -50,6 +50,9 @@ public class PlayerInputs : MonoBehaviour
 		m_rightController = trackedDeviceMoveControllers.secondaryMoveController;
         m_leftRay = m_leftController.GetComponent<LaserPointingSystem>();
         m_rightRay = m_rightController.GetComponent<LaserPointingSystem>();
+
+        teleportIndication = Instantiate(teleportIndication);
+        teleportIndication.SetActive(false);
     }
 #endif
 
