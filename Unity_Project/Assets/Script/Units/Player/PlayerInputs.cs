@@ -25,6 +25,14 @@ public class PlayerInputs : MonoBehaviour
     public MechaLegs m_legs;
     protected bool m_legsConnected;
 
+    public LaserPointingSystem m_leftRay;
+    public LaserPointingSystem m_rightRay;
+
+    public GameObject teleportIndication;
+
+    private bool m_leftMovePriority = false;
+    private bool m_rightMovePriority = false;
+
 #if UNITY_PS4
     [Header("PSMove Related")]
 
@@ -40,6 +48,11 @@ public class PlayerInputs : MonoBehaviour
         m_baseOffset = Vector3.zero;
 		m_leftController = trackedDeviceMoveControllers.primaryMoveController;
 		m_rightController = trackedDeviceMoveControllers.secondaryMoveController;
+        m_leftRay = m_leftController.GetComponent<LaserPointingSystem>();
+        m_rightRay = m_rightController.GetComponent<LaserPointingSystem>();
+
+        teleportIndication = Instantiate(teleportIndication);
+        teleportIndication.SetActive(false);
     }
 #endif
 
@@ -125,6 +138,47 @@ public class PlayerInputs : MonoBehaviour
         m_mainCamera.transform.rotation = horizontalRotation * currentRotation * verticalRotation;
     }
 
+    void PointDestinationLeft()
+    {
+        m_leftMovePriority = true;
+        if (m_leftRay.raycastHit && m_legs.CheckDestination(m_leftRay.hit))
+        {
+            m_leftRay.setLineColor(Color.green);
+        }
+        else
+        {
+            m_leftRay.setLineColor(Color.red);
+        }
+    }
+
+    void PointDestinationRight()
+    {
+        m_rightMovePriority = true;
+        if (m_rightRay.raycastHit && m_legs.CheckDestination(m_rightRay.hit))
+        {
+            m_rightRay.setLineColor(Color.green);
+            //display effect at the destination
+            teleportIndication.SetActive(true);
+            teleportIndication.transform.position = m_rightRay.hit.point;
+        }
+        else
+        {
+            m_rightRay.setLineColor(Color.red);
+            //Hide effect
+            teleportIndication.SetActive(false);
+        }
+    }
+
+    void ConfirmDestination()
+    {
+        m_leftMovePriority = false;
+        m_rightMovePriority = false;
+        m_legs.ConfirmTeleport();
+        m_leftRay.setLineColor(Color.white);
+        m_rightRay.setLineColor(Color.white);
+        teleportIndication.SetActive(false);
+    }
+
 #if UNITY_PS4
     #region PSMoves
 
@@ -151,6 +205,39 @@ public class PlayerInputs : MonoBehaviour
 
         if (m_rightController.GetButtonDown(MoveController.MoveButton.MoveButton_Trigger)) m_mecha.RightArmWeaponTriggered();
 		if (m_rightController.GetButtonUp(MoveController.MoveButton.MoveButton_Trigger)) m_mecha.RightArmWeaponTriggerReleased();
+
+        if (m_legsConnected)
+        {
+            PSMoveMovementInputs();
+        }
+    }
+
+    void PSMoveMovementInputs()
+    {
+        // Switch Move System when you presse circle button
+
+        if (m_leftController.GetButtonDown(MoveController.MoveButton.MoveButton_Circle)) m_mecha.m_legs.SwitchMoveSystem();
+        if (m_rightController.GetButtonDown(MoveController.MoveButton.MoveButton_Circle)) m_mecha.m_legs.SwitchMoveSystem();
+
+
+        if (!m_rightMovePriority && m_leftController.GetButton(MoveController.MoveButton.MoveButton_Move))
+        {
+            PointDestinationLeft();
+        }
+        if (m_leftMovePriority && m_leftController.GetButtonUp(MoveController.MoveButton.MoveButton_Move))
+        {
+            ConfirmDestination();
+        }
+
+        if (!m_leftMovePriority && m_rightController.GetButton(MoveController.MoveButton.MoveButton_Move))
+        {
+            PointDestinationRight();
+        }
+        if (m_rightMovePriority && m_rightController.GetButtonUp(MoveController.MoveButton.MoveButton_Move))
+        {
+            ConfirmDestination();
+        }
+
     }
 
     Vector3 PSMoveVirtualJoysticksConvertion(int index)
@@ -218,33 +305,32 @@ public class PlayerInputs : MonoBehaviour
         if (Input.GetMouseButtonUp(1)) m_mecha.RightArmWeaponTriggerReleased();
     }
 
-    //void KeyboardMovements()
-    //{
-    //    Vector3 movementDirection = Vector3.zero;
-    //    if (Input.GetKey(KeyCode.Z)) movementDirection.z += 1f;
-    //    if (Input.GetKey(KeyCode.S)) movementDirection.z -= 1f;
-    //    if (Input.GetKey(KeyCode.D)) movementDirection.x += 1f;
-    //    if (Input.GetKey(KeyCode.Q)) movementDirection.x -= 1f;
+    void KeyboardMovements()
+    {
+        Vector3 movementDirection = Vector3.zero;
+        if (Input.GetKey(KeyCode.Z)) movementDirection.z += 1f;
+        if (Input.GetKey(KeyCode.S)) movementDirection.z -= 1f;
+        if (Input.GetKey(KeyCode.D)) movementDirection.x += 1f;
+        if (Input.GetKey(KeyCode.Q)) movementDirection.x -= 1f;
 
-    //    if (movementDirection != Vector3.zero) MoveFromLocalRotation(movementDirection);
-    //    else ResumePath();
+        if (movementDirection != Vector3.zero) m_legs.MoveTo(movementDirection);
 
-    //    if (Input.GetMouseButton(2))
-    //    {
-    //        PointDestination(m_mainCamera.transform);
-    //    }
-    //    if (Input.GetMouseButtonUp(2))
-    //    {
-    //        ConfirmDestination();
-    //    }
-    //}
+        if (Input.GetMouseButton(2))
+        {
+            PointDestinationLeft();
+        }
+        if (Input.GetMouseButtonUp(2))
+        {
+            ConfirmDestination();
+        }
+    }
 
     void MouseKeyboardInputs()
     {
         Cursor.lockState = CursorLockMode.Locked;
         MouseAim();
         MouseShootInputs();
-        //KeyboardMovements();
+        KeyboardMovements();
     }
 
     #endregion

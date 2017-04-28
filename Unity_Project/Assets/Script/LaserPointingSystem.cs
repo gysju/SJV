@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.AI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -17,7 +18,9 @@ public class LaserPointingSystem : MonoBehaviour {
     public GameObject currentPointedObject = null;
 
 	private LineRenderer lineRenderer;
-	private RaycastHit hit;
+    [HideInInspector]
+    public bool raycastHit;
+	public RaycastHit hit;
 
 	private EventSystem eventSystem;
 
@@ -26,7 +29,10 @@ public class LaserPointingSystem : MonoBehaviour {
     private int count; 
 	private Transform ThisTransform;
 
-	void Start () 
+    private bool positionIsCorrect = false;
+    //private NavMeshHit hitTeleport;
+
+    void Start () 
 	{
 		eventSystem =  GameObject.Find("EventSystem").GetComponent<EventSystem>();
 		lineRenderer = GetComponent<LineRenderer> ();
@@ -38,18 +44,22 @@ public class LaserPointingSystem : MonoBehaviour {
     void Update () 
 	{
 		CheckMask ();
-		InputUI(); 
-		if (count >= 1)  
-		{
-			if (Physics.Raycast (ThisTransform.position, ThisTransform.forward, out hit, 250.0f, mask))  
-			{
+		InputUI();
+
+        //if (count >= 1)  
+        //{
+        raycastHit = Physics.Raycast(ThisTransform.position, ThisTransform.forward, out hit, 250.0f, mask);
+            if (raycastHit)
+            {
 				lineRenderer.SetPosition (1, Vector3.forward * hit.distance);
 				detectionType (hit);
 
 #if UNITY_PS4
 				if (move != null)
 				{
-					move.lookAtHit = hit.point;
+                    //checkTeleport();
+                        
+                    move.lookAtHit = hit.point;
                     GameObject hitGameObject = hit.transform.gameObject;
                     bool unitLayer = (hitGameObject.layer == LayerMask.NameToLayer("Unit"));
                     if (hitGameObject != currentPointedObject && hitGameObject != OtherLaser.currentPointedObject && unitLayer)
@@ -68,24 +78,53 @@ public class LaserPointingSystem : MonoBehaviour {
             else
             {
                 currentPointedObject = null;
+				buttonSelected = null;
 				if ( enemyHUD != null)
                 	enemyHUD.EraseEnemy();
-                lineRenderer.SetPosition (1, Vector3.forward * MinimalDistance);
-				buttonSelected = null;
 
-				if (eventSystem != null && OtherLaser != null && OtherLaser.buttonSelected == null) 
-				{
-					eventSystem.SetSelectedGameObject(null);
-				}
-				#if UNITY_PS4
+                lineRenderer.SetPosition (1, Vector3.forward * MinimalDistance);
+
+                if (eventSystem != null && eventSystem.currentSelectedGameObject != null && OtherLaser != null && OtherLaser.buttonSelected == null)
+                {
+                    eventSystem.SetSelectedGameObject(null);
+                }
+                else
+                {
+                    #if UNITY_PS4
+                    if (move != null)
+                    {
+					    move.lookAtHit = ThisTransform.position + ThisTransform.forward * 1000.0f;
+                        if (Input.GetKeyUp(KeyCode.Keypad0) || move.GetButtonUp(MoveController.MoveButton.MoveButton_Move))
+                        {
+                            setLineColor(Color.white);
+                        }
+                        if (Input.GetKeyDown(KeyCode.Keypad0) || move.GetButtonDown(MoveController.MoveButton.MoveButton_Move))
+                        {
+                            setLineColor(Color.red);
+                        }
+                    }
+                    #else
+                    if (Input.GetKeyUp(KeyCode.Keypad0))
+                    {
+                        setLineColor( Color.white );
+                    }
+                    if (Input.GetKeyDown(KeyCode.Keypad0))
+                    {
+                        setLineColor( Color.red );
+                    }
+
+                    #endif
+                }
+
+                #if UNITY_PS4
 				if (move != null)
 					move.lookAtHit = ThisTransform.position + ThisTransform.forward * 1000.0f;
-				#endif
+                #endif
 			}
-			count = 0;
-		}
-		else
-			count += 1;
+			//count = 0;
+		//}
+		//else
+		//	count += 1;
 	}
 
 	void InputUI()
@@ -117,4 +156,33 @@ public class LaserPointingSystem : MonoBehaviour {
 		else
 			mask = 1 << LayerMask.NameToLayer ("UI");
 	}
+
+    //public void checkTeleport()
+    //{
+    //    if (Input.GetKey(KeyCode.Keypad0) || move.GetButton(MoveController.MoveButton.MoveButton_Move))
+    //    {
+    //        if (NavMesh.SamplePosition(hit.point, out hitTeleport, 2.0f, 1 << NavMesh.GetAreaFromName("Walkable")))
+    //        {
+    //            positionIsCorrect = true;
+    //            setLineColor( Color.green );
+    //        }
+    //        else
+    //        {
+    //            positionIsCorrect = false;
+    //            setLineColor( Color.red );
+    //        }
+    //    }
+    //    if (Input.GetKeyUp(KeyCode.Keypad0) || move.GetButtonUp(MoveController.MoveButton.MoveButton_Move))
+    //    {
+    //        if (positionIsCorrect)
+    //            BaseMecha.Instance.m_legs.Move(hitTeleport.position);
+    //        setLineColor (Color.white);
+    //    }
+    //}
+
+    public void setLineColor( Color col)
+    {
+        lineRenderer.startColor = col;
+        lineRenderer.endColor = col;
+    }
 }
