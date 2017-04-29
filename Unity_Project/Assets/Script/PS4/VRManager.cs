@@ -58,8 +58,8 @@ public class VRManager : MonoBehaviour
         {
             if (FindObjectOfType<VRPostReprojection>())
                 PlayStationVRSettings.postReprojectionType = PlayStationVRPostReprojectionType.PerEye;
-            else
-                Debug.LogError("You are trying to enable support for post-reprojection, but no post-reprojection script was found!");
+            //else
+            //    Debug.LogError("You are trying to enable support for post-reprojection, but no post-reprojection script was found!");
         }
         else
         {
