@@ -444,7 +444,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 224577490342259846}
-  - component: {fileID: 225874755571946024}
   m_Layer: 5
   m_Name: '[UI]'
   m_TagString: Untagged
@@ -513,7 +512,6 @@ GameObject:
   - component: {fileID: 224861352734315812}
   - component: {fileID: 222333864285513950}
   - component: {fileID: 114110034663976466}
-  - component: {fileID: 65120151034190270}
   m_Layer: 5
   m_Name: OptionButton
   m_TagString: Untagged
@@ -611,8 +609,6 @@ GameObject:
   - component: {fileID: 223152156593381958}
   - component: {fileID: 114460185098757114}
   - component: {fileID: 114911598713257984}
-  - component: {fileID: 114948878597479544}
-  - component: {fileID: 95270105361566776}
   m_Layer: 5
   m_Name: '[World Space Canvas]'
   m_TagString: Canvas
@@ -977,7 +973,6 @@ GameObject:
   - component: {fileID: 224788182715950046}
   - component: {fileID: 222194314430215060}
   - component: {fileID: 114658265703242752}
-  - component: {fileID: 65725666460354812}
   m_Layer: 5
   m_Name: German
   m_TagString: Untagged
@@ -1078,7 +1073,6 @@ GameObject:
   - component: {fileID: 224115873692690960}
   - component: {fileID: 222777283331526470}
   - component: {fileID: 114443727338330248}
-  - component: {fileID: 65104674534816986}
   m_Layer: 5
   m_Name: Language
   m_TagString: Untagged
@@ -1479,7 +1473,6 @@ GameObject:
   - component: {fileID: 224967364195400972}
   - component: {fileID: 222094976527128344}
   - component: {fileID: 114666723297066326}
-  - component: {fileID: 65458498829144072}
   m_Layer: 5
   m_Name: Dutch
   m_TagString: Untagged
@@ -1916,7 +1909,6 @@ GameObject:
   - component: {fileID: 224033116838204922}
   - component: {fileID: 222835504153234928}
   - component: {fileID: 114955535235605812}
-  - component: {fileID: 65103939485063974}
   m_Layer: 5
   m_Name: French
   m_TagString: Untagged
@@ -2048,7 +2040,6 @@ GameObject:
   - component: {fileID: 224667270234851194}
   - component: {fileID: 222845536781487544}
   - component: {fileID: 114444881140732794}
-  - component: {fileID: 65903394883630438}
   m_Layer: 5
   m_Name: Return
   m_TagString: Untagged
@@ -2130,7 +2121,6 @@ GameObject:
   - component: {fileID: 224111124031120698}
   - component: {fileID: 222005858760420790}
   - component: {fileID: 114928739228831450}
-  - component: {fileID: 65637847195551100}
   m_Layer: 5
   m_Name: English
   m_TagString: Untagged
@@ -2289,7 +2279,6 @@ GameObject:
   - component: {fileID: 224473408807427524}
   - component: {fileID: 222874985426214844}
   - component: {fileID: 114008137932979526}
-  - component: {fileID: 65734174177826836}
   m_Layer: 5
   m_Name: CalibrationButton
   m_TagString: Untagged
@@ -2324,7 +2313,6 @@ GameObject:
   - component: {fileID: 224601397327248726}
   - component: {fileID: 222946655656212588}
   - component: {fileID: 114017142245422790}
-  - component: {fileID: 65669380300252602}
   m_Layer: 5
   m_Name: StartButton
   m_TagString: Untagged
@@ -2359,7 +2347,6 @@ GameObject:
   - component: {fileID: 224884474441314080}
   - component: {fileID: 222035932799001076}
   - component: {fileID: 114002326581752524}
-  - component: {fileID: 65995967225745820}
   m_Layer: 5
   m_Name: CreditsButton
   m_TagString: Untagged
@@ -2525,7 +2512,6 @@ GameObject:
   - component: {fileID: 224526921322359764}
   - component: {fileID: 222246410554863936}
   - component: {fileID: 114244756469384398}
-  - component: {fileID: 65800120523874920}
   m_Layer: 5
   m_Name: Return
   m_TagString: Untagged
@@ -2732,23 +2718,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1998376558166088
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4313532014812842}
-  - component: {fileID: 114595588232603792}
-  - component: {fileID: 114411948187411396}
-  m_Layer: 5
-  m_Name: EventSystem
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!4 &4012045633198190
 Transform:
   m_ObjectHideFlags: 1
@@ -2890,7 +2859,6 @@ Transform:
   - {fileID: 224006407715736618}
   - {fileID: 224703517985024154}
   - {fileID: 224507959164209832}
-  - {fileID: 4313532014812842}
   m_Father: {fileID: 4302351854075470}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3197,19 +3165,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4102321231267884}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4313532014812842
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1998376558166088}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4091536948955138}
-  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4319264978534464
 Transform:
@@ -5703,23 +5658,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!95 &95270105361566776
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1240302546296850}
-  m_Enabled: 0
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a74bf524bcef3b24f9114db476a7fe7a, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 2
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &95300626052211230
 Animator:
   serializedVersion: 3
@@ -6048,7 +5986,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -6218,7 +6156,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_mecha: {fileID: 114953707263810038}
   m_inputs: {fileID: 114303306377100590}
-  m_uiWorldSpace: {fileID: 225874755571946024}
+  m_uiWorldSpace: {fileID: 0}
   m_hudWorldSpace: {fileID: 225259760844328298}
   m_uiScreenSpace: {fileID: 225184411108623424}
   m_hudScreenSpace: {fileID: 225884531247996786}
@@ -6233,6 +6171,7 @@ MonoBehaviour:
   m_integrityGaugeLeft: {fileID: 114523845774078034}
   m_heatGaugeRight: {fileID: 114826849353240236}
   m_heatGaugeLeft: {fileID: 114566422838919998}
+  m_sceneInterface: 0
   m_fps: {fileID: 1958091170356242}
   m_showFPS: 0
 --- !u!114 &114181048194367782
@@ -6381,17 +6320,6 @@ MonoBehaviour:
           m_StringArgument: StartMenu
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 114217267641687638}
-        m_MethodName: ChangeLanguageToFrench
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &114248664624022302
@@ -6509,7 +6437,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_torsoRotationSpeed: 0.5
-  m_weaponsConnected: 0
 --- !u!114 &114288793525961338
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6556,12 +6483,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_mecha: {fileID: 114953707263810038}
   m_inGame: 0
+  m_weaponsConnected: 0
   m_torso: {fileID: 114282173216230950}
   m_torsoConnected: 0
   m_maxHorinzontalHeadAngle: 10
   m_maxVerticalHeadAngle: 75
   m_legs: {fileID: 0}
   m_legsConnected: 0
+  trackedDeviceMoveControllers: {fileID: 0}
+  MinimumAngleToRotate: 15
 --- !u!114 &114306827299811948
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6816,24 +6746,6 @@ MonoBehaviour:
   m_heatByShot: 0.03
   m_timeToCooldown: 1
   m_rpm: 300
---- !u!114 &114411948187411396
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1998376558166088}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1077351063, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_HorizontalAxis: Horizontal
-  m_VerticalAxis: Vertical
-  m_SubmitButton: Submit
-  m_CancelButton: Cancel
-  m_InputActionsPerSecond: 10
-  m_RepeatDelay: 0.5
-  m_ForceModuleActive: 0
 --- !u!114 &114421880785939070
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7292,20 +7204,6 @@ MonoBehaviour:
   targetRight: {fileID: 4805996471249746}
   TargetBias: {x: 0, y: 1, z: 1}
   IkIntensity: 1
---- !u!114 &114595588232603792
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1998376558166088}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -619905303, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
-  m_sendNavigationEvents: 1
-  m_DragThreshold: 5
 --- !u!114 &114596431628523240
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8160,19 +8058,6 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &114948878597479544
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1240302546296850}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86cbecafee1246744896aad450d59141, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  eState_Menu: 0
-  trackedDeviceControllers: {fileID: 0}
 --- !u!114 &114953707263810038
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8188,7 +8073,6 @@ MonoBehaviour:
   m_startingHitPoints: 75
   m_currentHitPoints: 0
   m_timeToDie: 1
-  m_destructionSpawn: {fileID: 0}
   m_armor: 0
   m_targetPoint: {fileID: 4831955637650992}
   m_weapons:
@@ -26463,17 +26347,6 @@ CanvasGroup:
   m_Alpha: 0
   m_Interactable: 0
   m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
---- !u!225 &225874755571946024
-CanvasGroup:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1205714117944202}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
 --- !u!225 &225884531247996786
 CanvasGroup:
