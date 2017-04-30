@@ -84,9 +84,16 @@ public class PlayerInterface : MonoBehaviour
         m_levelUnloading = SceneManager.LoadSceneAsync(1);
     }
 
+    IEnumerator LoadLevelCoroutine(int sceneID)
+    {
+        m_mecha.m_bunker.ActivateBunkerMode();
+        yield return new WaitForSeconds(m_mecha.m_bunker.m_bunkerTransitionSpeed);
+        m_levelLoading = SceneManager.LoadSceneAsync(sceneID);
+    }
+
     protected void LoadLevel(int sceneID)
     {
-        m_levelLoading = SceneManager.LoadSceneAsync(sceneID);
+        StartCoroutine(LoadLevelCoroutine(sceneID));
     }
 
     protected void ReadyToAction()
