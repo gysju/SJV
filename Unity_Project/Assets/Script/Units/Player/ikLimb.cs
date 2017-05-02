@@ -132,12 +132,12 @@ public class ikLimb : MonoBehaviour {
 		
 		upperArmAxisCorrection.transform.position = upperArm.position;
 		//upperArmAxisCorrection.transform.LookAt(forearm.position, transform.root.up);
-		upperArmAxisCorrection.transform.LookAt(forearm.position, upperArm.up);
+		upperArmAxisCorrection.transform.LookAt(forearm.position, -upperArm.up);
 		upperArm.parent = upperArmAxisCorrection.transform;
 		
 		forearmAxisCorrection.transform.position = forearm.position;
 		//forearmAxisCorrection.transform.LookAt(hand.position, transform.root.up);
-		forearmAxisCorrection.transform.LookAt(hand.position, forearm.up);
+		forearmAxisCorrection.transform.LookAt(hand.position, -forearm.up);
 		forearm.parent = forearmAxisCorrection.transform;
 		
 		handAxisCorrection.transform.position = hand.position;
