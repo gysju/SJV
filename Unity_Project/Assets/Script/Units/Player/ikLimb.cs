@@ -15,7 +15,8 @@ public class ikLimb : MonoBehaviour {
 		KeepLocalRotation,
 		KeepGlobalRotation,
 		UseTargetRotation
-	};
+        //UseChildRotation
+    };
 	public HandRotations handRotationPolicy = HandRotations.KeepLocalRotation;
 	
 	private Quaternion upperArmStartRotation, forearmStartRotation, handStartRotation;
@@ -179,7 +180,11 @@ public class ikLimb : MonoBehaviour {
 			hand.rotation = target.rotation;
 			
 			break;
-		}
+        //case HandRotations.UseChildRotation:
+        //    hand.rotation = hand.GetChild(0).rotation;
+        //
+        //    break;
+        }
 			
 		//Debug.
 		if (debug){
