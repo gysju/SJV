@@ -2963,7 +2963,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1758470119150600}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.4, y: -0.3, z: 0.5}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4463772281844720}
@@ -3303,8 +3303,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1722351778863470}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.665, y: 0.065, z: 2.1}
+  m_LocalRotation: {x: -0.00000026790076, y: -0.000000020954758, z: 0.000000007450581,
+    w: 1}
+  m_LocalPosition: {x: -0.96899724, y: -1.1439989, z: -0.80799973}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4514021833118592}
@@ -4137,7 +4138,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1495251028134340}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.4, y: -0.3, z: 0.5}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4223660213743216}
@@ -4180,7 +4181,7 @@ Camera:
   m_GameObject: {fileID: 1745584232356052}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 3
+  m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
@@ -6338,7 +6339,7 @@ MonoBehaviour:
   - {fileID: 0}
   targetLeft: {fileID: 4657350458177580}
   targetRight: {fileID: 4880806072056616}
-  TargetBias: {x: 0, y: 1, z: 1}
+  TargetBias: {x: 0, y: 0, z: 0}
   IkIntensity: 1
 --- !u!114 &114231654191785512
 MonoBehaviour:
@@ -6580,7 +6581,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_mecha: {fileID: 114559335785910554}
   m_torso: {fileID: 114857813329560898}
-  m_maxHorinzontalHeadAngle: 10
+  m_maxHorinzontalHeadAngle: 30
   m_maxVerticalHeadAngle: 75
   m_legs: {fileID: 0}
   m_leftRay: {fileID: 114385721013008422}
