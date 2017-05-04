@@ -22,7 +22,7 @@ public class ScenePlayerManager : MonoBehaviour
         m_player.m_bunker.DeactivateBunkerMode();
     }
 
-    void Update()
+    protected virtual void Update()
     {
         if (!m_player)
         {

@@ -31,7 +31,7 @@ public class SetupVR : MonoBehaviour
     public void ContinueToMainMenu()
     {
        SceneManager.LoadSceneAsync(1);
-       m_interface.MainMenu();
+       //m_interface.MainMenu();
     }
 
 #if UNITY_PS4

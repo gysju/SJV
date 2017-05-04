@@ -27,6 +27,9 @@ public class BaseMecha : BaseUnit
 
 	private Coroutine HitCoroutine = null;
 
+    [HideInInspector]
+    public AsyncOperation m_levelLoading = null;
+
     public static BaseMecha instance
     {
         get
@@ -91,6 +94,14 @@ public class BaseMecha : BaseUnit
     public void BackToBase()
     {
         m_currentHitPoints = m_maxHitPoints;
+        m_inputs.m_weaponsConnected = false;
+    }
+
+    public void ReadyToAction()
+    {
+        m_interface.ShowHelmetHUD();
+        m_inputs.m_weaponsConnected = true;
+        m_inputs.m_inGame = true;
     }
 
     public void RotateMechaHorizontaly(float horizontalAngle)
@@ -185,5 +196,18 @@ public class BaseMecha : BaseUnit
     public float GetRightWeaponHeat()
     {
         return m_rightWeapon.GetHeat();
+    }
+
+    protected virtual void Update()
+    {
+        if (m_levelLoading != null)
+        {
+            if (m_levelLoading.isDone)
+            {
+                m_bunker.DeactivateBunkerMode();
+                ReadyToAction();
+                m_levelLoading = null;
+            }
+        }
     }
 }
