@@ -10,6 +10,12 @@ public class MenuManager : ScenePlayerManager
     public CanvasGroup m_optionMenu;
     public CanvasGroup m_credits;
 
+    protected override void FindPlayer()
+    {
+        base.FindPlayer();
+        m_player.BackToBase();
+    }
+
     protected void ShowBoard(CanvasGroup boardToShow)
     {
         boardToShow.alpha = 1f;
@@ -41,7 +47,7 @@ public class MenuManager : ScenePlayerManager
 
     IEnumerator LoadLevelCoroutine(int sceneID)
     {
-        m_player.m_bunker.ActivateBunkerMode();
+        m_player.PrepareExtraction();
         yield return new WaitForSeconds(m_player.m_bunker.m_bunkerTransitionSpeed);
         m_player.m_levelLoading = SceneManager.LoadSceneAsync(sceneID);
     }

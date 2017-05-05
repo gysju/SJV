@@ -75,12 +75,37 @@ public class BaseMecha : BaseUnit
 		}
     }
 
+    public void BackToBase()
+    {
+        m_currentHitPoints = m_maxHitPoints;
+        m_destroyed = false;
+    }
+
+    public void PrepareExtraction()
+    {
+        m_inputs.m_weaponsConnected = false;
+        m_inputs.m_inGame = false;
+        m_interface.HideHelmetHUD();
+        m_bunker.ActivateBunkerMode();
+
+#if UNITY_STANDALONE
+
+#endif
+
+    }
+
+    public void ReadyToAction()
+    {
+        m_inputs.m_weaponsConnected = true;
+        m_inputs.m_inGame = true;
+        m_interface.ShowHelmetHUD();
+        //m_bunker.DeactivateBunkerMode();
+    }
+
     protected override void StartDying()
     {
-        m_destroyed = true;
-
-//        m_bunker.ActivateBunkerMode();
-
+        PrepareExtraction();
+        HUD_Radar.Instance.RemoveAllInfos();
         LaserOff();
 
         StartCoroutine(Dying());
@@ -88,20 +113,7 @@ public class BaseMecha : BaseUnit
 
     protected override void FinishDying()
     {
-        m_zaManager.BackToMainMenu();
-    }
-
-    public void BackToBase()
-    {
-        m_currentHitPoints = m_maxHitPoints;
-        m_inputs.m_weaponsConnected = false;
-    }
-
-    public void ReadyToAction()
-    {
-        m_interface.ShowHelmetHUD();
-        m_inputs.m_weaponsConnected = true;
-        m_inputs.m_inGame = true;
+        m_destroyed = true;
     }
 
     public void RotateMechaHorizontaly(float horizontalAngle)
@@ -204,7 +216,6 @@ public class BaseMecha : BaseUnit
         {
             if (m_levelLoading.isDone)
             {
-                m_bunker.DeactivateBunkerMode();
                 ReadyToAction();
                 m_levelLoading = null;
             }

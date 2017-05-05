@@ -26,9 +26,6 @@ public class PlayerInterface : MonoBehaviour
     public GameObject m_fps;
     public bool m_showFPS;
 
-    private AsyncOperation m_levelUnloading = null;
-    private AsyncOperation m_levelLoading = null;
-
     void Start ()
 	{
 		if (Instance == null) 
@@ -73,21 +70,26 @@ public class PlayerInterface : MonoBehaviour
         StartCoroutine(LoadLevelCoroutine(sceneID));
     }
 
-    protected void UnloadLevel()
+    protected void LoadMainMenuScene()
     {
-        m_levelUnloading = SceneManager.LoadSceneAsync(1);
+        SceneManager.LoadSceneAsync(1);
     }
 
     IEnumerator LoadLevelCoroutine(int sceneID)
     {
         m_mecha.m_bunker.ActivateBunkerMode();
         yield return new WaitForSeconds(m_mecha.m_bunker.m_bunkerTransitionSpeed);
-        m_levelLoading = SceneManager.LoadSceneAsync(sceneID);
+        SceneManager.LoadSceneAsync(sceneID);
     }
 
     public void ShowHelmetHUD()
     {
         ShowBoard(m_helmetHUD);
+    }
+
+    public void HideHelmetHUD()
+    {
+        HideBoard(m_helmetHUD);
     }
 
     #region Setup Scene
@@ -100,14 +102,6 @@ public class PlayerInterface : MonoBehaviour
     {
         HideBoard(m_setupBoard);
         ShowBoard(m_resetCamBoard);
-    }
-    #endregion
-
-    #region InGame
-    public void BackToMainMenu()
-    {
-        HideBoard(m_helmetHUD);
-        UnloadLevel();
     }
     #endregion
 

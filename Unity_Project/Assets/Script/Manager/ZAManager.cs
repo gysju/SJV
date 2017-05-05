@@ -15,7 +15,7 @@ public class ZAManager : ScenePlayerManager
     protected override void FindPlayer()
     {
         base.FindPlayer();
-        m_player.m_inputs.m_weaponsConnected = true;
+        m_player.ReadyToAction();
         m_enemiesManager.StartWaves();
     }
 
@@ -26,7 +26,15 @@ public class ZAManager : ScenePlayerManager
 
     public void BackToMainMenu()
     {
-        m_player.m_interface.BackToMainMenu();
-        //SceneManager.LoadSceneAsync(1);
+        SceneManager.LoadSceneAsync(1);
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+        if (m_player.IsDestroyed())
+        {
+            BackToMainMenu();
+        }
     }
 }
