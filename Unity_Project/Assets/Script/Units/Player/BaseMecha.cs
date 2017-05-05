@@ -89,7 +89,7 @@ public class BaseMecha : BaseUnit
         m_bunker.ActivateBunkerMode();
 
 #if UNITY_STANDALONE
-
+        Camera.main.transform.localRotation = Quaternion.identity;
 #endif
 
     }
@@ -109,6 +109,13 @@ public class BaseMecha : BaseUnit
         LaserOff();
 
         StartCoroutine(Dying());
+    }
+
+    protected override IEnumerator Dying()
+    {
+        yield return new WaitForSeconds(m_bunker.m_bunkerTransitionSpeed + m_timeToDie);
+        if (m_destructionSpawn) Instantiate(m_destructionSpawn, transform.position, transform.rotation);
+        FinishDying();
     }
 
     protected override void FinishDying()
