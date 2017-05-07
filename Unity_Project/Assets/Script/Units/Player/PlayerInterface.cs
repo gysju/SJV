@@ -9,11 +9,7 @@ public class PlayerInterface : MonoBehaviour
 	public static PlayerInterface Instance = null;
     public BaseMecha m_mecha;
     public PlayerInputs m_inputs;
-
-    [Header("Setup Scene")]
-    public CanvasGroup m_setupBoard;
-    public CanvasGroup m_resetCamBoard;
-    
+        
     [Header("Helmet HUD")]
     public CanvasGroup m_helmetHUD;
     public Image m_integrityGaugeRight;
@@ -41,69 +37,15 @@ public class PlayerInterface : MonoBehaviour
         if (m_showFPS) m_fps.SetActive(true);
     }
 
-    protected void ShowBoard(CanvasGroup boardToShow)
-    {
-        boardToShow.alpha = 1f;
-    }
-
-    protected void HideBoard(CanvasGroup boardToHide)
-    {
-        boardToHide.alpha = 0f;
-    }
-
-    protected void ShowMenu(CanvasGroup menuToShow)
-    {
-        ShowBoard(menuToShow);
-        menuToShow.blocksRaycasts = true;
-        menuToShow.interactable = true;
-    }
-
-    protected void HideMenu(CanvasGroup menuToHide)
-    {
-        HideBoard(menuToHide);
-        menuToHide.blocksRaycasts = false;
-        menuToHide.interactable = false;
-    }
-
-    protected void LoadLevel(int sceneID)
-    {
-        StartCoroutine(LoadLevelCoroutine(sceneID));
-    }
-
-    protected void LoadMainMenuScene()
-    {
-        SceneManager.LoadSceneAsync(1);
-    }
-
-    IEnumerator LoadLevelCoroutine(int sceneID)
-    {
-        m_mecha.m_bunker.ActivateBunkerMode();
-        yield return new WaitForSeconds(m_mecha.m_bunker.m_bunkerTransitionSpeed);
-        SceneManager.LoadSceneAsync(sceneID);
-    }
-
     public void ShowHelmetHUD()
     {
-        ShowBoard(m_helmetHUD);
+        m_helmetHUD.alpha = 1;
     }
 
     public void HideHelmetHUD()
     {
-        HideBoard(m_helmetHUD);
+        m_helmetHUD.alpha = 0;
     }
-
-    #region Setup Scene
-    public void SetupBoard()
-    {
-        ShowBoard(m_setupBoard);
-    }
-
-    public void ResetCamBoard()
-    {
-        HideBoard(m_setupBoard);
-        ShowBoard(m_resetCamBoard);
-    }
-    #endregion
 
     void Update ()
 	{

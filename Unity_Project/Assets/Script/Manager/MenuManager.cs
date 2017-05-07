@@ -5,17 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class MenuManager : ScenePlayerManager
 {
-    [Header("Main Menu")]
-    public CanvasGroup m_title;
-    public CanvasGroup m_optionMenu;
-    public CanvasGroup m_credits;
-
-    protected override void FindPlayer()
-    {
-        base.FindPlayer();
-        m_player.BackToBase();
-    }
-
     protected void ShowBoard(CanvasGroup boardToShow)
     {
         boardToShow.alpha = 1f;
@@ -50,31 +39,5 @@ public class MenuManager : ScenePlayerManager
         m_player.PrepareExtraction();
         yield return new WaitForSeconds(m_player.m_bunker.m_bunkerTransitionSpeed);
         m_player.m_levelLoading = SceneManager.LoadSceneAsync(sceneID);
-    }
-
-    #region Main Menu
-    public void StartButton()
-    {
-        LoadLevel(2);
-    }
-
-    public void OptionsButton()
-    {
-        HideMenu(m_title);
-        ShowMenu(m_optionMenu);
-        HideMenu(m_credits);
-    }
-
-    public void CreditsButton()
-    {
-        HideMenu(m_title);
-        HideMenu(m_optionMenu);
-        ShowMenu(m_credits);
-    }
-    #endregion
-
-    protected override void Update()
-    {
-        base.Update();
     }
 }
