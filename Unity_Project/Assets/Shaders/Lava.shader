@@ -3,6 +3,7 @@
 	Properties 
 	{
 		[Header(Tex 1 Red canal)]
+		_ColorOne("Color", Color) = (1,1,1,1)
 		_RGB_Nx("RGB_Nx", 2D) = "white" {}
 		[NoScaleOffset]_MRE_Ny("MRE_Ny", 2D) = "white" {}
 		[HDR]_EmissiveColor("EmissiveColor", Color) = (1,1,1,1)
@@ -14,6 +15,7 @@
 
 		[Space(10)]
 		[Header(Tex 2 Blue canal)]
+		_ColorTwo("Color", Color) = (1,1,1,1)
 		_RGB2_Nx("RGB_Nx", 2D) = "white" {}
 		[NoScaleOffset]_MRE2_Ny("MRE_Ny", 2D) = "white" {}
 		[HDR]_EmissiveColor2("EmissiveColor", Color) = (1,1,1,1)
@@ -47,17 +49,20 @@
 
 		half _Glossiness, _Metallic, _NormalIntensity, _UVSpeed, _UV_Direction;
 		half _Glossiness2, _Metallic2, _NormalIntensity2, _UVSpeed2;
-		fixed4 _EmissiveColor, _EmissiveColor2;
+		fixed4 _EmissiveColor, _EmissiveColor2, _ColorOne, _ColorTwo;
 
 		void surf (Input IN, inout SurfaceOutputStandard o) 
 		{
 			half dir = _UV_Direction * 2 - 1;
 
-			fixed4 RGB_Nx = tex2D(_RGB_Nx, IN.uv_RGB_Nx + float2(0.0f, _UVSpeed * dir) * _Time.y);
-			fixed4 MRE_Ny = tex2D(_MRE_Ny, IN.uv_RGB_Nx + float2(0.0f, _UVSpeed * dir) * _Time.y);
+			fixed4 RGB_Nx = tex2D(_RGB_Nx, IN.uv_RGB_Nx + float2(0.0f, _UVSpeed * dir * IN.color.g) * _Time.y);
+			fixed4 MRE_Ny = tex2D(_MRE_Ny, IN.uv_RGB_Nx + float2(0.0f, _UVSpeed * dir * IN.color.g) * _Time.y);
 			
-			fixed4 RGB2_Nx = tex2D(_RGB2_Nx, IN.uv_RGB_Nx + float2(0.0f, _UVSpeed2 * dir) * _Time.y);
-			fixed4 MRE2_Ny = tex2D(_MRE2_Ny, IN.uv_RGB_Nx + float2(0.0f, _UVSpeed2 * dir) * _Time.y);
+			fixed4 RGB2_Nx = tex2D(_RGB2_Nx, IN.uv_RGB_Nx + float2(0.0f, _UVSpeed2 * dir * IN.color.g) * _Time.y);
+			fixed4 MRE2_Ny = tex2D(_MRE2_Ny, IN.uv_RGB_Nx + float2(0.0f, _UVSpeed2 * dir * IN.color.g) * _Time.y);
+
+			RGB_Nx.rgb *= _ColorOne;
+			RGB2_Nx.rgb *= _ColorTwo;
 
 			half3 N = UnpackScaleNormal(float4(0, RGB_Nx.a, 0, MRE_Ny.a), _NormalIntensity);
 			half3 N2 = UnpackScaleNormal(float4(0, RGB2_Nx.a, 0, MRE2_Ny.a), _NormalIntensity2);
