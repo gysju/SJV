@@ -15,11 +15,11 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 7
   m_Fog: 1
-  m_FogColor: {r: 0.28235295, g: 0.29411766, b: 0.36862746, a: 1}
+  m_FogColor: {r: 0.37618947, g: 0.48618934, b: 0.52205884, a: 1}
   m_FogMode: 1
   m_FogDensity: 0.01
   m_LinearFogStart: 0
-  m_LinearFogEnd: 300
+  m_LinearFogEnd: 600
   m_AmbientSkyColor: {r: 0.38602942, g: 0.45994994, b: 0.61764705, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
@@ -3136,7 +3136,6 @@ Transform:
   - {fileID: 170149709}
   - {fileID: 1081995454}
   - {fileID: 742207091}
-  - {fileID: 366645126}
   - {fileID: 1735769299}
   - {fileID: 1683034048}
   - {fileID: 108524850}
@@ -4353,7 +4352,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 7
   m_Type: 1
-  m_Color: {r: 0.30882353, g: 0.77119696, b: 1, a: 1}
+  m_Color: {r: 0.52156866, g: 0.88235295, b: 1, a: 1}
   m_Intensity: 0.9
   m_Range: 10
   m_SpotAngle: 30
@@ -35228,13 +35227,14 @@ GameObject:
   - component: {fileID: 1452387168}
   - component: {fileID: 1452387167}
   - component: {fileID: 1452387166}
+  - component: {fileID: 1452387171}
   m_Layer: 0
   m_Name: Camera_test
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!81 &1452387166
 AudioListener:
   m_ObjectHideFlags: 0
@@ -35281,7 +35281,7 @@ Camera:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_RenderingPath: -1
+  m_RenderingPath: 1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
@@ -35301,8 +35301,20 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1452387171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1452387165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: 61523fac1f97a8e4d891bf27969e45f7, type: 2}
 --- !u!1001 &1476417061
 Prefab:
   m_ObjectHideFlags: 0
@@ -35344,7 +35356,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1214236182891614, guid: 2e1e9e92345e15e4b83e63448ddbfab0, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2e1e9e92345e15e4b83e63448ddbfab0, type: 2}
