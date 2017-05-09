@@ -55,6 +55,8 @@
 		{
 			half dir = _UV_Direction * 2 - 1;
 
+			IN.color.g = step(0, IN.color.g);
+
 			fixed4 RGB_Nx = tex2D(_RGB_Nx, IN.uv_RGB_Nx + float2(0.0f, _UVSpeed * dir * IN.color.g) * _Time.y);
 			fixed4 MRE_Ny = tex2D(_MRE_Ny, IN.uv_RGB_Nx + float2(0.0f, _UVSpeed * dir * IN.color.g) * _Time.y);
 			
