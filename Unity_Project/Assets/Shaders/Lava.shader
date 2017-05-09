@@ -30,7 +30,7 @@
 
 	SubShader 
 	{
-		Tags { "RenderType"="Opaque" }
+		Tags{ "Queue" = "Geometry" "RenderType" = "Opaque" }
 		LOD 200
 		
 		CGPROGRAM
