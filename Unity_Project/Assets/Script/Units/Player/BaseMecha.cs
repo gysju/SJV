@@ -85,6 +85,8 @@ public class BaseMecha : BaseUnit
     {
         m_inputs.m_weaponsConnected = false;
         m_inputs.m_inGame = false;
+        m_leftWeapon.TriggerReleased();
+        m_rightWeapon.TriggerReleased();
         m_interface.HideHelmetHUD();
         m_bunker.ActivateBunkerMode();
 
