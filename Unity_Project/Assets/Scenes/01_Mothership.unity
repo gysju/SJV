@@ -227,7 +227,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1471054945}
+      - m_Target: {fileID: 1471054943}
         m_MethodName: CreditsButton
         m_Mode: 1
         m_Arguments:
@@ -1701,7 +1701,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1471054945}
+      - m_Target: {fileID: 1471054943}
         m_MethodName: OptionsButton
         m_Mode: 1
         m_Arguments:
@@ -2305,14 +2305,33 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1471054944}
-  - component: {fileID: 1471054945}
+  - component: {fileID: 1471054943}
   m_Layer: 0
-  m_Name: MenuManager
+  m_Name: MainMenuManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1471054943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1471054942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e00e7e7e2c92814ea754e1101ac3cb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_player: {fileID: 0}
+  m_playerStartPosition: {x: 0, y: 0, z: 0}
+  m_playerStartRotation: {x: 0, y: 0, z: 0}
+  m_playerRotation: 0
+  m_playerMovement: 0
+  m_title: {fileID: 300769292}
+  m_optionMenu: {fileID: 1176853384}
+  m_credits: {fileID: 1201316636}
 --- !u!4 &1471054944
 Transform:
   m_ObjectHideFlags: 0
@@ -2326,25 +2345,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1471054945
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1471054942}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88c49c09f4b7f1640a31cc86f9c32909, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_player: {fileID: 0}
-  m_playerStartPosition: {x: 0, y: 0, z: 0}
-  m_playerStartRotation: {x: 0, y: 0, z: 0}
-  m_playerRotation: 0
-  m_playerMovement: 0
-  m_title: {fileID: 300769292}
-  m_optionMenu: {fileID: 1176853384}
-  m_credits: {fileID: 1201316636}
 --- !u!20 &1471777977 stripped
 Camera:
   m_PrefabParentObject: {fileID: 20063474813675026, guid: d6b8b5c3aa548af40ac302f6dff8b285,
@@ -2911,7 +2911,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1471054945}
+      - m_Target: {fileID: 1471054943}
         m_MethodName: StartButton
         m_Mode: 1
         m_Arguments:
