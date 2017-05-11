@@ -60,9 +60,13 @@ public class AirEnemy : BaseEnemy
 		Vector3 dir = ( PlayerInputs.Instance.transform.position - transform.position).normalized;
 		rigid.AddForce (-dir * ForceIntensity, ForceMode.Impulse);
 		rigid.AddTorque (-dir * TorqueIntensity, ForceMode.Impulse);
-	}
 
-	protected override void FinishDying()
+        // play death sound
+        //SoundManager.Instance.PlaySoundOnShot("", audioSource);
+
+    }
+
+    protected override void FinishDying()
 	{
 		base.FinishDying ();
 
@@ -196,6 +200,8 @@ public class AirEnemy : BaseEnemy
                     if (m_currentTimeToAttack <= 0)
                     {
                         Fire();
+                        // play attack sound
+                        //SoundManager.Instance.PlaySoundOnShot("", audioSource);
                     }
                     break;
                 default:
