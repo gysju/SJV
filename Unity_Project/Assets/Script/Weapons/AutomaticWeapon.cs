@@ -50,6 +50,8 @@ public class AutomaticWeapon : SemiAutomaticWeapon
         }
         m_overHeated = true;
         m_isFiring = false;
+
+        // play overheat sound here
     }
 
     public override void TriggerPressed(MoveController moveController = null)
