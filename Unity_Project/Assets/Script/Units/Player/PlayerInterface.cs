@@ -7,7 +7,6 @@ using System.Collections.Generic;
 public class PlayerInterface : MonoBehaviour
 {
 	public static PlayerInterface Instance = null;
-
     public BaseMecha m_mecha;
     public PlayerInputs m_inputs;
 
@@ -20,7 +19,7 @@ public class PlayerInterface : MonoBehaviour
     public CanvasGroup m_setupBoard;
     public CanvasGroup m_centerCamBoard;
 
-    [Header("Mohership Scene")]
+    [Header("Main Menu")]
     public CanvasGroup m_mainMenu;
     public CanvasGroup m_optionMenu;
     public CanvasGroup m_languageMenu;
@@ -34,16 +33,7 @@ public class PlayerInterface : MonoBehaviour
     public Image m_heatGaugeRight;
     public Image m_heatGaugeLeft;
 
-
-    public enum SceneStart
-    {
-        Setup,
-        Mothership,
-        ZA
-    }
-
     [Header("Debug")]
-    public SceneStart m_sceneInterface = SceneStart.Setup;
     public GameObject m_fps;
     public bool m_showFPS;
 
@@ -55,27 +45,12 @@ public class PlayerInterface : MonoBehaviour
 		if (Instance == null) 
 		{
 			Instance = this;
-
-            if (!m_mecha) m_mecha = GetComponentInParent<BaseMecha>();
+			if (!m_mecha) m_mecha = GetComponentInParent<BaseMecha>();
 		}
 		else if ( Instance != this)
 		{
 			
 		}
-
-        switch (m_sceneInterface)
-        {
-            case SceneStart.Setup:
-                break;
-            case SceneStart.Mothership:
-                MainMenu();
-                break;
-            case SceneStart.ZA:
-                ReadyToAction();
-                break;
-            default:
-                break;
-        }
 
         if (m_showFPS) m_fps.SetActive(true);
     }

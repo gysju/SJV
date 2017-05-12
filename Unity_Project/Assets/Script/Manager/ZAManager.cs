@@ -4,8 +4,7 @@ using System.Collections;
 
 public class ZAManager : MonoBehaviour
 {
-    public GameObject m_playerPrefab;
-    protected BaseMecha m_player;
+    public BaseMecha m_player;
     public Vector3 m_playerStartPosition;
     public Vector3 m_playerStartRotation;
 
@@ -22,15 +21,8 @@ public class ZAManager : MonoBehaviour
     void FindPlayer()
     {
         m_player = FindObjectOfType<BaseMecha>();
-        if(m_player)
-        {
-            m_player.transform.position = m_playerStartPosition;
-            m_player.transform.rotation = Quaternion.Euler(m_playerStartRotation);
-        }
-        else
-        {
-            m_player = Instantiate(m_playerPrefab, m_playerStartPosition, Quaternion.Euler(m_playerStartRotation)).GetComponent<BaseMecha>();
-        }
+        m_player.transform.position = m_playerStartPosition;
+        m_player.transform.rotation = Quaternion.Euler(m_playerStartRotation);
         m_player.m_inputs.m_torsoConnected = m_playerRotation;
         m_player.m_inputs.m_legsConnected = m_playerMovement;
         m_player.m_inputs.m_weaponsConnected = true;

@@ -76,19 +76,11 @@ public class BaseMecha : BaseUnit
     {
         m_destroyed = true;
 
-        m_bunker.ActivateBunkerMode();
-
-        HUD_Radar.Instance.RemoveAllInfos();
+//        m_bunker.ActivateBunkerMode();
 
         LaserOff();
 
         StartCoroutine(Dying());
-    }
-
-    protected override IEnumerator Dying()
-    {
-        yield return new WaitForSeconds(m_timeToDie);
-        FinishDying();
     }
 
     protected override void FinishDying()
