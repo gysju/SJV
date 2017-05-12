@@ -27,6 +27,9 @@ public class BaseMecha : BaseUnit
 
 	private Coroutine HitCoroutine = null;
 
+    [HideInInspector]
+    public AsyncOperation m_levelLoading = null;
+
     public static BaseMecha instance
     {
         get
@@ -72,25 +75,54 @@ public class BaseMecha : BaseUnit
 		}
     }
 
+    public void BackToBase()
+    {
+        m_currentHitPoints = m_maxHitPoints;
+        m_destroyed = false;
+    }
+
+    public void PrepareExtraction()
+    {
+        m_inputs.m_weaponsConnected = false;
+        m_inputs.m_inGame = false;
+        m_leftWeapon.TriggerReleased();
+        m_rightWeapon.TriggerReleased();
+        m_interface.HideHelmetHUD();
+        m_bunker.ActivateBunkerMode();
+
+#if UNITY_STANDALONE
+        Camera.main.transform.localRotation = Quaternion.identity;
+#endif
+
+    }
+
+    public void ReadyToAction()
+    {
+        m_inputs.m_weaponsConnected = true;
+        m_inputs.m_inGame = true;
+        m_interface.ShowHelmetHUD();
+        //m_bunker.DeactivateBunkerMode();
+    }
+
     protected override void StartDying()
     {
-        m_destroyed = true;
-
-//        m_bunker.ActivateBunkerMode();
-
+        PrepareExtraction();
+        HUD_Radar.Instance.RemoveAllInfos();
         LaserOff();
 
         StartCoroutine(Dying());
     }
 
-    protected override void FinishDying()
+    protected override IEnumerator Dying()
     {
-        m_zaManager.BackToMainMenu();
+        yield return new WaitForSeconds(m_bunker.m_bunkerTransitionSpeed + m_timeToDie);
+        if (m_destructionSpawn) Instantiate(m_destructionSpawn, transform.position, transform.rotation);
+        FinishDying();
     }
 
-    public void BackToBase()
+    protected override void FinishDying()
     {
-        m_currentHitPoints = m_maxHitPoints;
+        m_destroyed = true;
     }
 
     public void RotateMechaHorizontaly(float horizontalAngle)
@@ -185,5 +217,17 @@ public class BaseMecha : BaseUnit
     public float GetRightWeaponHeat()
     {
         return m_rightWeapon.GetHeat();
+    }
+
+    protected virtual void Update()
+    {
+        if (m_levelLoading != null)
+        {
+            if (m_levelLoading.isDone)
+            {
+                ReadyToAction();
+                m_levelLoading = null;
+            }
+        }
     }
 }

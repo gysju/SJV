@@ -21,9 +21,9 @@ public class BaseUnit : MonoBehaviour
     [Range(MIN_HIT_POINTS, MAX_HIT_POINTS)]
     public int m_maxHitPoints = 10;
 
-    [Tooltip("Unit's starting hit points value between 0 and 100.")]
-    [Range(MIN_HIT_POINTS, MAX_HIT_POINTS)]
-    public int m_startingHitPoints = 10;
+    //[Tooltip("Unit's starting hit points value between 0 and 100.")]
+    //[Range(MIN_HIT_POINTS, MAX_HIT_POINTS)]
+    //public int m_startingHitPoints = 10;
 
     [Tooltip("Current hit points value (private).")]
     [SerializeField]
@@ -53,7 +53,7 @@ public class BaseUnit : MonoBehaviour
         if (!m_targetPoint) m_targetPoint = m_transform;
         m_model = GetComponentInChildren<MeshRenderer>();
         m_animator = GetComponent<Animator>();
-        m_currentHitPoints = m_startingHitPoints;
+        m_currentHitPoints = m_maxHitPoints;
         CheckHitPoints();
     }
 
@@ -74,7 +74,7 @@ public class BaseUnit : MonoBehaviour
         return m_currentHitPoints;
     }
 
-    protected IEnumerator Dying()
+    protected virtual IEnumerator Dying()
     {
         yield return new WaitForSeconds(m_timeToDie);
         if (m_destructionSpawn) Instantiate(m_destructionSpawn, transform.position, transform.rotation);
@@ -100,9 +100,9 @@ public class BaseUnit : MonoBehaviour
         if (m_currentHitPoints > m_maxHitPoints) m_currentHitPoints = m_maxHitPoints;
         if (m_currentHitPoints <= 0) //Si l'intégrité de l'unité tombe à 0.
         {
-#if UNITY_EDITOR
-            Debug.Log("Unit '" + name + "' is destroyed.");
-#endif
+//#if UNITY_EDITOR
+//            Debug.Log("Unit '" + name + "' is destroyed.");
+//#endif
             StartDying();
         }
     }

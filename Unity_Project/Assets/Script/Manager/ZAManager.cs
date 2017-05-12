@@ -2,14 +2,8 @@
 using UnityEngine.SceneManagement;
 using System.Collections;
 
-public class ZAManager : MonoBehaviour
+public class ZAManager : ScenePlayerManager
 {
-    public BaseMecha m_player;
-    public Vector3 m_playerStartPosition;
-    public Vector3 m_playerStartRotation;
-
-    public bool m_playerRotation = false;
-    public bool m_playerMovement = false;
     public EnemiesManager m_enemiesManager;
 
     void Start()
@@ -18,15 +12,10 @@ public class ZAManager : MonoBehaviour
             m_enemiesManager = GetComponentInChildren<EnemiesManager>();
     }
 
-    void FindPlayer()
+    protected override void FindPlayer()
     {
-        m_player = FindObjectOfType<BaseMecha>();
-        m_player.transform.position = m_playerStartPosition;
-        m_player.transform.rotation = Quaternion.Euler(m_playerStartRotation);
-        m_player.m_inputs.m_torsoConnected = m_playerRotation;
-        m_player.m_inputs.m_legsConnected = m_playerMovement;
-        m_player.m_inputs.m_weaponsConnected = true;
-        m_player.m_bunker.DeactivateBunkerMode();
+        base.FindPlayer();
+        m_player.ReadyToAction();
         m_enemiesManager.StartWaves();
     }
 
@@ -37,15 +26,15 @@ public class ZAManager : MonoBehaviour
 
     public void BackToMainMenu()
     {
-        m_player.m_interface.BackToMainMenu();
-        //SceneManager.LoadSceneAsync(1);
+        SceneManager.LoadSceneAsync(1);
     }
 
-    void Update()
+    protected override void Update()
     {
-        if (!m_player)
+        base.Update();
+        if (m_player.IsDestroyed())
         {
-            FindPlayer();
+            BackToMainMenu();
         }
     }
 }
