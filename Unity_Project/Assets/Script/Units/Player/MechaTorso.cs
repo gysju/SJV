@@ -3,7 +3,7 @@ using System.Collections;
 
 public class MechaTorso : MonoBehaviour
 {
-	public static MechaTorso Instance = null;
+    public static MechaTorso Instance = null;
 
     protected Transform m_torsoTransform;
     public float m_torsoRotationSpeed = 0.5f;

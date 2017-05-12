@@ -30,6 +30,8 @@ public class BaseEnemy : BaseUnit
 	public Color EmissiveColor;
 	private Material material;
 
+    protected AudioSource audioSource;
+
     #region Initialization
     protected override void Awake()
     {

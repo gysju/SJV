@@ -19,6 +19,8 @@ public class BaseMecha : BaseUnit
     protected ZAManager m_zaManager;
 
 	public MeshRenderer meshRendererSeeTrough;
+
+
 	private Material SeeTroughMaterial;
 	private Material SeeTroughMaterialChild;
 

@@ -50,6 +50,9 @@ public class AutomaticWeapon : SemiAutomaticWeapon
         }
         m_overHeated = true;
         m_isFiring = false;
+
+        // play overheat sound here
+        //SoundManager.Instance.PlaySoundOnShot("", audioSource);
     }
 
     public override void TriggerPressed(MoveController moveController = null)
