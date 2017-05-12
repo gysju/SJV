@@ -8,6 +8,11 @@ public class MainMenu : MenuManager
     public CanvasGroup m_optionMenu;
     public CanvasGroup m_credits;
 
+    void Start()
+    {
+        Time.timeScale = 1f;
+    }
+
     protected override void FindPlayer()
     {
         base.FindPlayer();

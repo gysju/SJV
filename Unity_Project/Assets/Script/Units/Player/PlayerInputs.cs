@@ -146,15 +146,23 @@ public class PlayerInputs : MonoBehaviour
 
     void PSMoveInputs()
     {
-        if (m_weaponsConnected)
+        if (m_inGame)
         {
-            PSMoveLeftWeaponControl();
-            PSMoveRightWeaponControl();
-            if (m_leftController.GetButtonDown(MoveController.MoveButton.MoveButton_Trigger)) m_mecha.LeftArmWeaponTriggered();
-		    if (m_leftController.GetButtonUp(MoveController.MoveButton.MoveButton_Trigger)) m_mecha.LeftArmWeaponTriggerReleased();
+            if (m_weaponsConnected)
+            {
+                PSMoveLeftWeaponControl();
+                PSMoveRightWeaponControl();
+                if (m_leftController.GetButtonDown(MoveController.MoveButton.MoveButton_Trigger)) m_mecha.LeftArmWeaponTriggered();
+                if (m_leftController.GetButtonUp(MoveController.MoveButton.MoveButton_Trigger)) m_mecha.LeftArmWeaponTriggerReleased();
 
-            if (m_rightController.GetButtonDown(MoveController.MoveButton.MoveButton_Trigger)) m_mecha.RightArmWeaponTriggered();
-		    if (m_rightController.GetButtonUp(MoveController.MoveButton.MoveButton_Trigger)) m_mecha.RightArmWeaponTriggerReleased();
+                if (m_rightController.GetButtonDown(MoveController.MoveButton.MoveButton_Trigger)) m_mecha.RightArmWeaponTriggered();
+                if (m_rightController.GetButtonUp(MoveController.MoveButton.MoveButton_Trigger)) m_mecha.RightArmWeaponTriggerReleased();
+            }
+
+            if (m_leftController.GetButtonDown(MoveController.MoveButton.MoveButton_Start) || m_rightController.GetButtonDown(MoveController.MoveButton.MoveButton_Start))
+            {
+                PlayerInterface.Instance.StartPause();
+            }
         }
     }
 
@@ -255,6 +263,10 @@ public class PlayerInputs : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             MouseAim();
             MouseShootInputs();
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                PlayerInterface.Instance.StartPause();
+            }
             //KeyboardMovements();
         }
         else

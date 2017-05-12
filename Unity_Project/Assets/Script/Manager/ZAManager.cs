@@ -4,12 +4,27 @@ using System.Collections;
 
 public class ZAManager : ScenePlayerManager
 {
+    public static ZAManager Instance = null;
+
     public EnemiesManager m_enemiesManager;
+
+    public static ZAManager instance
+    {
+        get
+        {
+            if (Instance == null)
+            {
+                Instance = FindObjectOfType<ZAManager>();
+            }
+
+            return Instance;
+        }
+    }
 
     void Start()
     {
-        if (!m_enemiesManager)
-            m_enemiesManager = GetComponentInChildren<EnemiesManager>();
+        Instance = this;
+        if (!m_enemiesManager) m_enemiesManager = GetComponentInChildren<EnemiesManager>();
     }
 
     protected override void FindPlayer()

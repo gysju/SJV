@@ -78,7 +78,7 @@ public class AutomaticWeapon : SemiAutomaticWeapon
                 base.TriggerReleased();
                 break;
             case WeaponTriggerType.Automatic:
-                StopCoroutine(m_firingWeapon);
+                if (m_firingWeapon != null) StopCoroutine(m_firingWeapon);
                 m_isFiring = false;
                 break;
             default:
