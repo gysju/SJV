@@ -83,7 +83,7 @@ public class MoveController : MonoBehaviour {
                     PS4Input.MoveSetVibration(slot, MoveIndex, currentVibrationPower);
                 }
             }
-            currentVibrationDuration -= Time.deltaTime;
+            currentVibrationDuration -= Time.unscaledDeltaTime;
             yield return null;
         }
 
