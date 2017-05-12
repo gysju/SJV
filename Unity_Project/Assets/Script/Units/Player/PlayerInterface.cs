@@ -11,14 +11,14 @@ public class PlayerInterface : MonoBehaviour
     public BaseMecha m_mecha;
     public PlayerInputs m_inputs;
 
-    //public CanvasGroup m_uiWorldSpace;
-    //public CanvasGroup m_hudWorldSpace;
-    //public CanvasGroup m_uiScreenSpace;
-    //public CanvasGroup m_hudScreenSpace;
+    public CanvasGroup m_uiWorldSpace;
+    public CanvasGroup m_hudWorldSpace;
+    public CanvasGroup m_uiScreenSpace;
+    public CanvasGroup m_hudScreenSpace;
 
     [Header("Setup Scene")]
     public CanvasGroup m_setupBoard;
-    public CanvasGroup m_centerCamBoard;
+    public CanvasGroup m_resetCamBoard;
 
     [Header("Mohership Scene")]
     public CanvasGroup m_mainMenu;
@@ -129,15 +129,14 @@ public class PlayerInterface : MonoBehaviour
     public void ResetCamBoard()
     {
         HideBoard(m_setupBoard);
-        ShowBoard(m_centerCamBoard);
+        ShowBoard(m_resetCamBoard);
     }
     #endregion
 
     #region Main Menu
     public void MainMenu()
     {
-        HideBoard(m_setupBoard);
-        HideBoard(m_centerCamBoard);
+        HideBoard(m_resetCamBoard);
         ShowMenu(m_mainMenu);
         m_mecha.BackToBase();
     }

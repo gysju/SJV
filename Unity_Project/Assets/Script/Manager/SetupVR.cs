@@ -30,8 +30,8 @@ public class SetupVR : MonoBehaviour
 
     public void ContinueToMainMenu()
     {
-        SceneManager.LoadSceneAsync(1);
-        m_interface.MainMenu();
+       SceneManager.LoadSceneAsync(1);
+       m_interface.MainMenu();
     }
 
 #if UNITY_PS4
@@ -57,6 +57,7 @@ public class SetupVR : MonoBehaviour
             {
                 VRManager.instance.SetupHMDDevice();
                 m_interface.ResetCamBoard();
+                ContinueToMainMenu();
             }
         }
     }
