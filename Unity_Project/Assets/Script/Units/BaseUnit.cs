@@ -32,7 +32,7 @@ public class BaseUnit : MonoBehaviour
 
     public float m_timeToDie = 1f;
 
-    public GameObject m_destructionSpawn;
+    //public GameObject m_destructionSpawn;
 
     [Header("Unit's armor")]
     [Tooltip("Unit's maximum armor value between 0 and 100.")]
@@ -74,10 +74,10 @@ public class BaseUnit : MonoBehaviour
         return m_currentHitPoints;
     }
 
-    protected IEnumerator Dying()
+    protected virtual IEnumerator Dying()
     {
         yield return new WaitForSeconds(m_timeToDie);
-        if (m_destructionSpawn) Instantiate(m_destructionSpawn, transform.position, transform.rotation);
+        //if (m_destructionSpawn) Instantiate(m_destructionSpawn, transform.position, transform.rotation);
         FinishDying();
     }
 
