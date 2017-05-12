@@ -25,7 +25,7 @@ public class CockpitBunker : MonoBehaviour
         StartCoroutine(FadeBunker());
     }
 
-    public IEnumerator FadeBunker()
+    IEnumerator FadeBunker()
     {
         float time = 0.0f;
 
@@ -40,7 +40,7 @@ public class CockpitBunker : MonoBehaviour
         }
     }
 
-    public IEnumerator ShowBunker()
+    IEnumerator ShowBunker()
     {
         float time = 0.0f;
 

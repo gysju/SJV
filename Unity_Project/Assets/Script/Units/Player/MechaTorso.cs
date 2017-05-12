@@ -8,6 +8,7 @@ public class MechaTorso : MonoBehaviour
     protected Transform m_torsoTransform;
     public float m_torsoRotationSpeed = 0.5f;
 
+
     void Start()
     {
 		if( Instance == null )

@@ -24,9 +24,10 @@ public class EnemiesManager : MonoBehaviour
 
     public List<BaseEnemy> m_activeEnemies = new List<BaseEnemy>();
 
-    void Start()
+    public void StartWaves()
     {
         m_zaManager = FindObjectOfType<ZAManager>();
+        m_player = FindObjectOfType<BaseMecha>();
         StartCoroutine(ManageWaves());
     }
 
@@ -160,6 +161,7 @@ public class EnemiesManager : MonoBehaviour
             currentWaveID++;
         }
 
+        m_zaManager.MissionAccomplished();
         yield return new WaitForSeconds(m_timeBeforeEndZA);
         m_zaManager.BackToMainMenu();
     }

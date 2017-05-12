@@ -50,7 +50,7 @@ public class BaseEnemy : BaseUnit
 
         m_target = target;
 
-        m_currentHitPoints = m_startingHitPoints;
+        m_currentHitPoints = m_maxHitPoints;
 
         m_destroyed = false;
 

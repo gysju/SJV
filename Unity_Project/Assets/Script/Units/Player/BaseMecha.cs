@@ -3,7 +3,10 @@ using System.Collections;
 
 public class BaseMecha : BaseUnit
 {
-	public static BaseMecha Instance = null;
+	public static BaseMecha _instance = null;
+
+    public PlayerInputs m_inputs;
+    public PlayerInterface m_interface;
 
     protected BaseWeapon m_leftWeapon;
     protected BaseWeapon m_rightWeapon;
@@ -26,12 +29,32 @@ public class BaseMecha : BaseUnit
 
 	private Coroutine HitCoroutine = null;
 
+    [HideInInspector]
+    public AsyncOperation m_levelLoading = null;
+
+    public static BaseMecha instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindObjectOfType<BaseMecha>();
+                DontDestroyOnLoad(_instance.gameObject);
+            }
+
+            return _instance;
+        }
+    }
+
     protected override void Awake()
     {
-		if (Instance == null) 
+        if (_instance == null) 
 		{
-			Instance = this;
-			base.Awake ();
+			_instance = this;
+            DontDestroyOnLoad(this);
+            base.Awake ();
+            m_inputs = GetComponentInChildren<PlayerInputs>();
+            m_interface = GetComponentInChildren<PlayerInterface>();
             m_torso = GetComponentInChildren<MechaTorso> ();
 			m_leftWeapon = m_weapons [0];
 			m_rightWeapon = m_weapons [1];
@@ -48,26 +71,60 @@ public class BaseMecha : BaseUnit
 			
             LaserOn();
         } 
-		else if ( Instance != this )
+		else if ( _instance != this )
 		{
 			Destroy (gameObject);
 		}
     }
 
+    public void BackToBase()
+    {
+        m_currentHitPoints = m_maxHitPoints;
+        m_destroyed = false;
+    }
+
+    public void PrepareExtraction()
+    {
+        m_inputs.m_weaponsConnected = false;
+        m_inputs.m_inGame = false;
+        m_leftWeapon.TriggerReleased();
+        m_rightWeapon.TriggerReleased();
+        m_interface.HideHelmetHUD();
+        m_bunker.ActivateBunkerMode();
+
+#if UNITY_STANDALONE
+        Camera.main.transform.localRotation = Quaternion.identity;
+#endif
+
+    }
+
+    public void ReadyToAction()
+    {
+        m_inputs.m_weaponsConnected = true;
+        m_inputs.m_inGame = true;
+        m_interface.ShowHelmetHUD();
+        //m_bunker.DeactivateBunkerMode();
+    }
+
     protected override void StartDying()
     {
-        m_destroyed = true;
-
-//        m_bunker.ActivateBunkerMode();
-
+        PrepareExtraction();
+        HUD_Radar.Instance.RemoveAllInfos();
         LaserOff();
 
         StartCoroutine(Dying());
     }
 
+    protected override IEnumerator Dying()
+    {
+        yield return new WaitForSeconds(m_bunker.m_bunkerTransitionSpeed + m_timeToDie);
+        if (m_destructionSpawn) Instantiate(m_destructionSpawn, transform.position, transform.rotation);
+        FinishDying();
+    }
+
     protected override void FinishDying()
     {
-        m_zaManager.BackToMainMenu();
+        m_destroyed = true;
     }
 
     public void RotateMechaHorizontaly(float horizontalAngle)
@@ -139,7 +196,6 @@ public class BaseMecha : BaseUnit
 	IEnumerator LaunchHitTime()
 	{
 		float time = 0;
-		//Debug.Log (radiusMax);
 		while( time <  speedHit)
 		{
 			time += Time.deltaTime;
@@ -163,5 +219,17 @@ public class BaseMecha : BaseUnit
     public float GetRightWeaponHeat()
     {
         return m_rightWeapon.GetHeat();
+    }
+
+    protected virtual void Update()
+    {
+        if (m_levelLoading != null)
+        {
+            if (m_levelLoading.isDone)
+            {
+                ReadyToAction();
+                m_levelLoading = null;
+            }
+        }
     }
 }
