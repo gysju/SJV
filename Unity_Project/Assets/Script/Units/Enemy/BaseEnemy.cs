@@ -38,8 +38,9 @@ public class BaseEnemy : BaseUnit
         base.Awake();
         m_currentTimeToAttack = m_timeToAttack;
 		material = GetComponentInChildren<SkinnedMeshRenderer> ().material;
+        audioSource = GetComponent<AudioSource>();
 
-        if(!m_poolManager) m_poolManager = FindObjectOfType<EnemiesManager>();
+        if (!m_poolManager) m_poolManager = FindObjectOfType<EnemiesManager>();
     }
 
     public virtual void ResetUnit(Vector3 spawn, Vector3 movementTarget, Transform target)

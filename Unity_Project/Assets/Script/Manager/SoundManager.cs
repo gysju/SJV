@@ -14,7 +14,6 @@ public class SoundManager : MonoBehaviour
         [Range(0, 1)]
         public float Volume;
 
-        [HideInInspector]
         public AudioClip audioClip;
     };
 
@@ -126,23 +125,13 @@ public class SoundManager : MonoBehaviour
 
     public void RegenerateList()
     {
-        DirectoryInfo levelDirectoryPath = new DirectoryInfo(Application.dataPath);
-        FileInfo[] fileInfo1 = levelDirectoryPath.GetFiles("*.wav", SearchOption.AllDirectories);
-        FileInfo[] fileInfo2 = levelDirectoryPath.GetFiles("*.mp3", SearchOption.AllDirectories);
-
+        Sounds.Clear();
         Sounds = new List<Sound>();
-
-        foreach (FileInfo fileinfo in fileInfo1)
+        AudioClip[] audioClip = Resources.LoadAll<AudioClip>("Sounds");
+        for (int i = 0; i < audioClip.Length; i++)
         {
-            Sound snd = new Sound { Name = Path.GetFileNameWithoutExtension(fileinfo.Name), Volume = 1.0f};
-
-            Sounds.Add(snd);
-        }
-
-        foreach (FileInfo fileinfo in fileInfo2)
-        {
-            Sound snd = new Sound { Name = Path.GetFileNameWithoutExtension(fileinfo.Name), Volume = 1.0f };
-
+            Sound snd = new Sound { Name = audioClip[i].name, Volume = 1.0f };
+            snd.audioClip = audioClip[i];
             Sounds.Add(snd);
         }
     }
