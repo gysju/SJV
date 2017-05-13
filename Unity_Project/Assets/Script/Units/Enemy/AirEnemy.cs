@@ -62,7 +62,7 @@ public class AirEnemy : BaseEnemy
 		rigid.AddTorque (-dir * TorqueIntensity, ForceMode.Impulse);
 
         // play death sound
-        //SoundManager.Instance.PlaySoundOnShot("", audioSource);
+        SoundManager.Instance.PlaySoundOnShot("mecha_placeholder_explosion", audioSource);
 
     }
 
@@ -201,7 +201,7 @@ public class AirEnemy : BaseEnemy
                     {
                         Fire();
                         // play attack sound
-                        //SoundManager.Instance.PlaySoundOnShot("", audioSource);
+                        SoundManager.Instance.PlaySoundOnShot("mecha_placeholder_tir_4", m_weapons[0].m_shotSound);
                     }
                     break;
                 default:

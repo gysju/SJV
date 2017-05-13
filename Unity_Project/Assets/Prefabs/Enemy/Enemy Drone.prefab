@@ -504,7 +504,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   spreadCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -516,7 +516,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -528,7 +528,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
 --- !u!95 &95554792829865890
 Animator:
   serializedVersion: 3
@@ -576,7 +576,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_transform: {fileID: 0}
   m_maxHitPoints: 10
-  m_startingHitPoints: 10
   m_currentHitPoints: 0
   m_timeToDie: 3
   m_destructionSpawn: {fileID: 0}
