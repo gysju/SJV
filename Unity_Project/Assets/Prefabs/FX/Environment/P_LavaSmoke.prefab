@@ -21,7 +21,8 @@ GameObject:
   - component: {fileID: 4170973468883838}
   - component: {fileID: 198008576367763824}
   - component: {fileID: 199106450245824174}
-  - component: {fileID: 82412169980886624}
+  - component: {fileID: 82416793613108926}
+  - component: {fileID: 114615738179477676}
   m_Layer: 0
   m_Name: P_LavaSmoke
   m_TagString: Untagged
@@ -42,7 +43,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
---- !u!82 &82412169980886624
+--- !u!82 &82416793613108926
 AudioSource:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -55,7 +56,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -122,6 +123,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114615738179477676
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1210901110641800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f72ef6f0274881146a3dff0c63f86f1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Sound: 
 --- !u!198 &198008576367763824
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -177,7 +190,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1862271841
+  randomSeed: -853242484
   InitialModule:
     serializedVersion: 3
     enabled: 1

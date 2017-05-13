@@ -31,8 +31,9 @@ public class BaseMecha : BaseUnit
 
     [HideInInspector]
     public AsyncOperation m_levelLoading = null;
+    public AudioSource audioSource;
 
-    public static BaseMecha instance
+    public static BaseMecha instance // qu'est ce que c'est que ce truc ?!
     {
         get
         {
@@ -59,8 +60,9 @@ public class BaseMecha : BaseUnit
 			m_leftWeapon = m_weapons [0];
 			m_rightWeapon = m_weapons [1];
 			m_zaManager = FindObjectOfType<ZAManager> ();
+            audioSource = GetComponent<AudioSource>();
 
-			if (meshRendererSeeTrough != null) 
+            if (meshRendererSeeTrough != null) 
 			{
 				SeeTroughMaterial = meshRendererSeeTrough.material;
 				SeeTroughMaterialChild = meshRendererSeeTrough.GetComponentInChildren<MeshRenderer> ().material;
@@ -112,6 +114,7 @@ public class BaseMecha : BaseUnit
         HUD_Radar.Instance.RemoveAllInfos();
         LaserOff();
 
+        SoundManager.Instance.PlaySoundOnShot("mecha_placeholder_die", audioSource);
         StartCoroutine(Dying());
     }
 
