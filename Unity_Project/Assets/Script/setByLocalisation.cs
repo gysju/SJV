@@ -11,7 +11,7 @@ public class setByLocalisation : MonoBehaviour {
 	public enum Gameplay { no_selected = 0, Gameplay_HUD}
 	public enum Menu { no_selected = 0, Menu_SetupScene, Menu_Intro}
 	public enum SetupScene { no_selected = 0, SetupScene_HmdSetup, SetupScene_UI_Interaction, SetupScene_Recenter, SetupScene_Finished}
-	public enum Intro { no_selected = 0, Intro_MainMenu, Intro_Options}
+	public enum Intro { no_selected = 0, Intro_MainMenu}
 
 	public Gameplay gameplay = Gameplay.no_selected;
 	public Menu menu = Menu.no_selected;
@@ -65,17 +65,9 @@ public class setByLocalisation : MonoBehaviour {
 
     void setIntro()
     {
-        switch (intro)
-        {
-            case Intro.Intro_MainMenu:
-                textButton[0].text = XmlManager.Instance.GetIntro().Main_Menu.Button_Start.Text;
-                textButton[1].text = XmlManager.Instance.GetIntro().Main_Menu.Button_Options.Text;
-                break;
-            case Intro.Intro_Options:
-                textButton[0].text = XmlManager.Instance.GetIntro().Options.Button_Return.Text;
-                textButton[1].text = XmlManager.Instance.GetIntro().Options.Button_Language.Text;
-                break;
-        }
+        textButton[0].text = XmlManager.Instance.GetIntro().Main_Menu.Button_Start.Text;
+        textButton[1].text = XmlManager.Instance.GetIntro().Main_Menu.Button_Options.Text;
+        textButton[2].text = XmlManager.Instance.GetIntro().Main_Menu.Button_Credits.Text;
     }
 
     void setHUD()

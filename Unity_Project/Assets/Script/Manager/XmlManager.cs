@@ -127,6 +127,19 @@ namespace Xml2CSharp
         public string Textalign { get; set; }
     }
 
+    [XmlRoot(ElementName = "Button_Credits")]
+    public class Button_Credits
+    {
+        [XmlAttribute(AttributeName = "text")]
+        public string Text { get; set; }
+        [XmlAttribute(AttributeName = "font-style")]
+        public string Fontstyle { get; set; }
+        [XmlAttribute(AttributeName = "font-size")]
+        public string Fontsize { get; set; }
+        [XmlAttribute(AttributeName = "text-align")]
+        public string Textalign { get; set; }
+    }
+
     [XmlRoot(ElementName = "Main_Menu")]
     public class Main_Menu
     {
@@ -134,41 +147,8 @@ namespace Xml2CSharp
         public Button_Start Button_Start { get; set; }
         [XmlElement(ElementName = "Button_Options")]
         public Button_Options Button_Options { get; set; }
-    }
-
-    [XmlRoot(ElementName = "Button_Return")]
-    public class Button_Return
-    {
-        [XmlAttribute(AttributeName = "text")]
-        public string Text { get; set; }
-        [XmlAttribute(AttributeName = "font-style")]
-        public string Fontstyle { get; set; }
-        [XmlAttribute(AttributeName = "font-size")]
-        public string Fontsize { get; set; }
-        [XmlAttribute(AttributeName = "text-align")]
-        public string Textalign { get; set; }
-    }
-
-    [XmlRoot(ElementName = "Button_Language")]
-    public class Button_Language
-    {
-        [XmlAttribute(AttributeName = "text")]
-        public string Text { get; set; }
-        [XmlAttribute(AttributeName = "font-style")]
-        public string Fontstyle { get; set; }
-        [XmlAttribute(AttributeName = "font-size")]
-        public string Fontsize { get; set; }
-        [XmlAttribute(AttributeName = "text-align")]
-        public string Textalign { get; set; }
-    }
-
-    [XmlRoot(ElementName = "Options")]
-    public class Options
-    {
-        [XmlElement(ElementName = "Button_Return")]
-        public Button_Return Button_Return { get; set; }
-        [XmlElement(ElementName = "Button_Language")]
-        public Button_Language Button_Language { get; set; }
+        [XmlElement(ElementName = "Button_Credits")]
+        public Button_Credits Button_Credits { get; set; }
     }
 
     [XmlRoot(ElementName = "Intro")]
@@ -176,8 +156,6 @@ namespace Xml2CSharp
     {
         [XmlElement(ElementName = "Main_Menu")]
         public Main_Menu Main_Menu { get; set; }
-        [XmlElement(ElementName = "Options")]
-        public Options Options { get; set; }
     }
 
     [XmlRoot(ElementName = "Menu")]
@@ -354,6 +332,7 @@ namespace Xml2CSharp
         [XmlElement(ElementName = "German")]
         public German German { get; set; }
     }
+
 }
 
 public class XmlManager : MonoBehaviour
