@@ -10,30 +10,41 @@ public class SoundManager : MonoBehaviour
     public struct Sound
     {
         public string Name;
+        public AudioClip audioClip;
 
         [Range(0, 1)]
         public float Volume;
+        public Vector2 Pitch;
+        private float currentPitch; // not currently used
 
-        public AudioClip audioClip;
+        [Tooltip("Spatail blend, 2D to 3D")]
+        [Range(0, 1)]
+        public float SpatialBlend;
     };
 
     [Header("Sounds")]
     public List<Sound> Sounds = new List<Sound>();
 
     public static SoundManager Instance = null;
+    private AudioSource[] audioSources;
 
     void Start()
     {
         if (Instance == null)
         {
             Instance = this;
-
+            InitAudioSource();
             InitSounds();
         }
         else
         {
             Destroy(this);
         }
+    }
+
+    void InitAudioSource() // clean and refill when a scene is changed
+    {
+        audioSources = FindObjectsOfType<AudioSource>();
     }
 
     void InitSounds()
@@ -57,6 +68,10 @@ public class SoundManager : MonoBehaviour
         if (s.audioClip != null)
         {
             source.clip = s.audioClip;
+            s.Volume = source.volume;
+            source.pitch = Random.Range(s.Pitch.x, s.Pitch.y);
+            source.spatialBlend = s.SpatialBlend;
+
             source.Play();
             if (FadeIn)
                 StartCoroutine(FadeVolume(source, s.Volume, 1.0f, true));
@@ -78,6 +93,10 @@ public class SoundManager : MonoBehaviour
         Sound s = findSound(name);
         if (s.audioClip != null)
         {
+            source.volume = s.Volume;
+            source.pitch = Random.Range(s.Pitch.x, s.Pitch.y);
+            source.spatialBlend = s.SpatialBlend;
+
             source.PlayOneShot(s.audioClip, s.Volume);
         }
     }
@@ -125,14 +144,61 @@ public class SoundManager : MonoBehaviour
 
     public void RegenerateList()
     {
-        Sounds.Clear();
-        Sounds = new List<Sound>();
         AudioClip[] audioClip = Resources.LoadAll<AudioClip>("Sounds");
+        if ( Sounds == null)
+            Sounds = new List<Sound>();
+
+        foreach (Sound s in Sounds) // Remove
+        {
+            bool check = true;
+            for (int i = 0; i < audioClip.Length; i++)
+            {
+                if (audioClip[i].name == s.Name)
+                {
+                    check = false;
+                    break;
+                }
+            }
+
+            if (check)
+                Sounds.Remove(s);
+        }
+
         for (int i = 0; i < audioClip.Length; i++)
         {
-            Sound snd = new Sound { Name = audioClip[i].name, Volume = 1.0f };
-            snd.audioClip = audioClip[i];
-            Sounds.Add(snd);
+            bool check = true;
+            foreach (Sound s in Sounds)
+            {
+                if (audioClip[i].name == s.Name)
+                {
+                    check = false;
+                    break;
+                }
+            }
+            if (check)
+            {
+                Sound snd = new Sound { Name = audioClip[i].name };
+                snd.audioClip = audioClip[i];
+                Sounds.Add(snd);
+            }
+        }
+    }
+
+    public IEnumerator PauseAudioSource()
+    {
+        for( int i = 0; i < audioSources.Length; i++)
+        {
+            audioSources[i].Pause();
+            yield return null;
+        }
+    }
+
+    public IEnumerator UnPauseAudioSource()
+    {
+        for (int i = 0; i < audioSources.Length; i++)
+        {
+            audioSources[i].UnPause();
+            yield return null;
         }
     }
 }
