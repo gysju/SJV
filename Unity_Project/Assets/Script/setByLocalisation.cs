@@ -8,7 +8,7 @@ public class setByLocalisation : MonoBehaviour {
 	public enum Root { no_selected = 0, Root_Menu, Root_Gameplay}
 	public Root root;
 
-	public enum Gameplay { no_selected = 0, Gameplay_HUD}
+	public enum Gameplay { no_selected = 0, Gameplay_HUD, GamePlay_PauseMenu}
 	public enum Menu { no_selected = 0, Menu_SetupScene, Menu_Intro}
 	public enum SetupScene { no_selected = 0, SetupScene_HmdSetup, SetupScene_UI_Interaction, SetupScene_Recenter, SetupScene_Finished}
 	public enum Intro { no_selected = 0, Intro_MainMenu}
@@ -34,8 +34,8 @@ public class setByLocalisation : MonoBehaviour {
 			setSetupScene ();
         if (intro != Intro.no_selected)
             setIntro();
-        if (gameplay != Gameplay.Gameplay_HUD)
-            setHUD();
+        if (gameplay != Gameplay.no_selected)
+            setGameplay();
 	}
 
 	void setSetupScene()
@@ -70,11 +70,19 @@ public class setByLocalisation : MonoBehaviour {
         textButton[2].text = XmlManager.Instance.GetIntro().Main_Menu.Button_Credits.Text;
     }
 
-    void setHUD()
+    void setPauseMenu()
+    {
+        textButton[0].text = XmlManager.Instance.GetGameplay().Pause_Menu.Button_Resume.Text;
+        textButton[1].text = XmlManager.Instance.GetGameplay().Pause_Menu.Button_Return.Text;
+    }
+    void setGameplay()
     {
         switch (gameplay)
         {
             case Gameplay.Gameplay_HUD:
+                break;
+            case Gameplay.GamePlay_PauseMenu:
+                setPauseMenu();
                 break;
         }
     }

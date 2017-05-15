@@ -55,7 +55,8 @@ public class PropertyHolderEditor : Editor
 
 			case setByLocalisation.Root.Root_Gameplay:
 				EditorGUILayout.PropertyField (gameplay_Prop, new GUIContent("gameplay"));
-			break;
+                SetProperties(false, false, true);
+                break;
 		}
 
 

@@ -167,8 +167,8 @@ namespace Xml2CSharp
         public Intro Intro { get; set; }
     }
 
-    [XmlRoot(ElementName = "Life")]
-    public class Life
+    [XmlRoot(ElementName = "Button_Resume")]
+    public class Button_Resume
     {
         [XmlAttribute(AttributeName = "text")]
         public string Text { get; set; }
@@ -180,8 +180,8 @@ namespace Xml2CSharp
         public string Textalign { get; set; }
     }
 
-    [XmlRoot(ElementName = "Radar")]
-    public class Radar
+    [XmlRoot(ElementName = "Button_Return")]
+    public class Button_Return
     {
         [XmlAttribute(AttributeName = "text")]
         public string Text { get; set; }
@@ -193,87 +193,22 @@ namespace Xml2CSharp
         public string Textalign { get; set; }
     }
 
-    [XmlRoot(ElementName = "Shield")]
-    public class Shield
+    [XmlRoot(ElementName = "Pause_Menu")]
+    public class Pause_Menu
     {
-        [XmlAttribute(AttributeName = "text")]
-        public string Text { get; set; }
-        [XmlAttribute(AttributeName = "font-style")]
-        public string Fontstyle { get; set; }
-        [XmlAttribute(AttributeName = "font-size")]
-        public string Fontsize { get; set; }
-        [XmlAttribute(AttributeName = "text-align")]
-        public string Textalign { get; set; }
-    }
-
-    [XmlRoot(ElementName = "LaserGun")]
-    public class LaserGun
-    {
-        [XmlAttribute(AttributeName = "text")]
-        public string Text { get; set; }
-        [XmlAttribute(AttributeName = "font-style")]
-        public string Fontstyle { get; set; }
-        [XmlAttribute(AttributeName = "font-size")]
-        public string Fontsize { get; set; }
-        [XmlAttribute(AttributeName = "text-align")]
-        public string Textalign { get; set; }
-    }
-
-    [XmlRoot(ElementName = "MachineGun")]
-    public class MachineGun
-    {
-        [XmlAttribute(AttributeName = "text")]
-        public string Text { get; set; }
-        [XmlAttribute(AttributeName = "font-style")]
-        public string Fontstyle { get; set; }
-        [XmlAttribute(AttributeName = "font-size")]
-        public string Fontsize { get; set; }
-        [XmlAttribute(AttributeName = "text-align")]
-        public string Textalign { get; set; }
-    }
-
-    [XmlRoot(ElementName = "RocketGun")]
-    public class RocketGun
-    {
-        [XmlAttribute(AttributeName = "text")]
-        public string Text { get; set; }
-        [XmlAttribute(AttributeName = "font-style")]
-        public string Fontstyle { get; set; }
-        [XmlAttribute(AttributeName = "font-size")]
-        public string Fontsize { get; set; }
-        [XmlAttribute(AttributeName = "text-align")]
-        public string Textalign { get; set; }
-    }
-
-    [XmlRoot(ElementName = "Weapons")]
-    public class Weapons
-    {
-        [XmlElement(ElementName = "LaserGun")]
-        public LaserGun LaserGun { get; set; }
-        [XmlElement(ElementName = "MachineGun")]
-        public MachineGun MachineGun { get; set; }
-        [XmlElement(ElementName = "RocketGun")]
-        public RocketGun RocketGun { get; set; }
-    }
-
-    [XmlRoot(ElementName = "HUD")]
-    public class HUD
-    {
-        [XmlElement(ElementName = "Life")]
-        public Life Life { get; set; }
-        [XmlElement(ElementName = "Radar")]
-        public Radar Radar { get; set; }
-        [XmlElement(ElementName = "Shield")]
-        public Shield Shield { get; set; }
-        [XmlElement(ElementName = "Weapons")]
-        public Weapons Weapons { get; set; }
+        [XmlElement(ElementName = "Button_Resume")]
+        public Button_Resume Button_Resume { get; set; }
+        [XmlElement(ElementName = "Button_Return")]
+        public Button_Return Button_Return { get; set; }
     }
 
     [XmlRoot(ElementName = "Gameplay")]
     public class Gameplay
     {
         [XmlElement(ElementName = "HUD")]
-        public HUD HUD { get; set; }
+        public string HUD { get; set; }
+        [XmlElement(ElementName = "Pause_Menu")]
+        public Pause_Menu Pause_Menu { get; set; }
     }
 
     [XmlRoot(ElementName = "French")]

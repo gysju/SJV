@@ -75,7 +75,7 @@ public class PlayerInterface : MonoBehaviour
         Camera.main.transform.localRotation = Quaternion.identity;
 #endif
         ShowPauseMenu();
-        StartCoroutine(SoundManager.Instance.PauseAudioSource());
+        //StartCoroutine(SoundManager.Instance.PauseAudioSource());
     }
 
     public void Resume()
@@ -83,7 +83,7 @@ public class PlayerInterface : MonoBehaviour
         HidePauseMenu();
         m_inputs.m_inGame = true;
         Time.timeScale = 1f;
-        StartCoroutine(SoundManager.Instance.UnPauseAudioSource());
+        //StartCoroutine(SoundManager.Instance.UnPauseAudioSource());
     }
 
     IEnumerator BackToBaseCoroutine()
