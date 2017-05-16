@@ -192,6 +192,7 @@ GameObject:
   - component: {fileID: 192532246}
   - component: {fileID: 192532249}
   - component: {fileID: 192532250}
+  - component: {fileID: 192532251}
   m_Layer: 5
   m_Name: CreditsButton
   m_TagString: Untagged
@@ -378,6 +379,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 439b86b83630f0e40b16e99af97ac331, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &192532251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 192532244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dbe0bd4fac23a34f9edceab498fbf26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &270744323
@@ -784,6 +796,7 @@ GameObject:
   - component: {fileID: 625591270}
   - component: {fileID: 625591273}
   - component: {fileID: 625591274}
+  - component: {fileID: 625591275}
   m_Layer: 5
   m_Name: English
   m_TagString: Untagged
@@ -983,6 +996,17 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &625591275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 625591268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dbe0bd4fac23a34f9edceab498fbf26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &662176952
 GameObject:
   m_ObjectHideFlags: 0
@@ -1411,6 +1435,7 @@ GameObject:
   - component: {fileID: 900617627}
   - component: {fileID: 900617630}
   - component: {fileID: 900617631}
+  - component: {fileID: 900617632}
   m_Layer: 5
   m_Name: German
   m_TagString: Untagged
@@ -1610,6 +1635,17 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &900617632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 900617625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dbe0bd4fac23a34f9edceab498fbf26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &920537907
 GameObject:
   m_ObjectHideFlags: 0
@@ -2041,6 +2077,7 @@ GameObject:
   - component: {fileID: 1052095295}
   - component: {fileID: 1052095298}
   - component: {fileID: 1052095299}
+  - component: {fileID: 1052095300}
   m_Layer: 5
   m_Name: OptionButton
   m_TagString: Untagged
@@ -2229,6 +2266,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 439b86b83630f0e40b16e99af97ac331, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1052095300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1052095293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dbe0bd4fac23a34f9edceab498fbf26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1091069360
 GameObject:
   m_ObjectHideFlags: 0
@@ -2242,6 +2290,7 @@ GameObject:
   - component: {fileID: 1091069362}
   - component: {fileID: 1091069365}
   - component: {fileID: 1091069366}
+  - component: {fileID: 1091069367}
   m_Layer: 5
   m_Name: Dutch
   m_TagString: Untagged
@@ -2441,6 +2490,17 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &1091069367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1091069360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dbe0bd4fac23a34f9edceab498fbf26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1133085865
 GameObject:
   m_ObjectHideFlags: 0
@@ -3400,7 +3460,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2051086775}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 89}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 662176953}
@@ -3425,6 +3485,7 @@ GameObject:
   - component: {fileID: 2055832906}
   - component: {fileID: 2055832909}
   - component: {fileID: 2055832910}
+  - component: {fileID: 2055832911}
   m_Layer: 5
   m_Name: French
   m_TagString: Untagged
@@ -3624,6 +3685,17 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &2055832911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2055832904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dbe0bd4fac23a34f9edceab498fbf26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2102743908
 GameObject:
   m_ObjectHideFlags: 0
@@ -3637,6 +3709,7 @@ GameObject:
   - component: {fileID: 2102743910}
   - component: {fileID: 2102743913}
   - component: {fileID: 2102743914}
+  - component: {fileID: 2102743915}
   m_Layer: 5
   m_Name: StartButton
   m_TagString: Untagged
@@ -3823,5 +3896,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 439b86b83630f0e40b16e99af97ac331, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2102743915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2102743908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dbe0bd4fac23a34f9edceab498fbf26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

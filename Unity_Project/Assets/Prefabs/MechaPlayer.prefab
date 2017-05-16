@@ -505,6 +505,7 @@ GameObject:
   - component: {fileID: 114231828106973754}
   - component: {fileID: 65621399960212232}
   - component: {fileID: 114497615173218288}
+  - component: {fileID: 114794549530503630}
   m_Layer: 5
   m_Name: German
   m_TagString: Untagged
@@ -872,6 +873,7 @@ GameObject:
   - component: {fileID: 114937136210301248}
   - component: {fileID: 65638915547691190}
   - component: {fileID: 114678318261064172}
+  - component: {fileID: 114140583476098472}
   m_Layer: 5
   m_Name: English
   m_TagString: Untagged
@@ -1543,6 +1545,7 @@ GameObject:
   - component: {fileID: 114566576741664916}
   - component: {fileID: 65898687920436328}
   - component: {fileID: 114579496738438746}
+  - component: {fileID: 114142717129665078}
   m_Layer: 5
   m_Name: Dutch
   m_TagString: Untagged
@@ -2057,6 +2060,7 @@ GameObject:
   - component: {fileID: 114875808320865882}
   - component: {fileID: 65046092570852128}
   - component: {fileID: 114429379196305142}
+  - component: {fileID: 114880173737481090}
   m_Layer: 5
   m_Name: French
   m_TagString: Untagged
@@ -2490,7 +2494,7 @@ Transform:
   m_GameObject: {fileID: 1811137091416732}
   m_LocalRotation: {x: -3.2014214e-10, y: 0.000000031199306, z: 0.000000037252903,
     w: 1}
-  m_LocalPosition: {x: -0.55200005, y: -1.4069993, z: 1.5510011}
+  m_LocalPosition: {x: -0.5870001, y: -1.6000009, z: 0.8199994}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4583062486168148}
@@ -2588,7 +2592,7 @@ Transform:
   - {fileID: 4309116649715076}
   - {fileID: 4380204253125406}
   m_Father: {fileID: 4964308072446878}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4072267422750572
 Transform:
@@ -2930,7 +2934,7 @@ Transform:
   m_GameObject: {fileID: 1055071642296542}
   m_LocalRotation: {x: -0.00000026790076, y: -0.000000020954758, z: 0.000000007450581,
     w: 1}
-  m_LocalPosition: {x: -0.96899724, y: -1.1439989, z: -0.80799973}
+  m_LocalPosition: {x: -0.5, y: -0.85, z: -0.81}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4061392544449902}
@@ -3035,9 +3039,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1554410210236842}
-  m_LocalRotation: {x: 0.000000030602674, y: -0.000000059604638, z: -0.00000005261972,
+  m_LocalRotation: {x: -3.2014214e-10, y: 0.000000031199306, z: 0.000000037252903,
     w: 1}
-  m_LocalPosition: {x: -0.5520938, y: -1.7024454, z: 1.2998192}
+  m_LocalPosition: {x: -0.5870001, y: -1.6000009, z: 0.8199994}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4061392544449902}
@@ -3186,7 +3190,7 @@ Transform:
   m_GameObject: {fileID: 1310319761252672}
   m_LocalRotation: {x: -0.00000053583057, y: -0.00000004097819, z: 0.0000000074505797,
     w: 1}
-  m_LocalPosition: {x: -0.968997, y: -1.1439996, z: -0.8079995}
+  m_LocalPosition: {x: -0.5, y: -0.85, z: -0.81}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4583062486168148}
@@ -3590,7 +3594,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4964308072446878}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4826971944983248
 Transform:
@@ -3802,8 +3806,8 @@ Transform:
   m_LocalPosition: {x: -0.6197797, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4811804378702668}
   - {fileID: 4061392544449902}
+  - {fileID: 4811804378702668}
   m_Father: {fileID: 4716228525179892}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5862,6 +5866,17 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114140583476098472
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1420121306959420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dbe0bd4fac23a34f9edceab498fbf26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114141473588509636
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5874,6 +5889,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   profile: {fileID: 11400000, guid: 61523fac1f97a8e4d891bf27969e45f7, type: 2}
+--- !u!114 &114142717129665078
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1677437225002210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dbe0bd4fac23a34f9edceab498fbf26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114173203132878334
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6230,6 +6256,8 @@ MonoBehaviour:
   m_rightRay: {fileID: 114119095498150152}
   teleportIndication: {fileID: 1130852617182504, guid: 0f2c0091755bad046ae4dbc1ef0ae202,
     type: 2}
+  trackedDeviceMoveControllers: {fileID: 0}
+  MinimumAngleToRotate: 15
 --- !u!114 &114304163201339920
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6869,7 +6897,7 @@ MonoBehaviour:
   - {fileID: 0}
   targetLeft: {fileID: 4023029947635876}
   targetRight: {fileID: 4380204253125406}
-  TargetBias: {x: 0, y: 1, z: -0.5}
+  TargetBias: {x: 0, y: 1, z: 0}
   IkIntensity: 1
 --- !u!114 &114579496738438746
 MonoBehaviour:
@@ -7186,6 +7214,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 439b86b83630f0e40b16e99af97ac331, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114794549530503630
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1245941717183446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dbe0bd4fac23a34f9edceab498fbf26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114801037237340586
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7431,6 +7470,17 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114880173737481090
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1880682974377354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dbe0bd4fac23a34f9edceab498fbf26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114881444341771468
 MonoBehaviour:
   m_ObjectHideFlags: 1

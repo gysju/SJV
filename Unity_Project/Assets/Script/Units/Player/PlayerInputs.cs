@@ -187,15 +187,19 @@ public class PlayerInputs : MonoBehaviour
     void PSMoveLeftWeaponControl()
     {
         m_mecha.MoveLeftWeapon(m_leftWeaponDefaultPosition + ((m_leftController.transform.position - m_baseOffset) * m_sensitivity));
-        if (m_leftController.lookAtHit != Vector3.zero)
+        if (m_leftController.lookAtHit != Vector3.zero && m_inGame)
             m_mecha.AimLeftWeaponTo(m_leftController.lookAtHit);
+        else
+            m_mecha.AimRightWeaponTo(transform.forward);
     }
 
     void PSMoveRightWeaponControl()
     {
         m_mecha.MoveRightWeapon(m_rightWeaponDefaultPosition + ((m_rightController.transform.position - m_baseOffset) * m_sensitivity));
-        if (m_rightController.lookAtHit != Vector3.zero)
+        if (m_rightController.lookAtHit != Vector3.zero && m_inGame)
             m_mecha.AimRightWeaponTo(m_rightController.lookAtHit);
+        else
+            m_mecha.AimRightWeaponTo(transform.forward);
     }
 
     void PSMoveInputs()
