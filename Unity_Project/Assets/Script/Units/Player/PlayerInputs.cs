@@ -190,7 +190,10 @@ public class PlayerInputs : MonoBehaviour
         if (m_leftController.lookAtHit != Vector3.zero && m_inGame)
             m_mecha.AimLeftWeaponTo(m_leftController.lookAtHit);
         else
-            m_mecha.AimRightWeaponTo(transform.forward);
+        {
+            m_mecha.AimLeftWeaponTo(transform.forward);
+            trackedDeviceMoveControllers.targetLeft.position = trackedDeviceMoveControllers.targetLeftOriginPos;
+        }
     }
 
     void PSMoveRightWeaponControl()
@@ -199,7 +202,10 @@ public class PlayerInputs : MonoBehaviour
         if (m_rightController.lookAtHit != Vector3.zero && m_inGame)
             m_mecha.AimRightWeaponTo(m_rightController.lookAtHit);
         else
+        {
             m_mecha.AimRightWeaponTo(transform.forward);
+            trackedDeviceMoveControllers.targetRight.position = trackedDeviceMoveControllers.targetRightOriginPos;
+        }
     }
 
     void PSMoveInputs()

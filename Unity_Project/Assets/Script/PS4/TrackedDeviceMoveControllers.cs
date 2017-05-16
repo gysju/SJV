@@ -40,8 +40,8 @@ public class TrackedDeviceMoveControllers : MonoBehaviour {
 	private Vector3 primaryPositionOriginPos = Vector3.zero;
 	private Vector3 secondaryPositionOriginPos = Vector3.zero;
 
-    private Vector3 targetLeftOriginPos;
-    private Vector3 targetRightOriginPos;
+    public Vector3 targetLeftOriginPos;
+    public Vector3 targetRightOriginPos;
 
     IEnumerator Start()
 	{
