@@ -30,7 +30,10 @@ public class setByLocalisation : MonoBehaviour {
 
 	void setLanguage( )
 	{
-		if (setupScene != SetupScene.no_selected)
+        if (this == null)
+            return;
+
+        if (setupScene != SetupScene.no_selected)
 			setSetupScene ();
         if (intro != Intro.no_selected)
             setIntro();
