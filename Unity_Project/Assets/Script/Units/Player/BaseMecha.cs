@@ -111,13 +111,13 @@ public class BaseMecha : BaseUnit
     protected override void StartDying()
     {
         m_destroyed = true;
-        //
-        //PrepareExtraction();
-        //HUD_Radar.Instance.RemoveAllInfos();
-        //LaserOff();
-        //
-        //SoundManager.Instance.PlaySoundOnShot("mecha_placeholder_die", audioSource);
-        //StartCoroutine(Dying());
+        
+        PrepareExtraction();
+        HUD_Radar.Instance.RemoveAllInfos();
+        LaserOff();
+        
+        SoundManager.Instance.PlaySoundOnShot("mecha_placeholder_die", audioSource);
+        StartCoroutine(Dying());
     }
 
     protected override IEnumerator Dying()
