@@ -110,12 +110,14 @@ public class BaseMecha : BaseUnit
 
     protected override void StartDying()
     {
-        PrepareExtraction();
-        HUD_Radar.Instance.RemoveAllInfos();
-        LaserOff();
-
-        SoundManager.Instance.PlaySoundOnShot("mecha_placeholder_die", audioSource);
-        StartCoroutine(Dying());
+        m_destroyed = true;
+        //
+        //PrepareExtraction();
+        //HUD_Radar.Instance.RemoveAllInfos();
+        //LaserOff();
+        //
+        //SoundManager.Instance.PlaySoundOnShot("mecha_placeholder_die", audioSource);
+        //StartCoroutine(Dying());
     }
 
     protected override IEnumerator Dying()
@@ -127,7 +129,7 @@ public class BaseMecha : BaseUnit
 
     protected override void FinishDying()
     {
-        m_destroyed = true;
+        ZAManager.Instance.BackToMainMenu();
     }
 
     public void RotateMechaHorizontaly(float horizontalAngle)
@@ -179,8 +181,12 @@ public class BaseMecha : BaseUnit
 
     public override bool ReceiveDamages(int damages, int armorPenetration = 0)
     {
-        StartCoroutine(CameraManager.Instance.ChromaticAberationShake());
-        return base.ReceiveDamages(damages, armorPenetration);
+        if (base.ReceiveDamages(damages, armorPenetration))
+        {
+            StartCoroutine(CameraManager.Instance.ChromaticAberationShake());
+            return true;
+        }
+        return false;
     }
 
     public void HitEffect( Vector3 hitPos)
