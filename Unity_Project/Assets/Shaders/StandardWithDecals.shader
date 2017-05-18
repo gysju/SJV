@@ -10,6 +10,7 @@
 		_Glossiness ("Smoothness", Range(0,1)) = 0.5
 		_Metallic ("Metallic", Range(0,1)) = 0.0
 		_EmissiveIntensity("Emissive intensity", Range(0,10)) = 1
+		_NormalIntensity("normal intensity", Range(1,5)) = 1
 	}
 	SubShader 
 	{
@@ -41,7 +42,7 @@
 
 			o.Emission = Emissive * _EmissiveIntensity;
 			o.Alpha = MRA_Ny.b;
-
+			o.Normal = N;
 			o.Albedo = RGB_Nx.rgb;
 			o.Metallic = _Metallic * MRA_Ny.r;
 			o.Smoothness = _Glossiness * (1 - MRA_Ny.g);
