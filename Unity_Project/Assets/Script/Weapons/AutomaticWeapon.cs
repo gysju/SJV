@@ -50,6 +50,9 @@ public class AutomaticWeapon : SemiAutomaticWeapon
         }
         m_overHeated = true;
         m_isFiring = false;
+
+        // play overheat sound
+        SoundManager.Instance.PlaySoundOnShot("mecha_placeholder_surchauffe", m_shotSound);
     }
 
     public override void TriggerPressed(MoveController moveController = null)
@@ -78,7 +81,7 @@ public class AutomaticWeapon : SemiAutomaticWeapon
                 base.TriggerReleased();
                 break;
             case WeaponTriggerType.Automatic:
-                StopCoroutine(m_firingWeapon);
+                if (m_firingWeapon != null) StopCoroutine(m_firingWeapon);
                 m_isFiring = false;
                 break;
             default:

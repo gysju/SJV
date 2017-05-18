@@ -15,6 +15,16 @@ public class MobileMineEnemy : GroundEnemy
     }
     #endregion
 
+    #region HitPoints Related
+    /// <summary>A appeler à la mort de l'unité.</summary>
+    protected override void StartDying()
+    {
+        base.StartDying();
+
+        // play death sound
+        //SoundManager.Instance.PlaySoundOnShot("", audioSource);
+    }
+    #endregion
     #region Attack related
     protected bool TargetInRange()
     {
@@ -26,7 +36,11 @@ public class MobileMineEnemy : GroundEnemy
         target.ReceiveDamages(m_damages, 1);
         CompleteStop();
         m_destroyed = true;
+        HUD_Radar.Instance.RemoveInfo(this);
         FinishDying();
+
+        // play Attack sound
+        //SoundManager.Instance.PlaySoundOnShot("", audioSource);
     }
     #endregion
 

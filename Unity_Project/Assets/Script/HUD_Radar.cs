@@ -84,5 +84,10 @@ public class HUD_Radar : MonoBehaviour
 			}
 		}
 	}
+
+    public void RemoveAllInfos()
+    {
+        Infos.Clear();
+    }
 }
  

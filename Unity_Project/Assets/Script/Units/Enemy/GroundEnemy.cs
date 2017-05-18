@@ -44,6 +44,8 @@ public class GroundEnemy : BaseEnemy
 		CompleteStop();
 		m_navMeshAgent.enabled = false;
         base.StartDying();
+        // play death sound
+        SoundManager.Instance.PlaySoundOnShot("mecha_placeholder_explosion", audioSource);
 	}
 
     protected override void FinishDying()
@@ -96,6 +98,8 @@ public class GroundEnemy : BaseEnemy
     {
         PressWeaponTrigger(0);
         m_currentTimeToAttack = m_timeToAttack;
+        // play attack sound
+        SoundManager.Instance.PlaySoundOnShot("mecha_placeholder_tir_2", m_weapons[0].m_shotSound);
     }
     #endregion
 

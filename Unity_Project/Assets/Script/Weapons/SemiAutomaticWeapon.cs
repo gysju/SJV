@@ -19,6 +19,8 @@ public class SemiAutomaticWeapon : BaseWeapon
     protected void ShotSound()
     {
         if (m_shotSound) m_shotSound.Play();
+        // play shoot sound
+        //SoundManager.Instance.PlaySoundOnShot("", audioSource);
     }
 
     protected override void FireWeapon(MoveController moveController = null)
@@ -41,20 +43,16 @@ public class SemiAutomaticWeapon : BaseWeapon
         Vector3 shotDirection = (GetSpread() * m_muzzle.forward);
         if (Physics.Raycast(m_muzzle.position, shotDirection, out hit, m_maxRange, m_mask))
         {
-            BulletHitParticle(hit);
             BaseUnit unitHit = hit.transform.GetComponent<BaseUnit>();
             if (unitHit)
             {
-                unitHit.ReceiveDamages(Damage, ArmorPenetration);
-                if (unitHit is AirEnemy && unitHit.IsDestroyed())
-                {
-
-                }
+                if( unitHit.ReceiveDamages(Damage, ArmorPenetration))
+                    BulletHitParticle(hit);
             }
-        }
-        else
-        {
-
+            else
+            {
+                BulletHitParticle(hit);
+            }
         }
     }
 

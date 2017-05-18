@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.VR;
 using System.Collections;
+using UnityEngine.SceneManagement;
+
 #if UNITY_PS4
 using UnityEngine.PS4;
 using UnityEngine.PS4.VR;
@@ -38,8 +40,8 @@ public class TrackedDeviceMoveControllers : MonoBehaviour {
 	private Vector3 primaryPositionOriginPos = Vector3.zero;
 	private Vector3 secondaryPositionOriginPos = Vector3.zero;
 
-    private Vector3 targetLeftOriginPos;
-    private Vector3 targetRightOriginPos;
+    public Vector3 targetLeftOriginPos;
+    public Vector3 targetRightOriginPos;
 
     IEnumerator Start()
 	{
@@ -76,6 +78,11 @@ public class TrackedDeviceMoveControllers : MonoBehaviour {
 			{
 				targetLeftOriginPos = targetLeft.localPosition;
 				targetRightOriginPos = targetRight.localPosition;
+
+                SceneManager.sceneLoaded += delegate {
+                    targetLeft.localPosition = targetLeftOriginPos;
+                    targetRight.localPosition = targetRightOriginPos;
+                };
 			}
 		} 
 		else if (Instance != this) 
@@ -108,7 +115,7 @@ public class TrackedDeviceMoveControllers : MonoBehaviour {
                 if (Tracker.GetTrackedDeviceOrientation(m_primaryHandle, out primaryOrientation) == PlayStationVRResult.Ok)
 					primaryController.localRotation = primaryOrientation;
 
-				if(targetLeft != null)
+				if(targetLeft != null && PlayerInputs.Instance.m_inGame)
 					targetLeft.transform.localPosition = (targetLeftOriginPos - (primaryPositionOriginPos - primaryController.localPosition)) * IkIntensity + TargetBias;
 			}
 
@@ -121,7 +128,7 @@ public class TrackedDeviceMoveControllers : MonoBehaviour {
                 if (Tracker.GetTrackedDeviceOrientation(m_secondaryHandle, out secondaryOrientation) == PlayStationVRResult.Ok)
 					secondaryController.localRotation = secondaryOrientation;
 
-				if (targetRight != null) 
+				if (targetRight != null && PlayerInputs.Instance.m_inGame) 
 				{
 					Vector3 dir = (secondaryPositionOriginPos - secondaryController.localPosition);
 					targetRight.transform.localPosition = (targetRightOriginPos - new Vector3(-dir.x, dir.y, dir.z)) * IkIntensity + TargetBias;

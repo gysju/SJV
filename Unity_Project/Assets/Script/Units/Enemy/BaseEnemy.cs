@@ -30,14 +30,17 @@ public class BaseEnemy : BaseUnit
 	public Color EmissiveColor;
 	private Material material;
 
+    protected AudioSource audioSource;
+
     #region Initialization
     protected override void Awake()
     {
         base.Awake();
         m_currentTimeToAttack = m_timeToAttack;
 		material = GetComponentInChildren<SkinnedMeshRenderer> ().material;
+        audioSource = GetComponent<AudioSource>();
 
-        if(!m_poolManager) m_poolManager = FindObjectOfType<EnemiesManager>();
+        if (!m_poolManager) m_poolManager = FindObjectOfType<EnemiesManager>();
     }
 
     public virtual void ResetUnit(Vector3 spawn, Vector3 movementTarget, Transform target)
@@ -48,7 +51,7 @@ public class BaseEnemy : BaseUnit
 
         m_target = target;
 
-        m_currentHitPoints = m_startingHitPoints;
+        m_currentHitPoints = m_maxHitPoints;
 
         m_destroyed = false;
 
