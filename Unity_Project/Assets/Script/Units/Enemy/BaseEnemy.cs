@@ -34,11 +34,17 @@ public class BaseEnemy : BaseUnit
 
 	[Header("Effect")]
 
-	[Range(0.01f, 0.25f)]
+	[Range(0.0f, 1.0f)]
 	public float ShockDuration = 1.0f;
-	[Range(0.01f, 0.35f)]
+	[Range(0.0f, 1.0f)]
 	public float ShockIntensity = 1.0f;
 	public AnimationCurve Shockcurve;
+
+	[Space(10)]
+	[Range(1.0f, 1.25f)]
+	public float ScaleIntensity = 1.0f;
+
+	public AnimationCurve ScaleCurve;
 
 	protected Coroutine ShockCoroutine = null;
 	protected Transform modelTransform;
@@ -86,7 +92,7 @@ public class BaseEnemy : BaseUnit
 	{
 		if (base.ReceiveDamages(damages, armorPenetration))
 		{
-			ShockCoroutine = StartCoroutine (Shock ());
+			//ShockCoroutine = StartCoroutine (Shock ());
 			return true;
 		}
 		return false;
@@ -191,11 +197,13 @@ public class BaseEnemy : BaseUnit
 		float time = 0.0f;
 		Vector3 dir = (modelTransform.position - BaseMecha.instance.transform.position).normalized;
 		Vector3 initPos = modelTransform.localPosition = Vector3.zero;
+		modelTransform.localScale = Vector3.one;
 
 		while( time < ShockDuration)
 		{
 			time += Time.deltaTime;
-			modelTransform.localPosition = Vector3.Lerp( initPos, initPos + dir * ShockIntensity, Shockcurve.Evaluate(time / ShockDuration));
+			modelTransform.localPosition = Vector3.Lerp( initPos, initPos - dir * ShockIntensity, Shockcurve.Evaluate(time / ShockDuration));
+			modelTransform.localScale = Vector3.Lerp( Vector3.one, Vector3.one * ScaleIntensity, ScaleCurve.Evaluate(time / ShockDuration));
 			yield return null;
 		}
 	}
