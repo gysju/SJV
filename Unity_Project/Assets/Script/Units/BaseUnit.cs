@@ -158,9 +158,4 @@ public class BaseUnit : MonoBehaviour
             weapon.m_showLaser = false;
         }
     }
-
-    void Update ()
-	{
-		
-	}
 }

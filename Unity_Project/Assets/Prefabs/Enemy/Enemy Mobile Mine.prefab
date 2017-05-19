@@ -253,7 +253,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &1566426875936286
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
@@ -320,7 +320,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &1670135268258116
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
@@ -363,6 +363,36 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1868193334690040
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4008316495919660}
+  m_Layer: 11
+  m_Name: Model
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4008316495919660
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1868193334690040}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4758156830152536}
+  - {fileID: 4906950136128322}
+  m_Father: {fileID: 4630343915773450}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4034754365522178
 Transform:
   m_ObjectHideFlags: 1
@@ -529,8 +559,7 @@ Transform:
   m_LocalPosition: {x: 119.44188, y: 13.34744, z: 117.59217}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4758156830152536}
-  - {fileID: 4906950136128322}
+  - {fileID: 4008316495919660}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -545,7 +574,7 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 4188347617829978}
-  m_Father: {fileID: 4630343915773450}
+  m_Father: {fileID: 4008316495919660}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4778108304104552
@@ -681,7 +710,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
-  m_Father: {fileID: 4630343915773450}
+  m_Father: {fileID: 4008316495919660}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &54396269244459300
@@ -809,7 +838,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_transform: {fileID: 0}
   m_maxHitPoints: 1
-  m_startingHitPoints: 1
   m_currentHitPoints: 0
   m_timeToDie: 1
   m_destructionSpawn: {fileID: 0}
@@ -820,6 +848,32 @@ MonoBehaviour:
   m_timeToAttack: 2
   DeathfadeSpeed: 1
   EmissiveColor: {r: 1, g: 0.68093306, b: 0.1102941, a: 1}
+  ShockDuration: 0.025
+  ShockIntensity: 0.3
+  Shockcurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.5
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
   m_maxSpeed: 20
   m_acceleration: 8
   m_rotationSpeed: 50

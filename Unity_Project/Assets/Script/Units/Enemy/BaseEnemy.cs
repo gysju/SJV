@@ -32,6 +32,17 @@ public class BaseEnemy : BaseUnit
 
     protected AudioSource audioSource;
 
+	[Header("Effect")]
+
+	[Range(0.01f, 0.25f)]
+	public float ShockDuration = 1.0f;
+	[Range(0.01f, 0.35f)]
+	public float ShockIntensity = 1.0f;
+	public AnimationCurve Shockcurve;
+
+	protected Coroutine ShockCoroutine = null;
+	protected Transform modelTransform;
+
     #region Initialization
     protected override void Awake()
     {
@@ -41,6 +52,7 @@ public class BaseEnemy : BaseUnit
         audioSource = GetComponent<AudioSource>();
 
         if (!m_poolManager) m_poolManager = FindObjectOfType<EnemiesManager>();
+		modelTransform = transform.FindChild ("Model");
     }
 
     public virtual void ResetUnit(Vector3 spawn, Vector3 movementTarget, Transform target)
@@ -70,6 +82,16 @@ public class BaseEnemy : BaseUnit
     #endregion
 
     #region HitPoints Related
+	public override bool ReceiveDamages(int damages, int armorPenetration = 0)
+	{
+		if (base.ReceiveDamages(damages, armorPenetration))
+		{
+			ShockCoroutine = StartCoroutine (Shock ());
+			return true;
+		}
+		return false;
+	}
+
     /// <summary>A appeler à la mort de l'unité.</summary>
     protected override void StartDying()
     {
@@ -161,6 +183,20 @@ public class BaseEnemy : BaseUnit
 			time += Time.deltaTime;
 			material.SetFloat("_AlphaValue", Mathf.Lerp(0.0f, 1.0f, (time / DeathfadeSpeed))); 
 			yield return null; 	
+		}
+	}
+
+	public IEnumerator Shock()
+	{
+		float time = 0.0f;
+		Vector3 dir = (modelTransform.position - BaseMecha.instance.transform.position).normalized;
+		Vector3 initPos = modelTransform.localPosition = Vector3.zero;
+
+		while( time < ShockDuration)
+		{
+			time += Time.deltaTime;
+			modelTransform.localPosition = Vector3.Lerp( initPos, initPos + dir * ShockIntensity, Shockcurve.Evaluate(time / ShockDuration));
+			yield return null;
 		}
 	}
     #endregion
