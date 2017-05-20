@@ -7,6 +7,8 @@ public class ZAManager : ScenePlayerManager
     public static ZAManager Instance = null;
 
     public EnemiesManager m_enemiesManager;
+    
+    public float m_timeBeforeEndZA = 5f;
 
     [Header("Debug")]
     public bool m_testMode = false;
