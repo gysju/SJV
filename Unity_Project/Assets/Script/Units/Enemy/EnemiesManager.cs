@@ -107,8 +107,6 @@ public class EnemiesManager : MonoBehaviour
         return allDestroyed;
     }
 
-
-
     protected IEnumerator ManageWaves()
     {
         int currentWaveID = 0;
@@ -164,11 +162,6 @@ public class EnemiesManager : MonoBehaviour
         m_zaManager.MissionAccomplished();
         yield return new WaitForSeconds(m_timeBeforeEndZA);
         m_zaManager.BackToMainMenu();
-    }
-
-    void Update()
-    {
-
     }
 
     void OnDrawGizmos()
