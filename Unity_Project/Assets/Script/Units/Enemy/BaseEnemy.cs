@@ -106,12 +106,24 @@ public class BaseEnemy : BaseUnit
         m_enemyState = EnemyState.EnemyState_Sleep;
 		HUD_Radar.Instance.RemoveInfo (this);
         LaserOff();
-		StartCoroutine (DeathFade());
+		//StartCoroutine (DeathFade());
         base.StartDying();
+    }
+
+    protected override IEnumerator Dying()
+    {
+        WaitForSeconds wait = new WaitForSeconds(m_timeToDie);
+        yield return wait;
+        
+        yield return StartCoroutine(DeathFade());
+        if (m_destructionSpawn) Instantiate(m_destructionSpawn, transform.position, transform.rotation);
+        FinishDying();
     }
 
     protected override void FinishDying()
     {
+        if (m_animator)
+            m_animator.SetTrigger("Idle");
         m_poolManager.PoolUnit(this);
     }
     #endregion
