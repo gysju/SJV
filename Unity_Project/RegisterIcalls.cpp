@@ -2238,10 +2238,6 @@ void RegisterAllStrippedInternalCalls()
 		void Register_UnityEngine_Application_get_isPlaying();
 		Register_UnityEngine_Application_get_isPlaying();
 
-		//System.Boolean UnityEngine.Application::get_isShowingSplashScreen()
-		void Register_UnityEngine_Application_get_isShowingSplashScreen();
-		Register_UnityEngine_Application_get_isShowingSplashScreen();
-
 		//System.Boolean UnityEngine.Application::get_isTestRun()
 		void Register_UnityEngine_Application_get_isTestRun();
 		Register_UnityEngine_Application_get_isTestRun();
@@ -16170,10 +16166,6 @@ void RegisterAllStrippedInternalCalls()
 		void Register_UnityEngine_PS4_VR_PlayStationVRSettings_set_reprojectionFrameDeltaType();
 		Register_UnityEngine_PS4_VR_PlayStationVRSettings_set_reprojectionFrameDeltaType();
 
-		//System.Void UnityEngine.PS4.VR.PlayStationVRSettings::set_reprojectionSyncType(UnityEngine.PS4.VR.PlayStationVRReprojectionSyncType)
-		void Register_UnityEngine_PS4_VR_PlayStationVRSettings_set_reprojectionSyncType();
-		Register_UnityEngine_PS4_VR_PlayStationVRSettings_set_reprojectionSyncType();
-
 		//System.Void UnityEngine.PS4.VR.PlayStationVRSettings::set_robustnessLevel(UnityEngine.PS4.VR.PlayStationVRTrackerRobustnessLevel)
 		void Register_UnityEngine_PS4_VR_PlayStationVRSettings_set_robustnessLevel();
 		Register_UnityEngine_PS4_VR_PlayStationVRSettings_set_robustnessLevel();
@@ -16193,10 +16185,6 @@ void RegisterAllStrippedInternalCalls()
 		//UnityEngine.PS4.VR.PlayStationVRReprojectionFrameDeltaType UnityEngine.PS4.VR.PlayStationVRSettings::get_reprojectionFrameDeltaType()
 		void Register_UnityEngine_PS4_VR_PlayStationVRSettings_get_reprojectionFrameDeltaType();
 		Register_UnityEngine_PS4_VR_PlayStationVRSettings_get_reprojectionFrameDeltaType();
-
-		//UnityEngine.PS4.VR.PlayStationVRReprojectionSyncType UnityEngine.PS4.VR.PlayStationVRSettings::get_reprojectionSyncType()
-		void Register_UnityEngine_PS4_VR_PlayStationVRSettings_get_reprojectionSyncType();
-		Register_UnityEngine_PS4_VR_PlayStationVRSettings_get_reprojectionSyncType();
 
 		//UnityEngine.PS4.VR.PlayStationVRTrackerCameraMetaCheckMode UnityEngine.PS4.VR.PlayStationVRSettings::get_cameraMetaCheckMode()
 		void Register_UnityEngine_PS4_VR_PlayStationVRSettings_get_cameraMetaCheckMode();
@@ -18502,6 +18490,10 @@ void RegisterAllStrippedInternalCalls()
 		void Register_UnityEngine_SceneManagement_SceneManager_INTERNAL_CALL_SetActiveScene();
 		Register_UnityEngine_SceneManagement_SceneManager_INTERNAL_CALL_SetActiveScene();
 
+		//System.Boolean UnityEngine.SceneManagement.SceneManager::INTERNAL_CALL_UnloadSceneInternal(UnityEngine.SceneManagement.Scene&)
+		void Register_UnityEngine_SceneManagement_SceneManager_INTERNAL_CALL_UnloadSceneInternal();
+		Register_UnityEngine_SceneManagement_SceneManager_INTERNAL_CALL_UnloadSceneInternal();
+
 		//System.Int32 UnityEngine.SceneManagement.SceneManager::get_sceneCount()
 		void Register_UnityEngine_SceneManagement_SceneManager_get_sceneCount();
 		Register_UnityEngine_SceneManagement_SceneManager_get_sceneCount();
@@ -18541,6 +18533,10 @@ void RegisterAllStrippedInternalCalls()
 		//System.Void UnityEngine.SceneManagement.SceneManager::INTERNAL_CALL_MoveGameObjectToScene(UnityEngine.GameObject,UnityEngine.SceneManagement.Scene&)
 		void Register_UnityEngine_SceneManagement_SceneManager_INTERNAL_CALL_MoveGameObjectToScene();
 		Register_UnityEngine_SceneManagement_SceneManager_INTERNAL_CALL_MoveGameObjectToScene();
+
+		//UnityEngine.AsyncOperation UnityEngine.SceneManagement.SceneManager::INTERNAL_CALL_UnloadSceneAsyncInternal(UnityEngine.SceneManagement.Scene&)
+		void Register_UnityEngine_SceneManagement_SceneManager_INTERNAL_CALL_UnloadSceneAsyncInternal();
+		Register_UnityEngine_SceneManagement_SceneManager_INTERNAL_CALL_UnloadSceneAsyncInternal();
 
 		//UnityEngine.AsyncOperation UnityEngine.SceneManagement.SceneManager::LoadSceneAsyncNameIndexInternal(System.String,System.Int32,System.Boolean,System.Boolean)
 		void Register_UnityEngine_SceneManagement_SceneManager_LoadSceneAsyncNameIndexInternal();

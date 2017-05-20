@@ -23179,7 +23179,10 @@ MonoBehaviour:
   m_playerStartRotation: {x: 0, y: 0, z: 0}
   m_playerRotation: 0
   m_playerMovement: 0
+  m_backgroundCamera: 1
   m_enemiesManager: {fileID: 1457809897}
+  m_timeBeforeEndZA: 5
+  m_testMode: 0
 --- !u!1001 &1328938507
 Prefab:
   m_ObjectHideFlags: 0
@@ -24816,6 +24819,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6fcb5b07200771f4d90ff1bf7180d289, type: 2}
   m_timeBeforeFirstWave: 3
   m_timeBeforeEndZA: 5
+  waitTrigger: 0
   m_activeEnemies: []
 --- !u!114 &1457809898
 MonoBehaviour:
@@ -28865,6 +28869,11 @@ Prefab:
     - target: {fileID: 4652988018709344, guid: d6b8b5c3aa548af40ac302f6dff8b285, type: 2}
       propertyPath: m_RootOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114975089312651106, guid: d6b8b5c3aa548af40ac302f6dff8b285,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d6b8b5c3aa548af40ac302f6dff8b285, type: 2}

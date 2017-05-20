@@ -146,10 +146,14 @@ public class PlayerInputs : MonoBehaviour
         if (m_leftRay.raycastHit && m_legs.CheckDestination(m_leftRay.hit))
         {
             m_leftRay.setLineColor(Color.green);
+            //display effect at the destination
+            teleportIndication.SetActive(true);
+            teleportIndication.transform.position = m_leftRay.hit.point;
         }
         else
         {
             m_leftRay.setLineColor(Color.red);
+            teleportIndication.SetActive(false);
         }
     }
 
@@ -179,6 +183,16 @@ public class PlayerInputs : MonoBehaviour
         m_leftRay.setLineColor(Color.white);
         m_rightRay.setLineColor(Color.white);
         teleportIndication.SetActive(false);
+    }
+
+    public void CameraDepth()
+    {
+        m_mainCamera.clearFlags = CameraClearFlags.Depth;
+    }
+
+    public void CameraSky()
+    {
+        m_mainCamera.clearFlags = CameraClearFlags.Skybox;
     }
 
 #if UNITY_PS4
@@ -349,6 +363,20 @@ public class PlayerInputs : MonoBehaviour
         }
     }
 
+    void TeleportMouse()
+    {
+        if (Input.GetKeyDown(KeyCode.Space)) m_mecha.m_legs.SwitchMoveSystem();
+
+        if (Input.GetKeyDown(KeyCode.Mouse2))
+        {
+            PointDestinationLeft();
+        }
+        if (Input.GetKeyUp(KeyCode.Mouse2))
+        {
+            ConfirmDestination();
+        }
+    }
+
     void MouseKeyboardInputs()
     {
         if (m_inGame)
@@ -360,6 +388,7 @@ public class PlayerInputs : MonoBehaviour
             {
                 PlayerInterface.Instance.StartPause();
             }
+            TeleportMouse();
             //KeyboardMovements();
         }
         else
@@ -367,7 +396,6 @@ public class PlayerInputs : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
         }
     }
-
     #endregion
 
     void InputsUpdate()

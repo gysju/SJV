@@ -12,6 +12,6 @@ public class BackgroundCamera : MonoBehaviour {
 	}
 	
 	void LateUpdate () {
-		thisTransform.rotation = mainCameraTransform.rotation;
+        thisTransform.rotation = mainCameraTransform.rotation;
 	}
 }

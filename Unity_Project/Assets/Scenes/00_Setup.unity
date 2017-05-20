@@ -497,6 +497,7 @@ MonoBehaviour:
   m_playerStartRotation: {x: 0, y: 0, z: 0}
   m_playerRotation: 0
   m_playerMovement: 0
+  m_backgroundCamera: 0
   m_setupBoard: {fileID: 758614237}
   m_resetCamBoard: {fileID: 1841943873}
 --- !u!4 &903731481
@@ -974,12 +975,26 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 114953707263810038, guid: d6b8b5c3aa548af40ac302f6dff8b285,
+    - target: {fileID: 20063474813675026, guid: d6b8b5c3aa548af40ac302f6dff8b285,
         type: 2}
-      propertyPath: m_currentHitPoints
-      value: 10
+      propertyPath: m_ClearFlags
+      value: 2
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 114410603764445786, guid: d6b8b5c3aa548af40ac302f6dff8b285, type: 2}
+    - target: {fileID: 20063474813675026, guid: d6b8b5c3aa548af40ac302f6dff8b285,
+        type: 2}
+      propertyPath: m_BackGroundColor.r
+      value: 0.20588237
+      objectReference: {fileID: 0}
+    - target: {fileID: 20063474813675026, guid: d6b8b5c3aa548af40ac302f6dff8b285,
+        type: 2}
+      propertyPath: m_BackGroundColor.g
+      value: 0.20588237
+      objectReference: {fileID: 0}
+    - target: {fileID: 20063474813675026, guid: d6b8b5c3aa548af40ac302f6dff8b285,
+        type: 2}
+      propertyPath: m_BackGroundColor.b
+      value: 0.20588237
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d6b8b5c3aa548af40ac302f6dff8b285, type: 2}
   m_IsPrefabParent: 0

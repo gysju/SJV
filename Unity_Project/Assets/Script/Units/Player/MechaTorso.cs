@@ -21,6 +21,11 @@ public class MechaTorso : MonoBehaviour
 			Destroy(gameObject);
 		}
     }
+
+    public void ResetTorso()
+    {
+        m_torsoTransform.localRotation = Quaternion.identity;
+    }
     
     protected void RotateTorsoHorizontaly(float horizontalAngle)
     {
