@@ -27,12 +27,17 @@ public class ScenePlayerManager : MonoBehaviour
         m_player.transform.rotation = Quaternion.Euler(m_playerStartRotation);
         m_player.m_inputs.m_torsoConnected = m_playerRotation;
         m_player.m_inputs.m_legsConnected = m_playerMovement;
-        m_player.m_bunker.DeactivateBunkerMode();
 
         m_player.m_legs.m_navmeshAgent.enabled = false;
         m_player.transform.position = m_playerStartPosition;
         m_player.m_legs.m_navmeshAgent.enabled = true;
 
+        BunkerOff();
+    }
+
+    protected void BunkerOff()
+    {
+        m_player.m_bunker.DeactivateBunkerMode();
     }
     
     protected virtual void Update()
