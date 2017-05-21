@@ -169,10 +169,10 @@ public class BaseEnemy : BaseUnit
     #region Updates
     protected virtual void Update()
     {
-        if (!m_destroyed)
-        {
+        //if (!m_destroyed)
+        //{
 
-        }
+        //}
     }
 
 	void StartDeathFade()

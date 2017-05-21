@@ -50,6 +50,7 @@ public class MainMenu : MenuManager
     public void CreditsButton()
     {
         HideMenu(m_title);
+        HideMenu(m_levelSelecter);
         HideMenu(m_optionMenu);
         ShowMenu(m_credits);
     }

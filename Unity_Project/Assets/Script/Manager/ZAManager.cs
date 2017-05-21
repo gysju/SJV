@@ -7,6 +7,11 @@ public class ZAManager : ScenePlayerManager
     public static ZAManager Instance = null;
 
     public EnemiesManager m_enemiesManager;
+    
+    public float m_timeBeforeEndZA = 5f;
+
+    [Header("Debug")]
+    public bool m_testMode = false;
 
     public static ZAManager instance
     {
@@ -31,7 +36,7 @@ public class ZAManager : ScenePlayerManager
     {
         base.FindPlayer();
         m_player.ReadyToAction();
-        m_enemiesManager.StartWaves();
+        if(!m_testMode) m_enemiesManager.StartWaves();
     }
 
     public void MissionAccomplished()

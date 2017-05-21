@@ -20,6 +20,9 @@ public class EnemiesManager : MonoBehaviour
     public float m_timeBeforeFirstWave = 5f;
     public float m_timeBeforeEndZA = 5f;
 
+    [HideInInspector]
+    public bool waitTrigger = false;
+
     protected ZAManager m_zaManager;
 
     public List<BaseEnemy> m_activeEnemies = new List<BaseEnemy>();
@@ -107,8 +110,6 @@ public class EnemiesManager : MonoBehaviour
         return allDestroyed;
     }
 
-
-
     protected IEnumerator ManageWaves()
     {
         int currentWaveID = 0;
@@ -121,39 +122,51 @@ public class EnemiesManager : MonoBehaviour
             EnemiesWave currentWave = currentWaveTransform.gameObject.AddComponent<EnemiesWave>();
             m_wavesSpawned.Add(currentWave);
 
+            bool waitTrigger = currentWaveObject.timeBeforeNextWave < 0f;
+
             bool waveSurvey = currentWaveObject.nextWaveWait || currentWaveObject == m_enemiesWaves[m_enemiesWaves.Count - 1];
 
-            foreach (SpawnObject spawn in currentWaveObject.Spawns)
+            if (waitTrigger)
             {
-                BaseEnemy newEnemy;
-
-                if (spawn.Unit is MobileMineEnemy)
-                {
-                    newEnemy = (IsThereUnusedMobileMineEnemy()) ? GetUnusedMobileMine(currentWaveTransform) : Instantiate(spawn.Unit, spawn.SpawnPosition, Quaternion.Euler(spawn.SpawnRotation), currentWaveTransform);
-                }
-                else if (spawn.Unit is GroundEnemy)
-                {
-                    newEnemy = (IsThereUnusedGroundEnemy()) ? GetUnusedGroundEnemy(currentWaveTransform) : Instantiate(spawn.Unit, spawn.SpawnPosition, Quaternion.Euler(spawn.SpawnRotation), currentWaveTransform);
-                }
-                else if (spawn.Unit is AirEnemy)
-                {
-                    newEnemy = (IsThereUnusedAirEnemy()) ? GetUnusedAirEnemy(currentWaveTransform) : Instantiate(spawn.Unit, spawn.SpawnPosition, Quaternion.Euler(spawn.SpawnRotation), currentWaveTransform);
-                }
-                else
-                {
-                    newEnemy = Instantiate(spawn.Unit, spawn.SpawnPosition, Quaternion.Euler(spawn.SpawnRotation), currentWaveTransform);
-                }
-
-                m_activeEnemies.Add(newEnemy);
-                currentWave.AddEnemy(newEnemy);
-                newEnemy.ResetUnit(spawn.SpawnPosition, spawn.AttackPosition, m_player.m_targetPoint);
-            }
-
-            if (waveSurvey)
-            {
-                while (!IsPreviousWavesDestroyed())
+                while (waitTrigger)
                 {
                     yield return null;
+                }
+            }
+            else
+            {
+                foreach (SpawnObject spawn in currentWaveObject.Spawns)
+                {
+                    BaseEnemy newEnemy;
+
+                    if (spawn.Unit is MobileMineEnemy)
+                    {
+                        newEnemy = (IsThereUnusedMobileMineEnemy()) ? GetUnusedMobileMine(currentWaveTransform) : Instantiate(spawn.Unit, spawn.SpawnPosition, Quaternion.Euler(spawn.SpawnRotation), currentWaveTransform);
+                    }
+                    else if (spawn.Unit is GroundEnemy)
+                    {
+                        newEnemy = (IsThereUnusedGroundEnemy()) ? GetUnusedGroundEnemy(currentWaveTransform) : Instantiate(spawn.Unit, spawn.SpawnPosition, Quaternion.Euler(spawn.SpawnRotation), currentWaveTransform);
+                    }
+                    else if (spawn.Unit is AirEnemy)
+                    {
+                        newEnemy = (IsThereUnusedAirEnemy()) ? GetUnusedAirEnemy(currentWaveTransform) : Instantiate(spawn.Unit, spawn.SpawnPosition, Quaternion.Euler(spawn.SpawnRotation), currentWaveTransform);
+                    }
+                    else
+                    {
+                        newEnemy = Instantiate(spawn.Unit, spawn.SpawnPosition, Quaternion.Euler(spawn.SpawnRotation), currentWaveTransform);
+                    }
+
+                    m_activeEnemies.Add(newEnemy);
+                    currentWave.AddEnemy(newEnemy);
+                    newEnemy.ResetUnit(spawn.SpawnPosition, spawn.AttackPosition, m_player.m_targetPoint);
+                }
+
+                if (waveSurvey)
+                {
+                    while (!IsPreviousWavesDestroyed())
+                    {
+                        yield return null;
+                    }
                 }
             }
 
@@ -164,11 +177,6 @@ public class EnemiesManager : MonoBehaviour
         m_zaManager.MissionAccomplished();
         yield return new WaitForSeconds(m_timeBeforeEndZA);
         m_zaManager.BackToMainMenu();
-    }
-
-    void Update()
-    {
-
     }
 
     void OnDrawGizmos()

@@ -35,7 +35,6 @@ public class SetupVR : MenuManager
     public void ContinueToMainMenu()
     {
        SceneManager.LoadSceneAsync(1);
-       //m_interface.MainMenu();
     }
 
 #if UNITY_PS4
@@ -64,7 +63,7 @@ public class SetupVR : MenuManager
 
     protected override void Update()
     {
-        base.Update();
+        //base.Update();
 
         if (!setup)
         {
@@ -76,7 +75,6 @@ public class SetupVR : MenuManager
             {
                 VRManager.instance.SetupHMDDevice();
                 ResetCamBoard();
-                ContinueToMainMenu();
             }
         }
     }
