@@ -36,13 +36,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1957232921955238}
-  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 123.4, y: 17.41, z: 49.1}
+  m_LocalRotation: {x: -0.4347371, y: -0.56246525, z: -0.45852935, w: 0.53327984}
+  m_LocalPosition: {x: 592.43, y: 48.91, z: 374.98}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -101.625, y: 86.949, z: -180}
 --- !u!82 &82927892581457430
 AudioSource:
   m_ObjectHideFlags: 1
@@ -63,7 +63,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 100
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -190,7 +190,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1643858052
+  randomSeed: 1002119222
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -565,9 +565,9 @@ ParticleSystem:
     radius: 1
     angle: 25
     length: 5
-    boxX: 25
-    boxY: 50
-    boxZ: 10
+    boxX: 9
+    boxY: 30
+    boxZ: 8
     arc: 360
     placementMode: 0
     m_Mesh: {fileID: 0}
@@ -585,7 +585,7 @@ ParticleSystem:
     enabled: 1
     serializedVersion: 3
     rateOverTime:
-      scalar: 10
+      scalar: 4
       maxCurve:
         serializedVersion: 2
         m_Curve:
