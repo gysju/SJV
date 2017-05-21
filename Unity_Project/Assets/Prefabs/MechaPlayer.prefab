@@ -1944,7 +1944,6 @@ GameObject:
   - component: {fileID: 224425891696211170}
   - component: {fileID: 222267080449702058}
   - component: {fileID: 114212954601950308}
-  - component: {fileID: 114410603764445786}
   - component: {fileID: 225984649694882100}
   m_Layer: 5
   m_Name: OptionMenu
@@ -2916,7 +2915,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1050758994493852}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.744, z: -0.11200023}
+  m_LocalPosition: {x: 0, y: 1.744, z: -0.45}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4831955637650992}
@@ -3833,8 +3832,8 @@ Camera:
   m_GameObject: {fileID: 1616676051237208}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 3
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -6220,7 +6219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 392bce8df34e53b4ab17d8f96ad0b999, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_torsoRotationSpeed: 0.5
+  m_torsoRotationSpeed: 1
 --- !u!114 &114303306377100590
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6237,7 +6236,7 @@ MonoBehaviour:
   m_weaponsConnected: 0
   m_torso: {fileID: 114282173216230950}
   m_torsoConnected: 0
-  m_maxHorinzontalHeadAngle: 30
+  m_maxHorinzontalHeadAngle: 40
   m_maxVerticalHeadAngle: 75
   m_legs: {fileID: 0}
   m_legsConnected: 0
@@ -6420,27 +6419,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114410603764445786
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1856005069108380}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a73f83951baab2a48a48730c5f11516f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  root: 1
-  gameplay: 0
-  menu: 2
-  setupScene: 0
-  intro: 2
-  titleText: {fileID: 0}
-  descriptionText: {fileID: 0}
-  textButton:
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!114 &114425978445328720
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6877,6 +6855,8 @@ MonoBehaviour:
   targetRight: {fileID: 4380204253125406}
   TargetBias: {x: 0, y: 1, z: 0}
   IkIntensity: 1
+  targetLeftOriginPos: {x: 0, y: 0, z: 0}
+  targetRightOriginPos: {x: 0, y: 0, z: 0}
 --- !u!114 &114579496738438746
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7674,11 +7654,12 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1999928460973726}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a9d7be8536a968c4e97249f44c356230, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_navmeshAgent: {fileID: 0}
   m_speed: 0
   DashSpeed: 0.5
   moveSystem: 0

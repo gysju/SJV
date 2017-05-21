@@ -11,7 +11,7 @@ public class MechaLegs : MonoBehaviour
 
     protected Transform m_legsTransform;
 
-    protected NavMeshAgent m_navmeshAgent;
+    public NavMeshAgent m_navmeshAgent;
     protected NavMeshHit m_navMeshHit;
 
     [Header("Movement")]
