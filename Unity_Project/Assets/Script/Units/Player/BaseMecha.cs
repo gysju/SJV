@@ -20,7 +20,6 @@ public class BaseMecha : BaseUnit
 
 	public MeshRenderer meshRendererSeeTrough;
 
-
 	private Material SeeTroughMaterial;
 	private Material SeeTroughMaterialChild;
 

@@ -12,8 +12,8 @@ public class GroundEnemy : BaseEnemy
     public float m_maxSpeed = 2f;
     public float m_acceleration = 8f;
     public float m_rotationSpeed = 50f;
-
-    #region Initialization
+    
+	#region Initialization
     protected override void Awake()
     {
         base.Awake();
@@ -38,6 +38,7 @@ public class GroundEnemy : BaseEnemy
     #endregion
 
 	#region HitPoints Related
+
 	/// <summary>A appeler à la mort de l'unité.</summary>
 	protected override void StartDying()
 	{
@@ -136,6 +137,5 @@ public class GroundEnemy : BaseEnemy
             }
         }
     }
-
     #endregion
 }
