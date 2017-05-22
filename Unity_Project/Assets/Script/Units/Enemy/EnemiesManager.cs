@@ -30,7 +30,7 @@ public class EnemiesManager : MonoBehaviour
     public void StartWaves()
     {
         m_zaManager = FindObjectOfType<ZAManager>();
-        m_player = FindObjectOfType<BaseMecha>();
+        m_player = m_zaManager.m_player;
         StartCoroutine(ManageWaves());
     }
 

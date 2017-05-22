@@ -23,6 +23,7 @@ public class BaseEnemy : BaseUnit
     public float m_timeToAttack = 2f;
     protected float m_currentTimeToAttack;
 
+    [SerializeField]
     protected Transform m_target;
 
 	public float DeathfadeSpeed = 1.0f;

@@ -72,7 +72,7 @@ LightmapSettings:
     m_FinalGatherFiltering: 1
     m_FinalGatherRayCount: 256
     m_ReflectionCompression: 2
-  m_LightingDataAsset: {fileID: 112000002, guid: bd18acd1671bb9e48aa05b25787f16c3,
+  m_LightingDataAsset: {fileID: 112000001, guid: bd18acd1671bb9e48aa05b25787f16c3,
     type: 2}
   m_RuntimeCPUUsage: 25
 --- !u!196 &4
@@ -705,6 +705,10 @@ Prefab:
     - target: {fileID: 100000, guid: ba0827e2fb204ec4198a65082075ff50, type: 3}
       propertyPath: m_Layer
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: ba0827e2fb204ec4198a65082075ff50, type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ba0827e2fb204ec4198a65082075ff50, type: 3}
@@ -5219,7 +5223,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.03
-  far clip plane: 260
+  far clip plane: 220
   field of view: 100
   orthographic: 0
   orthographic size: 5
@@ -9955,6 +9959,14 @@ Prefab:
       propertyPath: m_ScaleInLightmap
       value: 0.02
       objectReference: {fileID: 0}
+    - target: {fileID: 2300004, guid: dca1f043d31e29f48af7ad3b7540c6e5, type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300004, guid: dca1f043d31e29f48af7ad3b7540c6e5, type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: dca1f043d31e29f48af7ad3b7540c6e5, type: 3}
   m_IsPrefabParent: 0
@@ -11114,6 +11126,10 @@ Prefab:
     - target: {fileID: 100000, guid: a4e528402c6cdf04894c1b235824bff0, type: 3}
       propertyPath: m_Layer
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: a4e528402c6cdf04894c1b235824bff0, type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a4e528402c6cdf04894c1b235824bff0, type: 3}
@@ -12461,6 +12477,26 @@ Prefab:
     - target: {fileID: 2300010, guid: cffceab149a69324a89a315e063b75f7, type: 3}
       propertyPath: m_ScaleInLightmap
       value: 0.015
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300004, guid: cffceab149a69324a89a315e063b75f7, type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300010, guid: cffceab149a69324a89a315e063b75f7, type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300006, guid: cffceab149a69324a89a315e063b75f7, type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300008, guid: cffceab149a69324a89a315e063b75f7, type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300012, guid: cffceab149a69324a89a315e063b75f7, type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cffceab149a69324a89a315e063b75f7, type: 3}
@@ -15994,6 +16030,10 @@ Prefab:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 1e8b24cedf4d28841bfcc39a2e266b1b, type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1e8b24cedf4d28841bfcc39a2e266b1b, type: 3}
   m_IsPrefabParent: 0
@@ -16101,6 +16141,10 @@ Prefab:
     - target: {fileID: 2300000, guid: ba0827e2fb204ec4198a65082075ff50, type: 3}
       propertyPath: m_ScaleInLightmap
       value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: ba0827e2fb204ec4198a65082075ff50, type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ba0827e2fb204ec4198a65082075ff50, type: 3}
@@ -18615,8 +18659,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Asteroide: {fileID: 1517583240256360, guid: 112863447868b2c43b12bd930beb09f5, type: 2}
-  RandomScale: {x: 0.05, y: 0.3}
-  MaxNumberOfAsteriods: 175
+  RandomScale: {x: 0.1, y: 0.3}
+  MaxNumberOfAsteriods: 100
   Torque: {x: 1, y: 2}
   Radius: {x: 200, y: 250}
   FirstJointSpeedRotation: 0.27
@@ -20647,6 +20691,10 @@ Prefab:
     - target: {fileID: 100000, guid: 34aaad3165ac7c044a7ce3346db39029, type: 3}
       propertyPath: m_Layer
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 34aaad3165ac7c044a7ce3346db39029, type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 34aaad3165ac7c044a7ce3346db39029, type: 3}
@@ -25469,6 +25517,10 @@ Prefab:
       propertyPath: m_ScaleInLightmap
       value: 0.01
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: ba0827e2fb204ec4198a65082075ff50, type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ba0827e2fb204ec4198a65082075ff50, type: 3}
   m_IsPrefabParent: 0
@@ -25634,6 +25686,22 @@ Prefab:
     - target: {fileID: 2300006, guid: cffceab149a69324a89a315e063b75f7, type: 3}
       propertyPath: m_ScaleInLightmap
       value: 0.015
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300006, guid: cffceab149a69324a89a315e063b75f7, type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300012, guid: cffceab149a69324a89a315e063b75f7, type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300008, guid: cffceab149a69324a89a315e063b75f7, type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300010, guid: cffceab149a69324a89a315e063b75f7, type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cffceab149a69324a89a315e063b75f7, type: 3}
@@ -28064,6 +28132,10 @@ Prefab:
       propertyPath: m_ScaleInLightmap
       value: 0.01
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: ba0827e2fb204ec4198a65082075ff50, type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ba0827e2fb204ec4198a65082075ff50, type: 3}
   m_IsPrefabParent: 0
@@ -28403,6 +28475,10 @@ Prefab:
     - target: {fileID: 100000, guid: ba0827e2fb204ec4198a65082075ff50, type: 3}
       propertyPath: m_Layer
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: ba0827e2fb204ec4198a65082075ff50, type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ba0827e2fb204ec4198a65082075ff50, type: 3}
@@ -28875,7 +28951,7 @@ Prefab:
     - target: {fileID: 114173203132878334, guid: d6b8b5c3aa548af40ac302f6dff8b285,
         type: 2}
       propertyPath: m_showFPS
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114923852363382014, guid: d6b8b5c3aa548af40ac302f6dff8b285,
         type: 2}
@@ -28886,6 +28962,11 @@ Prefab:
         type: 2}
       propertyPath: m_FontData.m_MinSize
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 108093877468953386, guid: d6b8b5c3aa548af40ac302f6dff8b285,
+        type: 2}
+      propertyPath: m_CullingMask.m_Bits
+      value: 4096
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d6b8b5c3aa548af40ac302f6dff8b285, type: 2}
@@ -30107,6 +30188,10 @@ Prefab:
       propertyPath: m_ScaleInLightmap
       value: 0.01
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: ba0827e2fb204ec4198a65082075ff50, type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ba0827e2fb204ec4198a65082075ff50, type: 3}
   m_IsPrefabParent: 0
@@ -30314,6 +30399,10 @@ Prefab:
     - target: {fileID: 2300000, guid: ba0827e2fb204ec4198a65082075ff50, type: 3}
       propertyPath: m_ScaleInLightmap
       value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: ba0827e2fb204ec4198a65082075ff50, type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ba0827e2fb204ec4198a65082075ff50, type: 3}
@@ -34687,6 +34776,22 @@ Prefab:
     - target: {fileID: 2300012, guid: cffceab149a69324a89a315e063b75f7, type: 3}
       propertyPath: m_ScaleInLightmap
       value: 0.015
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300006, guid: cffceab149a69324a89a315e063b75f7, type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300008, guid: cffceab149a69324a89a315e063b75f7, type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300012, guid: cffceab149a69324a89a315e063b75f7, type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300010, guid: cffceab149a69324a89a315e063b75f7, type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cffceab149a69324a89a315e063b75f7, type: 3}
