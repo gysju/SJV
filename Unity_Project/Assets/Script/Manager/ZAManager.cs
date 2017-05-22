@@ -7,6 +7,8 @@ public class ZAManager : ScenePlayerManager
     public static ZAManager Instance = null;
 
     public EnemiesManager m_enemiesManager;
+
+    public bool m_instaStart = true;
     
     public float m_timeBeforeEndZA = 5f;
 
@@ -36,7 +38,7 @@ public class ZAManager : ScenePlayerManager
     {
         base.FindPlayer();
         m_player.ReadyToAction();
-        if(!m_testMode) m_enemiesManager.StartWaves();
+        if(m_instaStart && !m_testMode) m_enemiesManager.StartWaves();
     }
 
     public void MissionAccomplished()
