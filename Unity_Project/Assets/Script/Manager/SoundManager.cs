@@ -11,7 +11,7 @@ public class SoundManager : MonoBehaviour
     {
         public string Name;
         public AudioClip audioClip;
-
+        
         [Range(0, 1)]
         public float Volume;
         public Vector2 Pitch;

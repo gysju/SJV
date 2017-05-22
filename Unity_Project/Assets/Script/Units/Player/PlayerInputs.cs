@@ -55,7 +55,6 @@ public class PlayerInputs : MonoBehaviour
         m_leftRay = m_leftController.GetComponent<LaserPointingSystem>();
         m_rightRay = m_rightController.GetComponent<LaserPointingSystem>();
 
-        teleportIndication = Instantiate(teleportIndication);
         teleportIndication.SetActive(false);
     }
 #endif
@@ -147,13 +146,19 @@ public class PlayerInputs : MonoBehaviour
         {
             m_leftRay.setLineColor(Color.green);
             //display effect at the destination
-            teleportIndication.SetActive(true);
-            teleportIndication.transform.position = m_leftRay.hit.point;
+            if (teleportIndication != null)
+            {
+                teleportIndication.SetActive(true);
+                teleportIndication.transform.position = m_leftRay.hit.point;
+            }
         }
         else
         {
             m_leftRay.setLineColor(Color.red);
-            teleportIndication.SetActive(false);
+            if (teleportIndication != null)
+            {
+                teleportIndication.SetActive(false);
+            }
         }
     }
 
@@ -164,14 +169,20 @@ public class PlayerInputs : MonoBehaviour
         {
             m_rightRay.setLineColor(Color.green);
             //display effect at the destination
-            teleportIndication.SetActive(true);
-            teleportIndication.transform.position = m_rightRay.hit.point;
+            if (teleportIndication != null)
+            {
+                teleportIndication.SetActive(true);
+                teleportIndication.transform.position = m_rightRay.hit.point;
+            }
         }
         else
         {
             m_rightRay.setLineColor(Color.red);
             //Hide effect
-            teleportIndication.SetActive(false);
+            if (teleportIndication != null)
+            {
+                teleportIndication.SetActive(false);
+            }
         }
     }
 
@@ -259,7 +270,7 @@ public class PlayerInputs : MonoBehaviour
         {
             PointDestinationLeft();
         }
-        if (m_leftMovePriority && m_leftController.GetButtonUp(MoveController.MoveButton.MoveButton_Move))
+        if (m_leftMovePriority  && m_leftController.GetButtonUp(MoveController.MoveButton.MoveButton_Move))
         {
             ConfirmDestination();
         }
