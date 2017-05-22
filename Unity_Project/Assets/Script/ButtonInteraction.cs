@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class ButtonInteraction : MonoBehaviour {
+public class ButtonInteraction : MonoBehaviour, IPointerEnterHandler
+{
 
     private AudioSource audioSource;
 
@@ -12,8 +14,13 @@ public class ButtonInteraction : MonoBehaviour {
         GetComponent<Button>().onClick.AddListener(() => Clicked());
 	}
 
+    public void OnPointerEnter(PointerEventData ped)
+    {
+        SoundManager.Instance.PlaySoundOnShot("mecha_button_hover", audioSource);
+    }
+
     void Clicked()
     {
-        SoundManager.Instance.PlaySoundOnShot("mecha_placeholder_UI_1", audioSource);
+        SoundManager.Instance.PlaySoundOnShot("mecha_button_press", audioSource);
     }
 }
