@@ -28,7 +28,7 @@ public class SoundManager : MonoBehaviour
     public static SoundManager Instance = null;
     private AudioSource[] audioSources;
 
-    void Start()
+    void Awake()
     {
         if (Instance == null)
         {
@@ -62,7 +62,7 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void PlaySound(string name, AudioSource source, bool FadeIn = false)
+    public void PlaySound(string name, AudioSource source, bool FadeIn = false, float fadeDuration = 1.0f)
     {
         Sound s = findSound(name);
         if (s.audioClip != null)
@@ -74,16 +74,16 @@ public class SoundManager : MonoBehaviour
 
             source.Play();
             if (FadeIn)
-                StartCoroutine(FadeVolume(source, s.Volume, 1.0f, true));
+                StartCoroutine(FadeVolume(source, s.Volume, fadeDuration, true));
         }
     }
 
-    public void StopSound(AudioSource source, bool FadeOut = false)
+    public void StopSound(AudioSource source, bool FadeOut = false, float fadeDuration = 1.0f)
     {
         if (source.isPlaying)
         {
             if (FadeOut)
-                StartCoroutine(FadeVolume(source, 0.0f, 1.0f, false));
+                StartCoroutine(FadeVolume(source, 0.0f, fadeDuration, false));
             source.Stop();
         }
     }
