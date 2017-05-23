@@ -58,7 +58,8 @@ public class BaseEnemy : BaseUnit
 		material = GetComponentInChildren<SkinnedMeshRenderer> ().material;
         audioSource = GetComponent<AudioSource>();
 
-        m_maxAttackDistance = m_weapons[0].m_maxRange -2f;
+        if(m_weapons.Count > 0)
+            m_maxAttackDistance = m_weapons[0].m_maxRange -2f;
 
         if (!m_poolManager) m_poolManager = FindObjectOfType<EnemiesManager>();
 		modelTransform = transform.FindChild ("Model");
@@ -150,6 +151,11 @@ public class BaseEnemy : BaseUnit
         }
     }
 
+    public virtual bool IsWeaponOnTarget()
+    {
+        return m_weapons[0].IsWeaponOnTarget(m_target.position);
+    }
+
     public void PressWeaponTrigger(int weaponID)
     {
         m_weapons[weaponID].TriggerPressed(null);
@@ -169,9 +175,14 @@ public class BaseEnemy : BaseUnit
     }
     #endregion
 
-    protected virtual bool IsEnemyInRange()
+    protected virtual bool IsTargetInRange()
     {
         return Vector3.Distance(m_target.position, m_transform.position) <= m_maxAttackDistance;
+    }
+
+    protected virtual bool IsTargetAimable()
+    {
+        return m_weapons[0].IsTargetAimable(m_target);
     }
 
     protected virtual void AttackMode()
@@ -191,7 +202,7 @@ public class BaseEnemy : BaseUnit
         {
             if (m_enemyState != EnemyState.EnemyState_Sleep)
             {
-                if (IsEnemyInRange())
+                if (IsTargetInRange() && IsTargetAimable())
                 {
                     AttackMode();
                 }
@@ -227,7 +238,7 @@ public class BaseEnemy : BaseUnit
 		while( time < DeathfadeSpeed )
 		{
 			time += Time.deltaTime;
-			material.SetFloat("_AlphaValue", Mathf.Lerp(0.0f, 1.0f, (time / DeathfadeSpeed))); 
+			material.SetFloat("_AlphaValue", Mathf.Lerp(0.0f, 1.0f, (time / DeathfadeSpeed)));
 			yield return null; 	
 		}
 	}

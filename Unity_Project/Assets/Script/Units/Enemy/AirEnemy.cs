@@ -175,7 +175,7 @@ public class AirEnemy : BaseEnemy
     }
     #endregion
 
-    protected override bool IsEnemyInRange()
+    protected override bool IsTargetInRange()
     {
         return Vector3.Distance(m_target.position, m_transform.position) <= m_maxAttackDistance;
     }

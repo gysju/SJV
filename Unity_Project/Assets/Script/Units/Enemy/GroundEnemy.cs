@@ -33,7 +33,7 @@ public class GroundEnemy : BaseEnemy
     {
         base.ResetUnit(spawn, movementTarget, target);
 		m_navMeshAgent.enabled = true;
-		if(m_attackPosition.HasValue) m_navMeshAgent.SetDestination(m_attackPosition.Value);
+		//if(m_attackPosition.HasValue) m_navMeshAgent.SetDestination(m_attackPosition.Value);
     }
     #endregion
 
@@ -62,6 +62,11 @@ public class GroundEnemy : BaseEnemy
         {
             StartMovement();
         }
+    }
+
+    protected void MoveToTarget()
+    {
+        MoveTo(m_target.position);
     }
 
     protected bool IsPathCompleted()
@@ -112,21 +117,23 @@ public class GroundEnemy : BaseEnemy
             switch (m_enemyState)
             {
                 case EnemyState.EnemyState_Sleep:
-                    if (m_attackPosition.HasValue)
+                    if (m_target)
                     {
-                        MoveTo(m_attackPosition.Value);
+                        //MoveTo(m_attackPosition.Value);
+                        MoveToTarget();
                     }
                     break;
                 case EnemyState.EnemyState_Moving:
                     if (IsPathCompleted())
                     {
-                        AttackMode();
+                        CompleteStop();
                     }
                     break;
                 case EnemyState.EnemyState_Attacking:
-                    m_currentTimeToAttack -= Time.deltaTime;
+                    //m_currentTimeToAttack -= Time.deltaTime;
                     AimWeaponAt(m_target.position);
-                    if (m_currentTimeToAttack <= 0)
+                    //if (m_currentTimeToAttack <= 0)
+                    if (IsWeaponOnTarget())
                     {
                         Fire();
                     }

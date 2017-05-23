@@ -26,7 +26,7 @@ public class MobileMineEnemy : GroundEnemy
     }
     #endregion
     #region Attack related
-    protected bool TargetInRange()
+    protected override bool IsTargetInRange()
     {
         return (Vector3.Distance(m_transform.position, m_target.position) < m_explosionRange);
     }
@@ -54,11 +54,11 @@ public class MobileMineEnemy : GroundEnemy
                 case EnemyState.EnemyState_Sleep:
                     if (m_target)
                     {
-                        MoveTo(m_target.position);
+                        MoveToTarget();
                     }
                     break;
                 case EnemyState.EnemyState_Moving:
-                    if (TargetInRange())
+                    if (IsTargetInRange())
                     {
                         Explode(m_target.GetComponent<BaseUnit>());
                     }

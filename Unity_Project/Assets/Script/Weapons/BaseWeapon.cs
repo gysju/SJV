@@ -150,6 +150,25 @@ public class BaseWeapon : MonoBehaviour
         return 0f;
     }
 
+    public virtual bool IsTargetAimable(Transform target)
+    {
+        Vector3 targetDir = (target.position - m_muzzle.position).normalized;
+
+        RaycastHit hit;
+
+        Physics.Raycast(m_muzzle.position, targetDir, out hit, m_maxRange, m_mask.value);
+
+        return (hit.transform.gameObject.layer == target.gameObject.layer);
+    }
+
+    public virtual bool IsWeaponOnTarget(Vector3 targetPosition)
+    {
+        Vector3 targetDir = targetPosition - m_muzzle.position;
+        float angle = Vector3.Angle(targetDir, m_muzzle.forward);
+
+        return (angle < m_imprecision);
+    }
+
     protected virtual void Update()
 	{
         if (m_currentAmmoInClip == 0)
