@@ -175,6 +175,21 @@ public class AirEnemy : BaseEnemy
     }
     #endregion
 
+    protected override bool IsTargetInRange()
+    {
+        return Vector3.Distance(m_target.position, m_transform.position) <= m_maxAttackDistance;
+    }
+
+    protected override void AttackMode()
+    {
+        m_enemyState = EnemyState.EnemyState_Attacking;
+    }
+
+    protected override void ChaseMode()
+    {
+        m_enemyState = EnemyState.EnemyState_Moving;
+    }
+
     #region Updates
     protected override void Update()
     {
@@ -200,8 +215,6 @@ public class AirEnemy : BaseEnemy
                     if (m_currentTimeToAttack <= 0)
                     {
                         Fire();
-                        // play attack sound
-                        SoundManager.Instance.PlaySoundOnShot("mecha_placeholder_tir_4", m_weapons[0].m_shotSound);
                     }
                     break;
                 default:

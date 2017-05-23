@@ -6068,6 +6068,8 @@ MonoBehaviour:
   m_imprecision: 2
   Damage: 1
   ArmorPenetration: 1
+  m_maxAmmoInClip: -1
+  m_reloadTime: 0
   animator: {fileID: 95833256192588624}
   m_showLaser: 0
   m_triggerType: 1
@@ -6422,6 +6424,8 @@ MonoBehaviour:
   targetRight: {fileID: 4880806072056616}
   TargetBias: {x: 0, y: 0, z: 0}
   IkIntensity: 1
+  targetLeftOriginPos: {x: 0, y: 0, z: 0}
+  targetRightOriginPos: {x: 0, y: 0, z: 0}
 --- !u!114 &114231654191785512
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6661,14 +6665,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_mecha: {fileID: 114559335785910554}
+  m_inGame: 0
+  m_weaponsConnected: 0
   m_torso: {fileID: 114857813329560898}
+  m_torsoConnected: 0
   m_maxHorinzontalHeadAngle: 30
   m_maxVerticalHeadAngle: 75
   m_legs: {fileID: 0}
+  m_legsConnected: 0
   m_leftRay: {fileID: 114385721013008422}
   m_rightRay: {fileID: 114271186923557378}
   teleportIndication: {fileID: 1130852617182504, guid: 0f2c0091755bad046ae4dbc1ef0ae202,
     type: 2}
+  trackedDeviceMoveControllers: {fileID: 0}
+  MinimumAngleToRotate: 15
 --- !u!114 &114318321263737924
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6980,11 +6990,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_mecha: {fileID: 114559335785910554}
-  m_hud: {fileID: 225259500152994356}
+  m_inputs: {fileID: 0}
+  m_pauseMenu: {fileID: 0}
+  m_helmetHUD: {fileID: 0}
   m_integrityGaugeRight: {fileID: 114066222774366780}
   m_integrityGaugeLeft: {fileID: 114555891426696350}
   m_heatGaugeRight: {fileID: 114408073157488842}
   m_heatGaugeLeft: {fileID: 114670891966592850}
+  m_fps: {fileID: 0}
+  m_showFPS: 0
 --- !u!114 &114451505304620698
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7434,7 +7448,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_transform: {fileID: 0}
   m_maxHitPoints: 20
-  m_startingHitPoints: 20
   m_currentHitPoints: 0
   m_timeToDie: 1
   m_destructionSpawn: {fileID: 0}
@@ -7443,21 +7456,25 @@ MonoBehaviour:
   m_weapons:
   - {fileID: 114071044766833950}
   - {fileID: 114683643693230192}
+  m_inputs: {fileID: 0}
+  m_interface: {fileID: 0}
   m_bunker: {fileID: 0}
   m_torso: {fileID: 114857813329560898}
   m_legs: {fileID: 114561346829332340}
   meshRendererSeeTrough: {fileID: 23289389494668768}
+  audioSource: {fileID: 0}
 --- !u!114 &114561346829332340
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1724160809762176}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a9d7be8536a968c4e97249f44c356230, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_navmeshAgent: {fileID: 0}
   m_speed: 0
   DashSpeed: 0.5
   moveSystem: 0
@@ -7711,6 +7728,8 @@ MonoBehaviour:
   m_imprecision: 2
   Damage: 1
   ArmorPenetration: 1
+  m_maxAmmoInClip: -1
+  m_reloadTime: 0
   animator: {fileID: 95174519735781238}
   m_showLaser: 0
   m_triggerType: 1
@@ -8003,6 +8022,8 @@ MonoBehaviour:
   m_imprecision: 0
   Damage: 1
   ArmorPenetration: 1
+  m_maxAmmoInClip: 1
+  m_reloadTime: 2
   animator: {fileID: 0}
   m_showLaser: 0
 --- !u!114 &114761000973320412
@@ -8255,6 +8276,8 @@ MonoBehaviour:
   m_imprecision: 0
   Damage: 1
   ArmorPenetration: 1
+  m_maxAmmoInClip: 1
+  m_reloadTime: 2
   animator: {fileID: 0}
   m_showLaser: 0
 --- !u!114 &114911349503773926

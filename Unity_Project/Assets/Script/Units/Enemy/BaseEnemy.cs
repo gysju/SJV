@@ -16,6 +16,7 @@ public class BaseEnemy : BaseUnit
 
     protected Vector3? m_attackPosition = null;
 
+    protected float m_maxAttackDistance;
 
     [Header("Attack")]
     [Tooltip("Time the unit will take to shoot.")]
@@ -56,6 +57,9 @@ public class BaseEnemy : BaseUnit
         m_currentTimeToAttack = m_timeToAttack;
 		material = GetComponentInChildren<SkinnedMeshRenderer> ().material;
         audioSource = GetComponent<AudioSource>();
+
+        if(m_weapons.Count > 0)
+            m_maxAttackDistance = m_weapons[0].m_maxRange -2f;
 
         if (!m_poolManager) m_poolManager = FindObjectOfType<EnemiesManager>();
 		modelTransform = transform.FindChild ("Model");
@@ -147,6 +151,11 @@ public class BaseEnemy : BaseUnit
         }
     }
 
+    public virtual bool IsWeaponOnTarget()
+    {
+        return m_weapons[0].IsWeaponOnTarget(m_target.position);
+    }
+
     public void PressWeaponTrigger(int weaponID)
     {
         m_weapons[weaponID].TriggerPressed(null);
@@ -166,13 +175,43 @@ public class BaseEnemy : BaseUnit
     }
     #endregion
 
+    protected virtual bool IsTargetInRange()
+    {
+        return Vector3.Distance(m_target.position, m_transform.position) <= m_maxAttackDistance;
+    }
+
+    protected virtual bool IsTargetAimable()
+    {
+        return m_weapons[0].IsTargetAimable(m_target);
+    }
+
+    protected virtual void AttackMode()
+    {
+        m_enemyState = EnemyState.EnemyState_Attacking;
+    }
+
+    protected virtual void ChaseMode()
+    {
+        m_enemyState = EnemyState.EnemyState_Moving;
+    }
+
     #region Updates
     protected virtual void Update()
     {
-        //if (!m_destroyed)
-        //{
-
-        //}
+        if (!m_destroyed)
+        {
+            if (m_enemyState != EnemyState.EnemyState_Sleep)
+            {
+                if (IsTargetInRange() && IsTargetAimable())
+                {
+                    AttackMode();
+                }
+                else
+                {
+                    ChaseMode();
+                }
+            }
+        }
     }
 
 	void StartDeathFade()
@@ -199,7 +238,7 @@ public class BaseEnemy : BaseUnit
 		while( time < DeathfadeSpeed )
 		{
 			time += Time.deltaTime;
-			material.SetFloat("_AlphaValue", Mathf.Lerp(0.0f, 1.0f, (time / DeathfadeSpeed))); 
+			material.SetFloat("_AlphaValue", Mathf.Lerp(0.0f, 1.0f, (time / DeathfadeSpeed)));
 			yield return null; 	
 		}
 	}

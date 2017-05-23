@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 4837159703314370}
   - component: {fileID: 82111103603893030}
   m_Layer: 11
-  m_Name: ShotSound
+  m_Name: AudioSource
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -675,13 +675,16 @@ MonoBehaviour:
   m_muzzle: {fileID: 4973847733580798}
   m_muzzleFlash: {fileID: 198799847368667708}
   m_shellParticles: {fileID: 0}
-  m_shotSound: {fileID: 82111103603893030}
+  m_shotSoundName: 
+  audioSource: {fileID: 82111103603893030}
   m_vibrationDuration: 0
   m_vibrationPower: 0
   m_maxRange: 30
   m_imprecision: 0
   Damage: 2
   ArmorPenetration: 1
+  m_maxAmmoInClip: 1
+  m_reloadTime: 2
   animator: {fileID: 0}
   m_showLaser: 0
 --- !u!137 &137565727386917128
