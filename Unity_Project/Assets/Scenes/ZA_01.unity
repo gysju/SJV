@@ -4453,6 +4453,48 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9ce4d2d5e2b96334c97cd5235a861afb, type: 3}
   m_IsPrefabParent: 0
+--- !u!1001 &281448280
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4049028469801646, guid: cb9d5156ede8e7f47879dce09b40d7dc, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 113.47883
+      objectReference: {fileID: 0}
+    - target: {fileID: 4049028469801646, guid: cb9d5156ede8e7f47879dce09b40d7dc, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 21.148888
+      objectReference: {fileID: 0}
+    - target: {fileID: 4049028469801646, guid: cb9d5156ede8e7f47879dce09b40d7dc, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 49.266262
+      objectReference: {fileID: 0}
+    - target: {fileID: 4049028469801646, guid: cb9d5156ede8e7f47879dce09b40d7dc, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4049028469801646, guid: cb9d5156ede8e7f47879dce09b40d7dc, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4049028469801646, guid: cb9d5156ede8e7f47879dce09b40d7dc, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4049028469801646, guid: cb9d5156ede8e7f47879dce09b40d7dc, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4049028469801646, guid: cb9d5156ede8e7f47879dce09b40d7dc, type: 2}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: cb9d5156ede8e7f47879dce09b40d7dc, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1001 &285255112
 Prefab:
   m_ObjectHideFlags: 0
@@ -11416,177 +11458,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.3, y: 0.55, z: 1.3}
   m_Center: {x: 0, y: 1.9, z: 0}
---- !u!1 &593743835
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 593743837}
-  - component: {fileID: 593743836}
-  m_Layer: 0
-  m_Name: '[SOUNDMANAGER]'
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &593743836
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 593743835}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be97061c99b9f7042b2c4c394bec2466, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Sounds:
-  - Name: mecha_placeholder_alarm
-    audioClip: {fileID: 8300000, guid: 28b7d8bd92c8c04428cf82f9750d6201, type: 3}
-    Volume: 0.373
-    Pitch: {x: 0, y: 0}
-    SpatialBlend: 0.34
-  - Name: mecha_placeholder_amb_elec
-    audioClip: {fileID: 8300000, guid: b44c8cd69fc25c34bb0e9ce2f5382f27, type: 3}
-    Volume: 0
-    Pitch: {x: 0, y: 0}
-    SpatialBlend: 0
-  - Name: mecha_placeholder_amb_mech
-    audioClip: {fileID: 8300000, guid: 2d84b7630982160458b43bd71a2568f8, type: 3}
-    Volume: 0
-    Pitch: {x: 0, y: 0}
-    SpatialBlend: 0
-  - Name: mecha_placeholder_araignee
-    audioClip: {fileID: 8300000, guid: dcd7684db463fab4daa684d3ca15e653, type: 3}
-    Volume: 0
-    Pitch: {x: 0, y: 0}
-    SpatialBlend: 0
-  - Name: mecha_placeholder_atterissage
-    audioClip: {fileID: 8300000, guid: a8e3ec560800b6a4eaedce51456ff0b0, type: 3}
-    Volume: 0
-    Pitch: {x: 0, y: 0}
-    SpatialBlend: 0
-  - Name: mecha_placeholder_bras
-    audioClip: {fileID: 8300000, guid: b44041a892cdff741b69297da4ba8c11, type: 3}
-    Volume: 0
-    Pitch: {x: 0, y: 0}
-    SpatialBlend: 0
-  - Name: mecha_placeholder_cockpit
-    audioClip: {fileID: 8300000, guid: 64d987243dadc9d40bf788e8d49cfcfe, type: 3}
-    Volume: 0
-    Pitch: {x: 0, y: 0}
-    SpatialBlend: 0
-  - Name: mecha_placeholder_die
-    audioClip: {fileID: 8300000, guid: 88a04b62d02d3df4a8ce589308cc51e5, type: 3}
-    Volume: 0
-    Pitch: {x: 0, y: 0}
-    SpatialBlend: 0
-  - Name: mecha_placeholder_drone
-    audioClip: {fileID: 8300000, guid: c0f0db1faefb9da4299d040d0ee1a64a, type: 3}
-    Volume: 0
-    Pitch: {x: 0, y: 0}
-    SpatialBlend: 0
-  - Name: mecha_placeholder_explosion
-    audioClip: {fileID: 8300000, guid: 99c86a3e3bf884e40b7b51eb22bad405, type: 3}
-    Volume: 0
-    Pitch: {x: 0, y: 0}
-    SpatialBlend: 0
-  - Name: mecha_placeholder_fumee
-    audioClip: {fileID: 8300000, guid: 0cbba45f06199c644ad3438d5732c244, type: 3}
-    Volume: 0
-    Pitch: {x: 0, y: 0}
-    SpatialBlend: 0
-  - Name: mecha_placeholder_lave
-    audioClip: {fileID: 8300000, guid: 429ddd9a7bf8a6446a25677f6b171539, type: 3}
-    Volume: 0.759
-    Pitch: {x: 0.7, y: 1}
-    SpatialBlend: 1
-  - Name: mecha_placeholder_musique
-    audioClip: {fileID: 8300000, guid: 4d85aec21130d724895743fb67392044, type: 3}
-    Volume: 0
-    Pitch: {x: 0, y: 0}
-    SpatialBlend: 0
-  - Name: mecha_placeholder_rafale
-    audioClip: {fileID: 8300000, guid: 29cca24656a05d54c86592caa7001a0b, type: 3}
-    Volume: 0
-    Pitch: {x: 0, y: 0}
-    SpatialBlend: 0
-  - Name: mecha_placeholder_soucoupe
-    audioClip: {fileID: 8300000, guid: c2643ad3e5994cf47962d2e568dc24be, type: 3}
-    Volume: 0
-    Pitch: {x: 0, y: 0}
-    SpatialBlend: 0
-  - Name: mecha_placeholder_surchauffe
-    audioClip: {fileID: 8300000, guid: ba77d76b54793b049b574e4f8c2d56e2, type: 3}
-    Volume: 0
-    Pitch: {x: 0, y: 0}
-    SpatialBlend: 0
-  - Name: mecha_placeholder_tir_1
-    audioClip: {fileID: 8300000, guid: 2ee9ef1290e1e8b45aa4dffc61071f65, type: 3}
-    Volume: 0
-    Pitch: {x: 0, y: 0}
-    SpatialBlend: 0
-  - Name: mecha_placeholder_tir_2
-    audioClip: {fileID: 8300000, guid: b66a196dc8144ab4d8abe0417c48b86d, type: 3}
-    Volume: 0
-    Pitch: {x: 0, y: 0}
-    SpatialBlend: 0
-  - Name: mecha_placeholder_tir_3
-    audioClip: {fileID: 8300000, guid: 108357a7d50f9914f8f688c0090d43e5, type: 3}
-    Volume: 0
-    Pitch: {x: 0, y: 0}
-    SpatialBlend: 0
-  - Name: mecha_placeholder_tir_4
-    audioClip: {fileID: 8300000, guid: be4a629d99d8f2949accbddf187ec8d4, type: 3}
-    Volume: 0
-    Pitch: {x: 0, y: 0}
-    SpatialBlend: 0
-  - Name: mecha_placeholder_UI_1
-    audioClip: {fileID: 8300000, guid: 1e222d37d3e12c34a90c17cf8998c0ab, type: 3}
-    Volume: 0
-    Pitch: {x: 0, y: 0}
-    SpatialBlend: 0
-  - Name: mecha_placeholder_UI_2
-    audioClip: {fileID: 8300000, guid: 148ecc3758bd34b4d83bde63c76bf738, type: 3}
-    Volume: 0
-    Pitch: {x: 0, y: 0}
-    SpatialBlend: 0
-  - Name: mecha_placeholder_UI_3
-    audioClip: {fileID: 8300000, guid: b449410cc2ad87d4a873a7bcb1f43426, type: 3}
-    Volume: 0
-    Pitch: {x: 0, y: 0}
-    SpatialBlend: 0
-  - Name: mecha_placeholder_vox_ready
-    audioClip: {fileID: 8300000, guid: 3e0cf9311ac9fa34d81ed3e4bb85d3b7, type: 3}
-    Volume: 0
-    Pitch: {x: 0, y: 0}
-    SpatialBlend: 0
-  - Name: mecha_placeholder_vox_reload
-    audioClip: {fileID: 8300000, guid: b7ef70770c5d34944838be95bcd74620, type: 3}
-    Volume: 0
-    Pitch: {x: 0, y: 0}
-    SpatialBlend: 0
-  - Name: mecha_placeholder_wagon
-    audioClip: {fileID: 8300000, guid: 8665e7248291d2f4d839c7c39f6caca6, type: 3}
-    Volume: 0
-    Pitch: {x: 0, y: 0}
-    SpatialBlend: 0
---- !u!4 &593743837
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 593743835}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 113.47883, y: 21.148888, z: 49.266262}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &601035976 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 17869810e04b28d4ca7c7d0d0d0262f0, type: 3}
@@ -23168,6 +23039,7 @@ MonoBehaviour:
   m_playerMovement: 0
   m_backgroundCamera: 1
   m_enemiesManager: {fileID: 1457809897}
+  m_instaStart: 1
   m_timeBeforeEndZA: 5
   m_testMode: 0
 --- !u!1001 &1328938507
@@ -28867,67 +28739,9 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 114975089312651106, guid: d6b8b5c3aa548af40ac302f6dff8b285,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114173203132878334, guid: d6b8b5c3aa548af40ac302f6dff8b285,
-        type: 2}
-      propertyPath: m_showFPS
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114923852363382014, guid: d6b8b5c3aa548af40ac302f6dff8b285,
-        type: 2}
-      propertyPath: m_FontData.m_FontSize
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 114923852363382014, guid: d6b8b5c3aa548af40ac302f6dff8b285,
-        type: 2}
-      propertyPath: m_FontData.m_MinSize
-      value: 2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d6b8b5c3aa548af40ac302f6dff8b285, type: 2}
   m_IsPrefabParent: 0
---- !u!114 &1690863426 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114888420362299076, guid: d6b8b5c3aa548af40ac302f6dff8b285,
-    type: 2}
-  m_PrefabInternal: {fileID: 1690863425}
-  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
---- !u!114 &1690863427 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114968740009067466, guid: d6b8b5c3aa548af40ac302f6dff8b285,
-    type: 2}
-  m_PrefabInternal: {fileID: 1690863425}
-  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
---- !u!1 &1690863428 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1052961062387276, guid: d6b8b5c3aa548af40ac302f6dff8b285,
-    type: 2}
-  m_PrefabInternal: {fileID: 1690863425}
---- !u!114 &1690863429
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1690863428}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a73f83951baab2a48a48730c5f11516f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  root: 2
-  gameplay: 2
-  menu: 1
-  setupScene: 0
-  intro: 0
-  titleText: {fileID: 0}
-  descriptionText: {fileID: 0}
-  textButton:
-  - {fileID: 1690863427}
-  - {fileID: 1690863426}
 --- !u!1001 &1692530538
 Prefab:
   m_ObjectHideFlags: 0

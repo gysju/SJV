@@ -52,7 +52,7 @@ public class AutomaticWeapon : SemiAutomaticWeapon
         m_isFiring = false;
 
         // play overheat sound
-        SoundManager.Instance.PlaySoundOnShot("mecha_placeholder_surchauffe", m_shotSound);
+        SoundManager.Instance.PlaySoundOnShot("mecha_placeholder_surchauffe", audioSource);
     }
 
     public override void TriggerPressed(MoveController moveController = null)
@@ -94,8 +94,10 @@ public class AutomaticWeapon : SemiAutomaticWeapon
         return m_currentHeat;
     }
 
-    protected void Update()
+    protected override void Update()
     {
+        base.Update();
+
         switch (m_triggerType)
         {
             case WeaponTriggerType.SemiAutomatic:

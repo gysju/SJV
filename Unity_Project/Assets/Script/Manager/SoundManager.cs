@@ -14,6 +14,8 @@ public class SoundManager : MonoBehaviour
         
         [Range(0, 1)]
         public float Volume;
+        [Range(0, 256)]
+        public int priority;
         public Vector2 Pitch;
         private float currentPitch; // not currently used
 
@@ -71,6 +73,7 @@ public class SoundManager : MonoBehaviour
             s.Volume = source.volume;
             source.pitch = Random.Range(s.Pitch.x, s.Pitch.y);
             source.spatialBlend = s.SpatialBlend;
+            source.priority = s.priority;
 
             source.Play();
             if (FadeIn)
@@ -96,6 +99,7 @@ public class SoundManager : MonoBehaviour
             source.volume = s.Volume;
             source.pitch = Random.Range(s.Pitch.x, s.Pitch.y);
             source.spatialBlend = s.SpatialBlend;
+            source.priority = s.priority;
 
             source.PlayOneShot(s.audioClip, s.Volume);
         }
@@ -177,7 +181,7 @@ public class SoundManager : MonoBehaviour
             }
             if (check)
             {
-                Sound snd = new Sound { Name = audioClip[i].name };
+                Sound snd = new Sound { Name = audioClip[i].name, Volume = 1.0f, Pitch = new Vector2(1,1), SpatialBlend = 1.0f, priority = 128 };
                 snd.audioClip = audioClip[i];
                 Sounds.Add(snd);
             }

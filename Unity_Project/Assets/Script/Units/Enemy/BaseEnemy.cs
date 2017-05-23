@@ -16,6 +16,7 @@ public class BaseEnemy : BaseUnit
 
     protected Vector3? m_attackPosition = null;
 
+    protected float m_maxAttackDistance;
 
     [Header("Attack")]
     [Tooltip("Time the unit will take to shoot.")]
@@ -56,6 +57,8 @@ public class BaseEnemy : BaseUnit
         m_currentTimeToAttack = m_timeToAttack;
 		material = GetComponentInChildren<SkinnedMeshRenderer> ().material;
         audioSource = GetComponent<AudioSource>();
+
+        m_maxAttackDistance = m_weapons[0].m_maxRange -2f;
 
         if (!m_poolManager) m_poolManager = FindObjectOfType<EnemiesManager>();
 		modelTransform = transform.FindChild ("Model");
@@ -166,13 +169,38 @@ public class BaseEnemy : BaseUnit
     }
     #endregion
 
+    protected virtual bool IsEnemyInRange()
+    {
+        return Vector3.Distance(m_target.position, m_transform.position) <= m_maxAttackDistance;
+    }
+
+    protected virtual void AttackMode()
+    {
+        m_enemyState = EnemyState.EnemyState_Attacking;
+    }
+
+    protected virtual void ChaseMode()
+    {
+        m_enemyState = EnemyState.EnemyState_Moving;
+    }
+
     #region Updates
     protected virtual void Update()
     {
-        //if (!m_destroyed)
-        //{
-
-        //}
+        if (!m_destroyed)
+        {
+            if (m_enemyState != EnemyState.EnemyState_Sleep)
+            {
+                if (IsEnemyInRange())
+                {
+                    AttackMode();
+                }
+                else
+                {
+                    ChaseMode();
+                }
+            }
+        }
     }
 
 	void StartDeathFade()

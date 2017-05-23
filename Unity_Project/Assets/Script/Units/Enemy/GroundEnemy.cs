@@ -79,12 +79,13 @@ public class GroundEnemy : BaseEnemy
         return false;
     }
 
-    protected void MovementOver()
+    protected override void AttackMode()
     {
         m_enemyState = EnemyState.EnemyState_Attacking;
         AimWeaponAt(m_target.position);
         LaserOn();
 		if (m_animator) m_animator.SetTrigger("Idle");
+        CompleteStop();
     }
 
     protected void CompleteStop()
@@ -98,9 +99,7 @@ public class GroundEnemy : BaseEnemy
     protected void Fire()
     {
         PressWeaponTrigger(0);
-        m_currentTimeToAttack = m_timeToAttack;
-        // play attack sound
-        SoundManager.Instance.PlaySoundOnShot("mecha_placeholder_tir_2", m_weapons[0].m_shotSound);
+        //m_currentTimeToAttack = m_timeToAttack;
     }
     #endregion
 
@@ -121,7 +120,7 @@ public class GroundEnemy : BaseEnemy
                 case EnemyState.EnemyState_Moving:
                     if (IsPathCompleted())
                     {
-                        MovementOver();
+                        AttackMode();
                     }
                     break;
                 case EnemyState.EnemyState_Attacking:

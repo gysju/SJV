@@ -26,18 +26,13 @@ public class LaserPointingSystem : MonoBehaviour {
 
 	private MoveController move;
 	private Button buttonSelected;
-    private int count; 
 	private Transform ThisTransform;
-
-    private bool positionIsCorrect = false;
-    //private NavMeshHit hitTeleport;
 
     void Start () 
 	{
 		eventSystem =  GameObject.Find("EventSystem").GetComponent<EventSystem>();
 		lineRenderer = GetComponent<LineRenderer> ();
 		move = GetComponent<MoveController> ();
-		count = move.MoveIndex;
 		ThisTransform = transform;
     }
 

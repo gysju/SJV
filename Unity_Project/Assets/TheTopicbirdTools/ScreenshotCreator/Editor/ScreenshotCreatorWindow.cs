@@ -18,7 +18,7 @@ public class ScreenshotCreatorWindow : EditorWindow {
 	int captureSizeMultiplier = 1;
 	Vector2 cutoutPosition;
 	Vector2 cutoutSize;
-	GUIStyle cutoutBoxStyle = null;
+	//GUIStyle cutoutBoxStyle = null;
 	string customName = "";
 	string customDirectory = "";
 

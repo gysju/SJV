@@ -121,6 +121,7 @@ GameObject:
   - component: {fileID: 222276402664126234}
   - component: {fileID: 225792674323644682}
   - component: {fileID: 114728851853311000}
+  - component: {fileID: 114990827852291468}
   m_Layer: 5
   m_Name: PauseMenu
   m_TagString: Untagged
@@ -640,7 +641,7 @@ GameObject:
   - component: {fileID: 4846780276634274}
   - component: {fileID: 82310893859135006}
   m_Layer: 12
-  m_Name: ShotSound
+  m_Name: AudioSource
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2327,7 +2328,7 @@ GameObject:
   - component: {fileID: 4183397272862060}
   - component: {fileID: 82173667760585244}
   m_Layer: 12
-  m_Name: ShotSound
+  m_Name: AudioSource
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6298,7 +6299,7 @@ MonoBehaviour:
   m_heatGaugeRight: {fileID: 114826849353240236}
   m_heatGaugeLeft: {fileID: 114566422838919998}
   m_fps: {fileID: 1958091170356242}
-  m_showFPS: 0
+  m_showFPS: 1
 --- !u!114 &114192120385039896
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6622,6 +6623,8 @@ MonoBehaviour:
   m_leftRay: {fileID: 114684301717258418}
   m_rightRay: {fileID: 114119095498150152}
   teleportIndication: {fileID: 1502810139763784}
+  trackedDeviceMoveControllers: {fileID: 0}
+  MinimumAngleToRotate: 15
 --- !u!114 &114304163201339920
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6812,13 +6815,16 @@ MonoBehaviour:
   m_muzzle: {fileID: 4528374696152986}
   m_muzzleFlash: {fileID: 198864429936260128}
   m_shellParticles: {fileID: 198922815795750528}
-  m_shotSound: {fileID: 82173667760585244}
+  m_shotSoundName: 
+  audioSource: {fileID: 82173667760585244}
   m_vibrationDuration: 0.3
   m_vibrationPower: 100
   m_maxRange: 100
   m_imprecision: 2
   Damage: 1
   ArmorPenetration: 1
+  m_maxAmmoInClip: -1
+  m_reloadTime: 0
   animator: {fileID: 95992481650113278}
   m_showLaser: 0
   m_triggerType: 1
@@ -7231,6 +7237,8 @@ MonoBehaviour:
   targetRight: {fileID: 4380204253125406}
   TargetBias: {x: 0, y: 1, z: 0}
   IkIntensity: 1
+  targetLeftOriginPos: {x: 0, y: 0, z: 0}
+  targetRightOriginPos: {x: 0, y: 0, z: 0}
 --- !u!114 &114579496738438746
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7368,13 +7376,16 @@ MonoBehaviour:
   m_muzzle: {fileID: 4403399535513994}
   m_muzzleFlash: {fileID: 198224422375793966}
   m_shellParticles: {fileID: 198981147742606674}
-  m_shotSound: {fileID: 82310893859135006}
+  m_shotSoundName: 
+  audioSource: {fileID: 82310893859135006}
   m_vibrationDuration: 0.3
   m_vibrationPower: 100
   m_maxRange: 100
   m_imprecision: 2
   Damage: 1
   ArmorPenetration: 1
+  m_maxAmmoInClip: -1
+  m_reloadTime: 0
   animator: {fileID: 95041714718942026}
   m_showLaser: 0
   m_triggerType: 1
@@ -7883,10 +7894,10 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 25
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -8102,6 +8113,27 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114990827852291468
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1052961062387276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a73f83951baab2a48a48730c5f11516f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  root: 2
+  gameplay: 2
+  menu: 1
+  setupScene: 0
+  intro: 0
+  titleText: {fileID: 0}
+  descriptionText: {fileID: 0}
+  textButton:
+  - {fileID: 114968740009067466}
+  - {fileID: 114888420362299076}
 --- !u!120 &120327991552371048
 LineRenderer:
   m_ObjectHideFlags: 1

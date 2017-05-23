@@ -16,7 +16,8 @@ public class BaseWeapon : MonoBehaviour
     public ParticleSystem m_shellParticles;
 
     [Tooltip("Sound effect when firing.")]
-    public AudioSource m_shotSound;
+    public string m_shotSoundName;
+    public AudioSource audioSource;
 
     public float m_vibrationDuration;
     public int m_vibrationPower;
@@ -32,13 +33,21 @@ public class BaseWeapon : MonoBehaviour
     public int Damage = 1;
     public int ArmorPenetration = 1;
 
+    public int m_maxAmmoInClip = 1;
+    protected int m_currentAmmoInClip;
+
+    public float m_reloadTime = 2f;
+    protected float m_currentReloadTime;
+
 	public Animator animator;
 
     public bool m_showLaser = false;
 
     protected virtual void Start()
     {
-        if (!m_shotSound) m_shotSound = GetComponent<AudioSource>();
+        m_currentAmmoInClip = m_maxAmmoInClip;
+
+        m_currentReloadTime = m_reloadTime;
     }
 
     protected virtual void BulletHitParticle(RaycastHit hit)
@@ -141,8 +150,16 @@ public class BaseWeapon : MonoBehaviour
         return 0f;
     }
 
-    void Update ()
+    protected virtual void Update()
 	{
-        
+        if (m_currentAmmoInClip == 0)
+        {
+            m_currentReloadTime -= Time.deltaTime;
+            if (m_currentReloadTime <= 0f)
+            {
+                m_currentAmmoInClip = m_maxAmmoInClip;
+                m_currentReloadTime = m_reloadTime;
+            }
+        }
 	}
 }
