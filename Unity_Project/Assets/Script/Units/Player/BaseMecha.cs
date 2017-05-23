@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class BaseMecha : BaseUnit
 {
@@ -31,6 +32,12 @@ public class BaseMecha : BaseUnit
     [HideInInspector]
     public AsyncOperation m_levelLoading = null;
     public AudioSource audioSource;
+
+    public Vector3 InitialLeftGunPos;
+    public Vector3 InitialRightGunPos;
+
+    public Quaternion InitialLeftGunRot;
+    public Quaternion InitialRightGunRot;
 
     public static BaseMecha instance // qu'est ce que c'est que ce truc ?!
     {
@@ -69,7 +76,21 @@ public class BaseMecha : BaseUnit
 				speedHit = SeeTroughMaterial.GetFloat ("_HitSpeed");
 				radiusMax = SeeTroughMaterial.GetFloat ("_RadiusMax");
 			}
-			
+
+            InitialLeftGunPos = m_leftWeapon.transform.localPosition;
+            InitialLeftGunRot = m_leftWeapon.transform.localRotation;
+
+            InitialRightGunPos = m_rightWeapon.transform.localPosition;
+            InitialRightGunRot = m_rightWeapon.transform.localRotation;
+
+            SceneManager.sceneLoaded += delegate {
+                m_leftWeapon.transform.localPosition = InitialLeftGunPos;
+                m_leftWeapon.transform.localRotation = InitialLeftGunRot;
+
+                m_rightWeapon.transform.localPosition = InitialRightGunPos;
+                m_rightWeapon.transform.localRotation = InitialRightGunRot;
+            };
+
             LaserOn();
         } 
 		else if ( _instance != this )
