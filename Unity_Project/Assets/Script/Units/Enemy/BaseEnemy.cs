@@ -18,11 +18,11 @@ public class BaseEnemy : BaseUnit
 
     protected float m_maxAttackDistance;
 
-    [Header("Attack")]
-    [Tooltip("Time the unit will take to shoot.")]
-    [Range(1f, 5f)]
-    public float m_timeToAttack = 2f;
-    protected float m_currentTimeToAttack;
+    //[Header("Attack")]
+    //[Tooltip("Time the unit will take to shoot.")]
+    //[Range(1f, 5f)]
+    //public float m_timeToAttack = 2f;
+    //protected float m_currentTimeToAttack;
 
     protected Transform m_target;
 
@@ -54,7 +54,7 @@ public class BaseEnemy : BaseUnit
     protected override void Awake()
     {
         base.Awake();
-        m_currentTimeToAttack = m_timeToAttack;
+        //m_currentTimeToAttack = m_timeToAttack;
 		material = GetComponentInChildren<SkinnedMeshRenderer> ().material;
         audioSource = GetComponent<AudioSource>();
 

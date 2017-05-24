@@ -140,6 +140,11 @@ public class AirEnemy : BaseEnemy
         if (IsPathCompleted(movementTarget)) m_attackPosition = (test) + Random.insideUnitSphere * 5f;
     }
 
+    protected void MoveToTarget()
+    {
+        CloseDistanceMovementUpdate(Camera.main.transform.position + (new Vector3(m_target.forward.x, 0f, m_target.forward.z) * 10f) + (Random.insideUnitSphere * 2));
+    }
+
     protected void Brake()
     {
         m_movement = Vector3.SmoothDamp(m_movement, Vector3.zero, ref m_movement, 0.05f);
@@ -161,17 +166,18 @@ public class AirEnemy : BaseEnemy
     protected void Fire()
     {
         PressWeaponTrigger(0);
-        m_currentTimeToAttack = m_timeToAttack;
+        //m_currentTimeToAttack = m_timeToAttack;
     }
 
     protected void TurnTowardTarget(Vector3 targetPosition)
     {
-        Vector3 movementDirection = ((targetPosition) - m_transform.position).normalized;
+        Vector3 rotationDirection = ((targetPosition) - m_transform.position).normalized;
+        rotationDirection.y = 0f;
         //Vector3 rotationVector = movementDirection;
         //rotationVector.y = 0;
         //Quaternion rotation = Quaternion.LookRotation(movementDirection);
         //transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * m_rotationSpeed);
-        transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(m_transform.forward, movementDirection, m_rotationSpeed * Time.deltaTime, 0f));
+        m_transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(m_transform.forward, rotationDirection, m_rotationSpeed * Time.deltaTime, 0f));
     }
     #endregion
 
@@ -206,13 +212,16 @@ public class AirEnemy : BaseEnemy
                     break;
                 case EnemyState.EnemyState_Moving:
                     LongDistanceMovementUpdate(m_attackPosition.Value);
+                    //CloseDistanceMovementUpdate(m_attackPosition.Value);
                     break;
                 case EnemyState.EnemyState_Attacking:
                     TurnTowardTarget(m_target.position);
-                    CloseDistanceMovementUpdate(m_attackPosition.Value);
-                    AimWeaponAt(m_target.position + Random.insideUnitSphere * 2);
-                    m_currentTimeToAttack -= Time.deltaTime;
-                    if (m_currentTimeToAttack <= 0)
+                    CloseDistanceMovementUpdate(m_attackPosition.Value );
+                    //MoveToTarget();
+                    AimWeaponAt(m_target.position);
+                    //m_currentTimeToAttack -= Time.deltaTime;
+                    //if (m_currentTimeToAttack <= 0)
+                    //if (IsWeaponOnTarget())
                     {
                         Fire();
                     }
