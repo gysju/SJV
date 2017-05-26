@@ -14,8 +14,6 @@ public class BaseEnemy : BaseUnit
     }
     protected EnemyState m_enemyState = EnemyState.EnemyState_Sleep;
 
-    protected Vector3? m_attackPosition = null;
-
     protected float m_maxAttackDistance;
 
     //[Header("Attack")]
@@ -24,7 +22,9 @@ public class BaseEnemy : BaseUnit
     //public float m_timeToAttack = 2f;
     //protected float m_currentTimeToAttack;
 
-    protected Transform m_target;
+    protected BaseMecha m_player;
+    
+    protected Transform m_weaponsTarget;
 
 	public float DeathfadeSpeed = 1.0f;
 
@@ -58,20 +58,22 @@ public class BaseEnemy : BaseUnit
 		material = GetComponentInChildren<SkinnedMeshRenderer> ().material;
         audioSource = GetComponent<AudioSource>();
 
-        if(m_weapons.Count > 0)
+        m_player = BaseMecha.instance;
+
+        if (m_weapons.Count > 0)
             m_maxAttackDistance = m_weapons[0].m_maxRange -2f;
 
         if (!m_poolManager) m_poolManager = FindObjectOfType<EnemiesManager>();
 		modelTransform = transform.FindChild ("Model");
     }
 
-    public virtual void ResetUnit(Vector3 spawn, Vector3 movementTarget, Transform target)
+    public virtual void ResetUnit(Vector3 spawnPosition, Vector3 spawnRotation)
     {
-        m_transform.position = spawn;
+        m_transform.position = spawnPosition;
 
-        m_attackPosition = movementTarget;
+        m_transform.rotation = Quaternion.Euler(spawnRotation);
 
-        m_target = target;
+        ChooseTargets();
 
         m_currentHitPoints = m_maxHitPoints;
 
@@ -89,6 +91,11 @@ public class BaseEnemy : BaseUnit
 		//}
         StartCoroutine (SpawnFade ());
     }
+
+    protected virtual void ChooseTargets()
+    {
+        m_weaponsTarget = m_player.m_targetPoint;
+    }
     #endregion
 
     #region HitPoints Related
@@ -105,12 +112,11 @@ public class BaseEnemy : BaseUnit
     /// <summary>A appeler à la mort de l'unité.</summary>
     protected override void StartDying()
     {
-        m_attackPosition = null;
-        m_target = null;
+        m_weaponsTarget = null;
         m_enemyState = EnemyState.EnemyState_Sleep;
 		HUD_Radar.Instance.RemoveInfo (this);
         LaserOff();
-		//StartCoroutine (DeathFade());
+
         base.StartDying();
     }
 
@@ -153,7 +159,7 @@ public class BaseEnemy : BaseUnit
 
     public virtual bool IsWeaponOnTarget()
     {
-        return m_weapons[0].IsWeaponOnTarget(m_target.position);
+        return m_weapons[0].IsWeaponOnTarget(m_weaponsTarget.position);
     }
 
     public void PressWeaponTrigger(int weaponID)
@@ -177,12 +183,12 @@ public class BaseEnemy : BaseUnit
 
     protected virtual bool IsTargetInRange()
     {
-        return Vector3.Distance(m_target.position, m_transform.position) <= m_maxAttackDistance;
+        return Vector3.Distance(m_weaponsTarget.position, m_transform.position) <= m_maxAttackDistance;
     }
 
     protected virtual bool IsTargetAimable()
     {
-        return m_weapons[0].IsTargetAimable(m_target);
+        return m_weapons[0].IsTargetAimable(m_weaponsTarget);
     }
 
     protected virtual void AttackMode()
