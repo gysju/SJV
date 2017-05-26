@@ -24,6 +24,8 @@ public class BaseEnemy : BaseUnit
     //public float m_timeToAttack = 2f;
     //protected float m_currentTimeToAttack;
 
+    protected BaseMecha m_player;
+    
     protected Transform m_target;
 
 	public float DeathfadeSpeed = 1.0f;
@@ -65,13 +67,15 @@ public class BaseEnemy : BaseUnit
 		modelTransform = transform.FindChild ("Model");
     }
 
-    public virtual void ResetUnit(Vector3 spawn, Vector3 movementTarget, Transform target)
+    public virtual void ResetUnit(Vector3 spawn, Vector3 movementTarget)
     {
         m_transform.position = spawn;
 
         m_attackPosition = movementTarget;
 
-        m_target = target;
+        m_player = BaseMecha.instance;
+
+        m_target = m_player.m_targetPoint;
 
         m_currentHitPoints = m_maxHitPoints;
 

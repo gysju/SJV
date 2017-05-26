@@ -158,7 +158,7 @@ public class EnemiesManager : MonoBehaviour
 
                     m_activeEnemies.Add(newEnemy);
                     currentWave.AddEnemy(newEnemy);
-                    newEnemy.ResetUnit(spawn.SpawnPosition, spawn.AttackPosition, m_player.m_targetPoint);
+                    newEnemy.ResetUnit(spawn.SpawnPosition, spawn.AttackPosition);
                 }
 
                 if (waveSurvey)

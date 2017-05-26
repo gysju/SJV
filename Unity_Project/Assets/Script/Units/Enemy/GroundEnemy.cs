@@ -29,9 +29,9 @@ public class GroundEnemy : BaseEnemy
         if(m_attackPosition.HasValue) m_navMeshAgent.SetDestination(m_attackPosition.Value);
     }
 
-    public override void ResetUnit(Vector3 spawn, Vector3 movementTarget, Transform target)
+    public override void ResetUnit(Vector3 spawn, Vector3 movementTarget)
     {
-        base.ResetUnit(spawn, movementTarget, target);
+        base.ResetUnit(spawn, movementTarget);
 		m_navMeshAgent.enabled = true;
 		//if(m_attackPosition.HasValue) m_navMeshAgent.SetDestination(m_attackPosition.Value);
     }

@@ -39,9 +39,9 @@ public class AirEnemy : BaseEnemy
         if (m_attackPosition.HasValue) StartMovement();
     }
 
-    public override void ResetUnit(Vector3 spawn, Vector3 movementTarget, Transform target)
+    public override void ResetUnit(Vector3 spawn, Vector3 movementTarget)
     {
-        base.ResetUnit(spawn, movementTarget, target);
+        base.ResetUnit(spawn, movementTarget);
     }
     #endregion
 
