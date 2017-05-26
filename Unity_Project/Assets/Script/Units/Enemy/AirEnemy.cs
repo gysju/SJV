@@ -10,7 +10,7 @@ public class AirEnemy : BaseEnemy
     public float m_acceleration = 8f;
     public float m_rotationSpeed = 1f;
     
-    protected Vector3? m_attackPosition = null;
+    protected Transform m_attackPosition = null;
     protected Vector3? m_evasivePosition = null;
 
     protected Vector3 m_movement;
@@ -43,7 +43,7 @@ public class AirEnemy : BaseEnemy
     protected override void ChooseTargets()
     {
         m_weaponsTarget = m_player.m_targetPoint;
-        m_attackPosition = m_player.m_attackZone[0].position;
+        m_attackPosition = m_player.m_attackZoneManager.betterZone.m_transform;
         m_evasivePosition = null;
     }
     #endregion
@@ -114,7 +114,7 @@ public class AirEnemy : BaseEnemy
 
     protected void ChooseEvasivePosition()
     {
-        m_evasivePosition = (m_attackPosition.Value) + Random.insideUnitSphere * 5f;
+        m_evasivePosition = (m_attackPosition.position) + Random.insideUnitSphere * 5f;
     }
 
     protected void EvasiveManeuvers(Vector3 movementTarget)
@@ -214,18 +214,18 @@ public class AirEnemy : BaseEnemy
             switch (m_enemyState)
             {
                 case EnemyState.EnemyState_Sleep:
-                    if (m_attackPosition.HasValue)
+                    if (m_attackPosition)
                     {
                         StartMovement();
                     }
                     break;
                 case EnemyState.EnemyState_Moving:
-                    PlaneMovementUpdate(m_attackPosition.Value);
-                    //CloseDistanceMovementUpdate(m_attackPosition.Value);
+                    ChooseTargets();
+                    PlaneMovementUpdate(m_attackPosition.position);
                     break;
                 case EnemyState.EnemyState_Attacking:
                     TurnTowardTarget(m_weaponsTarget.position);
-                    EvasiveManeuvers(m_attackPosition.Value);
+                    EvasiveManeuvers(m_attackPosition.position);
 
                     AimWeaponAt(m_weaponsTarget.position);
 

@@ -29,7 +29,7 @@ public class BaseMecha : BaseUnit
 
 	private Coroutine HitCoroutine = null;
 
-    public List<Transform> m_attackZone = new List<Transform>();
+    public AttackZoneManager m_attackZoneManager;
 
     [HideInInspector]
     public AsyncOperation m_levelLoading = null;
