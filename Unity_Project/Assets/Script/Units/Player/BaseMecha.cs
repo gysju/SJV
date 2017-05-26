@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class BaseMecha : BaseUnit
 {
@@ -27,6 +28,8 @@ public class BaseMecha : BaseUnit
 	private float radiusMax = 1.0f;
 
 	private Coroutine HitCoroutine = null;
+
+    public List<Transform> m_attackZone = new List<Transform>();
 
     [HideInInspector]
     public AsyncOperation m_levelLoading = null;

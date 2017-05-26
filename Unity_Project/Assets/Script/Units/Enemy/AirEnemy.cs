@@ -9,11 +9,13 @@ public class AirEnemy : BaseEnemy
     protected float m_currentSpeed = 0f;
     public float m_acceleration = 8f;
     public float m_rotationSpeed = 1f;
+    
+    protected Vector3? m_attackPosition = null;
+    protected Vector3? m_evasivePosition = null;
 
     protected Vector3 m_movement;
-    protected Vector3 test;
 
-    public float m_minimumDistance = 4f;
+    public float m_securityDistance = 4f;
 
     public LayerMask m_layerToDodge;
 	private Rigidbody rigid;
@@ -32,29 +34,28 @@ public class AirEnemy : BaseEnemy
 		rigid = GetComponent<Rigidbody> ();
     }
 
-    protected override void Start()
-    {
-        base.Start();
-        test = m_attackPosition.Value;
-        if (m_attackPosition.HasValue) StartMovement();
-    }
+    //protected override void Start()
+    //{
+    //    base.Start();
+    //    if (m_attackPosition.HasValue) StartMovement();
+    //}
 
-    public override void ResetUnit(Vector3 spawn, Vector3 movementTarget)
+    protected override void ChooseTargets()
     {
-        base.ResetUnit(spawn, movementTarget);
+        m_weaponsTarget = m_player.m_targetPoint;
+        m_attackPosition = m_player.m_attackZone[0].position;
+        m_evasivePosition = null;
     }
     #endregion
 
-	#region HitPoints Related
-	/// <summary>A appeler à la mort de l'unité.</summary>
-	protected override void StartDying()
+    #region HitPoints Related
+    /// <summary>A appeler à la mort de l'unité.</summary>
+    protected override void StartDying()
 	{
 		m_attackPosition = null;
-		m_target = null;
-		m_enemyState = EnemyState.EnemyState_Sleep;
-		base.StartDying();
+        m_evasivePosition = null;
 
-		rigid.isKinematic = false;
+        rigid.isKinematic = false;
 		rigid.useGravity = true;
 
 		Vector3 dir = ( PlayerInputs.Instance.transform.position - transform.position).normalized;
@@ -64,6 +65,7 @@ public class AirEnemy : BaseEnemy
         // play death sound
         SoundManager.Instance.PlaySoundOnShot("mecha_placeholder_explosion", audioSource);
 
+		base.StartDying();
     }
 
     protected override void FinishDying()
@@ -79,7 +81,7 @@ public class AirEnemy : BaseEnemy
 	#endregion
 
     #region Movement Related
-    protected void LongDistanceMovementUpdate(Vector3 movementTarget)
+    protected void PlaneMovementUpdate(Vector3 movementTarget)
     {
         Vector3 movementDirection = (movementTarget - m_transform.position).normalized;
         m_transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(m_transform.forward, movementDirection, m_rotationSpeed * Time.deltaTime, 0f));
@@ -105,15 +107,27 @@ public class AirEnemy : BaseEnemy
         if (IsPathCompleted(movementTarget)) MovementOver();
     }
 
-    protected void CloseDistanceMovementUpdate(Vector3 movementTarget)
+    protected void DroneMovement(Vector3 movementTarget)
     {
-        Vector3 movementDirection = (movementTarget - m_transform.position).normalized;
+
+    }
+
+    protected void ChooseEvasivePosition()
+    {
+        m_evasivePosition = (m_attackPosition.Value) + Random.insideUnitSphere * 5f;
+    }
+
+    protected void EvasiveManeuvers(Vector3 movementTarget)
+    {
+        if (!m_evasivePosition.HasValue) ChooseEvasivePosition();
+
+        Vector3 movementDirection = (m_evasivePosition.Value - m_transform.position).normalized;
         m_movement = Vector3.RotateTowards(m_movement, movementDirection, m_rotationSpeed * Time.deltaTime, 0f);
 
         if (Vector3.Dot(m_movement, movementDirection) >= 0f)
         {
-            m_movement += movementDirection * m_acceleration * Time.deltaTime;
-            m_movement = Vector3.ClampMagnitude(m_movement, m_maxSpeed * Time.deltaTime);
+            m_movement += movementDirection * m_acceleration/* * Time.deltaTime*/;
+            m_movement = Vector3.ClampMagnitude(m_movement, m_maxSpeed /** Time.deltaTime*/);
         }
         else
         {
@@ -121,28 +135,23 @@ public class AirEnemy : BaseEnemy
         }
 
         RaycastHit hit;
-        Physics.SphereCast(m_transform.position, 3f, m_movement, out hit, m_minimumDistance, m_layerToDodge);
+        Physics.SphereCast(m_transform.position, 3f, m_movement, out hit, m_securityDistance, m_layerToDodge);
         if (hit.transform)
         {
-            m_attackPosition = (test) + Random.insideUnitSphere * 5f;
+            ChooseEvasivePosition();
         }
         else
         {
-            //if (m_transform.position.y > movementTarget.y)
-            //{
-            //    Physics.SphereCast(m_transform.position, 3f, -m_transform.up, out hit, m_minimumDistance, m_layerToDodge);
-            //    if (!hit.transform)
-            //        movementDirection += Vector3.down / 2f;
-            //}
-
+            
         }
-        m_transform.position += m_movement;
-        if (IsPathCompleted(movementTarget)) m_attackPosition = (test) + Random.insideUnitSphere * 5f;
+        m_transform.position += m_movement * Time.deltaTime;
+
+        if (IsPathCompleted(m_evasivePosition.Value)) ChooseEvasivePosition();
     }
 
     protected void MoveToTarget()
     {
-        CloseDistanceMovementUpdate(Camera.main.transform.position + (new Vector3(m_target.forward.x, 0f, m_target.forward.z) * 10f) + (Random.insideUnitSphere * 2));
+        EvasiveManeuvers(Camera.main.transform.position + (new Vector3(m_weaponsTarget.forward.x, 0f, m_weaponsTarget.forward.z) * 10f) + (Random.insideUnitSphere * 2));
     }
 
     protected void Brake()
@@ -157,8 +166,7 @@ public class AirEnemy : BaseEnemy
 
     protected void MovementOver()
     {
-        m_enemyState = EnemyState.EnemyState_Attacking;
-        //LaserOn();
+        AttackMode();
     }
     #endregion
 
@@ -183,7 +191,7 @@ public class AirEnemy : BaseEnemy
 
     protected override bool IsTargetInRange()
     {
-        return Vector3.Distance(m_target.position, m_transform.position) <= m_maxAttackDistance;
+        return Vector3.Distance(m_weaponsTarget.position, m_transform.position) <= m_maxAttackDistance;
     }
 
     protected override void AttackMode()
@@ -193,6 +201,7 @@ public class AirEnemy : BaseEnemy
 
     protected override void ChaseMode()
     {
+        ChooseTargets();
         m_enemyState = EnemyState.EnemyState_Moving;
     }
 
@@ -211,14 +220,15 @@ public class AirEnemy : BaseEnemy
                     }
                     break;
                 case EnemyState.EnemyState_Moving:
-                    LongDistanceMovementUpdate(m_attackPosition.Value);
+                    PlaneMovementUpdate(m_attackPosition.Value);
                     //CloseDistanceMovementUpdate(m_attackPosition.Value);
                     break;
                 case EnemyState.EnemyState_Attacking:
-                    TurnTowardTarget(m_target.position);
-                    CloseDistanceMovementUpdate(m_attackPosition.Value );
-                    //MoveToTarget();
-                    AimWeaponAt(m_target.position);
+                    TurnTowardTarget(m_weaponsTarget.position);
+                    EvasiveManeuvers(m_attackPosition.Value);
+
+                    AimWeaponAt(m_weaponsTarget.position);
+
                     //m_currentTimeToAttack -= Time.deltaTime;
                     //if (m_currentTimeToAttack <= 0)
                     //if (IsWeaponOnTarget())
