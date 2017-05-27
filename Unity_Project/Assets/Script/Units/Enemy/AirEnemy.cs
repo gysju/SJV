@@ -221,7 +221,14 @@ public class AirEnemy : BaseEnemy
                     break;
                 case EnemyState.EnemyState_Moving:
                     ChooseTargets();
-                    PlaneMovementUpdate(m_attackPosition.position);
+                    if (!m_attackPosition)
+                    {
+                        m_enemyState = EnemyState.EnemyState_Sleep;
+                    }
+                    else
+                    {
+                        PlaneMovementUpdate(m_attackPosition.position);
+                    }
                     break;
                 case EnemyState.EnemyState_Attacking:
                     TurnTowardTarget(m_weaponsTarget.position);

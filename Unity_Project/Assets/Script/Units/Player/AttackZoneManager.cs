@@ -15,11 +15,13 @@ public class AttackZoneManager : MonoBehaviour
     
     void Update()
     {
+        betterZone = null;
         foreach (AttackZone zone in zones)
         {
-            if (zone.collidersNbr < betterZone.collidersNbr)
+            if (zone.clearView)
             {
-                betterZone = zone;
+                if (!betterZone || zone.collidersNbr < betterZone.collidersNbr)
+                    betterZone = zone;
             }
         }
     }
