@@ -34,6 +34,7 @@ public class SemiAutomaticWeapon : BaseWeapon
 		    
             MuzzleFlash();
             ShotSound();
+
             if (m_shellParticles)
                 m_shellParticles.Emit(1);
 
@@ -45,6 +46,7 @@ public class SemiAutomaticWeapon : BaseWeapon
 #endif
             RaycastHit hit;
             Vector3 shotDirection = (GetSpread() * m_muzzle.forward);
+            Vector3 hitPosition = m_muzzle.position + (shotDirection * m_maxRange);
             if (Physics.Raycast(m_muzzle.position, shotDirection, out hit, m_maxRange, m_mask))
             {
                 BaseUnit unitHit = hit.transform.GetComponent<BaseUnit>();
@@ -57,7 +59,11 @@ public class SemiAutomaticWeapon : BaseWeapon
                 {
                     BulletHitParticle(hit);
                 }
+                hitPosition = hit.point;
             }
+
+            if (m_tracerBullet)
+                m_tracerBullet.Use(m_muzzle.position, hitPosition);
         }
     }
 

@@ -12,7 +12,7 @@ public class BaseWeapon : MonoBehaviour
 
     [Tooltip("Graphical effect when firing.")]
     public ParticleSystem m_muzzleFlash;
-    
+    public TracerBullet m_tracerBullet;
     public ParticleSystem m_shellParticles;
 
     [Tooltip("Sound effect when firing.")]
