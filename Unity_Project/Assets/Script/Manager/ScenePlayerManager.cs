@@ -32,6 +32,8 @@ public class ScenePlayerManager : MonoBehaviour
         m_player.transform.position = m_playerStartPosition;
         m_player.m_legs.m_navmeshAgent.enabled = true;
 
+        
+
         BunkerOff();
     }
 
