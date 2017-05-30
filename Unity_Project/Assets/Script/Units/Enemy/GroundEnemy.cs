@@ -93,6 +93,12 @@ public class GroundEnemy : BaseEnemy
         CompleteStop();
     }
 
+    protected override void ChaseMode()
+    {
+        base.ChaseMode();
+        MoveToTarget();
+    }
+
     protected void CompleteStop()
     {
         m_navMeshAgent.ResetPath();
@@ -124,6 +130,7 @@ public class GroundEnemy : BaseEnemy
                     }
                     break;
                 case EnemyState.EnemyState_Moving:
+                    MoveToTarget();
                     if (IsPathCompleted())
                     {
                         CompleteStop();
