@@ -37,10 +37,10 @@ public class PlayerInputs : MonoBehaviour
     private bool m_leftMovePriority = false;
     private bool m_rightMovePriority = false;
 
+    public TrackedDeviceMoveControllers trackedDeviceMoveControllers;
 #if UNITY_PS4
     [Header("PSMove Related")]
 
-    public TrackedDeviceMoveControllers trackedDeviceMoveControllers;
 	public float MinimumAngleToRotate = 15.0f;
 
     private MoveController m_leftController;
@@ -204,6 +204,14 @@ public class PlayerInputs : MonoBehaviour
     public void CameraSky()
     {
         m_mainCamera.clearFlags = CameraClearFlags.Skybox;
+    }
+
+    public void ResetWeapons()
+    {
+        trackedDeviceMoveControllers.targetLeft.localPosition = trackedDeviceMoveControllers.targetLeftOriginPos;
+        m_mecha.m_weapons[0].transform.rotation = Quaternion.identity;
+        trackedDeviceMoveControllers.targetRight.localPosition = trackedDeviceMoveControllers.targetRightOriginPos;
+        m_mecha.m_weapons[1].transform.rotation = Quaternion.identity;
     }
 
 #if UNITY_PS4

@@ -181,6 +181,11 @@ public class BaseMecha : BaseUnit
         m_rightWeapon.transform.LookAt(targetPosition);
     }
 
+    public void ResetWeapons()
+    {
+        m_inputs.ResetWeapons();
+    }
+
     public override bool ReceiveDamages(int damages, int armorPenetration = 0)
     {
         if (base.ReceiveDamages(damages, armorPenetration))
