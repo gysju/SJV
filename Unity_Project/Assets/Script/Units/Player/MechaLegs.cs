@@ -18,7 +18,7 @@ public class MechaLegs : MonoBehaviour
     public float m_speed;
 
     [Header("Dash")]
-    [Range(0.1f, 1.0f)]
+    [Range(0.01f, 0.5f)]
     public float DashSpeed = 0.5f;
 
     public enum MoveSystem { moveSystem_teleport = 0, moveSystem_dash, moveSystem_count };
