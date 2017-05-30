@@ -93,6 +93,10 @@ public class BaseUnit : MonoBehaviour
     protected virtual void FinishDying()
     {
         m_destroyed = true;
+        foreach (BaseWeapon weapon in m_weapons)
+        {
+            if (weapon.m_tracerBullet) weapon.m_tracerBullet.ResetTracer();
+        }
     }
 
     /// <summary>Vérifie si les hit points ne sont pas inférieurs à 0 ou supérieurs au maximum.</summary>

@@ -161,7 +161,7 @@ public class AirEnemy : BaseEnemy
 
     protected bool IsPathCompleted(Vector3 movementTarget)
     {
-        return (Vector3.Distance(m_transform.position, movementTarget) < 1f);
+        return (Vector3.Distance(m_transform.position, movementTarget) < m_securityDistance);
     }
 
     protected void MovementOver()

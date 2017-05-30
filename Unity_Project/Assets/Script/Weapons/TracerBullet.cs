@@ -16,11 +16,17 @@ public class TracerBullet : MonoBehaviour
         trail = GetComponent<TrailRenderer>();
     }
 
+    public void ResetTracer()
+    {
+        m_transform.localPosition = Vector3.zero;
+        trail.Clear();
+    }
+
     public void Use(Vector3 spawn, Vector3 target)
     {
+        ResetTracer();
         m_transform.position = spawn;
         m_target = target;
-        trail.Clear();
     }
     
     void Update()
