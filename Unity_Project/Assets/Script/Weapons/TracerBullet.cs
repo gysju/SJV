@@ -12,14 +12,16 @@ public class TracerBullet : MonoBehaviour
     void Start()
     {
         m_transform = transform;
-        m_target = m_transform.position;
         trail = GetComponent<TrailRenderer>();
+        ResetTracer();
     }
 
     public void ResetTracer()
     {
         m_transform.localPosition = Vector3.zero;
+        m_target = m_transform.position;
         trail.Clear();
+        trail.enabled = false;
     }
 
     public void Use(Vector3 spawn, Vector3 target)
@@ -27,10 +29,18 @@ public class TracerBullet : MonoBehaviour
         ResetTracer();
         m_transform.position = spawn;
         m_target = target;
+        trail.enabled = true;
     }
     
     void Update()
     {
-        m_transform.position = Vector3.MoveTowards(m_transform.position, m_target, m_speed);
+        if (m_transform.position != m_target)
+        {
+            m_transform.position = Vector3.MoveTowards(m_transform.position, m_target, m_speed);
+        }
+        else
+        {
+            ResetTracer();
+        }
     }
 }

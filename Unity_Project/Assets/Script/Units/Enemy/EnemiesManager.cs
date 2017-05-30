@@ -20,8 +20,8 @@ public class EnemiesManager : MonoBehaviour
     public float m_timeBeforeFirstWave = 5f;
     public float m_timeBeforeEndZA = 5f;
 
-    [HideInInspector]
-    public bool waitTrigger = false;
+    //[HideInInspector]
+    public int waitCount = 1;
 
     protected ZAManager m_zaManager;
 
@@ -29,8 +29,8 @@ public class EnemiesManager : MonoBehaviour
 
     public void StartWaves()
     {
-        m_zaManager = FindObjectOfType<ZAManager>();
-        m_player = FindObjectOfType<BaseMecha>();
+        m_zaManager = ZAManager.instance;
+        m_player = BaseMecha.instance;
         StartCoroutine(ManageWaves());
     }
 
@@ -126,12 +126,13 @@ public class EnemiesManager : MonoBehaviour
 
             bool waveSurvey = currentWaveObject.nextWaveWait || currentWaveObject == m_enemiesWaves[m_enemiesWaves.Count - 1];
 
-            if (waitTrigger)
+            if(waitTrigger)
             {
-                while (waitTrigger)
+                while (waitCount <= 0)
                 {
                     yield return null;
                 }
+                waitCount--;
             }
             else
             {
@@ -168,9 +169,9 @@ public class EnemiesManager : MonoBehaviour
                         yield return null;
                     }
                 }
+                yield return new WaitForSeconds(currentWaveObject.timeBeforeNextWave);
             }
 
-            yield return new WaitForSeconds(currentWaveObject.timeBeforeNextWave);
             currentWaveID++;
         }
 
