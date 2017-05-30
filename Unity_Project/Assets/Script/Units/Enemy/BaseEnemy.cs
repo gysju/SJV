@@ -85,10 +85,9 @@ public class BaseEnemy : BaseUnit
 
         LaserOff();
 
-		//if (m_animator != null) 
-		//{
-		//	m_animator.SetTrigger ("Idle");
-		//}
+        if (m_animator && !m_animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+            m_animator.SetTrigger("Idle");
+
         StartCoroutine (SpawnFade ());
     }
 
@@ -122,8 +121,8 @@ public class BaseEnemy : BaseUnit
 
     protected override IEnumerator Dying()
     {
-        WaitForSeconds wait = new WaitForSeconds(m_timeToDie);
-        yield return wait;
+        //WaitForSeconds wait = new WaitForSeconds(m_timeToDie);
+        //yield return wait;
         
         yield return StartCoroutine(DeathFade());
         if (m_destructionSpawn) Instantiate(m_destructionSpawn, transform.position, transform.rotation);
@@ -132,9 +131,8 @@ public class BaseEnemy : BaseUnit
 
     protected override void FinishDying()
     {
-        if (m_animator)
-            m_animator.SetTrigger("Idle");
         m_poolManager.PoolUnit(this);
+        base.FinishDying();
     }
     #endregion
 
@@ -206,16 +204,28 @@ public class BaseEnemy : BaseUnit
     {
         if (!m_destroyed)
         {
+            switch (m_enemyState)
+            {
+                case EnemyState.EnemyState_Sleep:
+                    break;
+                case EnemyState.EnemyState_Moving:
+                    if (IsTargetInRange() && IsTargetAimable())
+                    {
+                        AttackMode();
+                    }
+                    break;
+                case EnemyState.EnemyState_Attacking:
+                    if (!IsTargetInRange() || !IsTargetAimable())
+                    {
+                        ChaseMode();
+                    }
+                    break;
+                default:
+                    break;
+            }
             if (m_enemyState != EnemyState.EnemyState_Sleep)
             {
-                if (IsTargetInRange() && IsTargetAimable())
-                {
-                    AttackMode();
-                }
-                else
-                {
-                    ChaseMode();
-                }
+                
             }
         }
     }
