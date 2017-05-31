@@ -107,13 +107,9 @@ public class AirEnemy : BaseEnemy
         if (IsPathCompleted(movementTarget)) MovementOver();
     }
 
-    protected void DroneMovement(Vector3 movementTarget)
-    {
-
-    }
-
     protected void ChooseEvasivePosition()
     {
+        m_attackPosition = m_player.m_attackZoneManager.ClosestBetterZone(m_transform.position);
         m_evasivePosition = (m_attackPosition.position) + Random.insideUnitSphere * 5f;
     }
 

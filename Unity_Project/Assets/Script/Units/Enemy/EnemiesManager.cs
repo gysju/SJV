@@ -20,7 +20,7 @@ public class EnemiesManager : MonoBehaviour
     public float m_timeBeforeFirstWave = 5f;
     public float m_timeBeforeEndZA = 5f;
 
-    [HideInInspector]
+    //[HideInInspector]
     public int waitCount = 0;
 
     public List<GameObject> m_zones = new List<GameObject>();
@@ -141,11 +141,6 @@ public class EnemiesManager : MonoBehaviour
                     yield return null;
                 }
                 waitCount--;
-
-                while (!IsPreviousWavesDestroyed())
-                {
-                    yield return null;
-                }                
             }
             else
             {
