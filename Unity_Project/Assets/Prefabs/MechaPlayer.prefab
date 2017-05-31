@@ -6149,10 +6149,10 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
+  MinDistance: 2.5
+  MaxDistance: 10
   Pan2D: 0
-  rolloffMode: 1
+  rolloffMode: 0
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -6229,10 +6229,10 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
+  MinDistance: 2.5
+  MaxDistance: 10
   Pan2D: 0
-  rolloffMode: 1
+  rolloffMode: 0
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -7587,7 +7587,7 @@ MonoBehaviour:
   m_muzzleFlash: {fileID: 198864429936260128}
   m_tracerBullet: {fileID: 114826635021830752}
   m_shellParticles: {fileID: 198922815795750528}
-  m_shotSoundName: 
+  m_shotSoundName: mecha_shots_reverberated
   audioSource: {fileID: 82173667760585244}
   m_vibrationDuration: 0.3
   m_vibrationPower: 100
@@ -8209,7 +8209,7 @@ MonoBehaviour:
   m_muzzleFlash: {fileID: 198224422375793966}
   m_tracerBullet: {fileID: 114454652366641756}
   m_shellParticles: {fileID: 198981147742606674}
-  m_shotSoundName: 
+  m_shotSoundName: mecha_shots_reverberated
   audioSource: {fileID: 82310893859135006}
   m_vibrationDuration: 0.3
   m_vibrationPower: 100
@@ -8870,6 +8870,8 @@ MonoBehaviour:
   m_currentHitPoints: 10
   m_timeToDie: 1
   m_destructionSpawn: {fileID: 0}
+  ImpactSound: mecha_taking_damage_
+  NbrOfImpactSound: 3
   m_armor: 0
   m_targetPoint: {fileID: 4831955637650992}
   m_weapons:

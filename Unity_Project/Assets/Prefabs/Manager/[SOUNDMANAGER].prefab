@@ -132,22 +132,22 @@ MonoBehaviour:
   - Name: mecha_impact_light_1
     audioClip: {fileID: 8300000, guid: 7dd7c82759e7d7040b490a2718563499, type: 3}
     Volume: 1
-    priority: 200
-    Pitch: {x: 1, y: 1}
+    priority: 256
+    Pitch: {x: 0.8, y: 1}
     fadeDuration: 0
     SpatialBlend: 0.5
   - Name: mecha_impact_light_2
     audioClip: {fileID: 8300000, guid: acf7fc829d09c214f8e71b0cf3e65818, type: 3}
     Volume: 1
-    priority: 200
-    Pitch: {x: 1, y: 1}
+    priority: 256
+    Pitch: {x: 0.8, y: 1}
     fadeDuration: 0
     SpatialBlend: 0.5
   - Name: mecha_impact_light_3
     audioClip: {fileID: 8300000, guid: ace07c448239cdc4683db584fb3256ea, type: 3}
     Volume: 1
-    priority: 200
-    Pitch: {x: 1, y: 1}
+    priority: 256
+    Pitch: {x: 0.8, y: 1}
     fadeDuration: 0
     SpatialBlend: 0.5
   - Name: mecha_kamikaze_death
@@ -230,14 +230,14 @@ MonoBehaviour:
   - Name: mecha_button_hover
     audioClip: {fileID: 8300000, guid: 03d869d6d7bd12c40b4fb6d4b5e11bac, type: 3}
     Volume: 1
-    priority: 128
+    priority: 200
     Pitch: {x: 1, y: 1}
     fadeDuration: 0
     SpatialBlend: 1
   - Name: mecha_button_press
     audioClip: {fileID: 8300000, guid: e46945333c59d6246be7e1c28d789bf8, type: 3}
     Volume: 1
-    priority: 128
+    priority: 256
     Pitch: {x: 1, y: 1}
     fadeDuration: 0
     SpatialBlend: 1
@@ -326,10 +326,10 @@ MonoBehaviour:
     fadeDuration: 0
     SpatialBlend: 0
   - Name: mecha_ZA1_lava_burst
-    audioClip: {fileID: 8300000, guid: 48b9545002e51fa48b1c3b777bc18b86, type: 3}
+    audioClip: {fileID: 8300000, guid: d1be3e9d2d40de140a7a89f27e76812e, type: 3}
     Volume: 1
     priority: 256
-    Pitch: {x: 1, y: 1}
+    Pitch: {x: 0.5, y: 1}
     fadeDuration: 0
     SpatialBlend: 0.5
   - Name: mecha_ZA1_mine_cart
@@ -339,3 +339,10 @@ MonoBehaviour:
     Pitch: {x: 1, y: 1}
     fadeDuration: 0
     SpatialBlend: 0.75
+  - Name: mecha_shots_reverberated
+    audioClip: {fileID: 8300000, guid: 773e8e6c7cebaca4fa0f35ec6e1cd558, type: 3}
+    Volume: 1
+    priority: 128
+    Pitch: {x: 0.5, y: 1}
+    fadeDuration: 0
+    SpatialBlend: 0.5
