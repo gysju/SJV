@@ -32,6 +32,7 @@ public class BaseEnemy : BaseUnit
 	private Material material;
 
     protected AudioSource audioSource;
+    public string deathSound;
 
 	[Header("Effect")]
 
@@ -115,6 +116,8 @@ public class BaseEnemy : BaseUnit
         m_enemyState = EnemyState.EnemyState_Sleep;
 		HUD_Radar.Instance.RemoveInfo (this);
         LaserOff();
+        // play death sound
+        SoundManager.Instance.PlaySoundOnShot(deathSound, audioSource);
 
         base.StartDying();
     }

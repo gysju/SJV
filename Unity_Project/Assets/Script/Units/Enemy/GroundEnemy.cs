@@ -45,8 +45,6 @@ public class GroundEnemy : BaseEnemy
 		CompleteStop();
 		m_navMeshAgent.enabled = false;
         base.StartDying();
-        // play death sound
-        SoundManager.Instance.PlaySoundOnShot("mecha_tank_death", audioSource);
 	}
 
     protected override void FinishDying()
@@ -58,9 +56,9 @@ public class GroundEnemy : BaseEnemy
     #region Movement Related
     public virtual void MoveTo(Vector3 target)
     {
-        if (m_navMeshAgent.SetDestination(target))
+        if (!m_navMeshAgent.SetDestination(target))
         {
-            StartMovement();
+            m_enemyState = EnemyState.EnemyState_Sleep;
         }
     }
 
@@ -126,7 +124,7 @@ public class GroundEnemy : BaseEnemy
                     if (m_weaponsTarget)
                     {
                         //MoveTo(m_attackPosition.Value);
-                        MoveToTarget();
+                        ChaseMode();
                     }
                     break;
                 case EnemyState.EnemyState_Moving:
