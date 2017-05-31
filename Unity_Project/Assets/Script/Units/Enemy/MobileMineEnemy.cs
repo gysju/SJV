@@ -20,9 +20,6 @@ public class MobileMineEnemy : GroundEnemy
     protected override void StartDying()
     {
         base.StartDying();
-
-        // play death sound
-        //SoundManager.Instance.PlaySoundOnShot("", audioSource);
     }
     #endregion
     #region Attack related
@@ -39,8 +36,7 @@ public class MobileMineEnemy : GroundEnemy
         HUD_Radar.Instance.RemoveInfo(this);
         FinishDying();
 
-        // play Attack sound
-        //SoundManager.Instance.PlaySoundOnShot("", audioSource);
+        SoundManager.Instance.PlaySoundOnShot("mecha_kamikaze_explosion", audioSource);
     }
     #endregion
 

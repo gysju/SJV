@@ -223,28 +223,6 @@ Prefab:
       propertyPath: m_Name
       value: P_LavaSmoke (5)
       objectReference: {fileID: 0}
-    - target: {fileID: 4170973468883838, guid: ad1bee03b1c26824788597ad1864cb13, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4170973468883838, guid: ad1bee03b1c26824788597ad1864cb13, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4170973468883838, guid: ad1bee03b1c26824788597ad1864cb13, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 198008576367763824, guid: ad1bee03b1c26824788597ad1864cb13,
-        type: 2}
-      propertyPath: InitialModule.startColor.maxColor.a
-      value: 0.5019608
-      objectReference: {fileID: 0}
-    - target: {fileID: 198008576367763824, guid: ad1bee03b1c26824788597ad1864cb13,
-        type: 2}
-      propertyPath: randomSeed
-      value: 1355416661
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ad1bee03b1c26824788597ad1864cb13, type: 2}
   m_IsPrefabParent: 0
@@ -1332,6 +1310,21 @@ Prefab:
     - target: {fileID: 1875834463601034, guid: ba601ea21e33672499ee13abfc7da9e9, type: 2}
       propertyPath: m_Name
       value: P_LavaFountain (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 198472256221570522, guid: ba601ea21e33672499ee13abfc7da9e9,
+        type: 2}
+      propertyPath: randomSeed
+      value: 1680475938
+      objectReference: {fileID: 0}
+    - target: {fileID: 198472256221570522, guid: ba601ea21e33672499ee13abfc7da9e9,
+        type: 2}
+      propertyPath: startDelay.minMaxState
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198472256221570522, guid: ba601ea21e33672499ee13abfc7da9e9,
+        type: 2}
+      propertyPath: startDelay.scalar
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ba601ea21e33672499ee13abfc7da9e9, type: 2}
@@ -4084,6 +4077,16 @@ Prefab:
     - target: {fileID: 4049028469801646, guid: cb9d5156ede8e7f47879dce09b40d7dc, type: 2}
       propertyPath: m_RootOrder
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 114481559155831506, guid: cb9d5156ede8e7f47879dce09b40d7dc,
+        type: 2}
+      propertyPath: Sounds.Array.data[15].SpatialBlend
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114481559155831506, guid: cb9d5156ede8e7f47879dce09b40d7dc,
+        type: 2}
+      propertyPath: Sounds.Array.data[15].priority
+      value: 200
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cb9d5156ede8e7f47879dce09b40d7dc, type: 2}
@@ -8673,53 +8676,9 @@ Prefab:
       propertyPath: m_RootOrder
       value: 10
       objectReference: {fileID: 0}
-    - target: {fileID: 4504731105010660, guid: 827f4574188075544a73cf272dcb94a3, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4504731105010660, guid: 827f4574188075544a73cf272dcb94a3, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 198702945901927536, guid: 827f4574188075544a73cf272dcb94a3,
-        type: 2}
-      propertyPath: randomSeed
-      value: 1858608138
-      objectReference: {fileID: 0}
     - target: {fileID: 1957232921955238, guid: 827f4574188075544a73cf272dcb94a3, type: 2}
       propertyPath: m_Name
       value: P_LavaSparks (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 4504731105010660, guid: 827f4574188075544a73cf272dcb94a3, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: -90.00001
-      objectReference: {fileID: 0}
-    - target: {fileID: 4504731105010660, guid: 827f4574188075544a73cf272dcb94a3, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: -18.923
-      objectReference: {fileID: 0}
-    - target: {fileID: 198702945901927536, guid: 827f4574188075544a73cf272dcb94a3,
-        type: 2}
-      propertyPath: ShapeModule.boxY
-      value: 75
-      objectReference: {fileID: 0}
-    - target: {fileID: 1957232921955238, guid: 827f4574188075544a73cf272dcb94a3, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967294
-      objectReference: {fileID: 0}
-    - target: {fileID: 199925667510396218, guid: 827f4574188075544a73cf272dcb94a3,
-        type: 2}
-      propertyPath: m_LightProbeUsage
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4504731105010660, guid: 827f4574188075544a73cf272dcb94a3, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 198702945901927536, guid: 827f4574188075544a73cf272dcb94a3,
-        type: 2}
-      propertyPath: EmissionModule.rateOverTime.scalar
-      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 827f4574188075544a73cf272dcb94a3, type: 2}
@@ -9434,157 +9393,9 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4728178614579836, guid: ba601ea21e33672499ee13abfc7da9e9, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4728178614579836, guid: ba601ea21e33672499ee13abfc7da9e9, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4728178614579836, guid: ba601ea21e33672499ee13abfc7da9e9, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 198472256221570522, guid: ba601ea21e33672499ee13abfc7da9e9,
-        type: 2}
-      propertyPath: InitialModule.startColor.minMaxState
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 198472256221570522, guid: ba601ea21e33672499ee13abfc7da9e9,
-        type: 2}
-      propertyPath: randomSeed
-      value: 1535074232
-      objectReference: {fileID: 0}
-    - target: {fileID: 198472256221570522, guid: ba601ea21e33672499ee13abfc7da9e9,
-        type: 2}
-      propertyPath: InitialModule.startLifetime.scalar
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 198472256221570522, guid: ba601ea21e33672499ee13abfc7da9e9,
-        type: 2}
-      propertyPath: InitialModule.startLifetime.minCurve.m_Curve.Array.data[0].value
-      value: 0.875
-      objectReference: {fileID: 0}
     - target: {fileID: 1875834463601034, guid: ba601ea21e33672499ee13abfc7da9e9, type: 2}
       propertyPath: m_Name
       value: P_LavaFountain (3)
-      objectReference: {fileID: 0}
-    - target: {fileID: 198472256221570522, guid: ba601ea21e33672499ee13abfc7da9e9,
-        type: 2}
-      propertyPath: startDelay.scalar
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 198472256221570522, guid: ba601ea21e33672499ee13abfc7da9e9,
-        type: 2}
-      propertyPath: lengthInSec
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 4728178614579836, guid: ba601ea21e33672499ee13abfc7da9e9, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: -118.116
-      objectReference: {fileID: 0}
-    - target: {fileID: 4728178614579836, guid: ba601ea21e33672499ee13abfc7da9e9, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 4.2599945
-      objectReference: {fileID: 0}
-    - target: {fileID: 4728178614579836, guid: ba601ea21e33672499ee13abfc7da9e9, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 54.450996
-      objectReference: {fileID: 0}
-    - target: {fileID: 198472256221570522, guid: ba601ea21e33672499ee13abfc7da9e9,
-        type: 2}
-      propertyPath: InitialModule.startSize.minCurve.m_Curve.Array.data[0].value
-      value: 0.6666667
-      objectReference: {fileID: 0}
-    - target: {fileID: 198472256221570522, guid: ba601ea21e33672499ee13abfc7da9e9,
-        type: 2}
-      propertyPath: InitialModule.startSize.scalar
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 198472256221570522, guid: ba601ea21e33672499ee13abfc7da9e9,
-        type: 2}
-      propertyPath: InitialModule.startSize.maxCurve.m_Curve.Array.data[0].value
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 198472256221570522, guid: ba601ea21e33672499ee13abfc7da9e9,
-        type: 2}
-      propertyPath: InitialModule.gravityModifier.scalar
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 198472256221570522, guid: ba601ea21e33672499ee13abfc7da9e9,
-        type: 2}
-      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[2].value
-      value: 0.5488722
-      objectReference: {fileID: 0}
-    - target: {fileID: 198472256221570522, guid: ba601ea21e33672499ee13abfc7da9e9,
-        type: 2}
-      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].value
-      value: 0.3933503
-      objectReference: {fileID: 0}
-    - target: {fileID: 198472256221570522, guid: ba601ea21e33672499ee13abfc7da9e9,
-        type: 2}
-      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].time
-      value: 0.6916737
-      objectReference: {fileID: 0}
-    - target: {fileID: 198472256221570522, guid: ba601ea21e33672499ee13abfc7da9e9,
-        type: 2}
-      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[2].inSlope
-      value: 0.7365083
-      objectReference: {fileID: 0}
-    - target: {fileID: 198472256221570522, guid: ba601ea21e33672499ee13abfc7da9e9,
-        type: 2}
-      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[2].outSlope
-      value: 0.7365083
-      objectReference: {fileID: 0}
-    - target: {fileID: 198472256221570522, guid: ba601ea21e33672499ee13abfc7da9e9,
-        type: 2}
-      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].inSlope
-      value: 0.26839507
-      objectReference: {fileID: 0}
-    - target: {fileID: 198472256221570522, guid: ba601ea21e33672499ee13abfc7da9e9,
-        type: 2}
-      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].outSlope
-      value: 0.26839507
-      objectReference: {fileID: 0}
-    - target: {fileID: 198472256221570522, guid: ba601ea21e33672499ee13abfc7da9e9,
-        type: 2}
-      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[0].value
-      value: 0.3007519
-      objectReference: {fileID: 0}
-    - target: {fileID: 198472256221570522, guid: ba601ea21e33672499ee13abfc7da9e9,
-        type: 2}
-      propertyPath: ColorModule.gradient.minGradient.atime1
-      value: 49151
-      objectReference: {fileID: 0}
-    - target: {fileID: 198472256221570522, guid: ba601ea21e33672499ee13abfc7da9e9,
-        type: 2}
-      propertyPath: InitialModule.startLifetime.maxCurve.m_Curve.Array.data[0].value
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1875834463601034, guid: ba601ea21e33672499ee13abfc7da9e9, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967294
-      objectReference: {fileID: 0}
-    - target: {fileID: 199151823056634888, guid: ba601ea21e33672499ee13abfc7da9e9,
-        type: 2}
-      propertyPath: m_LightProbeUsage
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 198472256221570522, guid: ba601ea21e33672499ee13abfc7da9e9,
-        type: 2}
-      propertyPath: InitialModule.startSpeed.minCurve.m_Curve.Array.data[0].value
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 198472256221570522, guid: ba601ea21e33672499ee13abfc7da9e9,
-        type: 2}
-      propertyPath: InitialModule.startSpeed.scalar
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 198472256221570522, guid: ba601ea21e33672499ee13abfc7da9e9,
-        type: 2}
-      propertyPath: InitialModule.startSpeed.maxCurve.m_Curve.Array.data[0].value
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1875834463601034, guid: ba601ea21e33672499ee13abfc7da9e9, type: 2}
       propertyPath: m_IsActive
@@ -11168,28 +10979,6 @@ Prefab:
     - target: {fileID: 1210901110641800, guid: ad1bee03b1c26824788597ad1864cb13, type: 2}
       propertyPath: m_Name
       value: P_LavaSmoke (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 4170973468883838, guid: ad1bee03b1c26824788597ad1864cb13, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 1.153006
-      objectReference: {fileID: 0}
-    - target: {fileID: 4170973468883838, guid: ad1bee03b1c26824788597ad1864cb13, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 1.153006
-      objectReference: {fileID: 0}
-    - target: {fileID: 4170973468883838, guid: ad1bee03b1c26824788597ad1864cb13, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1.153006
-      objectReference: {fileID: 0}
-    - target: {fileID: 198008576367763824, guid: ad1bee03b1c26824788597ad1864cb13,
-        type: 2}
-      propertyPath: InitialModule.startColor.maxColor.a
-      value: 0.5019608
-      objectReference: {fileID: 0}
-    - target: {fileID: 198008576367763824, guid: ad1bee03b1c26824788597ad1864cb13,
-        type: 2}
-      propertyPath: randomSeed
-      value: 1355416661
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ad1bee03b1c26824788597ad1864cb13, type: 2}
@@ -14677,16 +14466,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 8
       objectReference: {fileID: 0}
-    - target: {fileID: 198702945901927536, guid: 827f4574188075544a73cf272dcb94a3,
-        type: 2}
-      propertyPath: EmissionModule.rateOverTime.scalar
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 198702945901927536, guid: 827f4574188075544a73cf272dcb94a3,
-        type: 2}
-      propertyPath: randomSeed
-      value: 1002119222
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 827f4574188075544a73cf272dcb94a3, type: 2}
   m_IsPrefabParent: 0
@@ -14939,7 +14718,6 @@ GameObject:
   m_Component:
   - component: {fileID: 788139533}
   - component: {fileID: 788139532}
-  - component: {fileID: 788139531}
   - component: {fileID: 788139530}
   m_Layer: 0
   m_Name: '[AMBIENTSOUND]'
@@ -14961,88 +14739,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundName:
   - mecha_ZA1_general_ambience-001
-  - mecha_menu_music
   audioSources: []
---- !u!82 &788139531
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 788139529}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
-  m_Volume: 0.217
-  m_Pitch: 1
-  Loop: 1
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - serializedVersion: 2
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 2
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
 --- !u!82 &788139532
 AudioSource:
   m_ObjectHideFlags: 0
@@ -23494,6 +23191,16 @@ Prefab:
     - target: {fileID: 1875834463601034, guid: ba601ea21e33672499ee13abfc7da9e9, type: 2}
       propertyPath: m_Name
       value: P_LavaFountain (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 198472256221570522, guid: ba601ea21e33672499ee13abfc7da9e9,
+        type: 2}
+      propertyPath: startDelay.minMaxState
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198472256221570522, guid: ba601ea21e33672499ee13abfc7da9e9,
+        type: 2}
+      propertyPath: startDelay.scalar
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ba601ea21e33672499ee13abfc7da9e9, type: 2}
