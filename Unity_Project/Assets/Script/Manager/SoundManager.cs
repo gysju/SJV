@@ -107,12 +107,12 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void SpawnPlaySound(string name)
+    public void SpawnPlaySound(string name, Vector3 pos)
     {
         Sound s = findSound(name);
         if (s.audioClip != null)
         {
-            AudioSource.PlayClipAtPoint(s.audioClip, Camera.main.transform.position + Camera.main.transform.forward * 5.0f, s.Volume);
+            AudioSource.PlayClipAtPoint(s.audioClip, pos, s.Volume);
         }
     }
 

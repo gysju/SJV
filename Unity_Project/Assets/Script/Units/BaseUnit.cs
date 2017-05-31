@@ -34,6 +34,8 @@ public class BaseUnit : MonoBehaviour
     public float m_timeToDie = 1f;
 
     public GameObject m_destructionSpawn;
+    public string ImpactSound;
+    public int NbrOfImpactSound = 1;
 
     [Header("Unit's armor")]
     [Tooltip("Unit's maximum armor value between 0 and 100.")]
@@ -134,6 +136,7 @@ public class BaseUnit : MonoBehaviour
             m_currentHitPoints -= actualDamages;
 
             CheckHitPoints();
+            SoundManager.Instance.SpawnPlaySound(ImpactSound + (Random.Range(0, NbrOfImpactSound) + 1), transform.position);
 
             if (m_animator != null)
                 m_animator.SetTrigger("Touched");
