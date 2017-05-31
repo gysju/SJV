@@ -12,6 +12,25 @@ public class AttackZoneManager : MonoBehaviour
     {
         betterZone = zones[0];
     }
+
+    public Transform ClosestBetterZone(Vector3 attackerPosition)
+    {
+        AttackZone closestBestZone = betterZone;
+
+        foreach (AttackZone zone in zones)
+        {
+            if (zone.clearView)
+            {
+                if (Vector3.Distance(zone.m_transform.position, attackerPosition) < Vector3.Distance(closestBestZone.m_transform.position, attackerPosition))
+                {
+                    //if (zone.collidersNbr < closestBestZone.collidersNbr)
+                        closestBestZone = zone;
+                }
+            }
+        }
+
+        return closestBestZone.m_transform;
+    }
     
     void Update()
     {
