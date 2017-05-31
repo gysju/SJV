@@ -81,6 +81,7 @@ public class MechaLegs : MonoBehaviour
 
     IEnumerator Dash(Vector3 pos)
     {
+        m_navmeshAgent.enabled = false;
         Vector3 initialPos = transform.position;
         float time = 0.0f;
         while (time < DashSpeed)
@@ -89,6 +90,7 @@ public class MechaLegs : MonoBehaviour
             time += Time.deltaTime;
             yield return null;
         }
+        m_navmeshAgent.enabled = true;
     }
 
     public void MoveTo(Vector3 direction)
