@@ -19,7 +19,7 @@ public class SemiAutomaticWeapon : BaseWeapon
     protected void ShotSound()
     {
         // play shoot sound
-        SoundManager.Instance.PlaySoundOnShot("", audioSource);
+        SoundManager.Instance.PlaySoundOnShot(m_shotSoundName, audioSource);
     }
 
     protected override void FireWeapon(MoveController moveController = null)

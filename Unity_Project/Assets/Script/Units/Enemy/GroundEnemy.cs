@@ -12,8 +12,8 @@ public class GroundEnemy : BaseEnemy
     public float m_maxSpeed = 2f;
     public float m_acceleration = 8f;
     public float m_rotationSpeed = 50f;
-    
-	#region Initialization
+
+    #region Initialization
     protected override void Awake()
     {
         base.Awake();
@@ -46,7 +46,7 @@ public class GroundEnemy : BaseEnemy
 		m_navMeshAgent.enabled = false;
         base.StartDying();
         // play death sound
-        SoundManager.Instance.PlaySoundOnShot("mecha_placeholder_explosion", audioSource);
+        SoundManager.Instance.PlaySoundOnShot("mecha_tank_death", audioSource);
 	}
 
     protected override void FinishDying()

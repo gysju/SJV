@@ -101,8 +101,9 @@ public class SoundManager : MonoBehaviour
             source.pitch = Random.Range(s.Pitch.x, s.Pitch.y);
             source.spatialBlend = s.SpatialBlend;
             source.priority = s.priority;
+            source.clip = s.audioClip;
 
-            source.PlayOneShot(s.audioClip, s.Volume);
+            source.Play();
         }
     }
 
