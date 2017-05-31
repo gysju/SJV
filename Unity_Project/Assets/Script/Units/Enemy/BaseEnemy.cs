@@ -200,6 +200,7 @@ public class BaseEnemy : BaseUnit
     protected virtual void ChaseMode()
     {
         m_enemyState = EnemyState.EnemyState_Moving;
+        if (m_animator) m_animator.SetTrigger("Locomotion");
     }
 
     #region Updates
