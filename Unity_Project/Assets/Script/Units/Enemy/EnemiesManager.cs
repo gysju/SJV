@@ -23,7 +23,7 @@ public class EnemiesManager : MonoBehaviour
     //[HideInInspector]
     public int waitCount = 0;
 
-    public List<GameObject> m_zones = new List<GameObject>();
+    public List<ActionZoneLimit> m_zones = new List<ActionZoneLimit>();
 
     protected ZAManager m_zaManager;
 
@@ -33,6 +33,12 @@ public class EnemiesManager : MonoBehaviour
     {
         m_zaManager = ZAManager.instance;
         m_player = BaseMecha.instance;
+
+        if (m_zones.Count > 0)
+        {
+            m_zones[0].ShowWall();
+        }
+
         StartCoroutine(ManageWaves());
     }
 
@@ -132,7 +138,7 @@ public class EnemiesManager : MonoBehaviour
             {
                 if (m_zones.Count > 0)
                 {
-                    Destroy(m_zones[0]);
+                    m_zones[0].HideWall();
                     m_zones.RemoveAt(0);
                 }
 
@@ -141,6 +147,7 @@ public class EnemiesManager : MonoBehaviour
                     yield return null;
                 }
                 waitCount--;
+                if (m_zones.Count > 0) m_zones[0].ShowWall();
             }
             else
             {
