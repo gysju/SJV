@@ -21,9 +21,6 @@ public class MechaLegs : MonoBehaviour
     [Range(0.01f, 0.5f)]
     public float DashSpeed = 0.5f;
 
-    public enum MoveSystem { moveSystem_teleport = 0, moveSystem_dash, moveSystem_count };
-    public MoveSystem moveSystem = MoveSystem.moveSystem_teleport;
-
     void Start ()
     {
         if (Instance == null)
@@ -46,26 +43,11 @@ public class MechaLegs : MonoBehaviour
         return NavMesh.SamplePosition(hit.point, out m_navMeshHit, 2.0f, 1 << NavMesh.GetAreaFromName("Walkable"));
     }
 
-    public void SwitchMoveSystem()
-    {
-        moveSystem = (MoveSystem)(((int)moveSystem + 1) % (int)MoveSystem.moveSystem_count);
-    }
-
     public void ConfirmTeleport()
     {
         if (m_navMeshHit.hit)
         {
-            switch (moveSystem)
-            {
-                case MoveSystem.moveSystem_teleport:
-                    Teleport(m_navMeshHit.position);
-                    break;
-                case MoveSystem.moveSystem_dash:
-                    InitDash(m_navMeshHit.position);
-                    break;
-                default:
-                    break;
-            }
+            InitDash(m_navMeshHit.position);
         }
     }
 
@@ -97,9 +79,4 @@ public class MechaLegs : MonoBehaviour
     {
         m_navmeshAgent.Move(direction * m_speed);
     }
-	
-	void Update ()
-    {
-		
-	}
 }

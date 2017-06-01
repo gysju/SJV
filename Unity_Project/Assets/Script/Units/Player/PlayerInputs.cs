@@ -295,10 +295,6 @@ public class PlayerInputs : MonoBehaviour
     {
         // Switch Move System when you presse circle button
 
-        if (m_leftController.GetButtonDown(MoveController.MoveButton.MoveButton_Circle)) m_mecha.m_legs.SwitchMoveSystem();
-        if (m_rightController.GetButtonDown(MoveController.MoveButton.MoveButton_Circle)) m_mecha.m_legs.SwitchMoveSystem();
-
-
         if (!m_rightMovePriority && m_leftController.GetButton(MoveController.MoveButton.MoveButton_Move))
         {
             PointDestinationLeft();
@@ -409,8 +405,6 @@ public class PlayerInputs : MonoBehaviour
 
     void TeleportMouse()
     {
-        if (Input.GetKeyDown(KeyCode.Space)) m_mecha.m_legs.SwitchMoveSystem();
-
         if (Input.GetKey(KeyCode.Mouse2))
         {
             PointDestinationCamera();
