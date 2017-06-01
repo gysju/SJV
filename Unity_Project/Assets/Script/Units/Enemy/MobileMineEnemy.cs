@@ -7,6 +7,7 @@ public class MobileMineEnemy : GroundEnemy
     [Header("Explosive")]
     public float m_explosionRange = 2f;
     public int m_damages = 2;
+    public string ExplosiveSound;
 
     #region Initialization
     protected override void Start()
@@ -30,13 +31,13 @@ public class MobileMineEnemy : GroundEnemy
 
     protected void Explode(BaseUnit target)
     {
+        SoundManager.Instance.PlaySound(ExplosiveSound, audioSource);
+
         target.ReceiveDamages(m_damages, 1);
         CompleteStop();
         m_destroyed = true;
         HUD_Radar.Instance.RemoveInfo(this);
         FinishDying();
-
-        SoundManager.Instance.PlaySoundOnShot("mecha_kamikaze_explosion", audioSource);
     }
     #endregion
 

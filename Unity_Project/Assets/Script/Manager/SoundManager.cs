@@ -19,6 +19,7 @@ public class SoundManager : MonoBehaviour
         public Vector2 Pitch;
         public float fadeDuration;
         private float currentPitch; // not currently used
+        public bool loop;
 
         [Tooltip("Spatail blend, 2D to 3D")]
         [Range(0, 1)]
@@ -75,6 +76,7 @@ public class SoundManager : MonoBehaviour
             source.pitch = Random.Range(s.Pitch.x, s.Pitch.y);
             source.spatialBlend = s.SpatialBlend;
             source.priority = s.priority;
+            source.loop = s.loop;
 
             source.Play();
             if (FadeIn)
@@ -183,7 +185,7 @@ public class SoundManager : MonoBehaviour
             }
             if (check)
             {
-                Sound snd = new Sound { Name = audioClip[i].name, Volume = 1.0f, Pitch = new Vector2(1,1), SpatialBlend = 1.0f, priority = 128, fadeDuration = 0 };
+                Sound snd = new Sound { Name = audioClip[i].name, Volume = 1.0f, Pitch = new Vector2(1,1), SpatialBlend = 1.0f, priority = 128, fadeDuration = 0, loop = false };
                 snd.audioClip = audioClip[i];
                 Sounds.Add(snd);
             }

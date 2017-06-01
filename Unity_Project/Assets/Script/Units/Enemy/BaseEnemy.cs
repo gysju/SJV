@@ -34,6 +34,7 @@ public class BaseEnemy : BaseUnit
     protected AudioSource audioSource;
     public string deathSound;
     public string SpawnSound;
+    public string movementSound;
 
 	[Header("Effect")]
 
@@ -145,7 +146,7 @@ public class BaseEnemy : BaseUnit
     public virtual void StartMovement()
     {
         m_enemyState = EnemyState.EnemyState_Moving;
-
+        SoundManager.Instance.PlaySound( movementSound, audioSource);
         if (m_animator) m_animator.SetTrigger("Locomotion");
     }
     #endregion
@@ -202,6 +203,7 @@ public class BaseEnemy : BaseUnit
     protected virtual void ChaseMode()
     {
         m_enemyState = EnemyState.EnemyState_Moving;
+        SoundManager.Instance.PlaySound(movementSound, audioSource);
         if (m_animator) m_animator.SetTrigger("Locomotion");
     }
 

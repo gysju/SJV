@@ -1482,6 +1482,7 @@ MonoBehaviour:
   EmissiveColor: {r: 0, g: 0, b: 0, a: 0}
   deathSound: mecha_tank_death
   SpawnSound: mecha_enemy_spawns
+  movementSound: mecha_kamikaze_movement
   ShockDuration: 0.137
   ShockIntensity: 1
   Shockcurve:
@@ -1518,6 +1519,7 @@ MonoBehaviour:
   m_maxSpeed: 12
   m_acceleration: 8
   m_rotationSpeed: 50
+  stopSound: mecha_tank_stop
 --- !u!114 &114864982472369878
 MonoBehaviour:
   m_ObjectHideFlags: 1

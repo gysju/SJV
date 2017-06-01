@@ -13,6 +13,8 @@ public class GroundEnemy : BaseEnemy
     public float m_acceleration = 8f;
     public float m_rotationSpeed = 50f;
 
+    public string stopSound;
+
     #region Initialization
     protected override void Awake()
     {
@@ -84,6 +86,7 @@ public class GroundEnemy : BaseEnemy
 
     protected override void AttackMode()
     {
+        SoundManager.Instance.PlaySound(stopSound, audioSource);
         m_enemyState = EnemyState.EnemyState_Attacking;
         AimWeaponAt(m_weaponsTarget.position);
         LaserOn();

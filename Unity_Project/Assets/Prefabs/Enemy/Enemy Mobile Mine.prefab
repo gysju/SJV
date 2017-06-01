@@ -851,6 +851,7 @@ MonoBehaviour:
   EmissiveColor: {r: 1, g: 0.68093306, b: 0.1102941, a: 1}
   deathSound: mecha_kamikaze_death
   SpawnSound: mecha_enemy_spawns
+  movementSound: mecha_kamikaze_movement
   ShockDuration: 0.035
   ShockIntensity: 1
   Shockcurve:
@@ -887,8 +888,10 @@ MonoBehaviour:
   m_maxSpeed: 20
   m_acceleration: 8
   m_rotationSpeed: 50
+  stopSound: 
   m_explosionRange: 2
   m_damages: 2
+  ExplosiveSound: mecha_kamikaze_explosion
 --- !u!136 &136323799777875694
 CapsuleCollider:
   m_ObjectHideFlags: 1
