@@ -87,6 +87,10 @@ public class HUD_Radar : MonoBehaviour
 
     public void RemoveAllInfos()
     {
+        foreach (Info info in Infos)
+        {
+            Destroy(info.UI);
+        }
         Infos.Clear();
     }
 }

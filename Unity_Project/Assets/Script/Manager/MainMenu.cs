@@ -19,6 +19,7 @@ public class MainMenu : MenuManager
         base.FindPlayer();
         m_player.ResetWeapons();
         m_player.BackToBase();
+        HUD_Radar.Instance.RemoveAllInfos();
     }
 
     #region Main Menu
