@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class BaseMecha : BaseUnit
 {
@@ -27,6 +28,8 @@ public class BaseMecha : BaseUnit
 	private float radiusMax = 1.0f;
 
 	private Coroutine HitCoroutine = null;
+
+    public AttackZoneManager m_attackZoneManager;
 
     [HideInInspector]
     public AsyncOperation m_levelLoading = null;
@@ -176,6 +179,11 @@ public class BaseMecha : BaseUnit
     public void AimRightWeaponTo(Vector3 targetPosition)
     {
         m_rightWeapon.transform.LookAt(targetPosition);
+    }
+
+    public void ResetWeapons()
+    {
+        m_inputs.ResetWeapons();
     }
 
     public override bool ReceiveDamages(int damages, int armorPenetration = 0)

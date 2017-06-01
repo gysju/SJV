@@ -119,7 +119,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &65120537
 MonoBehaviour:
@@ -951,6 +951,48 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 750, y: 1080}
   m_Pivot: {x: 0, y: 0.5}
+--- !u!1001 &520619549
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4049028469801646, guid: cb9d5156ede8e7f47879dce09b40d7dc, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 113.47883
+      objectReference: {fileID: 0}
+    - target: {fileID: 4049028469801646, guid: cb9d5156ede8e7f47879dce09b40d7dc, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 21.148888
+      objectReference: {fileID: 0}
+    - target: {fileID: 4049028469801646, guid: cb9d5156ede8e7f47879dce09b40d7dc, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 49.266262
+      objectReference: {fileID: 0}
+    - target: {fileID: 4049028469801646, guid: cb9d5156ede8e7f47879dce09b40d7dc, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4049028469801646, guid: cb9d5156ede8e7f47879dce09b40d7dc, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4049028469801646, guid: cb9d5156ede8e7f47879dce09b40d7dc, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4049028469801646, guid: cb9d5156ede8e7f47879dce09b40d7dc, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4049028469801646, guid: cb9d5156ede8e7f47879dce09b40d7dc, type: 2}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: cb9d5156ede8e7f47879dce09b40d7dc, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &625591268
 GameObject:
   m_ObjectHideFlags: 0
@@ -3710,7 +3752,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1501761646
 MonoBehaviour:
@@ -3727,202 +3769,6 @@ MonoBehaviour:
   - mecha_menu_ambience
   - mecha_menu_music
   audioSources: []
---- !u!1 &1642879125
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1642879127}
-  - component: {fileID: 1642879126}
-  m_Layer: 0
-  m_Name: '[SOUNDMANAGER]'
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1642879126
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1642879125}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be97061c99b9f7042b2c4c394bec2466, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Sounds:
-  - Name: mecha_placeholder_alarm
-    audioClip: {fileID: 8300000, guid: 28b7d8bd92c8c04428cf82f9750d6201, type: 3}
-    Volume: 0.373
-    Pitch: {x: 0, y: 0}
-    SpatialBlend: 0.34
-  - Name: mecha_placeholder_amb_elec
-    audioClip: {fileID: 8300000, guid: b44c8cd69fc25c34bb0e9ce2f5382f27, type: 3}
-    Volume: 0
-    Pitch: {x: 0, y: 0}
-    SpatialBlend: 0
-  - Name: mecha_placeholder_amb_mech
-    audioClip: {fileID: 8300000, guid: 2d84b7630982160458b43bd71a2568f8, type: 3}
-    Volume: 0
-    Pitch: {x: 0, y: 0}
-    SpatialBlend: 0
-  - Name: mecha_placeholder_araignee
-    audioClip: {fileID: 8300000, guid: dcd7684db463fab4daa684d3ca15e653, type: 3}
-    Volume: 0
-    Pitch: {x: 0, y: 0}
-    SpatialBlend: 0
-  - Name: mecha_placeholder_atterissage
-    audioClip: {fileID: 8300000, guid: a8e3ec560800b6a4eaedce51456ff0b0, type: 3}
-    Volume: 0
-    Pitch: {x: 0, y: 0}
-    SpatialBlend: 0
-  - Name: mecha_placeholder_bras
-    audioClip: {fileID: 8300000, guid: b44041a892cdff741b69297da4ba8c11, type: 3}
-    Volume: 0
-    Pitch: {x: 0, y: 0}
-    SpatialBlend: 0
-  - Name: mecha_placeholder_cockpit
-    audioClip: {fileID: 8300000, guid: 64d987243dadc9d40bf788e8d49cfcfe, type: 3}
-    Volume: 0
-    Pitch: {x: 0, y: 0}
-    SpatialBlend: 0
-  - Name: mecha_placeholder_die
-    audioClip: {fileID: 8300000, guid: 88a04b62d02d3df4a8ce589308cc51e5, type: 3}
-    Volume: 0
-    Pitch: {x: 0, y: 0}
-    SpatialBlend: 0
-  - Name: mecha_placeholder_drone
-    audioClip: {fileID: 8300000, guid: c0f0db1faefb9da4299d040d0ee1a64a, type: 3}
-    Volume: 0
-    Pitch: {x: 0, y: 0}
-    SpatialBlend: 0
-  - Name: mecha_placeholder_explosion
-    audioClip: {fileID: 8300000, guid: 99c86a3e3bf884e40b7b51eb22bad405, type: 3}
-    Volume: 0
-    Pitch: {x: 0, y: 0}
-    SpatialBlend: 0
-  - Name: mecha_placeholder_fumee
-    audioClip: {fileID: 8300000, guid: 0cbba45f06199c644ad3438d5732c244, type: 3}
-    Volume: 0
-    Pitch: {x: 0, y: 0}
-    SpatialBlend: 0
-  - Name: mecha_placeholder_lave
-    audioClip: {fileID: 8300000, guid: 429ddd9a7bf8a6446a25677f6b171539, type: 3}
-    Volume: 0.759
-    Pitch: {x: 0.7, y: 1}
-    SpatialBlend: 1
-  - Name: mecha_placeholder_musique
-    audioClip: {fileID: 8300000, guid: 4d85aec21130d724895743fb67392044, type: 3}
-    Volume: 0
-    Pitch: {x: 0, y: 0}
-    SpatialBlend: 0
-  - Name: mecha_placeholder_rafale
-    audioClip: {fileID: 8300000, guid: 29cca24656a05d54c86592caa7001a0b, type: 3}
-    Volume: 0
-    Pitch: {x: 0, y: 0}
-    SpatialBlend: 0
-  - Name: mecha_placeholder_soucoupe
-    audioClip: {fileID: 8300000, guid: c2643ad3e5994cf47962d2e568dc24be, type: 3}
-    Volume: 0
-    Pitch: {x: 0, y: 0}
-    SpatialBlend: 0
-  - Name: mecha_placeholder_surchauffe
-    audioClip: {fileID: 8300000, guid: ba77d76b54793b049b574e4f8c2d56e2, type: 3}
-    Volume: 0
-    Pitch: {x: 0, y: 0}
-    SpatialBlend: 0
-  - Name: mecha_placeholder_tir_1
-    audioClip: {fileID: 8300000, guid: 2ee9ef1290e1e8b45aa4dffc61071f65, type: 3}
-    Volume: 1
-    Pitch: {x: 0, y: 0}
-    SpatialBlend: 0
-  - Name: mecha_placeholder_tir_2
-    audioClip: {fileID: 8300000, guid: b66a196dc8144ab4d8abe0417c48b86d, type: 3}
-    Volume: 1
-    Pitch: {x: 0, y: 0}
-    SpatialBlend: 0
-  - Name: mecha_placeholder_tir_3
-    audioClip: {fileID: 8300000, guid: 108357a7d50f9914f8f688c0090d43e5, type: 3}
-    Volume: 1
-    Pitch: {x: 0, y: 0}
-    SpatialBlend: 0
-  - Name: mecha_placeholder_tir_4
-    audioClip: {fileID: 8300000, guid: be4a629d99d8f2949accbddf187ec8d4, type: 3}
-    Volume: 1
-    Pitch: {x: 0, y: 0}
-    SpatialBlend: 0
-  - Name: mecha_placeholder_UI_1
-    audioClip: {fileID: 8300000, guid: 1e222d37d3e12c34a90c17cf8998c0ab, type: 3}
-    Volume: 1
-    Pitch: {x: 0, y: 0}
-    SpatialBlend: 1
-  - Name: mecha_placeholder_UI_2
-    audioClip: {fileID: 8300000, guid: 148ecc3758bd34b4d83bde63c76bf738, type: 3}
-    Volume: 1
-    Pitch: {x: 0, y: 0}
-    SpatialBlend: 1
-  - Name: mecha_placeholder_UI_3
-    audioClip: {fileID: 8300000, guid: b449410cc2ad87d4a873a7bcb1f43426, type: 3}
-    Volume: 1
-    Pitch: {x: 0, y: 0}
-    SpatialBlend: 1
-  - Name: mecha_placeholder_vox_ready
-    audioClip: {fileID: 8300000, guid: 3e0cf9311ac9fa34d81ed3e4bb85d3b7, type: 3}
-    Volume: 0
-    Pitch: {x: 0, y: 0}
-    SpatialBlend: 0
-  - Name: mecha_placeholder_vox_reload
-    audioClip: {fileID: 8300000, guid: b7ef70770c5d34944838be95bcd74620, type: 3}
-    Volume: 0
-    Pitch: {x: 0, y: 0}
-    SpatialBlend: 0
-  - Name: mecha_placeholder_wagon
-    audioClip: {fileID: 8300000, guid: 8665e7248291d2f4d839c7c39f6caca6, type: 3}
-    Volume: 0
-    Pitch: {x: 0, y: 0}
-    SpatialBlend: 0
-  - Name: mecha_button_hover
-    audioClip: {fileID: 8300000, guid: 03d869d6d7bd12c40b4fb6d4b5e11bac, type: 3}
-    Volume: 1
-    Pitch: {x: 0.9, y: 1}
-    SpatialBlend: 1
-  - Name: mecha_button_press
-    audioClip: {fileID: 8300000, guid: e46945333c59d6246be7e1c28d789bf8, type: 3}
-    Volume: 1
-    Pitch: {x: 0.9, y: 1}
-    SpatialBlend: 1
-  - Name: mecha_menu_ambience
-    audioClip: {fileID: 8300000, guid: 7005dc6afba96fa458a585089f64e057, type: 3}
-    Volume: 0.097
-    Pitch: {x: 1, y: 1}
-    SpatialBlend: 0.139
-  - Name: mecha_menu_music
-    audioClip: {fileID: 8300000, guid: 3df8a18d5a510fe49966deae699012cb, type: 3}
-    Volume: 0.132
-    Pitch: {x: 1, y: 1}
-    SpatialBlend: 0
-  - Name: mecha_menu_transition
-    audioClip: {fileID: 8300000, guid: a170f436fcb30a44496fa3f3e5112f35, type: 3}
-    Volume: 0
-    Pitch: {x: 0, y: 0}
-    SpatialBlend: 0
---- !u!4 &1642879127
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1642879125}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 113.47883, y: 21.148888, z: 49.266262}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1773284915
 GameObject:
   m_ObjectHideFlags: 0

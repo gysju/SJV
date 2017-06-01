@@ -23,4 +23,9 @@ public class ButtonInteraction : MonoBehaviour, IPointerEnterHandler
     {
         SoundManager.Instance.PlaySoundOnShot("mecha_button_press", audioSource);
     }
+
+    public void Selected()
+    {
+        SoundManager.Instance.PlaySoundOnShot("mecha_button_hover", audioSource);
+    }
 }

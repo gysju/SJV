@@ -19,6 +19,11 @@ public class TrackedDeviceMoveControllers : MonoBehaviour {
     public Transform targetLeft;
     public Transform targetRight;
 
+    [HideInInspector]
+    public Vector3 targetLeftOriginPos;
+    [HideInInspector]
+    public Vector3 targetRightOriginPos;
+
 	public Vector3 TargetBias;
 
     [Range( 0.0f, 5.0f)]
@@ -40,8 +45,6 @@ public class TrackedDeviceMoveControllers : MonoBehaviour {
 	private Vector3 primaryPositionOriginPos = Vector3.zero;
 	private Vector3 secondaryPositionOriginPos = Vector3.zero;
 
-    public Vector3 targetLeftOriginPos;
-    public Vector3 targetRightOriginPos;
 
     IEnumerator Start()
 	{
@@ -79,10 +82,10 @@ public class TrackedDeviceMoveControllers : MonoBehaviour {
 				targetLeftOriginPos = targetLeft.localPosition;
 				targetRightOriginPos = targetRight.localPosition;
 
-                SceneManager.sceneLoaded += delegate {
-                    targetLeft.localPosition = targetLeftOriginPos;
-                    targetRight.localPosition = targetRightOriginPos;
-                };
+                //SceneManager.sceneLoaded += delegate {
+                //    targetLeft.localPosition = targetLeftOriginPos;
+                //    targetRight.localPosition = targetRightOriginPos;
+                //};
 			}
 		} 
 		else if (Instance != this) 
@@ -242,7 +245,18 @@ public class TrackedDeviceMoveControllers : MonoBehaviour {
 			primaryController = primaryMoveController.transform;
 			secondaryController = secondaryMoveController.transform;
 			Instance = this;
-		}
+
+            if (targetLeft != null && targetRight != null)
+            {
+                targetLeftOriginPos = targetLeft.localPosition;
+                targetRightOriginPos = targetRight.localPosition;
+
+                //SceneManager.sceneLoaded += delegate {
+                //    targetLeft.localPosition = targetLeftOriginPos;
+                //    targetRight.localPosition = targetRightOriginPos;
+                //};
+            }
+        }
 		else if (Instance != this)
 			Destroy(gameObject);
 

@@ -18,7 +18,7 @@ public class MechaLegs : MonoBehaviour
     public float m_speed;
 
     [Header("Dash")]
-    [Range(0.1f, 1.0f)]
+    [Range(0.01f, 0.5f)]
     public float DashSpeed = 0.5f;
 
     public enum MoveSystem { moveSystem_teleport = 0, moveSystem_dash, moveSystem_count };
@@ -81,6 +81,7 @@ public class MechaLegs : MonoBehaviour
 
     IEnumerator Dash(Vector3 pos)
     {
+        m_navmeshAgent.enabled = false;
         Vector3 initialPos = transform.position;
         float time = 0.0f;
         while (time < DashSpeed)
@@ -89,6 +90,7 @@ public class MechaLegs : MonoBehaviour
             time += Time.deltaTime;
             yield return null;
         }
+        m_navmeshAgent.enabled = true;
     }
 
     public void MoveTo(Vector3 direction)

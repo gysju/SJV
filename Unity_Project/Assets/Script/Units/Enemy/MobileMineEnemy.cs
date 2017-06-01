@@ -11,7 +11,7 @@ public class MobileMineEnemy : GroundEnemy
     #region Initialization
     protected override void Start()
     {
-        m_target = FindObjectOfType<BaseMecha>().transform;
+        m_weaponsTarget = FindObjectOfType<BaseMecha>().transform;
     }
     #endregion
 
@@ -20,15 +20,12 @@ public class MobileMineEnemy : GroundEnemy
     protected override void StartDying()
     {
         base.StartDying();
-
-        // play death sound
-        //SoundManager.Instance.PlaySoundOnShot("", audioSource);
     }
     #endregion
     #region Attack related
-    protected bool TargetInRange()
+    protected override bool IsTargetInRange()
     {
-        return (Vector3.Distance(m_transform.position, m_target.position) < m_explosionRange);
+        return (Vector3.Distance(m_transform.position, m_weaponsTarget.position) < m_explosionRange);
     }
 
     protected void Explode(BaseUnit target)
@@ -39,8 +36,7 @@ public class MobileMineEnemy : GroundEnemy
         HUD_Radar.Instance.RemoveInfo(this);
         FinishDying();
 
-        // play Attack sound
-        //SoundManager.Instance.PlaySoundOnShot("", audioSource);
+        SoundManager.Instance.PlaySoundOnShot("mecha_kamikaze_explosion", audioSource);
     }
     #endregion
 
@@ -52,15 +48,15 @@ public class MobileMineEnemy : GroundEnemy
             switch (m_enemyState)
             {
                 case EnemyState.EnemyState_Sleep:
-                    if (m_target)
+                    if (m_weaponsTarget)
                     {
-                        MoveTo(m_target.position);
+                        MoveToTarget();
                     }
                     break;
                 case EnemyState.EnemyState_Moving:
-                    if (TargetInRange())
+                    if (IsTargetInRange())
                     {
-                        Explode(m_target.GetComponent<BaseUnit>());
+                        Explode(m_weaponsTarget.GetComponent<BaseUnit>());
                     }
                     break;
                 case EnemyState.EnemyState_Attacking:

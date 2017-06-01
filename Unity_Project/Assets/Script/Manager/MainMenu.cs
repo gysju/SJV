@@ -17,6 +17,7 @@ public class MainMenu : MenuManager
     protected override void FindPlayer()
     {
         base.FindPlayer();
+        m_player.ResetWeapons();
         m_player.BackToBase();
     }
 

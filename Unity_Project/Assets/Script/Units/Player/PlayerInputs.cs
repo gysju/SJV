@@ -37,10 +37,10 @@ public class PlayerInputs : MonoBehaviour
     private bool m_leftMovePriority = false;
     private bool m_rightMovePriority = false;
 
+    public TrackedDeviceMoveControllers trackedDeviceMoveControllers;
 #if UNITY_PS4
     [Header("PSMove Related")]
 
-    public TrackedDeviceMoveControllers trackedDeviceMoveControllers;
 	public float MinimumAngleToRotate = 15.0f;
 
     private MoveController m_leftController;
@@ -186,6 +186,31 @@ public class PlayerInputs : MonoBehaviour
         }
     }
 
+    void PointDestinationCamera()
+    {
+        RaycastHit hit;
+        Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, 250.0f);
+        if (m_legs.CheckDestination(hit))
+        {
+            m_rightRay.setLineColor(Color.green);
+            //display effect at the destination
+            if (teleportIndication != null)
+            {
+                teleportIndication.SetActive(true);
+                teleportIndication.transform.position = hit.point;
+            }
+        }
+        else
+        {
+            m_rightRay.setLineColor(Color.red);
+            //Hide effect
+            if (teleportIndication != null)
+            {
+                teleportIndication.SetActive(false);
+            }
+        }
+    }
+
     void ConfirmDestination()
     {
         m_leftMovePriority = false;
@@ -204,6 +229,14 @@ public class PlayerInputs : MonoBehaviour
     public void CameraSky()
     {
         m_mainCamera.clearFlags = CameraClearFlags.Skybox;
+    }
+
+    public void ResetWeapons()
+    {
+        trackedDeviceMoveControllers.targetLeft.localPosition = trackedDeviceMoveControllers.targetLeftOriginPos;
+        m_mecha.m_weapons[0].transform.rotation = Quaternion.identity;
+        trackedDeviceMoveControllers.targetRight.localPosition = trackedDeviceMoveControllers.targetRightOriginPos;
+        m_mecha.m_weapons[1].transform.rotation = Quaternion.identity;
     }
 
 #if UNITY_PS4
@@ -354,33 +387,33 @@ public class PlayerInputs : MonoBehaviour
         }
     }
 
-    void KeyboardMovements()
-    {
-        Vector3 movementDirection = Vector3.zero;
-        if (Input.GetKey(KeyCode.Z)) movementDirection.z += 1f;
-        if (Input.GetKey(KeyCode.S)) movementDirection.z -= 1f;
-        if (Input.GetKey(KeyCode.D)) movementDirection.x += 1f;
-        if (Input.GetKey(KeyCode.Q)) movementDirection.x -= 1f;
+    //void KeyboardMovements()
+    //{
+    //    Vector3 movementDirection = Vector3.zero;
+    //    if (Input.GetKey(KeyCode.Z)) movementDirection.z += 1f;
+    //    if (Input.GetKey(KeyCode.S)) movementDirection.z -= 1f;
+    //    if (Input.GetKey(KeyCode.D)) movementDirection.x += 1f;
+    //    if (Input.GetKey(KeyCode.Q)) movementDirection.x -= 1f;
 
-        if (movementDirection != Vector3.zero) m_legs.MoveTo(movementDirection);
+    //    if (movementDirection != Vector3.zero) m_legs.MoveTo(movementDirection);
 
-        if (Input.GetMouseButton(2))
-        {
-            PointDestinationLeft();
-        }
-        if (Input.GetMouseButtonUp(2))
-        {
-            ConfirmDestination();
-        }
-    }
+    //    if (Input.GetMouseButton(2))
+    //    {
+    //        PointDestinationLeft();
+    //    }
+    //    if (Input.GetMouseButtonUp(2))
+    //    {
+    //        ConfirmDestination();
+    //    }
+    //}
 
     void TeleportMouse()
     {
         if (Input.GetKeyDown(KeyCode.Space)) m_mecha.m_legs.SwitchMoveSystem();
 
-        if (Input.GetKeyDown(KeyCode.Mouse2))
+        if (Input.GetKey(KeyCode.Mouse2))
         {
-            PointDestinationLeft();
+            PointDestinationCamera();
         }
         if (Input.GetKeyUp(KeyCode.Mouse2))
         {

@@ -783,7 +783,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   spreadCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -795,7 +795,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -807,7 +807,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
 --- !u!95 &95612960335007788
 Animator:
   serializedVersion: 3
@@ -841,13 +841,15 @@ MonoBehaviour:
   m_currentHitPoints: 0
   m_timeToDie: 1
   m_destructionSpawn: {fileID: 0}
+  ImpactSound: mecha_impact_light
+  NbrOfImpactSound: 3
   m_armor: 0
   m_targetPoint: {fileID: 0}
   m_weapons: []
   m_poolManager: {fileID: 0}
-  m_timeToAttack: 2
   DeathfadeSpeed: 1
   EmissiveColor: {r: 1, g: 0.68093306, b: 0.1102941, a: 1}
+  deathSound: mecha_kamikaze_death
   ShockDuration: 0.035
   ShockIntensity: 1
   Shockcurve:
@@ -874,6 +876,13 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+  ScaleIntensity: 1
+  ScaleCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   m_maxSpeed: 20
   m_acceleration: 8
   m_rotationSpeed: 50

@@ -26,18 +26,13 @@ public class LaserPointingSystem : MonoBehaviour {
 
 	private MoveController move;
 	private Button buttonSelected;
-    private int count; 
 	private Transform ThisTransform;
-
-    private bool positionIsCorrect = false;
-    //private NavMeshHit hitTeleport;
 
     void Start () 
 	{
 		eventSystem =  GameObject.Find("EventSystem").GetComponent<EventSystem>();
 		lineRenderer = GetComponent<LineRenderer> ();
 		move = GetComponent<MoveController> ();
-		count = move.MoveIndex;
 		ThisTransform = transform;
     }
 
@@ -131,7 +126,7 @@ public class LaserPointingSystem : MonoBehaviour {
 	{
 		if(buttonSelected != null && ( move.GetButtonDown(MoveController.MoveButton.MoveButton_Trigger) || Input.GetButtonDown("Fire1")))
 		{
-			buttonSelected.onClick.Invoke (); //a fixer, le GetButtonDown ne fonctionne qu'une seul fois ( par manette )
+			buttonSelected.onClick.Invoke ();
             //buttonSelected.GetComponent<AudioSource>().Play();
 		}
 	}
@@ -144,7 +139,11 @@ public class LaserPointingSystem : MonoBehaviour {
 			&& OtherLaser.buttonSelected == null) 
 		{
 			buttonSelected.Select();
-		}
+#if UNITY_PS4
+            ButtonInteraction but = buttonSelected.GetComponent<ButtonInteraction>();
+            if ( but != null) but.Selected();
+#endif
+        }
 	}
 
 	void CheckMask()
