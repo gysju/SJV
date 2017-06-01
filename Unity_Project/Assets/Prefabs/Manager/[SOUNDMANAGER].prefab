@@ -25,7 +25,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4049028469801646
 Transform:
@@ -52,189 +52,347 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sounds:
-  - Name: mecha_button_hover
-    audioClip: {fileID: 8300000, guid: 03d869d6d7bd12c40b4fb6d4b5e11bac, type: 3}
+  - Name: mecha_drone_arrival
+    audioClip: {fileID: 8300000, guid: 002060a06b6b12041a84ebf7fca78e7f, type: 3}
     Volume: 1
     priority: 128
     Pitch: {x: 1, y: 1}
+    fadeDuration: 0
+    loop: 0
+    SpatialBlend: 1
+  - Name: mecha_drone_hover
+    audioClip: {fileID: 8300000, guid: c5a9d3493bca7e44aa87b4649bf56ce3, type: 3}
+    Volume: 1
+    priority: 128
+    Pitch: {x: 1, y: 1}
+    fadeDuration: 0
+    loop: 0
+    SpatialBlend: 1
+  - Name: mecha_drone_movement_1
+    audioClip: {fileID: 8300000, guid: 82e5124860fa8b449affe8a4b66bd317, type: 3}
+    Volume: 1
+    priority: 128
+    Pitch: {x: 1, y: 1}
+    fadeDuration: 0
+    loop: 0
+    SpatialBlend: 1
+  - Name: mecha_drone_movement_2
+    audioClip: {fileID: 8300000, guid: 618551d107406e64d93fc4c04940485e, type: 3}
+    Volume: 1
+    priority: 128
+    Pitch: {x: 1, y: 1}
+    fadeDuration: 0
+    loop: 0
+    SpatialBlend: 1
+  - Name: mecha_drone_movement_3
+    audioClip: {fileID: 8300000, guid: cb35e51758fdbdd40b207d0ce7a8a3df, type: 3}
+    Volume: 1
+    priority: 128
+    Pitch: {x: 1, y: 1}
+    fadeDuration: 0
+    loop: 0
+    SpatialBlend: 1
+  - Name: mecha_drone_movement_4
+    audioClip: {fileID: 8300000, guid: 40f63f40a13c0774eb542aa380c3e4f8, type: 3}
+    Volume: 1
+    priority: 128
+    Pitch: {x: 1, y: 1}
+    fadeDuration: 0
+    loop: 0
+    SpatialBlend: 1
+  - Name: mehca_drone_death
+    audioClip: {fileID: 8300000, guid: af5d608649ac26c488e371ff9232bce4, type: 3}
+    Volume: 1
+    priority: 128
+    Pitch: {x: 1, y: 1}
+    fadeDuration: 0
+    loop: 0
+    SpatialBlend: 0.5
+  - Name: mehca_drone_shots
+    audioClip: {fileID: 8300000, guid: 37da8577d7fd0bc4baaab4b01b05f36b, type: 3}
+    Volume: 1
+    priority: 128
+    Pitch: {x: 1, y: 1}
+    fadeDuration: 0
+    loop: 0
+    SpatialBlend: 0.5
+  - Name: mecha_impact_heavy_1
+    audioClip: {fileID: 8300000, guid: d65fd158511891d49b8207d999dd02df, type: 3}
+    Volume: 1
+    priority: 128
+    Pitch: {x: 1, y: 1}
+    fadeDuration: 0
+    loop: 0
+    SpatialBlend: 1
+  - Name: mecha_impact_heavy_2
+    audioClip: {fileID: 8300000, guid: b73263aadc9ac77469f0b314e177e618, type: 3}
+    Volume: 1
+    priority: 128
+    Pitch: {x: 1, y: 1}
+    fadeDuration: 0
+    loop: 0
+    SpatialBlend: 1
+  - Name: mecha_impact_heavy_3
+    audioClip: {fileID: 8300000, guid: 6c28287b4385f31438fedc0d9a00e495, type: 3}
+    Volume: 1
+    priority: 128
+    Pitch: {x: 1, y: 1}
+    fadeDuration: 0
+    loop: 0
+    SpatialBlend: 1
+  - Name: mecha_impact_light_1
+    audioClip: {fileID: 8300000, guid: 7dd7c82759e7d7040b490a2718563499, type: 3}
+    Volume: 1
+    priority: 256
+    Pitch: {x: 0.8, y: 1}
+    fadeDuration: 0
+    loop: 0
+    SpatialBlend: 0.5
+  - Name: mecha_impact_light_2
+    audioClip: {fileID: 8300000, guid: acf7fc829d09c214f8e71b0cf3e65818, type: 3}
+    Volume: 1
+    priority: 256
+    Pitch: {x: 0.8, y: 1}
+    fadeDuration: 0
+    loop: 0
+    SpatialBlend: 0.5
+  - Name: mecha_impact_light_3
+    audioClip: {fileID: 8300000, guid: ace07c448239cdc4683db584fb3256ea, type: 3}
+    Volume: 1
+    priority: 256
+    Pitch: {x: 0.8, y: 1}
+    fadeDuration: 0
+    loop: 0
+    SpatialBlend: 0.5
+  - Name: mecha_kamikaze_death
+    audioClip: {fileID: 8300000, guid: 93c3cd6ca0b9dfe4d96a7682b53f55cd, type: 3}
+    Volume: 1
+    priority: 128
+    Pitch: {x: 1, y: 1}
+    fadeDuration: 0
+    loop: 0
+    SpatialBlend: 0.5
+  - Name: mecha_kamikaze_explosion
+    audioClip: {fileID: 8300000, guid: f1d3a13f78811f64bac8be97da706431, type: 3}
+    Volume: 1
+    priority: 200
+    Pitch: {x: 1, y: 1}
+    fadeDuration: 0
+    loop: 0
+    SpatialBlend: 0.5
+  - Name: mecha_kamikaze_movement
+    audioClip: {fileID: 8300000, guid: 7eedc20dcd0b6a54faebeb1c04910fda, type: 3}
+    Volume: 1
+    priority: 200
+    Pitch: {x: 0.5, y: 1}
+    fadeDuration: 0
+    loop: 1
+    SpatialBlend: 1
+  - Name: mecha_mecha_interior_ambience
+    audioClip: {fileID: 8300000, guid: 126b67e1551b6284e970c8dc69c54675, type: 3}
+    Volume: 1
+    priority: 128
+    Pitch: {x: 1, y: 1}
+    fadeDuration: 0
+    loop: 0
+    SpatialBlend: 1
+  - Name: mecha_shots
+    audioClip: {fileID: 8300000, guid: 31448d9186dadb146b1605ecfe284dea, type: 3}
+    Volume: 1
+    priority: 128
+    Pitch: {x: 1, y: 1}
+    fadeDuration: 0
+    loop: 0
+    SpatialBlend: 1
+  - Name: mecha_shots_reverb
+    audioClip: {fileID: 8300000, guid: 7dce7295ef792904ead4d84c604f3441, type: 3}
+    Volume: 1
+    priority: 128
+    Pitch: {x: 1, y: 1}
+    fadeDuration: 0
+    loop: 0
+    SpatialBlend: 1
+  - Name: mecha_shots_reverberated
+    audioClip: {fileID: 8300000, guid: 773e8e6c7cebaca4fa0f35ec6e1cd558, type: 3}
+    Volume: 0.8
+    priority: 128
+    Pitch: {x: 1, y: 1}
+    fadeDuration: 0
+    loop: 0
+    SpatialBlend: 1
+  - Name: mecha_shots_v2
+    audioClip: {fileID: 8300000, guid: 75c0d5ac6e150ef4cbd978f397dabf79, type: 3}
+    Volume: 1
+    priority: 128
+    Pitch: {x: 1, y: 1}
+    fadeDuration: 0
+    loop: 0
+    SpatialBlend: 1
+  - Name: mecha_taking_damage_1
+    audioClip: {fileID: 8300000, guid: b579ea99edb459f41872b70fdb254627, type: 3}
+    Volume: 1
+    priority: 128
+    Pitch: {x: 1, y: 1}
+    fadeDuration: 0
+    loop: 0
+    SpatialBlend: 1
+  - Name: mecha_taking_damage_2
+    audioClip: {fileID: 8300000, guid: 7e8802ef5d6cba04eb7ea7a2445f4067, type: 3}
+    Volume: 1
+    priority: 128
+    Pitch: {x: 1, y: 1}
+    fadeDuration: 0
+    loop: 0
+    SpatialBlend: 1
+  - Name: mecha_taking_damage_3
+    audioClip: {fileID: 8300000, guid: 2e67547a73c0dbf48ad5c15185624415, type: 3}
+    Volume: 1
+    priority: 128
+    Pitch: {x: 1, y: 1}
+    fadeDuration: 0
+    loop: 0
+    SpatialBlend: 1
+  - Name: mecha_button_hover
+    audioClip: {fileID: 8300000, guid: 03d869d6d7bd12c40b4fb6d4b5e11bac, type: 3}
+    Volume: 1
+    priority: 200
+    Pitch: {x: 1, y: 1}
+    fadeDuration: 0
+    loop: 0
     SpatialBlend: 1
   - Name: mecha_button_press
     audioClip: {fileID: 8300000, guid: e46945333c59d6246be7e1c28d789bf8, type: 3}
     Volume: 1
-    priority: 128
+    priority: 256
     Pitch: {x: 1, y: 1}
+    fadeDuration: 0
+    loop: 0
     SpatialBlend: 1
   - Name: mecha_menu_ambience
     audioClip: {fileID: 8300000, guid: 7005dc6afba96fa458a585089f64e057, type: 3}
-    Volume: 1
+    Volume: 0.15
     priority: 128
     Pitch: {x: 1, y: 1}
-    SpatialBlend: 1
+    fadeDuration: 0
+    loop: 0
+    SpatialBlend: 0
   - Name: mecha_menu_music
     audioClip: {fileID: 8300000, guid: 3df8a18d5a510fe49966deae699012cb, type: 3}
-    Volume: 1
+    Volume: 0.03
     priority: 128
     Pitch: {x: 1, y: 1}
-    SpatialBlend: 1
+    fadeDuration: 0
+    loop: 0
+    SpatialBlend: 0
   - Name: mecha_menu_transition
     audioClip: {fileID: 8300000, guid: a170f436fcb30a44496fa3f3e5112f35, type: 3}
     Volume: 1
     priority: 128
     Pitch: {x: 1, y: 1}
+    fadeDuration: 0
+    loop: 0
     SpatialBlend: 1
-  - Name: mecha_alarm
-    audioClip: {fileID: 8300000, guid: 28b7d8bd92c8c04428cf82f9750d6201, type: 3}
+  - Name: mecha_tank_death
+    audioClip: {fileID: 8300000, guid: 66d08b9a452c780409da459937e725ca, type: 3}
     Volume: 1
     priority: 128
     Pitch: {x: 1, y: 1}
-    SpatialBlend: 1
-  - Name: mecha_amb_elec
-    audioClip: {fileID: 8300000, guid: b44c8cd69fc25c34bb0e9ce2f5382f27, type: 3}
+    fadeDuration: 0
+    loop: 0
+    SpatialBlend: 0.5
+  - Name: mecha_tank_shots
+    audioClip: {fileID: 8300000, guid: 57d72410a8ef7514c8cc82c58d849481, type: 3}
+    Volume: 1
+    priority: 200
+    Pitch: {x: 1, y: 1}
+    fadeDuration: 0
+    loop: 0
+    SpatialBlend: 0.5
+  - Name: mecha_tank_step_1
+    audioClip: {fileID: 8300000, guid: bdfbd6d7c4e6bee41b37ded547324329, type: 3}
     Volume: 1
     priority: 128
     Pitch: {x: 1, y: 1}
+    fadeDuration: 0
+    loop: 0
     SpatialBlend: 1
-  - Name: mecha_amb_mech
-    audioClip: {fileID: 8300000, guid: 2d84b7630982160458b43bd71a2568f8, type: 3}
+  - Name: mecha_tank_step_2
+    audioClip: {fileID: 8300000, guid: d9131c899982bf049897d83513e3b5d5, type: 3}
     Volume: 1
     priority: 128
     Pitch: {x: 1, y: 1}
+    fadeDuration: 0
+    loop: 0
     SpatialBlend: 1
-  - Name: mecha_araignee
-    audioClip: {fileID: 8300000, guid: dcd7684db463fab4daa684d3ca15e653, type: 3}
+  - Name: mecha_tank_step_3
+    audioClip: {fileID: 8300000, guid: ebae52e062c262e41b665f7472cb1570, type: 3}
     Volume: 1
     priority: 128
     Pitch: {x: 1, y: 1}
+    fadeDuration: 0
+    loop: 0
     SpatialBlend: 1
-  - Name: mecha_atterissage
-    audioClip: {fileID: 8300000, guid: a8e3ec560800b6a4eaedce51456ff0b0, type: 3}
+  - Name: mecha_tank_step_4
+    audioClip: {fileID: 8300000, guid: 1b3a86ae6074caf4e833245c29b32e31, type: 3}
     Volume: 1
     priority: 128
     Pitch: {x: 1, y: 1}
+    fadeDuration: 0
+    loop: 0
     SpatialBlend: 1
-  - Name: mecha_bras
-    audioClip: {fileID: 8300000, guid: b44041a892cdff741b69297da4ba8c11, type: 3}
+  - Name: mecha_tank_step_5
+    audioClip: {fileID: 8300000, guid: 1931f5c577ad94342a73e011b1b09fe4, type: 3}
     Volume: 1
     priority: 128
     Pitch: {x: 1, y: 1}
+    fadeDuration: 0
+    loop: 0
     SpatialBlend: 1
-  - Name: mecha_cockpit
-    audioClip: {fileID: 8300000, guid: 64d987243dadc9d40bf788e8d49cfcfe, type: 3}
+  - Name: mecha_tank_stop
+    audioClip: {fileID: 8300000, guid: 5f2a5159e60429d4dbcc7762c3454a74, type: 3}
     Volume: 1
+    priority: 200
+    Pitch: {x: 0.5, y: 1}
+    fadeDuration: 0
+    loop: 0
+    SpatialBlend: 0.5
+  - Name: mecha_ZA1_general_ambience-001
+    audioClip: {fileID: 8300000, guid: bdf614e99edf8164c93a0c766d32094d, type: 3}
+    Volume: 0.5
+    priority: 230
+    Pitch: {x: 1, y: 1}
+    fadeDuration: 0
+    loop: 0
+    SpatialBlend: 0
+  - Name: mecha_ZA1_lava_burst
+    audioClip: {fileID: 8300000, guid: d1be3e9d2d40de140a7a89f27e76812e, type: 3}
+    Volume: 1
+    priority: 256
+    Pitch: {x: 0.5, y: 1}
+    fadeDuration: 0
+    loop: 0
+    SpatialBlend: 0.5
+  - Name: mecha_ZA1_mine_cart
+    audioClip: {fileID: 8300000, guid: 4dca261520772474b87045960fa386a9, type: 3}
+    Volume: 0.75
     priority: 128
     Pitch: {x: 1, y: 1}
-    SpatialBlend: 1
-  - Name: mecha_die
-    audioClip: {fileID: 8300000, guid: 88a04b62d02d3df4a8ce589308cc51e5, type: 3}
+    fadeDuration: 0
+    loop: 0
+    SpatialBlend: 0.75
+  - Name: mecha_shots_reverberated
+    audioClip: {fileID: 8300000, guid: 773e8e6c7cebaca4fa0f35ec6e1cd558, type: 3}
     Volume: 1
     priority: 128
-    Pitch: {x: 1, y: 1}
-    SpatialBlend: 1
-  - Name: mecha_drone
-    audioClip: {fileID: 8300000, guid: c0f0db1faefb9da4299d040d0ee1a64a, type: 3}
+    Pitch: {x: 0.5, y: 1}
+    fadeDuration: 0
+    loop: 0
+    SpatialBlend: 0.5
+  - Name: mecha_enemy_spawns
+    audioClip: {fileID: 8300000, guid: 9b3efdd54d2e84f4cbe6735a17898536, type: 3}
     Volume: 1
-    priority: 128
-    Pitch: {x: 1, y: 1}
-    SpatialBlend: 1
-  - Name: mecha_explosion
-    audioClip: {fileID: 8300000, guid: 99c86a3e3bf884e40b7b51eb22bad405, type: 3}
-    Volume: 1
-    priority: 128
-    Pitch: {x: 1, y: 1}
-    SpatialBlend: 1
-  - Name: mecha_fumee
-    audioClip: {fileID: 8300000, guid: 0cbba45f06199c644ad3438d5732c244, type: 3}
-    Volume: 1
-    priority: 128
-    Pitch: {x: 1, y: 1}
-    SpatialBlend: 1
-  - Name: mecha_lave
-    audioClip: {fileID: 8300000, guid: 429ddd9a7bf8a6446a25677f6b171539, type: 3}
-    Volume: 1
-    priority: 128
-    Pitch: {x: 1, y: 1}
-    SpatialBlend: 1
-  - Name: mecha_musique
-    audioClip: {fileID: 8300000, guid: 4d85aec21130d724895743fb67392044, type: 3}
-    Volume: 1
-    priority: 128
-    Pitch: {x: 1, y: 1}
-    SpatialBlend: 1
-  - Name: mecha_rafale
-    audioClip: {fileID: 8300000, guid: 29cca24656a05d54c86592caa7001a0b, type: 3}
-    Volume: 1
-    priority: 128
-    Pitch: {x: 1, y: 1}
-    SpatialBlend: 1
-  - Name: mecha_soucoupe
-    audioClip: {fileID: 8300000, guid: c2643ad3e5994cf47962d2e568dc24be, type: 3}
-    Volume: 1
-    priority: 128
-    Pitch: {x: 1, y: 1}
-    SpatialBlend: 1
-  - Name: mecha_surchauffe
-    audioClip: {fileID: 8300000, guid: ba77d76b54793b049b574e4f8c2d56e2, type: 3}
-    Volume: 1
-    priority: 128
-    Pitch: {x: 1, y: 1}
-    SpatialBlend: 1
-  - Name: mecha_tir_1
-    audioClip: {fileID: 8300000, guid: 2ee9ef1290e1e8b45aa4dffc61071f65, type: 3}
-    Volume: 1
-    priority: 128
-    Pitch: {x: 1, y: 1}
-    SpatialBlend: 1
-  - Name: mecha_tir_2
-    audioClip: {fileID: 8300000, guid: b66a196dc8144ab4d8abe0417c48b86d, type: 3}
-    Volume: 1
-    priority: 128
-    Pitch: {x: 1, y: 1}
-    SpatialBlend: 1
-  - Name: mecha_tir_3
-    audioClip: {fileID: 8300000, guid: 108357a7d50f9914f8f688c0090d43e5, type: 3}
-    Volume: 1
-    priority: 128
-    Pitch: {x: 1, y: 1}
-    SpatialBlend: 1
-  - Name: mecha_tir_4
-    audioClip: {fileID: 8300000, guid: be4a629d99d8f2949accbddf187ec8d4, type: 3}
-    Volume: 1
-    priority: 128
-    Pitch: {x: 1, y: 1}
-    SpatialBlend: 1
-  - Name: mecha_UI_1
-    audioClip: {fileID: 8300000, guid: 1e222d37d3e12c34a90c17cf8998c0ab, type: 3}
-    Volume: 1
-    priority: 128
-    Pitch: {x: 1, y: 1}
-    SpatialBlend: 1
-  - Name: mecha_UI_2
-    audioClip: {fileID: 8300000, guid: 148ecc3758bd34b4d83bde63c76bf738, type: 3}
-    Volume: 1
-    priority: 128
-    Pitch: {x: 1, y: 1}
-    SpatialBlend: 1
-  - Name: mecha_UI_3
-    audioClip: {fileID: 8300000, guid: b449410cc2ad87d4a873a7bcb1f43426, type: 3}
-    Volume: 1
-    priority: 128
-    Pitch: {x: 1, y: 1}
-    SpatialBlend: 1
-  - Name: mecha_vox_ready
-    audioClip: {fileID: 8300000, guid: 3e0cf9311ac9fa34d81ed3e4bb85d3b7, type: 3}
-    Volume: 1
-    priority: 128
-    Pitch: {x: 1, y: 1}
-    SpatialBlend: 1
-  - Name: mecha_vox_reload
-    audioClip: {fileID: 8300000, guid: b7ef70770c5d34944838be95bcd74620, type: 3}
-    Volume: 1
-    priority: 128
-    Pitch: {x: 1, y: 1}
-    SpatialBlend: 1
-  - Name: mecha_wagon
-    audioClip: {fileID: 8300000, guid: 8665e7248291d2f4d839c7c39f6caca6, type: 3}
-    Volume: 1
-    priority: 128
-    Pitch: {x: 1, y: 1}
-    SpatialBlend: 1
+    priority: 256
+    Pitch: {x: 0.5, y: 1}
+    fadeDuration: 0
+    loop: 0
+    SpatialBlend: 0.5

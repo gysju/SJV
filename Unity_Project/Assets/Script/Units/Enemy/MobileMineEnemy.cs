@@ -7,11 +7,12 @@ public class MobileMineEnemy : GroundEnemy
     [Header("Explosive")]
     public float m_explosionRange = 2f;
     public int m_damages = 2;
+    public string ExplosiveSound;
 
     #region Initialization
     protected override void Start()
     {
-        m_target = FindObjectOfType<BaseMecha>().transform;
+        m_weaponsTarget = FindObjectOfType<BaseMecha>().transform;
     }
     #endregion
 
@@ -20,27 +21,23 @@ public class MobileMineEnemy : GroundEnemy
     protected override void StartDying()
     {
         base.StartDying();
-
-        // play death sound
-        //SoundManager.Instance.PlaySoundOnShot("", audioSource);
     }
     #endregion
     #region Attack related
     protected override bool IsTargetInRange()
     {
-        return (Vector3.Distance(m_transform.position, m_target.position) < m_explosionRange);
+        return (Vector3.Distance(m_transform.position, m_weaponsTarget.position) < m_explosionRange);
     }
 
     protected void Explode(BaseUnit target)
     {
+        SoundManager.Instance.PlaySound(ExplosiveSound, audioSource);
+
         target.ReceiveDamages(m_damages, 1);
         CompleteStop();
         m_destroyed = true;
         HUD_Radar.Instance.RemoveInfo(this);
         FinishDying();
-
-        // play Attack sound
-        //SoundManager.Instance.PlaySoundOnShot("", audioSource);
     }
     #endregion
 
@@ -52,7 +49,7 @@ public class MobileMineEnemy : GroundEnemy
             switch (m_enemyState)
             {
                 case EnemyState.EnemyState_Sleep:
-                    if (m_target)
+                    if (m_weaponsTarget)
                     {
                         MoveToTarget();
                     }
@@ -60,7 +57,7 @@ public class MobileMineEnemy : GroundEnemy
                 case EnemyState.EnemyState_Moving:
                     if (IsTargetInRange())
                     {
-                        Explode(m_target.GetComponent<BaseUnit>());
+                        Explode(m_weaponsTarget.GetComponent<BaseUnit>());
                     }
                     break;
                 case EnemyState.EnemyState_Attacking:

@@ -12,7 +12,7 @@ public class AmbientSound : MonoBehaviour {
         audioSources = GetComponents<AudioSource>();
         for (int i = 0; i < audioSources.Length; i++)
         {
-            SoundManager.Instance.PlaySound(soundName[i], audioSources[i], true, 2.5f);
+            SoundManager.Instance.PlaySound(soundName[i], audioSources[i], true);
         }
     }
 }

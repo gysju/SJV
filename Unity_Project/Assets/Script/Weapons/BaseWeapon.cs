@@ -12,7 +12,7 @@ public class BaseWeapon : MonoBehaviour
 
     [Tooltip("Graphical effect when firing.")]
     public ParticleSystem m_muzzleFlash;
-    
+    public TracerBullet m_tracerBullet;
     public ParticleSystem m_shellParticles;
 
     [Tooltip("Sound effect when firing.")]
@@ -157,6 +157,8 @@ public class BaseWeapon : MonoBehaviour
         RaycastHit hit;
 
         Physics.Raycast(m_muzzle.position, targetDir, out hit, m_maxRange, m_mask.value);
+
+        if (hit.rigidbody == null) return false;
 
         return (hit.transform.gameObject.layer == target.gameObject.layer);
     }

@@ -16,16 +16,5 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
 
         DontDestroyOnLoad(gameObject);
-        InitGame();
-	}
-
-    void InitGame()
-    {
-
-    }
-
-    void Update ()
-    {
-	
 	}
 }
