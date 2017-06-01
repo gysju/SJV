@@ -33,6 +33,7 @@ public class BaseEnemy : BaseUnit
 
     protected AudioSource audioSource;
     public string deathSound;
+    public string SpawnSound;
 
 	[Header("Effect")]
 
@@ -89,6 +90,7 @@ public class BaseEnemy : BaseUnit
         if (m_animator && !m_animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
             m_animator.SetTrigger("Idle");
 
+        SoundManager.Instance.SpawnPlaySound(SpawnSound, spawnPosition);
         StartCoroutine (SpawnFade ());
     }
 
