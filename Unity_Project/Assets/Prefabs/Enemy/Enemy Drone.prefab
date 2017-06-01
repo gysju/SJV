@@ -754,6 +754,7 @@ MonoBehaviour:
   EmissiveColor: {r: 0, g: 0, b: 0, a: 0}
   deathSound: mehca_drone_death
   SpawnSound: mecha_enemy_spawns
+  movementSound: 
   ShockDuration: 0.149
   ShockIntensity: 1
   Shockcurve:
@@ -796,6 +797,8 @@ MonoBehaviour:
     m_Bits: 7680
   ForceIntensity: 146
   TorqueIntensity: 80
+  HoverSound: mecha_drone_hover
+  ArrivalSound: mecha_drone_arrival
 --- !u!114 &114093414146497850
 MonoBehaviour:
   m_ObjectHideFlags: 1

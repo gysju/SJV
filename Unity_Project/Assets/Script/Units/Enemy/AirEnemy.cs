@@ -26,6 +26,8 @@ public class AirEnemy : BaseEnemy
     [HideInInspector]
 	[Range(0.0f,200.0f)]
 	public float TorqueIntensity = 0;
+    public string HoverSound;
+    public string ArrivalSound;
 
     #region Initialization
     protected override void Awake()
@@ -83,6 +85,7 @@ public class AirEnemy : BaseEnemy
     #region Movement Related
     protected void PlaneMovementUpdate(Vector3 movementTarget)
     {
+        //call hover sound
         Vector3 movementDirection = (movementTarget - m_transform.position).normalized;
         m_transform.rotation = Quaternion.LookRotation(Vector3.RotateTowards(m_transform.forward, movementDirection, m_rotationSpeed * Time.deltaTime, 0f));
         RaycastHit hit;
@@ -109,6 +112,7 @@ public class AirEnemy : BaseEnemy
 
     protected void ChooseEvasivePosition()
     {
+        //call sounds movement
         m_attackPosition = m_player.m_attackZoneManager.ClosestBetterZone(m_transform.position);
         m_evasivePosition = (m_attackPosition.position) + Random.insideUnitSphere * 5f;
     }
@@ -162,6 +166,7 @@ public class AirEnemy : BaseEnemy
 
     protected void MovementOver()
     {
+        SoundManager.Instance.PlaySound( ArrivalSound, audioSource);
         AttackMode();
     }
     #endregion
