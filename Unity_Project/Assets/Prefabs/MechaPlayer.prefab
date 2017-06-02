@@ -3510,7 +3510,7 @@ Transform:
   m_GameObject: {fileID: 1230393544667412}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.005, z: -0.02}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
   m_Children: []
   m_Father: {fileID: 4027980925602710}
   m_RootOrder: 1
@@ -4289,7 +4289,7 @@ Transform:
   m_GameObject: {fileID: 1969155491285448}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_LocalScale: {x: 0.35, y: 0.35, z: 0.35}
   m_Children: []
   m_Father: {fileID: 4027980925602710}
   m_RootOrder: 0
@@ -7396,6 +7396,7 @@ MonoBehaviour:
   m_rightRay: {fileID: 114119095498150152}
   teleportIndication: {fileID: 1502810139763784}
   trackedDeviceMoveControllers: {fileID: 114577415267659922}
+  MinimumAngleToRotate: 15
 --- !u!114 &114304163201339920
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8948,7 +8949,6 @@ MonoBehaviour:
   m_navmeshAgent: {fileID: 195589738344700948}
   m_speed: 0
   DashSpeed: 0.1
-  moveSystem: 1
 --- !u!114 &114979027035239070
 MonoBehaviour:
   m_ObjectHideFlags: 1
