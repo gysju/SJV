@@ -8,7 +8,7 @@ using System.Collections.Generic;
 public class LaserPointingSystem : MonoBehaviour {
 
 	public float MinimalDistance = 1.0f;
-
+    public float MaxRaycastDistance = 75.0f;
 	[SerializeField]
 	private LayerMask mask;
 
@@ -41,85 +41,78 @@ public class LaserPointingSystem : MonoBehaviour {
 		CheckMask ();
 		InputUI();
 
-        //if (count >= 1)  
-        //{
-        raycastHit = Physics.Raycast(ThisTransform.position, ThisTransform.forward, out hit, 250.0f, mask);
-            if (raycastHit)
-            {
-				lineRenderer.SetPosition (1, Vector3.forward * hit.distance);
-				detectionType (hit);
+
+        raycastHit = Physics.Raycast(ThisTransform.position, ThisTransform.forward, out hit, MaxRaycastDistance, mask);
+        if (raycastHit)
+        {
+			lineRenderer.SetPosition (1, Vector3.forward * hit.distance);
+			detectionType (hit);
 
 #if UNITY_PS4
-				if (move != null)
+			if (move != null)
+			{                        
+                move.lookAtHit = hit.point;
+                GameObject hitGameObject = hit.transform.gameObject;
+                bool unitLayer = (hitGameObject.layer == LayerMask.NameToLayer("Unit"));
+                if (hitGameObject != currentPointedObject && hitGameObject != OtherLaser.currentPointedObject && unitLayer)
 				{
-                    //checkTeleport();
-                        
-                    move.lookAtHit = hit.point;
-                    GameObject hitGameObject = hit.transform.gameObject;
-                    bool unitLayer = (hitGameObject.layer == LayerMask.NameToLayer("Unit"));
-                    if (hitGameObject != currentPointedObject && hitGameObject != OtherLaser.currentPointedObject && unitLayer)
-					{
-                        currentPointedObject = hitGameObject;
-                        enemyHUD.SetEnemy(currentPointedObject);
-                    }
-                    else if (!unitLayer)
-                    {
-                        currentPointedObject = null;
-						enemyHUD.EraseEnemy();
-                    }
-				}
+                    currentPointedObject = hitGameObject;
+                    enemyHUD.SetEnemy(currentPointedObject);
+                }
+                else if (!unitLayer)
+                {
+                    currentPointedObject = null;
+					enemyHUD.EraseEnemy();
+                }
+			}
 #endif
+        }
+        else
+        {
+            currentPointedObject = null;
+			buttonSelected = null;
+			if ( enemyHUD != null)
+                enemyHUD.EraseEnemy();
+
+            lineRenderer.SetPosition (1, Vector3.forward * MinimalDistance);
+
+            if (eventSystem != null && eventSystem.currentSelectedGameObject != null && OtherLaser != null && OtherLaser.buttonSelected == null)
+            {
+                eventSystem.SetSelectedGameObject(null);
             }
             else
             {
-                currentPointedObject = null;
-				buttonSelected = null;
-				if ( enemyHUD != null)
-                	enemyHUD.EraseEnemy();
-
-                lineRenderer.SetPosition (1, Vector3.forward * MinimalDistance);
-
-                if (eventSystem != null && eventSystem.currentSelectedGameObject != null && OtherLaser != null && OtherLaser.buttonSelected == null)
-                {
-                    eventSystem.SetSelectedGameObject(null);
-                }
-                else
-                {
-                    #if UNITY_PS4
-                    if (move != null)
-                    {
-					    move.lookAtHit = ThisTransform.position + ThisTransform.forward * 1000.0f;
-                        if (Input.GetKeyUp(KeyCode.Keypad0) || move.GetButtonUp(MoveController.MoveButton.MoveButton_Move))
-                        {
-                            setLineColor(Color.white);
-                        }
-                        if (Input.GetKeyDown(KeyCode.Keypad0) || move.GetButtonDown(MoveController.MoveButton.MoveButton_Move))
-                        {
-                            setLineColor(Color.red);
-                        }
-                    }
-                    #else
-                    if (Input.GetKeyUp(KeyCode.Keypad0))
-                    {
-                        setLineColor( Color.white );
-                    }
-                    if (Input.GetKeyDown(KeyCode.Keypad0))
-                    {
-                        setLineColor( Color.red );
-                    }
-
-                    #endif
-                }
-
                 #if UNITY_PS4
-				if (move != null)
+                if (move != null)
+                {
 					move.lookAtHit = ThisTransform.position + ThisTransform.forward * 1000.0f;
+                    if (Input.GetKeyUp(KeyCode.Keypad0) || move.GetButtonUp(MoveController.MoveButton.MoveButton_Move))
+                    {
+                        setLineColor(Color.white);
+                    }
+                    if (Input.GetKeyDown(KeyCode.Keypad0) || move.GetButtonDown(MoveController.MoveButton.MoveButton_Move))
+                    {
+                        setLineColor(Color.red);
+                    }
+                }
+                #else
+                if (Input.GetKeyUp(KeyCode.Keypad0))
+                {
+                    setLineColor( Color.white );
+                }
+                if (Input.GetKeyDown(KeyCode.Keypad0))
+                {
+                    setLineColor( Color.red );
+                }
+
                 #endif
-			}
-			//count = 0;
-		//}
-		//else
-		//	count += 1;
+            }
+
+            #if UNITY_PS4
+			if (move != null)
+				move.lookAtHit = ThisTransform.position + ThisTransform.forward * 1000.0f;
+            #endif
+		}
 	}
 
 	void InputUI()
@@ -156,29 +149,6 @@ public class LaserPointingSystem : MonoBehaviour {
 		else
 			mask = 1 << LayerMask.NameToLayer ("UI");
 	}
-
-    //public void checkTeleport()
-    //{
-    //    if (Input.GetKey(KeyCode.Keypad0) || move.GetButton(MoveController.MoveButton.MoveButton_Move))
-    //    {
-    //        if (NavMesh.SamplePosition(hit.point, out hitTeleport, 2.0f, 1 << NavMesh.GetAreaFromName("Walkable")))
-    //        {
-    //            positionIsCorrect = true;
-    //            setLineColor( Color.green );
-    //        }
-    //        else
-    //        {
-    //            positionIsCorrect = false;
-    //            setLineColor( Color.red );
-    //        }
-    //    }
-    //    if (Input.GetKeyUp(KeyCode.Keypad0) || move.GetButtonUp(MoveController.MoveButton.MoveButton_Move))
-    //    {
-    //        if (positionIsCorrect)
-    //            BaseMecha.Instance.m_legs.Move(hitTeleport.position);
-    //        setLineColor (Color.white);
-    //    }
-    //}
 
     public void setLineColor( Color col)
     {

@@ -6925,6 +6925,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MinimalDistance: 50
+  MaxRaycastDistance: 75
   mask:
     serializedVersion: 2
     m_Bits: 69152
@@ -8142,6 +8143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MinimalDistance: 50
+  MaxRaycastDistance: 75
   mask:
     serializedVersion: 2
     m_Bits: 69152
@@ -9241,7 +9243,7 @@ LineRenderer:
     numCornerVertices: 0
     numCapVertices: 0
     alignment: 0
-    textureMode: 0
+    textureMode: 1
   m_UseWorldSpace: 0
 --- !u!124 &124120197240549222
 Behaviour:

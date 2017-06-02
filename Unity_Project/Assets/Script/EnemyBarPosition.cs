@@ -8,6 +8,8 @@ public class EnemyBarPosition : MonoBehaviour
     private BaseEnemy enemy = null;
     private RectTransform rt;
     private CanvasGroup canvasGroup;
+    private Camera mainCam;
+
     //private Image im;
     public Image gauge;
 
@@ -15,6 +17,7 @@ public class EnemyBarPosition : MonoBehaviour
     {
         canvasGroup = GetComponent<CanvasGroup>();
         rt = GetComponent<RectTransform>();
+        mainCam = Camera.main;
         //im = GetComponent<Image>();
     }
 
@@ -32,16 +35,16 @@ public class EnemyBarPosition : MonoBehaviour
 	{
         if (enemy)
         {
-            Vector2 pos = RectTransformUtility.WorldToScreenPoint(Camera.main, enemy.transform.position);
+            Vector2 pos = RectTransformUtility.WorldToScreenPoint(mainCam, enemy.transform.position);
             Vector2 newPos;
-            if (enemy.GetCurrentHitPoints() > 0 && RectTransformUtility.ScreenPointToLocalPointInRectangle(uiPlane, pos, Camera.main, out newPos) && Vector3.Dot(Camera.main.transform.forward, (enemy.transform.position - Camera.main.transform.forward)) > 0)
+            if (enemy.GetCurrentHitPoints() > 0 && RectTransformUtility.ScreenPointToLocalPointInRectangle(uiPlane, pos, mainCam, out newPos) && Vector3.Dot(mainCam.transform.forward, (enemy.transform.position - mainCam.transform.forward)) > 0)
             {
                 canvasGroup.alpha = 1f;
                 //im.CrossFadeAlpha(1f, 0f, false);
                 //gauge.CrossFadeAlpha(1f, 0f, false);
                 gauge.fillAmount = enemy.GetCurrentHitPoints() * 1f / enemy.m_maxHitPoints;
                 rt.anchoredPosition = newPos;
-				rt.LookAt (Camera.main.transform.position);
+				rt.LookAt (mainCam.transform.position);
             }
             else
             {

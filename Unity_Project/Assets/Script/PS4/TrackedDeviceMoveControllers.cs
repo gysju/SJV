@@ -81,11 +81,6 @@ public class TrackedDeviceMoveControllers : MonoBehaviour {
 			{
 				targetLeftOriginPos = targetLeft.localPosition;
 				targetRightOriginPos = targetRight.localPosition;
-
-                //SceneManager.sceneLoaded += delegate {
-                //    targetLeft.localPosition = targetLeftOriginPos;
-                //    targetRight.localPosition = targetRightOriginPos;
-                //};
 			}
 		} 
 		else if (Instance != this) 
