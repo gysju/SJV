@@ -231,10 +231,6 @@ public class BaseEnemy : BaseUnit
                 default:
                     break;
             }
-            if (m_enemyState != EnemyState.EnemyState_Sleep)
-            {
-                
-            }
         }
     }
 
