@@ -34,7 +34,7 @@ public class EnemiesManager : MonoBehaviour
         m_zaManager = ZAManager.instance;
         m_player = BaseMecha.instance;
 
-        if (m_zones.Count > 0)
+        if (m_zones.Count > 0 && m_zones[0])
         {
             m_zones[0].ShowWall();
         }
