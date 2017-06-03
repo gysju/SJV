@@ -191,6 +191,7 @@ public class EnemiesManager : MonoBehaviour
         }
 
         m_zaManager.MissionAccomplished();
+        m_player.PrepareExtraction();
         yield return new WaitForSeconds(m_timeBeforeEndZA);
         m_zaManager.BackToMainMenu();
     }
