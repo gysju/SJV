@@ -70,6 +70,7 @@ public class PlayerInterface : MonoBehaviour
     {
         Time.timeScale = 0f;
         m_inputs.m_inGame = false;
+        m_mecha.ResetWeapons();
 
 #if UNITY_STANDALONE
         Camera.main.transform.localRotation = Quaternion.identity;

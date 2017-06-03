@@ -116,39 +116,54 @@ public class GroundEnemy : BaseEnemy
     #endregion
 
     #region Updates
+    protected virtual void MovingUpdate()
+    {
+        MoveToTarget();
+        if (IsPathCompleted())
+        {
+            CompleteStop();
+        }
+    }
+
+    protected virtual void AttackUpdate()
+    {
+        //m_currentTimeToAttack -= Time.deltaTime;
+        AimWeaponAt(m_weaponsTarget.position);
+        //if (m_currentTimeToAttack <= 0)
+        if (IsWeaponOnTarget())
+        {
+            Fire();
+        }
+    }
+
+    protected virtual void StateUpdate()
+    {
+        switch (m_enemyState)
+        {
+            case EnemyState.EnemyState_Sleep:
+                if (m_weaponsTarget)
+                {
+                    //MoveTo(m_attackPosition.Value);
+                    ChaseMode();
+                }
+                break;
+            case EnemyState.EnemyState_Moving:
+                MovingUpdate();
+                break;
+            case EnemyState.EnemyState_Attacking:
+                AttackUpdate();
+                break;
+            default:
+                break;
+        }
+    }
+
     protected override void Update()
     {
         if (!m_destroyed)
         {
             base.Update();
-            switch (m_enemyState)
-            {
-                case EnemyState.EnemyState_Sleep:
-                    if (m_weaponsTarget)
-                    {
-                        //MoveTo(m_attackPosition.Value);
-                        ChaseMode();
-                    }
-                    break;
-                case EnemyState.EnemyState_Moving:
-                    MoveToTarget();
-                    if (IsPathCompleted())
-                    {
-                        CompleteStop();
-                    }
-                    break;
-                case EnemyState.EnemyState_Attacking:
-                    //m_currentTimeToAttack -= Time.deltaTime;
-                    AimWeaponAt(m_weaponsTarget.position);
-                    //if (m_currentTimeToAttack <= 0)
-                    if (IsWeaponOnTarget())
-                    {
-                        Fire();
-                    }
-                    break;
-                default:
-                    break;
-            }
+            StateUpdate();
         }
     }
     #endregion

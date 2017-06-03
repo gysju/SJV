@@ -95,6 +95,7 @@ public class BaseMecha : BaseUnit
         m_rightWeapon.TriggerReleased();
         m_interface.HideHelmetHUD();
         m_bunker.ActivateBunkerMode();
+        ResetWeapons();
 
 #if UNITY_STANDALONE
         Camera.main.transform.localRotation = Quaternion.identity;

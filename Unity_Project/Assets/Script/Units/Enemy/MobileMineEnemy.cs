@@ -12,7 +12,12 @@ public class MobileMineEnemy : GroundEnemy
     #region Initialization
     protected override void Start()
     {
-        m_weaponsTarget = FindObjectOfType<BaseMecha>().transform;
+        m_weaponsTarget = BaseMecha.instance.m_transform;
+    }
+
+    protected override void ChooseTargets()
+    {
+        m_weaponsTarget = m_player.m_transform;
     }
     #endregion
 
@@ -32,39 +37,48 @@ public class MobileMineEnemy : GroundEnemy
     protected void Explode(BaseUnit target)
     {
         SoundManager.Instance.PlaySound(ExplosiveSound, audioSource);
-
         target.ReceiveDamages(m_damages, 1);
-        CompleteStop();
-        m_destroyed = true;
-        HUD_Radar.Instance.RemoveInfo(this);
-        FinishDying();
+        StartDying();
+
     }
     #endregion
 
     #region Updates
-    protected override void Update()
+    protected override void MovingUpdate()
     {
-        if (!m_destroyed)
+        if (IsTargetInRange())
         {
-            switch (m_enemyState)
-            {
-                case EnemyState.EnemyState_Sleep:
-                    if (m_weaponsTarget)
-                    {
-                        MoveToTarget();
-                    }
-                    break;
-                case EnemyState.EnemyState_Moving:
-                    if (IsTargetInRange())
-                    {
-                        Explode(m_weaponsTarget.GetComponent<BaseUnit>());
-                    }
-                    break;
-                case EnemyState.EnemyState_Attacking:
-                    break;
-                default:
-                    break;
-            }
+            Explode(m_player);
+        }
+    }
+
+    protected override void AttackUpdate()
+{
+        if (IsTargetInRange())
+        {
+            Explode(m_player);
+        }
+    }
+
+    protected override void StateUpdate()
+    {
+        switch (m_enemyState)
+        {
+            case EnemyState.EnemyState_Sleep:
+                if (m_weaponsTarget)
+                {
+                    //MoveTo(m_attackPosition.Value);
+                    ChaseMode();
+                }
+                break;
+            case EnemyState.EnemyState_Moving:
+                MovingUpdate();
+                break;
+            case EnemyState.EnemyState_Attacking:
+                AttackUpdate();
+                break;
+            default:
+                break;
         }
     }
     #endregion

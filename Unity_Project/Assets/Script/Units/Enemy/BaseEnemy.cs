@@ -12,6 +12,7 @@ public class BaseEnemy : BaseUnit
         EnemyState_Moving,
         EnemyState_Attacking
     }
+    [SerializeField]
     protected EnemyState m_enemyState = EnemyState.EnemyState_Sleep;
 
     protected float m_maxAttackDistance;
@@ -192,7 +193,10 @@ public class BaseEnemy : BaseUnit
 
     protected virtual bool IsTargetAimable()
     {
-        return m_weapons[0].IsTargetAimable(m_weaponsTarget);
+        if (m_weapons.Count > 0)
+            return m_weapons[0].IsTargetAimable(m_weaponsTarget);
+        else
+            return false;
     }
 
     protected virtual void AttackMode()
