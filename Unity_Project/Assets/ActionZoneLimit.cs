@@ -28,14 +28,14 @@ public class ActionZoneLimit : MonoBehaviour
 
     IEnumerator FadeWall(float target, bool collide)
     {
-        float startAlpha = m_material.GetFloat("_AlphaValue");
+        float startAlpha = m_material.GetFloat("_Alpha");
 
         float time = 0.0f;
 
         while (time < m_fadeSpeed)
         {
             time += Time.deltaTime;
-            m_material.SetFloat("_AlphaValue", Mathf.Lerp(startAlpha, target, (time / m_fadeSpeed)));
+            m_material.SetFloat("_Alpha", Mathf.Lerp(startAlpha, target, (time / m_fadeSpeed)));
             yield return null;
         }
 
