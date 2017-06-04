@@ -41,8 +41,18 @@ public class ZAManager : ScenePlayerManager
         if(m_instaStart && !m_testMode) m_enemiesManager.StartWaves();
     }
 
+    protected override IEnumerator PlayerArrival()
+    {
+        m_player.m_interface.ShowHelmetHUD();
+        m_player.m_interface.m_textHelmet.Deployement();
+        yield return new WaitForSeconds(2f);
+        BunkerOff();
+        m_player.m_interface.m_textHelmet.Nothing();
+    }
+
     public void MissionAccomplished()
     {
+        m_player.m_interface.m_textHelmet.Victory();
         m_player.m_bunker.ActivateBunkerMode();
     }
 

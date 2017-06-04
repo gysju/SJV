@@ -17,6 +17,7 @@ public class PlayerInterface : MonoBehaviour
     public CanvasGroup m_helmetHUD;
     public Image m_integrityGaugeRight;
     public Image m_integrityGaugeLeft;
+    public TextZoneHelmetHUD m_textHelmet;
 
     public Image m_heatGaugeRight;
     public Image m_heatGaugeLeft;

@@ -2375,8 +2375,9 @@ GameObject:
   - component: {fileID: 224237235855427344}
   - component: {fileID: 222862182863962390}
   - component: {fileID: 114722507567357158}
+  - component: {fileID: 114386636647410550}
   m_Layer: 5
-  m_Name: LockedOn
+  m_Name: TextMessageZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7155,6 +7156,7 @@ MonoBehaviour:
   m_helmetHUD: {fileID: 225518087249661552}
   m_integrityGaugeRight: {fileID: 114544299707997580}
   m_integrityGaugeLeft: {fileID: 114523845774078034}
+  m_textHelmet: {fileID: 114386636647410550}
   m_heatGaugeRight: {fileID: 114826849353240236}
   m_heatGaugeLeft: {fileID: 114566422838919998}
   m_fps: {fileID: 1958091170356242}
@@ -7507,7 +7509,7 @@ MonoBehaviour:
   m_weaponsConnected: 0
   m_torso: {fileID: 114282173216230950}
   m_torsoConnected: 0
-  m_rotationType: 1
+  m_rotationType: 2
   m_minHorizontalHeadAngle: 10
   m_maxHorizontalHeadAngle: 25
   m_maxVerticalHeadAngle: 75
@@ -7690,6 +7692,25 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114386636647410550
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1851578101072402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef19e4ec3fc9dc4478c7eeaddf1cb00e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_neutralColor: {r: 1, g: 1, b: 1, a: 1}
+  m_positiveColor: {r: 0, g: 1, b: 0, a: 1}
+  m_dangerColor: {r: 1, g: 0, b: 0, a: 1}
+  m_deployementText: Arriving
+  m_extractionText: Coming back to ship
+  m_victoryText: Mission Accomplished
+  m_lowHealth: '[!] Integrity critical [!]'
+  m_defeatText: Mission Failed
 --- !u!114 &114425978445328720
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -54916,7 +54937,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1072276847244762}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 20}
   m_LocalScale: {x: 0.54, y: 0.54, z: 0.5510709}
   m_Children:
   - {fileID: 224335870707304438}

@@ -442,6 +442,18 @@ public class PlayerInputs : MonoBehaviour
     //    }
     //}
 
+    void KeyboardRotation()
+    {
+        if (Input.GetKey(KeyCode.Q))
+        {
+            m_torso.RotateLeft();
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            m_torso.RotateRight();
+        }
+    }
+
     void TeleportMouse()
     {
         if (Input.GetKey(KeyCode.Mouse2))
@@ -461,11 +473,15 @@ public class PlayerInputs : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             MouseAim();
             MouseShootInputs();
+            TeleportMouse();
+            if (m_rotationType == RotationTypes.inputs)
+            {
+                KeyboardRotation();
+            }
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 PlayerInterface.Instance.StartPause();
             }
-            TeleportMouse();
             //KeyboardMovements();
         }
         else

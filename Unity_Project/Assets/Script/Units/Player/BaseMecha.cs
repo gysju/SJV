@@ -93,7 +93,6 @@ public class BaseMecha : BaseUnit
         m_inputs.m_inGame = false;
         m_leftWeapon.TriggerReleased();
         m_rightWeapon.TriggerReleased();
-        m_interface.HideHelmetHUD();
         m_bunker.ActivateBunkerMode();
         ResetWeapons();
 
@@ -118,7 +117,7 @@ public class BaseMecha : BaseUnit
         PrepareExtraction();
         HUD_Radar.Instance.RemoveAllInfos();
         LaserOff();
-        
+        m_interface.m_textHelmet.Defeat();
         SoundManager.Instance.PlaySoundOnShot("mecha_placeholder_die", audioSource);
         StartCoroutine(Dying());
     }
@@ -191,6 +190,10 @@ public class BaseMecha : BaseUnit
     {
         if (base.ReceiveDamages(damages, armorPenetration))
         {
+            if (m_currentHitPoints <= m_maxHitPoints / 3)
+            {
+                m_interface.m_textHelmet.LowHealth();
+            }
             StartCoroutine(CameraManager.Instance.ChromaticAberationShake());
             return true;
         }

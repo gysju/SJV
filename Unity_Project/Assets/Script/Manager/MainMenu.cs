@@ -22,6 +22,15 @@ public class MainMenu : MenuManager
         HUD_Radar.Instance.RemoveAllInfos();
     }
 
+    protected override IEnumerator PlayerArrival()
+    {
+        m_player.m_interface.m_textHelmet.Extraction();
+        yield return new WaitForSeconds(2f);
+        m_player.m_interface.m_textHelmet.Nothing();
+        BunkerOff();
+        m_player.m_interface.HideHelmetHUD();
+    }
+
     #region Main Menu
     public void StartButton()
     {
