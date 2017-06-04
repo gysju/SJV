@@ -456,11 +456,11 @@ public class PlayerInputs : MonoBehaviour
 
     void TeleportMouse()
     {
-        if (Input.GetKey(KeyCode.Mouse2))
+        if (Input.GetKey(KeyCode.Mouse2) || Input.GetKey(KeyCode.Mouse3))
         {
             PointDestinationCamera();
         }
-        if (Input.GetKeyUp(KeyCode.Mouse2))
+        if (Input.GetKeyUp(KeyCode.Mouse2) || Input.GetKeyUp(KeyCode.Mouse3))
         {
             ConfirmDestination();
         }

@@ -72,9 +72,11 @@ public class MobileMineEnemy : GroundEnemy
                 }
                 break;
             case EnemyState.EnemyState_Moving:
+                MoveToTarget();
                 MovingUpdate();
                 break;
             case EnemyState.EnemyState_Attacking:
+                MoveToTarget();
                 AttackUpdate();
                 break;
             default:

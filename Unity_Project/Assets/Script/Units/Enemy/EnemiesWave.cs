@@ -15,7 +15,7 @@ public class EnemiesWave : MonoBehaviour
 	
     public bool IsWaveDestroyed()
     {
-        return m_waveDestroyed;
+        return m_waveDestroyed || m_enemies.Count == 0;
     }
 
     protected bool CheckWaveStatus()
