@@ -167,8 +167,60 @@ namespace Xml2CSharp
         public Intro Intro { get; set; }
     }
 
-    [XmlRoot(ElementName = "InfoCockpit")]
-    public class InfoCockpit
+    [XmlRoot(ElementName = "Deployement")]
+    public class Deployement
+    {
+        [XmlAttribute(AttributeName = "text")]
+        public string Text { get; set; }
+        [XmlAttribute(AttributeName = "font-style")]
+        public string Fontstyle { get; set; }
+        [XmlAttribute(AttributeName = "font-size")]
+        public string Fontsize { get; set; }
+        [XmlAttribute(AttributeName = "text-align")]
+        public string Textalign { get; set; }
+    }
+
+    [XmlRoot(ElementName = "Extraction")]
+    public class Extraction
+    {
+        [XmlAttribute(AttributeName = "text")]
+        public string Text { get; set; }
+        [XmlAttribute(AttributeName = "font-style")]
+        public string Fontstyle { get; set; }
+        [XmlAttribute(AttributeName = "font-size")]
+        public string Fontsize { get; set; }
+        [XmlAttribute(AttributeName = "text-align")]
+        public string Textalign { get; set; }
+    }
+
+    [XmlRoot(ElementName = "Victory")]
+    public class Victory
+    {
+        [XmlAttribute(AttributeName = "text")]
+        public string Text { get; set; }
+        [XmlAttribute(AttributeName = "font-style")]
+        public string Fontstyle { get; set; }
+        [XmlAttribute(AttributeName = "font-size")]
+        public string Fontsize { get; set; }
+        [XmlAttribute(AttributeName = "text-align")]
+        public string Textalign { get; set; }
+    }
+
+    [XmlRoot(ElementName = "LowHealth")]
+    public class LowHealth
+    {
+        [XmlAttribute(AttributeName = "text")]
+        public string Text { get; set; }
+        [XmlAttribute(AttributeName = "font-style")]
+        public string Fontstyle { get; set; }
+        [XmlAttribute(AttributeName = "font-size")]
+        public string Fontsize { get; set; }
+        [XmlAttribute(AttributeName = "text-align")]
+        public string Textalign { get; set; }
+    }
+
+    [XmlRoot(ElementName = "Defeat")]
+    public class Defeat
     {
         [XmlAttribute(AttributeName = "text")]
         public string Text { get; set; }
@@ -209,8 +261,16 @@ namespace Xml2CSharp
     [XmlRoot(ElementName = "HUD")]
     public class HUD
     {
-        [XmlElement(ElementName = "InfoCockpit")]
-        public InfoCockpit InfoCockpit { get; set; }
+        [XmlElement(ElementName = "Deployement")]
+        public Deployement Deployement { get; set; }
+        [XmlElement(ElementName = "Extraction")]
+        public Extraction Extraction { get; set; }
+        [XmlElement(ElementName = "Victory")]
+        public Victory Victory { get; set; }
+        [XmlElement(ElementName = "LowHealth")]
+        public LowHealth LowHealth { get; set; }
+        [XmlElement(ElementName = "Defeat")]
+        public Defeat Defeat { get; set; }
         [XmlElement(ElementName = "InfoLeftWeapons")]
         public InfoLeftWeapons InfoLeftWeapons { get; set; }
         [XmlElement(ElementName = "InfoRightWeapons")]
@@ -317,9 +377,7 @@ namespace Xml2CSharp
         [XmlElement(ElementName = "German")]
         public German German { get; set; }
     }
-
 }
-
 
 public class XmlManager : MonoBehaviour
 {

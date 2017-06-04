@@ -20,6 +20,17 @@ public class TextZoneHelmetHUD : MonoBehaviour
     void Start()
     {
         m_text = GetComponent<Text>();
+        XmlManager.onChangedLanguage += setLanguage;
+        setLanguage();
+    }
+
+    void setLanguage()
+    {
+        m_deployementText = XmlManager.Instance.GetGameplay().HUD.Deployement.Text;
+        m_extractionText = XmlManager.Instance.GetGameplay().HUD.Extraction.Text;
+        m_victoryText = XmlManager.Instance.GetGameplay().HUD.Victory.Text;
+        m_lowHealth = XmlManager.Instance.GetGameplay().HUD.LowHealth.Text;
+        m_defeatText = XmlManager.Instance.GetGameplay().HUD.Defeat.Text;
     }
 
     public void Nothing()

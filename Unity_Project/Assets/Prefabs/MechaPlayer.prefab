@@ -171,6 +171,7 @@ GameObject:
   - component: {fileID: 222458335434036136}
   - component: {fileID: 114680871051745642}
   - component: {fileID: 225518087249661552}
+  - component: {fileID: 114090063094695808}
   m_Layer: 5
   m_Name: HelmetHUD
   m_TagString: Untagged
@@ -7005,6 +7006,27 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114090063094695808
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1072276847244762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a73f83951baab2a48a48730c5f11516f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  root: 2
+  gameplay: 1
+  menu: 0
+  setupScene: 0
+  intro: 0
+  titleText: {fileID: 0}
+  descriptionText: {fileID: 0}
+  textButton:
+  - {fileID: 114244289626294578}
+  - {fileID: 114512813635800544}
 --- !u!114 &114092050882956024
 MonoBehaviour:
   m_ObjectHideFlags: 1

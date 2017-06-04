@@ -81,9 +81,8 @@ public class setByLocalisation : MonoBehaviour {
 
     void setHUD()
     {
-        textButton[0].text = XmlManager.Instance.GetGameplay().HUD.InfoCockpit.Text;
-        textButton[1].text = XmlManager.Instance.GetGameplay().HUD.InfoLeftWeapons.Text;
-        textButton[2].text = XmlManager.Instance.GetGameplay().HUD.InfoRightWeapons.Text;
+        textButton[0].text = XmlManager.Instance.GetGameplay().HUD.InfoLeftWeapons.Text;
+        textButton[1].text = XmlManager.Instance.GetGameplay().HUD.InfoRightWeapons.Text;
     }
 
     void setGameplay()
