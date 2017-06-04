@@ -104,6 +104,7 @@ public class SoundManager : MonoBehaviour
             source.spatialBlend = s.SpatialBlend;
             source.priority = s.priority;
             source.clip = s.audioClip;
+            source.loop = s.loop;
 
             source.Play();
         }
