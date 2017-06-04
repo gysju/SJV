@@ -78,11 +78,20 @@ public class setByLocalisation : MonoBehaviour {
         textButton[0].text = XmlManager.Instance.GetGameplay().Pause_Menu.Button_Resume.Text;
         textButton[1].text = XmlManager.Instance.GetGameplay().Pause_Menu.Button_Return.Text;
     }
+
+    void setHUD()
+    {
+        textButton[0].text = XmlManager.Instance.GetGameplay().HUD.InfoCockpit.Text;
+        textButton[1].text = XmlManager.Instance.GetGameplay().HUD.InfoLeftWeapons.Text;
+        textButton[2].text = XmlManager.Instance.GetGameplay().HUD.InfoRightWeapons.Text;
+    }
+
     void setGameplay()
     {
         switch (gameplay)
         {
             case Gameplay.Gameplay_HUD:
+                setHUD();
                 break;
             case Gameplay.GamePlay_PauseMenu:
                 setPauseMenu();

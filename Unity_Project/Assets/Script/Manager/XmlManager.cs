@@ -167,6 +167,56 @@ namespace Xml2CSharp
         public Intro Intro { get; set; }
     }
 
+    [XmlRoot(ElementName = "InfoCockpit")]
+    public class InfoCockpit
+    {
+        [XmlAttribute(AttributeName = "text")]
+        public string Text { get; set; }
+        [XmlAttribute(AttributeName = "font-style")]
+        public string Fontstyle { get; set; }
+        [XmlAttribute(AttributeName = "font-size")]
+        public string Fontsize { get; set; }
+        [XmlAttribute(AttributeName = "text-align")]
+        public string Textalign { get; set; }
+    }
+
+    [XmlRoot(ElementName = "InfoLeftWeapons")]
+    public class InfoLeftWeapons
+    {
+        [XmlAttribute(AttributeName = "text")]
+        public string Text { get; set; }
+        [XmlAttribute(AttributeName = "font-style")]
+        public string Fontstyle { get; set; }
+        [XmlAttribute(AttributeName = "font-size")]
+        public string Fontsize { get; set; }
+        [XmlAttribute(AttributeName = "text-align")]
+        public string Textalign { get; set; }
+    }
+
+    [XmlRoot(ElementName = "InfoRightWeapons")]
+    public class InfoRightWeapons
+    {
+        [XmlAttribute(AttributeName = "text")]
+        public string Text { get; set; }
+        [XmlAttribute(AttributeName = "font-style")]
+        public string Fontstyle { get; set; }
+        [XmlAttribute(AttributeName = "font-size")]
+        public string Fontsize { get; set; }
+        [XmlAttribute(AttributeName = "text-align")]
+        public string Textalign { get; set; }
+    }
+
+    [XmlRoot(ElementName = "HUD")]
+    public class HUD
+    {
+        [XmlElement(ElementName = "InfoCockpit")]
+        public InfoCockpit InfoCockpit { get; set; }
+        [XmlElement(ElementName = "InfoLeftWeapons")]
+        public InfoLeftWeapons InfoLeftWeapons { get; set; }
+        [XmlElement(ElementName = "InfoRightWeapons")]
+        public InfoRightWeapons InfoRightWeapons { get; set; }
+    }
+
     [XmlRoot(ElementName = "Button_Resume")]
     public class Button_Resume
     {
@@ -206,7 +256,7 @@ namespace Xml2CSharp
     public class Gameplay
     {
         [XmlElement(ElementName = "HUD")]
-        public string HUD { get; set; }
+        public HUD HUD { get; set; }
         [XmlElement(ElementName = "Pause_Menu")]
         public Pause_Menu Pause_Menu { get; set; }
     }
@@ -270,6 +320,7 @@ namespace Xml2CSharp
 
 }
 
+
 public class XmlManager : MonoBehaviour
 {
 	public delegate void onChangeLanguage ();
@@ -292,7 +343,6 @@ public class XmlManager : MonoBehaviour
 
         XmlSerializer serial = new XmlSerializer(typeof(Xml2CSharp.Languages));
 
-        //Stream reader = new FileStream("Assets/Resources/Language.xml", FileMode.Open);
 		TextAsset textAsset = (TextAsset)Resources.Load("Language");
 		languages = (Xml2CSharp.Languages)serial.Deserialize(new StringReader (textAsset.text));
     }
