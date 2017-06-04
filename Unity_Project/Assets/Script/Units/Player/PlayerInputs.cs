@@ -23,7 +23,16 @@ public class PlayerInputs : MonoBehaviour
     public MechaTorso m_torso;
     public bool m_torsoConnected = false;
 
-    public float m_maxHorinzontalHeadAngle = 10f;
+    public enum RotationTypes
+    {
+        headLinear,
+        headProgressive,
+        inputs
+    }
+    public RotationTypes m_rotationType = RotationTypes.headProgressive;
+
+    public float m_minHorizontalHeadAngle = 5f;
+    public float m_maxHorizontalHeadAngle = 10f;
     public float m_maxVerticalHeadAngle = 75f;
 
     public MechaLegs m_legs;
@@ -82,14 +91,34 @@ public class PlayerInputs : MonoBehaviour
         float horizontalAnglePrevision = m_mainCamera.transform.localRotation.eulerAngles.y;
         horizontalAnglePrevision = (horizontalAnglePrevision > 180) ? horizontalAnglePrevision - 360 : horizontalAnglePrevision;
 
-        if (horizontalAnglePrevision > m_maxHorinzontalHeadAngle)
+        switch (m_rotationType)
         {
-            m_torso.RotateRight();
+            case RotationTypes.headLinear:
+                if (horizontalAnglePrevision > m_maxHorizontalHeadAngle)
+                {
+                    m_torso.RotateRight();
+                }
+                else if (horizontalAnglePrevision < -(m_maxHorizontalHeadAngle))
+                {
+                    m_torso.RotateLeft();
+                }
+                break;
+            case RotationTypes.headProgressive:
+                if (horizontalAnglePrevision > m_minHorizontalHeadAngle)
+                {
+                    m_torso.RotateRight(Mathf.InverseLerp(m_minHorizontalHeadAngle, m_maxHorizontalHeadAngle, horizontalAnglePrevision));
+                }
+                else if (horizontalAnglePrevision < -(m_minHorizontalHeadAngle))
+                {
+                    m_torso.RotateLeft(Mathf.InverseLerp(m_minHorizontalHeadAngle, m_maxHorizontalHeadAngle, -horizontalAnglePrevision));
+                }
+                break;
+            case RotationTypes.inputs:
+                break;
+            default:
+                break;
         }
-        else if (horizontalAnglePrevision < -(m_maxHorinzontalHeadAngle))
-        {
-            m_torso.RotateLeft();
-        }
+        
     }
 
     void RotatePilotHead(float horizontalAngle, float verticalAngle)
@@ -98,40 +127,40 @@ public class PlayerInputs : MonoBehaviour
         horizontalAnglePrevision = (horizontalAnglePrevision > 180) ? horizontalAnglePrevision - 360 : horizontalAnglePrevision;
         horizontalAnglePrevision += horizontalAngle;
         float finalHorizontalAngle = horizontalAngle;
-        float toTransforToTorso = 0f;
+        //float toTransforToTorso = 0f;
 
-        if (m_torsoConnected)
-        {
-            if (horizontalAnglePrevision > m_maxHorinzontalHeadAngle)
-            {
-                toTransforToTorso = (horizontalAnglePrevision - m_maxHorinzontalHeadAngle);
-                finalHorizontalAngle -= toTransforToTorso;
-                m_mecha.RotateMechaHorizontaly(toTransforToTorso);
-            }
-            else if (horizontalAnglePrevision < -(m_maxHorinzontalHeadAngle))
-            {
-                toTransforToTorso = (horizontalAnglePrevision + m_maxHorinzontalHeadAngle);
-                finalHorizontalAngle -= toTransforToTorso;
-                m_mecha.RotateMechaHorizontaly(toTransforToTorso);
-            }
-        }
+        //if (m_torsoConnected)
+        //{
+        //    if (horizontalAnglePrevision > m_maxHorizontalHeadAngle)
+        //    {
+        //        toTransforToTorso = (horizontalAnglePrevision - m_maxHorizontalHeadAngle);
+        //        finalHorizontalAngle -= toTransforToTorso;
+        //        m_mecha.RotateMechaHorizontaly(toTransforToTorso);
+        //    }
+        //    else if (horizontalAnglePrevision < -(m_maxHorizontalHeadAngle))
+        //    {
+        //        toTransforToTorso = (horizontalAnglePrevision + m_maxHorizontalHeadAngle);
+        //        finalHorizontalAngle -= toTransforToTorso;
+        //        m_mecha.RotateMechaHorizontaly(toTransforToTorso);
+        //    }
+        //}
 
         float verticalAnglePrevision = m_mainCamera.transform.localRotation.eulerAngles.x;
         verticalAnglePrevision = (verticalAnglePrevision > 180) ? verticalAnglePrevision - 360 : verticalAnglePrevision;
         verticalAnglePrevision += verticalAngle;
         float finalVerticalAngle = verticalAngle;
-        float rest = 0f;
+        //float rest = 0f;
 
-        if (verticalAnglePrevision > m_maxVerticalHeadAngle)
-        {
-            rest = (verticalAnglePrevision - m_maxVerticalHeadAngle);
-            finalVerticalAngle -= rest;
-        }
-        else if (verticalAnglePrevision < -(m_maxVerticalHeadAngle))
-        {
-            rest = (verticalAnglePrevision + m_maxVerticalHeadAngle);
-            finalVerticalAngle -= rest;
-        }
+        //if (verticalAnglePrevision > m_maxVerticalHeadAngle)
+        //{
+        //    rest = (verticalAnglePrevision - m_maxVerticalHeadAngle);
+        //    finalVerticalAngle -= rest;
+        //}
+        //else if (verticalAnglePrevision < -(m_maxVerticalHeadAngle))
+        //{
+        //    rest = (verticalAnglePrevision + m_maxVerticalHeadAngle);
+        //    finalVerticalAngle -= rest;
+        //}
 
         Quaternion currentRotation = m_mainCamera.transform.rotation;
         Quaternion horizontalRotation = Quaternion.AngleAxis(finalHorizontalAngle, Vector3.up);
@@ -282,6 +311,10 @@ public class PlayerInputs : MonoBehaviour
                 if (m_rightController.GetButtonDown(MoveController.MoveButton.MoveButton_Trigger)) m_mecha.RightArmWeaponTriggered();
                 if (m_rightController.GetButtonUp(MoveController.MoveButton.MoveButton_Trigger)) m_mecha.RightArmWeaponTriggerReleased();
             }
+            if (m_torsoConnected)
+            {
+                
+            }
 			if (m_legsConnected)
 			{
 				PSMoveMovementInputs();
@@ -359,6 +392,10 @@ public class PlayerInputs : MonoBehaviour
     void MouseAim()
     {
         RotatePilotHead(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+        if (m_mecha.m_inputs.m_torsoConnected)
+        {
+            CheckPilotHead();
+        }
         //RaycastHit aimTarget;
         //if(Physics.Raycast(m_mainCamera.transform.position, m_mainCamera.transform.forward, out aimTarget))
         //{

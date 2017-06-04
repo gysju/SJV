@@ -39,8 +39,18 @@ public class MechaTorso : MonoBehaviour
         RotateTorsoHorizontaly(m_torsoRotationSpeed);
     }
 
+    public void RotateRight(float rotationSpeed)
+    {
+        RotateTorsoHorizontaly(m_torsoRotationSpeed * rotationSpeed);
+    }
+
     public void RotateLeft()
     {
         RotateTorsoHorizontaly(-m_torsoRotationSpeed);
+    }
+
+    public void RotateLeft(float rotationSpeed)
+    {
+        RotateTorsoHorizontaly(-m_torsoRotationSpeed * rotationSpeed);
     }
 }
