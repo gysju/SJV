@@ -34,13 +34,6 @@ public class ZAManager : ScenePlayerManager
         if (!m_enemiesManager) m_enemiesManager = GetComponentInChildren<EnemiesManager>();
     }
 
-    protected override void FindPlayer()
-    {
-        base.FindPlayer();
-        m_player.ReadyToAction();
-        if(m_instaStart && !m_testMode) m_enemiesManager.StartWaves();
-    }
-
     protected override IEnumerator PlayerArrival()
     {
         m_player.m_interface.ShowHelmetHUD();
@@ -48,6 +41,8 @@ public class ZAManager : ScenePlayerManager
         yield return new WaitForSeconds(2f);
         BunkerOff();
         m_player.m_interface.m_textHelmet.Nothing();
+        m_player.ReadyToAction();
+        if (m_instaStart && !m_testMode) m_enemiesManager.StartWaves();
     }
 
     public void MissionAccomplished()
