@@ -6,12 +6,13 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Shield
-  m_Shader: {fileID: 4800000, guid: 0707505965b51a4419ac9421cbdeddbb, type: 3}
-  m_ShaderKeywords: _EMISSION
+  m_Name: Teleport
+  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: _ALPHATEST_ON _EMISSION
   m_LightmapFlags: 1
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
+  m_CustomRenderQueue: 2450
+  stringTagMap:
+    RenderType: TransparentCutout
   m_SavedProperties:
     serializedVersion: 2
     m_TexEnvs:
@@ -46,33 +47,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
-        name: _EmissiveTex
-      second:
-        m_Texture: {fileID: 2800000, guid: 002afdd6ca299dc43a8d76b969787fb3, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - first:
         name: _MainTex
       second:
-        m_Texture: {fileID: 2800000, guid: cefd7105ae0f0874a8953b6096a3a4bb, type: 3}
-        m_Scale: {x: 20, y: 2.5}
-        m_Offset: {x: 0, y: 0}
-    - first:
-        name: _MaskTex
-      second:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 931d6a5285b2f074ca3cd9cddd5dd089, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
         name: _MetallicGlossMap
       second:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - first:
-        name: _Normal
-      second:
-        m_Texture: {fileID: 2800000, guid: 55c2d90e2b8293041afc6d113eda3290, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
@@ -89,9 +72,6 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - first:
-        name: _Alpha
-      second: 1
-    - first:
         name: _BumpScale
       second: 1
     - first:
@@ -101,9 +81,6 @@ Material:
         name: _DetailNormalMapScale
       second: 1
     - first:
-        name: _DistAmt
-      second: 128
-    - first:
         name: _DstBlend
       second: 0
     - first:
@@ -111,28 +88,16 @@ Material:
       second: 1
     - first:
         name: _Glossiness
-      second: 0
+      second: 0.5
     - first:
         name: _GlossyReflections
       second: 1
     - first:
-        name: _InvColorFade
-      second: 18.4
-    - first:
-        name: _MaxHeight
-      second: 41.3
-    - first:
         name: _Metallic
       second: 0
     - first:
-        name: _MinHeight
-      second: 33.4
-    - first:
         name: _Mode
-      second: 0
-    - first:
-        name: _NormalIntensity
-      second: 1.96
+      second: 1
     - first:
         name: _OcclusionStrength
       second: 1
@@ -152,21 +117,12 @@ Material:
         name: _UVSec
       second: 0
     - first:
-        name: _UVSpeed
-      second: 0.086
-    - first:
-        name: _UV_Direction
-      second: 0
-    - first:
         name: _ZWrite
       second: 1
     m_Colors:
     - first:
         name: _Color
-      second: {r: 0.3894521, g: 0.367647, b: 1, a: 1}
+      second: {r: 1, g: 1, b: 1, a: 1}
     - first:
         name: _EmissionColor
-      second: {r: 0, g: 0, b: 0, a: 1}
-    - first:
-        name: _Tiling
-      second: {r: 15, g: 1.5, b: 0, a: 0}
+      second: {r: 0.13611712, g: 1.161, b: 0, a: 1}

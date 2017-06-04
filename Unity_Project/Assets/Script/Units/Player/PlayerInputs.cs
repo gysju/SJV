@@ -150,6 +150,7 @@ public class PlayerInputs : MonoBehaviour
             {
                 teleportIndication.SetActive(true);
                 teleportIndication.transform.position = m_leftRay.hit.point;
+                teleportIndication.transform.rotation = Quaternion.FromToRotation(Vector3.up, m_leftRay.hit.normal);
             }
         }
         else
@@ -173,6 +174,7 @@ public class PlayerInputs : MonoBehaviour
             {
                 teleportIndication.SetActive(true);
                 teleportIndication.transform.position = m_rightRay.hit.point;
+                teleportIndication.transform.rotation = Quaternion.FromToRotation(Vector3.up, m_rightRay.hit.normal);
             }
         }
         else
