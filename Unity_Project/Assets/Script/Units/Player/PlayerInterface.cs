@@ -32,12 +32,8 @@ public class PlayerInterface : MonoBehaviour
 		{
 			Instance = this;
 			if (!m_mecha) m_mecha = GetComponentInParent<BaseMecha>();
-            if (m_showFPS) m_fps.SetActive(true);
+            m_fps.SetActive(m_showFPS);
         }
-		else if ( Instance != this)
-		{
-			
-		}
     }
 
     #region Helmet HUD
