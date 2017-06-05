@@ -83,15 +83,15 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 3
+    agentRadius: 2.5
     agentHeight: 2
-    agentSlope: 45
-    agentClimb: 0.4
+    agentSlope: 15
+    agentClimb: 1
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     minRegionArea: 2
     manualCellSize: 0
-    cellSize: 1
+    cellSize: 0.8333333
     accuratePlacement: 0
   m_NavMeshData: {fileID: 23800000, guid: c5dc3d41bee040a4fbb66ef754bdbb67, type: 2}
 --- !u!1001 &2126063
@@ -2968,7 +2968,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_showSpawnsInEditor: 1
-  m_waveToShow: 5
+  m_waveToShow: 0
   m_player: {fileID: 0}
   m_poolPosition: {x: 0, y: -50, z: 0}
   m_enemiesWaves:
@@ -2979,14 +2979,17 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d02f36dd9c08c7f4496949db6af36f86, type: 2}
   - {fileID: 11400000, guid: c367827b38423d248901271966e5b70a, type: 2}
   - {fileID: 11400000, guid: d02f36dd9c08c7f4496949db6af36f86, type: 2}
+  - {fileID: 11400000, guid: 59cce3033e7ceb545ba6bdeaa5e7191d, type: 2}
+  - {fileID: 11400000, guid: 92339e35cb03bc6488f7c63290c04eb4, type: 2}
+  - {fileID: 11400000, guid: 6911812dc0b2ac74b938691571a3abac, type: 2}
   - {fileID: 11400000, guid: d02f36dd9c08c7f4496949db6af36f86, type: 2}
+  - {fileID: 11400000, guid: ffc8874e1e12aa841a361740133a0840, type: 2}
+  - {fileID: 11400000, guid: 3bf6f87973f3a2f489e11814b669c115, type: 2}
   - {fileID: 11400000, guid: d02f36dd9c08c7f4496949db6af36f86, type: 2}
+  - {fileID: 11400000, guid: 7322e0741385e0543b6556902badff05, type: 2}
+  - {fileID: 11400000, guid: acc7cac2358e9094db32ec92662bc892, type: 2}
   - {fileID: 11400000, guid: d02f36dd9c08c7f4496949db6af36f86, type: 2}
-  - {fileID: 11400000, guid: d02f36dd9c08c7f4496949db6af36f86, type: 2}
-  - {fileID: 11400000, guid: d02f36dd9c08c7f4496949db6af36f86, type: 2}
-  - {fileID: 11400000, guid: d02f36dd9c08c7f4496949db6af36f86, type: 2}
-  - {fileID: 11400000, guid: d02f36dd9c08c7f4496949db6af36f86, type: 2}
-  - {fileID: 11400000, guid: d02f36dd9c08c7f4496949db6af36f86, type: 2}
+  - {fileID: 11400000, guid: 39f07a69ec9ef724e81b7e3e09341e88, type: 2}
   m_timeBeforeFirstWave: 3
   m_timeBeforeEndZA: 5
   waitCount: 0
@@ -38371,6 +38374,11 @@ Prefab:
         type: 2}
       propertyPath: m_Text
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114953707263810038, guid: d6b8b5c3aa548af40ac302f6dff8b285,
+        type: 2}
+      propertyPath: m_maxHitPoints
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d6b8b5c3aa548af40ac302f6dff8b285, type: 2}
