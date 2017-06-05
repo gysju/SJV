@@ -15,7 +15,9 @@ public class Hit : MonoBehaviour
 	void Awake ()
     {
 		particle = GetComponentInChildren<ParticleSystem>();
-		Transform dec = transform.FindChild ("Decal");
+        if (particle == null)
+            particle = GetComponent<ParticleSystem>();
+        Transform dec = transform.FindChild ("Decal");
 		if ( dec != null )
 			Decal = dec.gameObject;
 		if ( Decal != null)
