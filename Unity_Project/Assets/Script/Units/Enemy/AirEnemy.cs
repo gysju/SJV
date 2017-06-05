@@ -28,6 +28,9 @@ public class AirEnemy : BaseEnemy
 	public float TorqueIntensity = 0;
     public string HoverSound;
     public string ArrivalSound;
+    public int NbrOfMovementSound = 1;
+    private bool BrakedSound = false;
+    private bool EvasivedSound = false;
 
     #region Initialization
     protected override void Awake()
@@ -102,7 +105,7 @@ public class AirEnemy : BaseEnemy
                 if (!hit.transform)
                     movementDirection += Vector3.down /2f;
             }
-            
+
         }
         m_movement += movementDirection * m_acceleration * Time.deltaTime;
         m_movement = Vector3.ClampMagnitude(m_movement, m_maxSpeed * Time.deltaTime);
@@ -128,10 +131,23 @@ public class AirEnemy : BaseEnemy
         {
             m_movement += movementDirection * m_acceleration/* * Time.deltaTime*/;
             m_movement = Vector3.ClampMagnitude(m_movement, m_maxSpeed /** Time.deltaTime*/);
+
+            if (!EvasivedSound)
+            {
+                SoundManager.Instance.PlaySoundOnShot("mecha_drone_movement_" + Random.Range(1, NbrOfMovementSound + 1 ), audioSource);
+                EvasivedSound = true;
+                BrakedSound = false;
+            }
         }
         else
         {
             Brake();
+            if (!BrakedSound)
+            {
+                SoundManager.Instance.PlaySoundOnShot("mecha_drone_arrival", audioSource);
+                BrakedSound = true;
+                EvasivedSound = false;
+            }
         }
 
         RaycastHit hit;
@@ -139,10 +155,6 @@ public class AirEnemy : BaseEnemy
         if (hit.transform)
         {
             ChooseEvasivePosition();
-        }
-        else
-        {
-            
         }
         m_transform.position += m_movement * Time.deltaTime;
 
