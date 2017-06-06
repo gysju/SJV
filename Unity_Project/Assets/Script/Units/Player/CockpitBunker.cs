@@ -6,7 +6,8 @@ public class CockpitBunker : MonoBehaviour
 {
     protected List<Material> m_materials = new List<Material>();
     public float m_bunkerTransitionSpeed = 1f;
-    
+    public string BunkerSound;
+
     void Start ()
     {
         foreach (Renderer renderer in GetComponentsInChildren<Renderer>())
@@ -17,11 +18,13 @@ public class CockpitBunker : MonoBehaviour
 
     public void ActivateBunkerMode()
     {
+        SoundManager.Instance.PlaySoundOnShot( BunkerSound, BaseMecha.instance.audioSource);
         StartCoroutine(ShowBunker());
     }
 
     public void DeactivateBunkerMode()
     {
+        SoundManager.Instance.PlaySoundOnShot( BunkerSound, BaseMecha.instance.audioSource);
         StartCoroutine(FadeBunker());
     }
 

@@ -286,12 +286,12 @@ MonoBehaviour:
     SpatialBlend: 0
   - Name: mecha_menu_transition
     audioClip: {fileID: 8300000, guid: a170f436fcb30a44496fa3f3e5112f35, type: 3}
-    Volume: 1
+    Volume: 0.75
     priority: 128
-    Pitch: {x: 1, y: 1}
+    Pitch: {x: 0.9, y: 1}
     fadeDuration: 0
     loop: 0
-    SpatialBlend: 1
+    SpatialBlend: 0
   - Name: mecha_tank_death
     audioClip: {fileID: 8300000, guid: 66d08b9a452c780409da459937e725ca, type: 3}
     Volume: 1
@@ -398,12 +398,12 @@ MonoBehaviour:
     SpatialBlend: 0.5
   - Name: mecha_lvl2_end_machine
     audioClip: {fileID: 8300000, guid: d59c56b2b6f5bd946a5dbd8414098588, type: 3}
-    Volume: 1
+    Volume: 0.5
     priority: 256
-    Pitch: {x: 0.5, y: 1}
+    Pitch: {x: 1, y: 1}
     fadeDuration: 0
-    loop: 0
-    SpatialBlend: 0.5
+    loop: 1
+    SpatialBlend: 1
   - Name: mecha_lvl2_end_music_loop
     audioClip: {fileID: 8300000, guid: 7354ef8627cc2c3479f48eb747b63cfe, type: 3}
     Volume: 1
@@ -422,19 +422,19 @@ MonoBehaviour:
     SpatialBlend: 0.5
   - Name: mecha_lvl2_general_ambiance
     audioClip: {fileID: 8300000, guid: 7b7f9d6537401224eb652ed0c673d072, type: 3}
-    Volume: 1
+    Volume: 0.25
     priority: 256
-    Pitch: {x: 0.5, y: 1}
+    Pitch: {x: 1, y: 1}
     fadeDuration: 0
-    loop: 0
-    SpatialBlend: 0.5
+    loop: 1
+    SpatialBlend: 0
   - Name: mecha_lvl2_lamp
     audioClip: {fileID: 8300000, guid: c4fd1f6e8e18bda469635472576ebe7f, type: 3}
     Volume: 1
     priority: 256
     Pitch: {x: 0.5, y: 1}
     fadeDuration: 0
-    loop: 0
+    loop: 1
     SpatialBlend: 1
   - Name: mecha_lvl2_lava_stream_1
     audioClip: {fileID: 8300000, guid: 9b74be2c270a2e64b99ba3c21db65b36, type: 3}
@@ -442,15 +442,15 @@ MonoBehaviour:
     priority: 256
     Pitch: {x: 0.5, y: 1}
     fadeDuration: 0
-    loop: 0
-    SpatialBlend: 0.5
+    loop: 1
+    SpatialBlend: 1
   - Name: mecha_lvl2_lava_stream_2
     audioClip: {fileID: 8300000, guid: f74c81bc087da244795a95e177b49221, type: 3}
     Volume: 1
     priority: 256
     Pitch: {x: 0.5, y: 1}
     fadeDuration: 0
-    loop: 0
+    loop: 1
     SpatialBlend: 0.5
   - Name: mecha_lvl2_tunnel_air_ground_vent
     audioClip: {fileID: 8300000, guid: 3b29416e9742235499cd3fbe7edc7f2e, type: 3}
@@ -458,7 +458,7 @@ MonoBehaviour:
     priority: 256
     Pitch: {x: 0.9, y: 1}
     fadeDuration: 0
-    loop: 0
+    loop: 1
     SpatialBlend: 1
   - Name: mecha_lvl2_tunnel_air_pipe
     audioClip: {fileID: 8300000, guid: bf837006ce1bc0e41ab2bd4238751991, type: 3}
@@ -466,7 +466,7 @@ MonoBehaviour:
     priority: 256
     Pitch: {x: 0.9, y: 1}
     fadeDuration: 0
-    loop: 0
+    loop: 1
     SpatialBlend: 1
   - Name: mecha_lvl2_tunnel_general_ambiance
     audioClip: {fileID: 8300000, guid: 53e98a9db149b2e47a225f2b1246a64a, type: 3}

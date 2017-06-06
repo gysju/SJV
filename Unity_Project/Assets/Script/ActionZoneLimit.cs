@@ -19,10 +19,12 @@ public class ActionZoneLimit : MonoBehaviour
         m_material = GetComponent<Renderer>().material;
         m_collider = GetComponent<BoxCollider>();
         audioSource = GetComponent<AudioSource>();
-
-        SoundManager.Instance.PlaySound( StaticSound, audioSource, true);
     }
 
+    void Start()
+    {
+        SoundManager.Instance.PlaySound( StaticSound, audioSource, true);
+    }
     public void ShowWall()
     {
         m_collider.enabled = true;
@@ -51,5 +53,7 @@ public class ActionZoneLimit : MonoBehaviour
         }
 
         m_collider.enabled = collide;
+        if (target == 0.0f)
+            Destroy(gameObject);
     }
 }
