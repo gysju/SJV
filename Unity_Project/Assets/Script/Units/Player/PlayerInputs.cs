@@ -88,37 +88,39 @@ public class PlayerInputs : MonoBehaviour
 
     protected void CheckPilotHead()
     {
-        float horizontalAnglePrevision = m_mainCamera.transform.localRotation.eulerAngles.y;
-        horizontalAnglePrevision = (horizontalAnglePrevision > 180) ? horizontalAnglePrevision - 360 : horizontalAnglePrevision;
-
-        switch (m_rotationType)
+        if (m_inGame)
         {
-            case RotationTypes.headLinear:
-                if (horizontalAnglePrevision > m_maxHorizontalHeadAngle)
-                {
-                    m_torso.RotateRight();
-                }
-                else if (horizontalAnglePrevision < -(m_maxHorizontalHeadAngle))
-                {
-                    m_torso.RotateLeft();
-                }
-                break;
-            case RotationTypes.headProgressive:
-                if (horizontalAnglePrevision > m_minHorizontalHeadAngle)
-                {
-                    m_torso.RotateRight(Mathf.InverseLerp(m_minHorizontalHeadAngle, m_maxHorizontalHeadAngle, horizontalAnglePrevision));
-                }
-                else if (horizontalAnglePrevision < -(m_minHorizontalHeadAngle))
-                {
-                    m_torso.RotateLeft(Mathf.InverseLerp(m_minHorizontalHeadAngle, m_maxHorizontalHeadAngle, -horizontalAnglePrevision));
-                }
-                break;
-            case RotationTypes.inputs:
-                break;
-            default:
-                break;
+            float horizontalAnglePrevision = m_mainCamera.transform.localRotation.eulerAngles.y;
+            horizontalAnglePrevision = (horizontalAnglePrevision > 180) ? horizontalAnglePrevision - 360 : horizontalAnglePrevision;
+
+            switch (m_rotationType)
+            {
+                case RotationTypes.headLinear:
+                    if (horizontalAnglePrevision > m_maxHorizontalHeadAngle)
+                    {
+                        m_torso.RotateRight();
+                    }
+                    else if (horizontalAnglePrevision < -(m_maxHorizontalHeadAngle))
+                    {
+                        m_torso.RotateLeft();
+                    }
+                    break;
+                case RotationTypes.headProgressive:
+                    if (horizontalAnglePrevision > m_minHorizontalHeadAngle)
+                    {
+                        m_torso.RotateRight(Mathf.InverseLerp(m_minHorizontalHeadAngle, m_maxHorizontalHeadAngle, horizontalAnglePrevision));
+                    }
+                    else if (horizontalAnglePrevision < -(m_minHorizontalHeadAngle))
+                    {
+                        m_torso.RotateLeft(Mathf.InverseLerp(m_minHorizontalHeadAngle, m_maxHorizontalHeadAngle, -horizontalAnglePrevision));
+                    }
+                    break;
+                case RotationTypes.inputs:
+                    break;
+                default:
+                    break;
+            }
         }
-        
     }
 
     void RotatePilotHead(float horizontalAngle, float verticalAngle)
