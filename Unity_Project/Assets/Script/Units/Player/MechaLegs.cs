@@ -21,6 +21,9 @@ public class MechaLegs : MonoBehaviour
     [Range(0.01f, 0.5f)]
     public float DashSpeed = 0.5f;
 
+    private AudioSource audioSource;
+    public string teleportSound;
+
     void Start ()
     {
         if (Instance == null)
@@ -31,6 +34,8 @@ public class MechaLegs : MonoBehaviour
             m_navmeshAgent = m_legsTransform.GetComponentInParent<NavMeshAgent>();
             if (!m_navmeshAgent)
                 m_navmeshAgent = m_baseMecha.gameObject.AddComponent<NavMeshAgent>();
+
+            audioSource = GetComponent<AudioSource>();
         }
         else if (Instance != this)
         {
@@ -48,6 +53,7 @@ public class MechaLegs : MonoBehaviour
         if (m_navMeshHit.hit)
         {
             InitDash(m_navMeshHit.position);
+            SoundManager.Instance.PlaySoundOnShot(teleportSound, audioSource);
         }
     }
 
