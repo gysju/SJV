@@ -4375,7 +4375,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1836612868201618}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.25, z: 0}
+  m_LocalPosition: {x: 0, y: 0.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4644452499289068}
@@ -7564,7 +7564,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 392bce8df34e53b4ab17d8f96ad0b999, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_torsoRotationSpeed: 1
+  m_torsoRotationSpeed: 1.5
 --- !u!114 &114303306377100590
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7581,7 +7581,7 @@ MonoBehaviour:
   m_weaponsConnected: 0
   m_torso: {fileID: 114282173216230950}
   m_torsoConnected: 0
-  m_rotationType: 2
+  m_rotationType: 1
   m_minHorizontalHeadAngle: 10
   m_maxHorizontalHeadAngle: 25
   m_maxVerticalHeadAngle: 75
@@ -9176,6 +9176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_bunkerTransitionSpeed: 1
+  BunkerSound: mecha_menu_transition
 --- !u!114 &114982483549237542
 MonoBehaviour:
   m_ObjectHideFlags: 1

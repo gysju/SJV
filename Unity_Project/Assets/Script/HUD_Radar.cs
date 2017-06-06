@@ -24,7 +24,7 @@ public class HUD_Radar : MonoBehaviour
 	{
 		if (Instance == null) {
 			Instance = this;
-			Mecha = GetComponentInParent<BaseMecha> ().transform;	
+			Mecha = BaseMecha.instance.transform;	
 			infoParent = PivotTransfrom.FindChild ("InfoParent");
 		} 
 		else 
@@ -35,7 +35,9 @@ public class HUD_Radar : MonoBehaviour
 	
 	void Update () {
 		if (Mecha != null)
-			PivotTransfrom.localRotation = Quaternion.Euler ( new Vector3 (PivotTransfrom.localRotation.eulerAngles.x, PivotTransfrom.localRotation.eulerAngles.y, Mecha.localRotation.eulerAngles.y ));
+			PivotTransfrom.localRotation = Quaternion.Euler ( new Vector3 ( PivotTransfrom.localRotation.eulerAngles.x, 
+                                                                            PivotTransfrom.localRotation.eulerAngles.y, 
+                                                                            MechaTorso.Instance.transform.localRotation.eulerAngles.y ));
 
 		DisplayUnit ();
 	}
