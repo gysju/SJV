@@ -9,20 +9,31 @@ public class ActionZoneLimit : MonoBehaviour
 
     public float m_fadeSpeed = 1f;
 
+    [Header("Sounds")]
+    public string StaticSound;
+    public string OpeningSound;
+    private AudioSource audioSource;
+
     void Awake()
     {
         m_material = GetComponent<Renderer>().material;
         m_collider = GetComponent<BoxCollider>();
+        audioSource = GetComponent<AudioSource>();
+
+        SoundManager.Instance.PlaySound( StaticSound, audioSource, true);
     }
 
     public void ShowWall()
     {
         m_collider.enabled = true;
+        SoundManager.Instance.PlaySound(StaticSound, audioSource, true);
+
         StartCoroutine(FadeWall(1f, true));
     }
 
     public void HideWall()
     {
+        SoundManager.Instance.PlaySound(OpeningSound, audioSource, true);
         StartCoroutine(FadeWall(0f, false));
     }
 
