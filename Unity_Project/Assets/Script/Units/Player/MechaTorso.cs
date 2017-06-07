@@ -36,21 +36,21 @@ public class MechaTorso : MonoBehaviour
 
     public void RotateRight()
     {
-        RotateTorsoHorizontaly(m_torsoRotationSpeed);
+        RotateTorsoHorizontaly(m_torsoRotationSpeed * Time.deltaTime);
     }
 
     public void RotateRight(float rotationSpeed)
     {
-        RotateTorsoHorizontaly(m_torsoRotationSpeed * rotationSpeed);
+        RotateTorsoHorizontaly(m_torsoRotationSpeed * rotationSpeed * Time.deltaTime);
     }
 
     public void RotateLeft()
     {
-        RotateTorsoHorizontaly(-m_torsoRotationSpeed);
+        RotateTorsoHorizontaly(-m_torsoRotationSpeed * Time.deltaTime);
     }
 
     public void RotateLeft(float rotationSpeed)
     {
-        RotateTorsoHorizontaly(-m_torsoRotationSpeed * rotationSpeed);
+        RotateTorsoHorizontaly(-m_torsoRotationSpeed * rotationSpeed * Time.deltaTime);
     }
 }

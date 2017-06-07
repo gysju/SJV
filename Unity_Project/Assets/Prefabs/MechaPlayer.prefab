@@ -7116,7 +7116,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MinimalDistance: 50
-  MaxRaycastDistance: 75
+  MaxRaycastDistance: 200
   mask:
     serializedVersion: 2
     m_Bits: 69152
@@ -7565,7 +7565,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 392bce8df34e53b4ab17d8f96ad0b999, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_torsoRotationSpeed: 1
+  m_torsoRotationSpeed: 100
 --- !u!114 &114303306377100590
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7592,7 +7592,6 @@ MonoBehaviour:
   m_rightRay: {fileID: 114119095498150152}
   teleportIndication: {fileID: 1087709992077878}
   trackedDeviceMoveControllers: {fileID: 114577415267659922}
-  MinimumAngleToRotate: 15
 --- !u!114 &114304163201339920
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8362,7 +8361,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MinimalDistance: 50
-  MaxRaycastDistance: 75
+  MaxRaycastDistance: 200
   mask:
     serializedVersion: 2
     m_Bits: 69152
