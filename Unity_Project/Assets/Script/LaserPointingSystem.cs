@@ -160,7 +160,7 @@ public class LaserPointingSystem : MonoBehaviour
             }
 #if UNITY_PS4
             if (move != null)
-				move.lookAtHit = ThisTransform.position + ThisTransform.forward * 10.0f;
+				move.lookAtHit = ThisTransform.position + ThisTransform.forward * 1000.0f;
 #endif
         }
         lineRenderer.SetPosition(1, lineEndPos);
