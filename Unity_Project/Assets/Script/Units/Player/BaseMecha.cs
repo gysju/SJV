@@ -95,6 +95,8 @@ public class BaseMecha : BaseUnit
         m_rightWeapon.TriggerReleased();
         m_bunker.ActivateBunkerMode();
         ResetWeapons();
+        m_inputs.m_leftRay.ShutdownRay();
+        m_inputs.m_rightRay.ShutdownRay();
 
 #if UNITY_STANDALONE
         Camera.main.transform.localRotation = Quaternion.identity;
@@ -107,7 +109,6 @@ public class BaseMecha : BaseUnit
         m_inputs.m_weaponsConnected = true;
         m_inputs.m_inGame = true;
         m_interface.ShowHelmetHUD();
-        //m_bunker.DeactivateBunkerMode();
     }
 
     protected override void StartDying()

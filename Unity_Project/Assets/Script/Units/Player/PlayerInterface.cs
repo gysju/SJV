@@ -68,6 +68,7 @@ public class PlayerInterface : MonoBehaviour
         Time.timeScale = 0f;
         m_inputs.m_inGame = false;
         m_mecha.ResetWeapons();
+        m_inputs.m_leftRay.SetCurrentRayDist(0f);
 
 #if UNITY_STANDALONE
         Camera.main.transform.localRotation = Quaternion.identity;
@@ -79,6 +80,7 @@ public class PlayerInterface : MonoBehaviour
     public void Resume()
     {
         HidePauseMenu();
+        m_inputs.m_leftRay.SetCurrentRayDist(m_inputs.m_leftRay.MaxRaycastDistance);
         m_inputs.m_inGame = true;
         Time.timeScale = 1f;
         //StartCoroutine(SoundManager.Instance.UnPauseAudioSource());
