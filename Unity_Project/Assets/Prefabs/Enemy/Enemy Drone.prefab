@@ -750,6 +750,7 @@ MonoBehaviour:
   m_weapons:
   - {fileID: 114093414146497850}
   m_poolManager: {fileID: 0}
+  m_enemyState: 0
   DeathfadeSpeed: 1
   EmissiveColor: {r: 0, g: 0, b: 0, a: 0}
   deathSound: mehca_drone_death
@@ -799,6 +800,7 @@ MonoBehaviour:
   TorqueIntensity: 80
   HoverSound: mecha_drone_hover
   ArrivalSound: mecha_drone_arrival
+  NbrOfMovementSound: 1
 --- !u!114 &114093414146497850
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -822,7 +824,7 @@ MonoBehaviour:
   m_vibrationDuration: 0
   m_vibrationPower: 0
   m_maxRange: 30
-  m_imprecision: 10
+  m_imprecision: 7
   Damage: 1
   ArmorPenetration: 1
   m_maxAmmoInClip: 1
