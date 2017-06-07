@@ -7592,6 +7592,7 @@ MonoBehaviour:
   m_rightRay: {fileID: 114119095498150152}
   teleportIndication: {fileID: 1087709992077878}
   trackedDeviceMoveControllers: {fileID: 114577415267659922}
+  MinimumAngleToRotate: 15
 --- !u!114 &114304163201339920
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7808,7 +7809,7 @@ MonoBehaviour:
   m_vibrationDuration: 0.3
   m_vibrationPower: 100
   m_maxRange: 100
-  m_imprecision: 2
+  m_imprecision: 1
   Damage: 1
   ArmorPenetration: 1
   m_maxAmmoInClip: -1
@@ -8435,7 +8436,7 @@ MonoBehaviour:
   m_vibrationDuration: 0.3
   m_vibrationPower: 100
   m_maxRange: 100
-  m_imprecision: 2
+  m_imprecision: 1
   Damage: 1
   ArmorPenetration: 1
   m_maxAmmoInClip: -1
@@ -9088,7 +9089,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_transform: {fileID: 4652988018709344}
-  m_maxHitPoints: 100
+  m_maxHitPoints: 20
   m_currentHitPoints: 10
   m_timeToDie: 1
   m_destructionSpawn: {fileID: 0}
