@@ -10,7 +10,7 @@ public class ButtonInteraction : MonoBehaviour, IPointerEnterHandler
 
 	void Start () {
         audioSource = GetComponent<AudioSource>();
-        GetComponent<Button>().onClick.AddListener(() => Clicked());
+        GetComponent<Button>().onClick.AddListener(() => InvokeClickedSound());
 	}
 
     public void OnPointerEnter(PointerEventData ped)
@@ -26,5 +26,10 @@ public class ButtonInteraction : MonoBehaviour, IPointerEnterHandler
     public void Selected()
     {
         SoundManager.Instance.PlaySoundOnShot("mecha_button_hover", audioSource);
+    }
+
+    public void InvokeClickedSound()
+    {
+        Invoke("Clicked", 0.05f);
     }
 }
