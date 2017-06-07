@@ -28,6 +28,7 @@ public class MainMenu : MenuManager
         yield return new WaitForSeconds(2f);
         m_player.m_interface.m_textHelmet.Nothing();
         BunkerOff();
+        m_player.m_inputs.m_rightRay.LightRay();
         m_player.m_interface.HideHelmetHUD();
     }
 

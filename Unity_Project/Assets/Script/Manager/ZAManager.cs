@@ -42,6 +42,8 @@ public class ZAManager : ScenePlayerManager
         BunkerOff();
         m_player.m_interface.m_textHelmet.Nothing();
         m_player.ReadyToAction();
+        m_player.m_inputs.m_leftRay.LightRay();
+        m_player.m_inputs.m_rightRay.LightRay();
         if (m_instaStart && !m_testMode) m_enemiesManager.StartWaves();
     }
 

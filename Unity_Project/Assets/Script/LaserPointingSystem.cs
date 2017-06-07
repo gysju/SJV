@@ -7,9 +7,14 @@ using System.Collections.Generic;
 
 public class LaserPointingSystem : MonoBehaviour
 {
-    public float MinimalDistance = 1.0f;
+    public float MinimalDistance = 0f;
     public float MaxRaycastDistance = 250f;
-    protected float CurrentRaycastDistance = 250f;
+    protected float CurrentRaycastDistance = 0f;
+
+    public float ChangeRaySpeed = 0.5f;
+
+    protected Coroutine ChangeRay = null;
+
     [SerializeField]
     private LayerMask mask;
 
@@ -35,24 +40,65 @@ public class LaserPointingSystem : MonoBehaviour
         lineRenderer = GetComponent<LineRenderer>();
         move = GetComponent<MoveController>();
         ThisTransform = transform;
+        CurrentRaycastDistance = 0f;
+    }
+
+    public void SetCurrentRayDist(float dist)
+    {
+        CurrentRaycastDistance = dist;
+    }
+
+    IEnumerator StartLightRay()
+    {
+        float time = 0f;
+        float currentRay = CurrentRaycastDistance;
+        while (time < ChangeRaySpeed)
+        {
+            time += Time.deltaTime;
+            CurrentRaycastDistance = Mathf.Lerp(currentRay, 5f, (time / ChangeRaySpeed));
+            yield return null;
+        }
         CurrentRaycastDistance = MaxRaycastDistance;
     }
 
-    void SetCurrentRaycastDistance(float distance)
+    IEnumerator StartShutdownRay()
     {
+        float time = 0f;
+        float currentRay = (CurrentRaycastDistance > 5f) ? 5f : CurrentRaycastDistance;
+        while (time < ChangeRaySpeed)
+        {
+            time += Time.deltaTime;
+            CurrentRaycastDistance = Mathf.Lerp(currentRay, MinimalDistance, (time / ChangeRaySpeed));
+            yield return null;
+        }
+        CurrentRaycastDistance = MinimalDistance;
+    }
 
+    public void LightRay()
+    {
+        if (ChangeRay != null)
+            StopCoroutine(ChangeRay);
+        ChangeRay = StartCoroutine(StartLightRay());
+    }
+
+    public void ShutdownRay()
+    {
+        if (ChangeRay != null)
+            StopCoroutine(ChangeRay);
+        ChangeRay = StartCoroutine(StartShutdownRay());
     }
 
     void Update()
     {
         CheckMask();
         InputUI();
+        Vector3 lineEndPos = Vector3.forward * CurrentRaycastDistance;
 
-
-        raycastHit = Physics.Raycast(ThisTransform.position, ThisTransform.forward, out hit, MaxRaycastDistance, mask);
+        raycastHit = Physics.Raycast(ThisTransform.position, ThisTransform.forward, out hit, CurrentRaycastDistance, mask);
         if (raycastHit)
         {
-            lineRenderer.SetPosition(1, Vector3.forward * hit.distance);
+            lineEndPos = Vector3.forward * hit.distance;
+            
             detectionType(hit);
 
 #if UNITY_PS4
@@ -80,8 +126,6 @@ public class LaserPointingSystem : MonoBehaviour
             buttonSelected = null;
             if (enemyHUD != null)
                 enemyHUD.EraseEnemy();
-
-            lineRenderer.SetPosition(1, Vector3.forward * MinimalDistance);
 
             if (eventSystem != null && eventSystem.currentSelectedGameObject != null && OtherLaser != null && OtherLaser.buttonSelected == null)
             {
@@ -114,12 +158,12 @@ public class LaserPointingSystem : MonoBehaviour
 
 #endif
             }
-
 #if UNITY_PS4
-			if (move != null)
+            if (move != null)
 				move.lookAtHit = ThisTransform.position + ThisTransform.forward * 1000.0f;
 #endif
         }
+        lineRenderer.SetPosition(1, lineEndPos);
     }
 
     void InputUI()
