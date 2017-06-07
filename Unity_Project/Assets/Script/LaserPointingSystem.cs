@@ -120,9 +120,9 @@ public class LaserPointingSystem : MonoBehaviour {
 		if(buttonSelected != null && ( move.GetButtonDown(MoveController.MoveButton.MoveButton_Trigger) || Input.GetButtonDown("Fire1")))
 		{
 			buttonSelected.onClick.Invoke ();
-            //buttonSelected.GetComponent<AudioSource>().Play();
-		}
-	}
+            SoundManager.Instance.PlaySoundOnShot("mecha_button_press", buttonSelected.GetComponent<ButtonInteraction>().audioSource);
+        }
+    }
 
 	void detectionType(RaycastHit hit)
 	{

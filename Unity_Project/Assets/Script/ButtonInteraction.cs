@@ -6,8 +6,7 @@ using UnityEngine.EventSystems;
 
 public class ButtonInteraction : MonoBehaviour, IPointerEnterHandler
 {
-
-    private AudioSource audioSource;
+    public AudioSource audioSource;
 
 	void Start () {
         audioSource = GetComponent<AudioSource>();
