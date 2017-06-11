@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1229213625113128}
+  m_IsPrefabParent: 1
+--- !u!1 &1229213625113128
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4940416610141868}
+  - component: {fileID: 114944488543189580}
+  m_Layer: 0
+  m_Name: '[HitManager]'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4940416610141868
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1229213625113128}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 89.88607, y: 19.20386, z: 34.310207}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114944488543189580
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1229213625113128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3713da0ed72f9d468c2d1abee21ccd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerHit: {fileID: 114732014754053536, guid: c2bd96874d940b341815027a7db1b708,
+    type: 2}
+  PlayerHits: []
+  DroneHit: {fileID: 114440186124125308, guid: eea86127355bc0c40aa07a57abca2285, type: 2}
+  DroneHits: []
+  GroundHit: {fileID: 114836272100819124, guid: a01b26edf119bb649a487515006d9a35,
+    type: 2}
+  GroundHits: []
+  TankHit: {fileID: 114440186124125308, guid: eea86127355bc0c40aa07a57abca2285, type: 2}
+  TankHits: []
